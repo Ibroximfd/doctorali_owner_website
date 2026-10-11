@@ -1,0 +1,26 @@
+{
+  "title": "Shifokorlar",
+  "description": "Onlayn konsultatsiya, klinika qabuli, sotuv va komissiya",
+  "kpi": {
+    "active": "Faol shifokorlar",
+    "activeNote": "davrda kamida 1 qabul",
+    "online": "Onlayn konsultatsiyalar",
+    "sales": "Shifokorlar orqali sotuv",
+    "outstanding": "To'lanmagan komissiya",
+    "outstandingNote": "{count} shifokorga · hozir"
+  },
+  "ranking": {
+    "title": "Shifokorlar reytingi",
+    "description": "Sotuv bo'yicha tartiblangan",
+    "columns": {
+      "doctor": "Shifokor",
+      "sales": "Sotuv",
+      "online": "Onlayn",
+      "visits": "Klinika qabuli",
+      "orders": "Buyurtma",
+      "commission": "Komissiya",
+      "outstanding": "To'lanmagan",
+      "rating": "Baho"
+    }
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "results": [
+    {
+      "code": "orders.unassigned_courier",
+      "enabled": true,
+      "severity": "serious",
+      "params": {
+        "threshold": 3
+      },
+      "unit": "hours"
+    },
+    {
+      "code": "orders.pending_stale",
+      "enabled": true,
+      "severity": "moderate",
+      "params": {
+        "threshold": 24
+      },
+      "unit": "hours"
+    },
+    {
+      "code": "orders.shipping_late",
+      "enabled": true,
+      "severity": "serious",
+      "params": {
+        "threshold": 48
+      },
+      "unit": "hours"
+    },
+    {
+      "code": "orders.cancel_rate_high",
+      "enabled": true,
+      "severity": "serious",
+      "params": {
+        "threshold": 15
+      },
+      "unit": "pct"
+    },
+    {
+      "code": "cod.unsettled",
+      "enabled": true,
+      "severity": "critical",
+      "params": {
+        "threshold": 5000000
+      },
+      "unit": "uzs"
+    },
+    {
+      "code": "clinic.closing_mismatch",
+      "enabled": true,
+      "severity": "critical",
+      "params": {
+        "threshold": 50000
+      },
+      "unit": "uzs"
+    },
+    {
+      "code": "debts.overdue",
+      "enabled": true,
+      "severity": "moderate",
+      "params": {
+        "threshold": 10000000
+      },
+      "unit": "uzs"
+    },
+    {
+      "code": "calls.missed_unhandled",
+      "enabled": true,
+      "severity": "serious",
+      "params": {
+        "threshold": 10
+      },
+      "unit": "count"
+    },
+    {
+      "code": "activities.overdue",
+      "enabled": true,
+      "severity": "moderate",
+      "params": {
+        "threshold": 20
+      },
+      "unit": "count"
+    },
+    {
+      "code": "sales.filial_lagging",
+      "enabled": true,
+      "severity": "moderate",
+      "params": {
+        "threshold": 15
+      },
+      "unit": "pct"
+    },
+    {
+      "code": "revenue.drop",
+      "enabled": false,
+      "severity": "serious",
+      "params": {
+        "threshold": 30
+      },
+      "unit": "pct"
+    },
+    {
+      "code": "plan.behind",
+      "enabled": true,
+      "severity": "moderate",
+      "params": {
+        "threshold": 10
+      },
+      "unit": "pct"
+    }
+  ]
+}

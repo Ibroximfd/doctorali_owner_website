@@ -1,0 +1,304 @@
+{
+  "count": 13,
+  "results": [
+    {
+      "id": "9f1c0001-0000-4000-8000-000000184032",
+      "order_number": "DA-184032",
+      "status": "confirmed",
+      "payment": {
+        "method": "cash",
+        "status": "cod_pending"
+      },
+      "client": {
+        "full_name": "Shuxrat Tojiboyev",
+        "phones": [
+          "+998940603906"
+        ],
+        "has_app": true
+      },
+      "source": "operator",
+      "delivery": {
+        "region": "samarqand",
+        "region_display": "Samarqand"
+      },
+      "payable_amount": 600000,
+      "created_at": "2026-10-02T09:02:00.000Z"
+    },
+    {
+      "id": "9f1c0001-0000-4000-8000-000000184031",
+      "order_number": "DA-184031",
+      "status": "pending",
+      "payment": {
+        "method": "payme",
+        "status": "online_pending"
+      },
+      "client": {
+        "full_name": "Gulnora Ahmedova",
+        "phones": [
+          "+998901112233"
+        ],
+        "has_app": true
+      },
+      "source": "mehrigiyo",
+      "delivery": {
+        "region": "toshkent_shahar",
+        "region_display": "Toshkent shahri"
+      },
+      "payable_amount": 1240000,
+      "created_at": "2026-10-02T08:58:00.000Z"
+    },
+    {
+      "id": "9f1c0001-0000-4000-8000-000000184029",
+      "order_number": "DA-184029",
+      "status": "shipping",
+      "payment": {
+        "method": "cash",
+        "status": "cod_pending"
+      },
+      "client": {
+        "full_name": "Rustam Qodirov",
+        "phones": [
+          "+998913456789"
+        ],
+        "has_app": false
+      },
+      "source": "doctor",
+      "delivery": {
+        "region": "fargona",
+        "region_display": "Farg'ona"
+      },
+      "payable_amount": 760000,
+      "created_at": "2026-10-02T08:41:00.000Z"
+    },
+    {
+      "id": "9f1c0001-0000-4000-8000-000000184026",
+      "order_number": "DA-184026",
+      "status": "delivered",
+      "payment": {
+        "method": "click",
+        "status": "paid"
+      },
+      "client": {
+        "full_name": "Mohira Usmonova",
+        "phones": [
+          "+998932224455"
+        ],
+        "has_app": true
+      },
+      "source": "mehrigiyo",
+      "delivery": {
+        "region": "andijon",
+        "region_display": "Andijon"
+      },
+      "payable_amount": 480000,
+      "created_at": "2026-10-02T08:20:00.000Z"
+    },
+    {
+      "id": "9f1c0001-0000-4000-8000-000000184022",
+      "order_number": "DA-184022",
+      "status": "cancelled",
+      "payment": {
+        "method": null,
+        "status": "not_selected"
+      },
+      "client": {
+        "full_name": "Anvar Sobirov",
+        "phones": [
+          "+998977001212"
+        ],
+        "has_app": false
+      },
+      "source": "operator",
+      "delivery": {
+        "region": "buxoro",
+        "region_display": "Buxoro"
+      },
+      "payable_amount": 920000,
+      "created_at": "2026-10-02T07:54:00.000Z"
+    },
+    {
+      "id": "9f1c0001-0000-4000-8000-000000184019",
+      "order_number": "DA-184019",
+      "status": "delivered",
+      "payment": {
+        "method": "cash",
+        "status": "paid"
+      },
+      "client": {
+        "full_name": "Zilola Rahimova",
+        "phones": [
+          "+998998103030"
+        ],
+        "has_app": true
+      },
+      "source": "operator",
+      "delivery": {
+        "region": "toshkent",
+        "region_display": "Toshkent viloyati"
+      },
+      "payable_amount": 1820000,
+      "created_at": "2026-10-02T07:31:00.000Z"
+    },
+    {
+      "id": "9f1c0001-0000-4000-8000-000000184015",
+      "order_number": "DA-184015",
+      "status": "shipping",
+      "payment": {
+        "method": "cash",
+        "status": "cod_pending"
+      },
+      "client": {
+        "full_name": "Farhod Ismoilov",
+        "phones": [
+          "+998955050505"
+        ],
+        "has_app": false
+      },
+      "source": "reception",
+      "delivery": {
+        "region": "namangan",
+        "region_display": "Namangan"
+      },
+      "payable_amount": 600000,
+      "created_at": "2026-10-02T07:05:00.000Z"
+    },
+    {
+      "id": "9f1c0001-0000-4000-8000-000000184011",
+      "order_number": "DA-184011",
+      "status": "delivered",
+      "payment": {
+        "method": "cash",
+        "status": "paid"
+      },
+      "client": {
+        "full_name": "Dilfuza Karimova",
+        "phones": [
+          "+998909876543"
+        ],
+        "has_app": true
+      },
+      "source": "operator",
+      "delivery": {
+        "region": "toshkent_shahar",
+        "region_display": "Toshkent shahri"
+      },
+      "payable_amount": 760000,
+      "created_at": "2026-10-02T06:52:00.000Z"
+    },
+    {
+      "id": "9f1c0001-0000-4000-8000-000000183955",
+      "order_number": "DA-183955",
+      "status": "confirmed",
+      "payment": {
+        "method": "click",
+        "status": "paid"
+      },
+      "client": {
+        "full_name": "Ulug'bek Rahmonov",
+        "phones": [
+          "+998946320011"
+        ],
+        "has_app": true
+      },
+      "source": "mehrigiyo",
+      "delivery": {
+        "region": "qashqadaryo",
+        "region_display": "Qashqadaryo"
+      },
+      "payable_amount": 480000,
+      "created_at": "2026-10-02T02:05:00.000Z"
+    },
+    {
+      "id": "9f1c0001-0000-4000-8000-000000183940",
+      "order_number": "DA-183940",
+      "status": "confirmed",
+      "payment": {
+        "method": "cash",
+        "status": "cod_pending"
+      },
+      "client": {
+        "full_name": "Lola Nazarova",
+        "phones": [
+          "+998977412580"
+        ],
+        "has_app": true
+      },
+      "source": "mehrigiyo",
+      "delivery": {
+        "region": "toshkent",
+        "region_display": "Toshkent viloyati"
+      },
+      "payable_amount": 760000,
+      "created_at": "2026-10-01T23:05:00.000Z"
+    },
+    {
+      "id": "9f1c0001-0000-4000-8000-000000183688",
+      "order_number": "DA-183688",
+      "status": "pending",
+      "payment": {
+        "method": null,
+        "status": "not_selected"
+      },
+      "client": {
+        "full_name": "Akmal Yo'ldoshev",
+        "phones": [
+          "+998901357911"
+        ],
+        "has_app": true
+      },
+      "source": "operator",
+      "delivery": {
+        "region": "toshkent_shahar",
+        "region_display": "Toshkent shahri"
+      },
+      "payable_amount": 600000,
+      "created_at": "2026-09-30T05:05:00.000Z"
+    },
+    {
+      "id": "9f1c0001-0000-4000-8000-000000183802",
+      "order_number": "DA-183802",
+      "status": "shipping",
+      "payment": {
+        "method": "cash",
+        "status": "cod_pending"
+      },
+      "client": {
+        "full_name": "Nilufar Hasanova",
+        "phones": [
+          "+998937775544"
+        ],
+        "has_app": false
+      },
+      "source": "operator",
+      "delivery": {
+        "region": "samarqand",
+        "region_display": "Samarqand"
+      },
+      "payable_amount": 1820000,
+      "created_at": "2026-09-29T19:05:00.000Z"
+    },
+    {
+      "id": "9f1c0001-0000-4000-8000-000000183712",
+      "order_number": "DA-183712",
+      "status": "shipping",
+      "payment": {
+        "method": "cash",
+        "status": "cod_pending"
+      },
+      "client": {
+        "full_name": "Sanjar Egamberdiyev",
+        "phones": [
+          "+998916041212"
+        ],
+        "has_app": true
+      },
+      "source": "operator",
+      "delivery": {
+        "region": "fargona",
+        "region_display": "Farg'ona"
+      },
+      "payable_amount": 1240000,
+      "created_at": "2026-09-29T05:05:00.000Z"
+    }
+  ]
+}

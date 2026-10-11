@@ -1,0 +1,75 @@
+{
+  "period": {
+    "from": "2026-09-03",
+    "to": "2026-10-02",
+    "granularity": "day",
+    "label": "30d"
+  },
+  "compare": {
+    "from": "2026-08-04",
+    "to": "2026-09-02"
+  },
+  "filials": [
+    1,
+    2,
+    3
+  ],
+  "generated_at": "2026-10-02T09:05:00.000Z",
+  "freshness": {
+    "orders": "2026-10-02T09:05:00.000Z",
+    "clinic": "2026-10-02T09:03:30.000Z",
+    "app": "2026-10-02T03:00:00+05:00"
+  },
+  "data": {
+    "active_doctors": {
+      "value": 46,
+      "previous": 45.1,
+      "delta_pct": 2,
+      "unit": "count"
+    },
+    "online_consultations": {
+      "value": 968,
+      "previous": 922.78,
+      "delta_pct": 4.9,
+      "unit": "count"
+    },
+    "sales_amount": {
+      "value": 236200000,
+      "previous": 212410071.94,
+      "delta_pct": 11.2,
+      "unit": "uzs"
+    },
+    "payout_outstanding": 21400000,
+    "doctors_waiting": 11,
+    "sparklines": {
+      "online_consultations": [
+        53.1,
+        55.2,
+        51,
+        53.3,
+        60.1,
+        61.6,
+        60.7,
+        62.8,
+        69,
+        76.5,
+        72.8,
+        77.9
+      ],
+      "sales_amount": [
+        46,
+        41.6,
+        47.4,
+        48.6,
+        46.2,
+        47.5,
+        46.4,
+        42,
+        40.9,
+        45.6,
+        43.5,
+        42.5
+      ]
+    }
+  }
+}

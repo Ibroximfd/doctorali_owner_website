@@ -1,0 +1,114 @@
+{
+  "title": "Финансы",
+  "description": "Движение денег — выручка, собранные деньги, расходы, долги и обязательства",
+  "monthlyReport": "Месячный отчёт (PDF)",
+  "kpi": {
+    "revenue": "Выручка",
+    "revenueNote": "доставлено + клиника + консультации",
+    "collected": "Собрано денег",
+    "collectedNote": "фактически получено",
+    "expenses": "Расходы",
+    "expensesNote": "{share} от собранного",
+    "netCash": "Чистый остаток (примерно)",
+    "netCashNote": "собрано − расходы, без себестоимости"
+  },
+  "cashflow": {
+    "title": "Приход и расход",
+    "description": "Движение денег за период, сум",
+    "series": {
+      "inflow": "Приход",
+      "outflow": "Расход"
+    },
+    "refunds": "Возвраты",
+    "refundsNote": "заказов: {count}",
+    "avgInflow": "Средний приход в день",
+    "biggestExpense": "Крупнейшая статья расходов",
+    "biggestExpenseNote": "{share} · {value}",
+    "noExpenses": "расходов нет"
+  },
+  "position": {
+    "title": "Где сейчас деньги",
+    "description": "Текущее состояние",
+    "tills": "Кассы клиник",
+    "cash": "Наличные",
+    "card": "Карта",
+    "terminal": "Терминал",
+    "cod": "Наличные у курьеров",
+    "codHint": "курьеров: {count}",
+    "online": "На онлайн-счетах",
+    "onlineHint": "Click · Payme",
+    "debt": "Долг клиентов",
+    "overdue": "просрочено"
+  },
+  "paymentMix": {
+    "title": "Способы оплаты",
+    "description": "Как была оплачена выручка",
+    "method": {
+      "cash": "Наличные",
+      "click": "Click",
+      "payme": "Payme",
+      "card": "Карта",
+      "terminal": "Терминал"
+    }
+  },
+  "expenses": {
+    "title": "Расходы",
+    "total": "Всего {value}",
+    "category": {
+      "salary": "Зарплата",
+      "rent": "Аренда",
+      "supplies": "Расходные материалы",
+      "transport": "Транспорт",
+      "utilities": "Коммунальные услуги",
+      "repair": "Ремонт",
+      "other": "Прочее"
+    }
+  },
+  "liabilities": {
+    "title": "Обязательства",
+    "description": "Ещё не выплачено — наш долг",
+    "operatorCommission": "Комиссия операторов",
+    "operatorCommissionNote": "не выплачена",
+    "doctorPayouts": "Выплаты врачам",
+    "doctorPayoutsNote": "врачей: {count}",
+    "cashback": "Кешбэк-баллы",
+    "cashbackNote": "баллов: {points}",
+    "gifts": "Подарки (каждый 10-й заказ)",
+    "giftsNote": "выдано: {count}",
+    "total": "Всего обязательств"
+  },
+  "debts": {
+    "title": "Долг клиентов",
+    "summary": "Открыто {value} · клиентов: {count}",
+    "agingLabel": "Срок долга",
+    "bucket": {
+      "week": "0–7 дней",
+      "month": "8–30 дней",
+      "older": "31+ дней"
+    },
+    "columns": {
+      "debtor": "Крупнейшие должники",
+      "remaining": "Остаток",
+      "overdue": "Просрочка"
+    },
+    "days": "{count} дн.",
+    "emptyTitle": "Открытых долгов нет",
+    "emptyDescription": "В выбранных филиалах у клиентов нет задолженности."
+  },
+  "closings": {
+    "title": "Ежедневное закрытие кассы",
+    "description": "Филиалы клиники · разница между пересчитанной и ожидаемой наличностью",
+    "columns": {
+      "date": "Дата",
+      "filial": "Филиал",
+      "status": "Статус",
+      "difference": "Разница",
+      "closedBy": "Кто закрыл"
+    },
+    "status": {
+      "closed": "Закрыта",
+      "open": "Не закрыта",
+      "reopened": "Открыта повторно"
+    }
+  }
+}

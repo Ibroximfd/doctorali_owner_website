@@ -1,0 +1,95 @@
+{
+  "period": {
+    "from": "2026-09-03",
+    "to": "2026-10-02",
+    "granularity": "day",
+    "label": "30d"
+  },
+  "compare": {
+    "from": "2026-08-04",
+    "to": "2026-09-02"
+  },
+  "filials": [
+    1,
+    2,
+    3
+  ],
+  "generated_at": "2026-10-02T09:05:00.000Z",
+  "freshness": {
+    "orders": "2026-10-02T09:05:00.000Z",
+    "clinic": "2026-10-02T09:03:30.000Z",
+    "app": "2026-10-02T03:00:00+05:00"
+  },
+  "data": [
+    {
+      "region": "toshkent_shahar",
+      "customers": 11783,
+      "revenue": 342550259
+    },
+    {
+      "region": "toshkent",
+      "customers": 7909,
+      "revenue": 229905699
+    },
+    {
+      "region": "samarqand",
+      "customers": 6686,
+      "revenue": 194358031
+    },
+    {
+      "region": "fargona",
+      "customers": 6162,
+      "revenue": 179123316
+    },
+    {
+      "region": "andijon",
+      "customers": 5590,
+      "revenue": 162503627
+    },
+    {
+      "region": "namangan",
+      "customers": 5018,
+      "revenue": 145883938
+    },
+    {
+      "region": "qashqadaryo",
+      "customers": 4192,
+      "revenue": 121877720
+    },
+    {
+      "region": "buxoro",
+      "customers": 3510,
+      "revenue": 102026425
+    },
+    {
+      "region": "surxondaryo",
+      "customers": 2970,
+      "revenue": 86330052
+    },
+    {
+      "region": "xorazm",
+      "customers": 2271,
+      "revenue": 66017098
+    },
+    {
+      "region": "jizzax",
+      "customers": 1779,
+      "revenue": 51705699
+    },
+    {
+      "region": "navoiy",
+      "customers": 1366,
+      "revenue": 39702591
+    },
+    {
+      "region": "sirdaryo",
+      "customers": 1175,
+      "revenue": 34162694
+    },
+    {
+      "region": "qoraqalpogiston",
+      "customers": 889,
+      "revenue": 25852850
+    }
+  ]
+}

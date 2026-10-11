@@ -1,0 +1,333 @@
+{
+  "period": {
+    "from": "2026-09-03",
+    "to": "2026-10-02",
+    "granularity": "day",
+    "label": "30d"
+  },
+  "compare": {
+    "from": "2026-08-04",
+    "to": "2026-09-02"
+  },
+  "filials": [
+    1,
+    2,
+    3
+  ],
+  "generated_at": "2026-10-02T09:05:00.000Z",
+  "freshness": {
+    "orders": "2026-10-02T09:05:00.000Z",
+    "clinic": "2026-10-02T09:03:30.000Z",
+    "app": "2026-10-02T03:00:00+05:00"
+  },
+  "data": {
+    "results": [
+      {
+        "id": 55,
+        "name": "Rayhon krem 50 ml",
+        "category": "Kremlar",
+        "units": 1842,
+        "revenue": 412000000,
+        "share_pct": 20.7,
+        "delivery_units": 1506,
+        "clinic_units": 336,
+        "gift_units": 31,
+        "stock_quantity": 4,
+        "is_low": true,
+        "trend": [
+          49.6,
+          56.5,
+          55.9,
+          53.2,
+          52.5,
+          55.4,
+          61.7,
+          61.8,
+          60.9,
+          60.7,
+          62,
+          60.4
+        ]
+      },
+      {
+        "id": 56,
+        "name": "Mehrigiyo balzami",
+        "category": "Balzamlar",
+        "units": 1516,
+        "revenue": 364000000,
+        "share_pct": 18.3,
+        "delivery_units": 1288,
+        "clinic_units": 228,
+        "gift_units": 12,
+        "stock_quantity": 212,
+        "is_low": false,
+        "trend": [
+          56.2,
+          56.2,
+          63.4,
+          64.4,
+          68.7,
+          66.7,
+          66.3,
+          71.5,
+          70.7,
+          75.6,
+          73.2,
+          75.6
+        ]
+      },
+      {
+        "id": 57,
+        "name": "Qora sedana yog'i 100 ml",
+        "category": "Yog'lar",
+        "units": 1284,
+        "revenue": 257000000,
+        "share_pct": 12.9,
+        "delivery_units": 1010,
+        "clinic_units": 274,
+        "gift_units": 0,
+        "stock_quantity": 0,
+        "is_low": false,
+        "trend": [
+          48.3,
+          47.4,
+          49.3,
+          45.9,
+          43.2,
+          44.3,
+          42.8,
+          46.8,
+          44.5,
+          48.9,
+          53.8,
+          55.8
+        ]
+      },
+      {
+        "id": 58,
+        "name": "Bo'g'im geli",
+        "category": "Gellar",
+        "units": 1106,
+        "revenue": 221000000,
+        "share_pct": 11.1,
+        "delivery_units": 942,
+        "clinic_units": 164,
+        "gift_units": 18,
+        "stock_quantity": 5,
+        "is_low": true,
+        "trend": [
+          54.8,
+          55.7,
+          60,
+          65.5,
+          70,
+          70.3,
+          74.4,
+          74.5,
+          73.6,
+          81,
+          82.4,
+          80.8
+        ]
+      },
+      {
+        "id": 59,
+        "name": "Immun choy",
+        "category": "Choylar",
+        "units": 1420,
+        "revenue": 170000000,
+        "share_pct": 8.5,
+        "delivery_units": 986,
+        "clinic_units": 434,
+        "gift_units": 26,
+        "stock_quantity": 3,
+        "is_low": true,
+        "trend": [
+          52.5,
+          51.3,
+          53.1,
+          52.2,
+          55.6,
+          57.1,
+          61.5,
+          62.1,
+          62.1,
+          58,
+          60.4,
+          61.4
+        ]
+      },
+      {
+        "id": 60,
+        "name": "Zira yog'i kapsula",
+        "category": "Yog'lar",
+        "units": 824,
+        "revenue": 148000000,
+        "share_pct": 7.4,
+        "delivery_units": 690,
+        "clinic_units": 134,
+        "gift_units": 0,
+        "stock_quantity": 6,
+        "is_low": true,
+        "trend": [
+          54.7,
+          57.8,
+          61.7,
+          64.3,
+          63,
+          66.4,
+          64.6,
+          69,
+          76.3,
+          72.3,
+          73.3,
+          69.6
+        ]
+      },
+      {
+        "id": 61,
+        "name": "Na'matak siropi",
+        "category": "Siroplar",
+        "units": 918,
+        "revenue": 110000000,
+        "share_pct": 5.5,
+        "delivery_units": 604,
+        "clinic_units": 314,
+        "gift_units": 0,
+        "stock_quantity": 0,
+        "is_low": false,
+        "trend": [
+          47.7,
+          48.8,
+          48,
+          48.6,
+          46.7,
+          42.4,
+          47.7,
+          43.4,
+          39.4,
+          38.1,
+          42.5,
+          48.5
+        ]
+      },
+      {
+        "id": 62,
+        "name": "Asalli malham",
+        "category": "Kremlar",
+        "units": 642,
+        "revenue": 96000000,
+        "share_pct": 4.8,
+        "delivery_units": 518,
+        "clinic_units": 124,
+        "gift_units": 0,
+        "stock_quantity": 148,
+        "is_low": false,
+        "trend": [
+          52.3,
+          53.4,
+          57.3,
+          59.5,
+          59.4,
+          55.4,
+          57.1,
+          54.4,
+          54.7,
+          51.7,
+          53.6,
+          58.7
+        ]
+      }
+    ],
+    "categories": [
+      {
+        "name": "Kremlar",
+        "revenue": 508000000,
+        "share_pct": 25.5
+      },
+      {
+        "name": "Yog'lar",
+        "revenue": 405000000,
+        "share_pct": 20.3
+      },
+      {
+        "name": "Balzamlar",
+        "revenue": 364000000,
+        "share_pct": 18.3
+      },
+      {
+        "name": "Gellar",
+        "revenue": 221000000,
+        "share_pct": 11.1
+      },
+      {
+        "name": "Boshqa",
+        "revenue": 216000000,
+        "share_pct": 10.8
+      },
+      {
+        "name": "Choylar",
+        "revenue": 170000000,
+        "share_pct": 8.5
+      },
+      {
+        "name": "Siroplar",
+        "revenue": 110000000,
+        "share_pct": 5.5
+      }
+    ],
+    "summary": {
+      "units": {
+        "value": 9552,
+        "previous": 8910.45,
+        "delta_pct": 7.2,
+        "unit": "count"
+      },
+      "revenue": {
+        "value": 1994000000,
+        "previous": 1822669104.2,
+        "delta_pct": 9.4,
+        "unit": "uzs"
+      },
+      "gift_units": {
+        "value": 87,
+        "previous": 76.32,
+        "delta_pct": 14,
+        "unit": "count"
+      },
+      "gift_cost": 13900000,
+      "stock_out": 2,
+      "stock_low": 4
+    },
+    "sparklines": {
+      "units": [
+        55,
+        52.5,
+        51.3,
+        53.2,
+        58.4,
+        56.9,
+        58.7,
+        63.6,
+        67.4,
+        72.2,
+        75,
+        72.1
+      ],
+      "revenue": [
+        53.3,
+        56.1,
+        56.8,
+        62,
+        67.6,
+        65.8,
+        68.8,
+        72.6,
+        76.9,
+        82.4,
+        88.9,
+        94.7
+      ]
+    }
+  }
+}

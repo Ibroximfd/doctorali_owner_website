@@ -1,0 +1,64 @@
+{
+  "period": {
+    "from": "2026-09-03",
+    "to": "2026-10-02",
+    "granularity": "day",
+    "label": "30d"
+  },
+  "compare": {
+    "from": "2026-08-04",
+    "to": "2026-09-02"
+  },
+  "filials": [
+    1,
+    2,
+    3
+  ],
+  "generated_at": "2026-10-02T09:05:00.000Z",
+  "freshness": {
+    "orders": "2026-10-02T09:05:00.000Z",
+    "clinic": "2026-10-02T09:03:30.000Z",
+    "app": "2026-10-02T03:00:00+05:00"
+  },
+  "data": {
+    "stages": [
+      {
+        "status": "created",
+        "count": 3860,
+        "amount": 2362000000,
+        "pct_of_created": 100
+      },
+      {
+        "status": "confirmed",
+        "count": 3488,
+        "amount": 2135000000,
+        "pct_of_created": 90.4
+      },
+      {
+        "status": "shipping",
+        "count": 3242,
+        "amount": 1984000000,
+        "pct_of_created": 84
+      },
+      {
+        "status": "delivered",
+        "count": 2912,
+        "amount": 1782000000,
+        "pct_of_created": 75.4
+      }
+    ],
+    "transitions": {
+      "pending_to_confirmed": 90.4,
+      "confirmed_to_shipping": 92.9,
+      "shipping_to_delivered": 89.8
+    },
+    "cancelled": {
+      "count": 486,
+      "pct_of_created": 12.6
+    },
+    "in_progress": {
+      "count": 462,
+      "pct_of_created": 12
+    }
+  }
+}

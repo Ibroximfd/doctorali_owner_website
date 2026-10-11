@@ -1,0 +1,35 @@
+{
+  "month": "2026-10",
+  "items": [
+    {
+      "filial": 1,
+      "channel": "delivery",
+      "amount": 1100000000
+    },
+    {
+      "filial": 1,
+      "channel": "clinic",
+      "amount": 340000000
+    },
+    {
+      "filial": 2,
+      "channel": "delivery",
+      "amount": 480000000
+    },
+    {
+      "filial": 2,
+      "channel": "clinic",
+      "amount": 190000000
+    },
+    {
+      "filial": 3,
+      "channel": "delivery",
+      "amount": 420000000
+    },
+    {
+      "filial": null,
+      "channel": "consultation",
+      "amount": 70000000
+    }
+  ]
+}

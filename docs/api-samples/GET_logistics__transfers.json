@@ -1,0 +1,55 @@
+{
+  "period": {
+    "from": "2026-09-03",
+    "to": "2026-10-02",
+    "granularity": "day",
+    "label": "30d"
+  },
+  "compare": {
+    "from": "2026-08-04",
+    "to": "2026-09-02"
+  },
+  "filials": [
+    1,
+    2,
+    3
+  ],
+  "generated_at": "2026-10-02T09:05:00.000Z",
+  "freshness": {
+    "orders": "2026-10-02T09:05:00.000Z",
+    "clinic": "2026-10-02T09:03:30.000Z",
+    "app": "2026-10-02T03:00:00+05:00"
+  },
+  "data": {
+    "count": 3,
+    "results": [
+      {
+        "id": 412,
+        "number": "TR-0412",
+        "from_filial": "Toshkent",
+        "to_filial": "Qo'qon",
+        "status": "in_transit",
+        "items_count": 6,
+        "created_at": "2026-10-01T09:05:00.000Z"
+      },
+      {
+        "id": 411,
+        "number": "TR-0411",
+        "from_filial": "Toshkent",
+        "to_filial": "Samarqand",
+        "status": "received",
+        "items_count": 4,
+        "created_at": "2026-09-30T09:05:00.000Z"
+      },
+      {
+        "id": 409,
+        "number": "TR-0409",
+        "from_filial": "Qo'qon",
+        "to_filial": "Toshkent",
+        "status": "pending",
+        "items_count": 2,
+        "created_at": "2026-09-29T09:05:00.000Z"
+      }
+    ]
+  }
+}

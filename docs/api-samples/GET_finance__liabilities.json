@@ -1,0 +1,37 @@
+{
+  "period": {
+    "from": "2026-09-03",
+    "to": "2026-10-02",
+    "granularity": "day",
+    "label": "30d"
+  },
+  "compare": {
+    "from": "2026-08-04",
+    "to": "2026-09-02"
+  },
+  "filials": [
+    1,
+    2,
+    3
+  ],
+  "generated_at": "2026-10-02T09:05:00.000Z",
+  "freshness": {
+    "orders": "2026-10-02T09:05:00.000Z",
+    "clinic": "2026-10-02T09:03:30.000Z",
+    "app": "2026-10-02T03:00:00+05:00"
+  },
+  "data": {
+    "operator_commission_pending": 38600000,
+    "doctor_payouts_outstanding": 21400000,
+    "doctors_waiting": 11,
+    "cashback_points": {
+      "points": 412000,
+      "uzs_equivalent": 41200000,
+      "expiring_this_month": 96000
+    },
+    "gifts": {
+      "count": 87,
+      "cost_estimate": 13900000
+    }
+  }
+}

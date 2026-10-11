@@ -1,0 +1,47 @@
+{
+  "label": "Bo'limlar",
+  "quick": "Tezkor o'tish",
+  "home": "Doctor Ali Nazorat — bosh sahifa",
+  "product": "Nazorat",
+  "groups": {
+    "main": "Asosiy",
+    "business": "Biznes",
+    "growth": "O'sish",
+    "control": "Nazorat",
+    "design": "Dizayn uchun"
+  },
+  "items": {
+    "overview": "Umumiy",
+    "orders": "Buyurtmalar",
+    "finance": "Moliya",
+    "clinic": "Klinika",
+    "logistics": "Yetkazib berish",
+    "sales": "Sotuv jamoasi",
+    "app": "Mobil ilova",
+    "products": "Mahsulotlar",
+    "customers": "Mijozlar",
+    "doctors": "Shifokorlar",
+    "alerts": "Signallar",
+    "reports": "Hisobotlar",
+    "settings": "Sozlamalar",
+    "states": "Holatlar galereyasi"
+  },
+  "more": "Yana",
+  "moreTitle": "Boshqa bo'limlar",
+  "toggleSidebar": "Yon panelni yig'ish yoki ochish",
+  "toggleTheme": "Yorug' / qorong'i mavzu",
+  "search": "Qidirish",
+  "searchPlaceholder": "Bo'lim yoki buyurtma raqami, telefon, ism…",
+  "searchOrders": "Buyurtmalardan qidirish: «{query}»",
+  "sections": "Bo'limlar",
+  "live": "Jonli",
+  "sample": "Namuna ma'lumot",
+  "sampleHint": "Namuna rejimi — raqamlar haqiqiy emas",
+  "alertsCount": "Signallar: {count} ta ochiq",
+  "logout": "Chiqish",
+  "userFallback": "Boshliq",
+  "roles": {
+    "owner": "Egasi · faqat ko'rish",
+    "viewer": "Kuzatuvchi · faqat ko'rish"
+  }
+}

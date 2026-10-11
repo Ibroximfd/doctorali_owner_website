@@ -1,0 +1,92 @@
+{
+  "title": "Bugungi holat",
+  "hero": {
+    "label": "Jami tushum",
+    "previous": "oldingi davr: {value}",
+    "composition": "yetkazilgan buyurtmalar + klinika + konsultatsiya",
+    "channelsLabel": "Tushum kanallar bo'yicha"
+  },
+  "plan": {
+    "title": "{month} rejasi",
+    "done": "bajarildi",
+    "ahead": "sur'atdan {gap} f.p. oldinda",
+    "behind": "sur'atdan {gap} f.p. orqada",
+    "previous": "{month} yakuni",
+    "meterLabel": "Reja {pct} bajarildi, bugungi kunga kutilgan daraja {expected}"
+  },
+  "channels": {
+    "delivery": "Yetkazib berish",
+    "clinic": "Klinika",
+    "consultation": "Onlayn konsultatsiya"
+  },
+  "quick": {
+    "today": "Bugun",
+    "todayNote": "kecha shu vaqtda {value}",
+    "yesterday": "Kecha",
+    "week": "Shu hafta",
+    "weekNote": "dushanbadan beri",
+    "month": "Shu oy",
+    "monthNote": "oy boshidan"
+  },
+  "attention": {
+    "title": "Diqqat talab qiladi",
+    "summary": "{total} ta ochiq signal · {critical} tasi kritik",
+    "all": "Barchasi",
+    "emptyTitle": "Hammasi joyida",
+    "emptyDescription": "Hozircha e'tibor talab qiladigan signal yo'q."
+  },
+  "kpi": {
+    "orders": "Buyurtmalar",
+    "deliveryRate": "Yetkazish ulushi",
+    "avgCheck": "O'rtacha chek",
+    "clinicVisits": "Klinika tashriflari",
+    "newCustomers": "Yangi mijozlar",
+    "appActive": "Ilova faol foydalanuvchilari"
+  },
+  "trend": {
+    "title": "Tushum trendi",
+    "description": "Kanallar bo'yicha, so'm"
+  },
+  "feed": {
+    "title": "Jonli lenta",
+    "description": "Muhim hodisalar real vaqtda",
+    "live": "Jonli"
+  },
+  "pipeline": {
+    "title": "Buyurtma oqimi — hozir",
+    "description": "Har bosqichda nechta buyurtma va qancha summa turibdi",
+    "link": "Buyurtmalar",
+    "today": "bugun",
+    "onTrack": "kechikish yo'q",
+    "stale": {
+      "pending": "{count} tasi 24 soatdan ortiq",
+      "confirmed": "{count} tasi kuryersiz (3 s+)",
+      "shipping": "{count} tasi kechikkan (48 s+)"
+    }
+  },
+  "filials": {
+    "title": "Filiallar taqqoslash",
+    "total": "Jami",
+    "columns": {
+      "name": "Filial",
+      "revenue": "Tushum",
+      "orders": "Buyurtma",
+      "deliveryRate": "Yetkazish",
+      "clinic": "Klinika",
+      "openDebt": "Ochiq qarz",
+      "courierCod": "Kuryerda naqd"
+    }
+  },
+  "cash": {
+    "title": "Pul qayerda turibdi",
+    "description": "Hozirgi holat · davrga bog'liq emas",
+    "link": "Moliya",
+    "overdue": "Qarzning <b>{value}</b> qismi muddati o'tgan",
+    "items": {
+      "tills": "Klinika kassalarida",
+      "cod": "Kuryerlarda (topshirilmagan)",
+      "online": "Onlayn hisobda (Click / Payme)",
+      "debt": "Mijozlar qarzida"
+    }
+  }
+}

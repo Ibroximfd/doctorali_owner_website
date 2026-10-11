@@ -1,0 +1,28 @@
+{
+  "enabled": true,
+  "time": "21:00",
+  "channels": [
+    "telegram"
+  ],
+  "telegram_chat_id": "104522871",
+  "sections": [
+    "revenue",
+    "orders",
+    "clinic",
+    "cod",
+    "alerts"
+  ],
+  "preview": {
+    "date": "2026-10-02",
+    "revenue": 48100000,
+    "revenue_delta_pct": 6.2,
+    "orders": 131,
+    "delivered": 96,
+    "cancelled": 14,
+    "clinic_revenue": 17400000,
+    "clinic_visits": 74,
+    "courier_cod": 9400000,
+    "alerts_open": 10,
+    "alerts_critical": 2
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "title": "Настройки",
+  "subtitle": "План, пороги сигналов, права доступа и безопасность",
+  "targets": {
+    "title": "План на месяц — {month} {year}",
+    "description": "План выручки, млн сум · из него строится линия плана на странице «Обзор»",
+    "columns": {
+      "filial": "Филиал",
+      "delivery": "Доставка",
+      "clinic": "Клиника"
+    },
+    "inputLabel": {
+      "delivery": "{filial} — план по доставке, млн сум",
+      "clinic": "{filial} — план по клинике, млн сум"
+    },
+    "totalRow": "Итого",
+    "grandTotal": "Общий план",
+    "grandTotalWithConsultation": "Общий план (с консультациями на {value})",
+    "saving": "Сохраняем…",
+    "emptyTitle": "Филиалы не найдены",
+    "emptyDescription": "План задаётся по филиалам — сначала нужно добавить филиал.",
+    "errors": {
+      "amountInvalid": "Введите число",
+      "amountNegative": "Не меньше нуля"
+    }
+  },
+  "access": {
+    "title": "Права доступа",
+    "description": "Кто видит панель · у всех только просмотр",
+    "columns": {
+      "user": "Пользователь",
+      "sections": "Разделы",
+      "filials": "Филиал",
+      "phones": "Телефоны"
+    },
+    "allSections": "Все",
+    "allFilials": "Все",
+    "phonesFull": "Полностью",
+    "phonesMasked": "Скрыты",
+    "roles": {
+      "owner": "Владелец",
+      "owner_viewer": "Наблюдатель"
+    },
+    "emptyTitle": "Доступ пока никому не выдан",
+    "emptyDescription": "Здесь появятся пользователи, которым открыт доступ к панели."
+  },
+  "security": {
+    "title": "Безопасность и внешний вид",
+    "description": "Сессии, язык, тема",
+    "twoFactor": {
+      "title": "Двухэтапный вход",
+      "description": "Пароль + код из SMS · при каждом входе",
+      "enabled": "Включён"
+    },
+    "sessions": {
+      "label": "Активные устройства",
+      "activeNow": "сейчас в сети",
+      "thisDevice": "Это устройство",
+      "revoke": "Отключить",
+      "revokeLabel": "Отключить: {device}",
+      "revoking": "Отключаем…",
+      "revoked": "Устройство отключено от панели",
+      "confirmTitle": "Отключить устройство от панели?",
+      "confirmDescription": "Сессия на устройстве «{device}» будет завершена. Чтобы войти с него снова, понадобятся пароль и код подтверждения.",
+      "emptyTitle": "Активных сессий нет",
+      "emptyDescription": "Здесь появятся устройства, с которых входили в панель."
+    },
+    "language": {
+      "title": "Язык",
+      "description": "Язык интерфейса",
+      "options": {
+        "uz": "O'zbekcha",
+        "ru": "Русский"
+      }
+    },
+    "theme": {
+      "title": "Тема",
+      "description": "Светлая / тёмная",
+      "toggle": "Переключить",
+      "toggleLabel": "Переключить тему"
+    }
+  }
+}

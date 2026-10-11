@@ -1,0 +1,85 @@
+{
+  "period": {
+    "from": "2026-09-03",
+    "to": "2026-10-02",
+    "granularity": "day",
+    "label": "30d"
+  },
+  "compare": {
+    "from": "2026-08-04",
+    "to": "2026-09-02"
+  },
+  "filials": [
+    1,
+    2,
+    3
+  ],
+  "generated_at": "2026-10-02T09:05:00.000Z",
+  "freshness": {
+    "orders": "2026-10-02T09:05:00.000Z",
+    "clinic": "2026-10-02T09:03:30.000Z",
+    "app": "2026-10-02T03:00:00+05:00"
+  },
+  "data": [
+    {
+      "doctor": "Ali Valiyev",
+      "specialty": "Terapevt",
+      "filial": "Toshkent",
+      "visits": 386,
+      "treatments_revenue": 23932000,
+      "sales_revenue": 58700000,
+      "commission_earned": 8400000,
+      "payout_outstanding": 3100000
+    },
+    {
+      "doctor": "Nodira Sultonova",
+      "specialty": "Nevrolog",
+      "filial": "Toshkent",
+      "visits": 312,
+      "treatments_revenue": 19344000,
+      "sales_revenue": 45300000,
+      "commission_earned": 6600000,
+      "payout_outstanding": 2400000
+    },
+    {
+      "doctor": "Sherzod Qosimov",
+      "specialty": "Ortoped",
+      "filial": "Qo'qon",
+      "visits": 294,
+      "treatments_revenue": 18228000,
+      "sales_revenue": 41600000,
+      "commission_earned": 5900000,
+      "payout_outstanding": 4800000
+    },
+    {
+      "doctor": "Malika Ergasheva",
+      "specialty": "Dermatolog",
+      "filial": "Toshkent",
+      "visits": 268,
+      "treatments_revenue": 16616000,
+      "sales_revenue": 36100000,
+      "commission_earned": 5200000,
+      "payout_outstanding": 0
+    },
+    {
+      "doctor": "Javlon Hamidov",
+      "specialty": "Gastroenterolog",
+      "filial": "Qo'qon",
+      "visits": 241,
+      "treatments_revenue": 14942000,
+      "sales_revenue": 31200000,
+      "commission_earned": 4500000,
+      "payout_outstanding": 5200000
+    },
+    {
+      "doctor": "Kamola Yusupova",
+      "specialty": "Endokrinolog",
+      "filial": "Toshkent",
+      "visits": 239,
+      "treatments_revenue": 14818000,
+      "sales_revenue": 23300000,
+      "commission_earned": 3600000,
+      "payout_outstanding": 5900000
+    }
+  ]
+}

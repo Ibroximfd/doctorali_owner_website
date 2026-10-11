@@ -1,0 +1,32 @@
+{
+  "description": "Nima sotilyapti — yetkazib berish va klinika do'koni birga",
+  "kpi": {
+    "units": "Sotilgan dona",
+    "unitsNote": "top {count} mahsulot",
+    "revenue": "Mahsulot tushumi",
+    "gifts": "Sovg'aga ketgan",
+    "giftsNote": "tannarxi ≈ {value}",
+    "stock": "Ombor ogohlantirishi",
+    "stockUnit": "mahsulot",
+    "stockNote": "{out} tugagan · {low} kam qolgan"
+  },
+  "top": {
+    "title": "Top mahsulotlar",
+    "description": "Tushum bo'yicha",
+    "columns": {
+      "product": "Mahsulot",
+      "revenue": "Tushum",
+      "units": "Dona",
+      "delivery": "Yetkazib berish",
+      "clinic": "Klinika",
+      "gift": "Sovg'a",
+      "stock": "Qoldiq"
+    },
+    "out": "Tugadi",
+    "low": "{count} dona"
+  },
+  "categories": {
+    "title": "Toifalar",
+    "description": "Jami {total}"
+  }
+}

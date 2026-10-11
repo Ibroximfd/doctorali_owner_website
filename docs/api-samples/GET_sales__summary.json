@@ -1,0 +1,124 @@
+{
+  "period": {
+    "from": "2026-09-03",
+    "to": "2026-10-02",
+    "granularity": "day",
+    "label": "30d"
+  },
+  "compare": {
+    "from": "2026-08-04",
+    "to": "2026-09-02"
+  },
+  "filials": [
+    1,
+    2,
+    3
+  ],
+  "generated_at": "2026-10-02T09:05:00.000Z",
+  "freshness": {
+    "orders": "2026-10-02T09:05:00.000Z",
+    "clinic": "2026-10-02T09:03:30.000Z",
+    "app": "2026-10-02T03:00:00+05:00"
+  },
+  "data": {
+    "leads": {
+      "value": 6240,
+      "previous": 5551.6,
+      "delta_pct": 12.4,
+      "unit": "count"
+    },
+    "conversion": {
+      "value": 31,
+      "previous": 30.51,
+      "delta_pct": 1.6,
+      "unit": "pct"
+    },
+    "sales_amount": {
+      "value": 1177800000,
+      "previous": 1072677595.63,
+      "delta_pct": 9.8,
+      "unit": "uzs"
+    },
+    "calls_total": {
+      "value": 14820,
+      "previous": 14195.4,
+      "delta_pct": 4.4,
+      "unit": "count"
+    },
+    "calls_missed_unhandled": {
+      "value": 31,
+      "previous": null,
+      "delta_pct": null,
+      "unit": "count"
+    },
+    "activities_overdue": {
+      "value": 46,
+      "previous": null,
+      "delta_pct": null,
+      "unit": "count"
+    },
+    "avg_rating": {
+      "value": 4.6,
+      "previous": 4.58,
+      "delta_pct": 0.4
+    },
+    "sparklines": {
+      "leads": [
+        47.1,
+        51.8,
+        53.8,
+        57,
+        57.1,
+        60.9,
+        63.5,
+        70.5,
+        68.8,
+        65.2,
+        65.4,
+        70.4
+      ],
+      "conversion": [
+        52.9,
+        54,
+        57.7,
+        64.1,
+        69.8,
+        72.9,
+        75.7,
+        80,
+        80.4,
+        76.9,
+        77.8,
+        83.5
+      ],
+      "sales_amount": [
+        48.9,
+        55.8,
+        52.9,
+        59,
+        58.4,
+        56.4,
+        57.6,
+        53.4,
+        57.8,
+        55.1,
+        51.2,
+        47.7
+      ],
+      "calls_total": [
+        56.5,
+        62.6,
+        66,
+        63.4,
+        63.2,
+        58.3,
+        63.2,
+        63.9,
+        60.9,
+        56.1,
+        62.3,
+        64.4
+      ]
+    }
+  }
+}

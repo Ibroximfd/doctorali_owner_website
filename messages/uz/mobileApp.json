@@ -1,0 +1,121 @@
+{
+  "title": "Mobil ilova",
+  "subtitle": "«Doctor Ali» (mijozlar) va «Doctor Ali Pro» (shifokorlar)",
+  "noData": "ma'lumot yo'q",
+  "kpi": {
+    "usersTotal": "Jami foydalanuvchilar",
+    "newUsers": "Yangi foydalanuvchilar",
+    "activeUsers": "Faol foydalanuvchilar",
+    "dailyAverage": "kunlik o'rtacha {value}",
+    "orderShare": "Ilova orqali buyurtma",
+    "consultations": "Onlayn konsultatsiya",
+    "pushEnabled": "Push yoqilgan"
+  },
+  "charts": {
+    "activeUsers": {
+      "title": "Kunlik faol foydalanuvchilar",
+      "description": "Kuniga kamida bir marta ilovani ochganlar",
+      "series": "Faol foydalanuvchilar"
+    },
+    "newUsers": {
+      "title": "Yangi foydalanuvchilar",
+      "description": "Ro'yxatdan o'tganlar",
+      "series": "Ro'yxatdan o'tdi"
+    }
+  },
+  "devices": {
+    "title": "Qurilmalar va versiyalar",
+    "total": "{count} foydalanuvchi",
+    "versions": "Ilova versiyasi",
+    "latest": "oxirgi",
+    "older": "eski versiyalar",
+    "markets": "Bozor",
+    "platform": {
+      "android": "Android",
+      "ios": "iOS"
+    },
+    "market": {
+      "uz": "O'zbekiston",
+      "sa": "Saudiya Arabistoni",
+      "intl": "Xalqaro"
+    }
+  },
+  "languages": {
+    "title": "Interfeys tili",
+    "description": "Foydalanuvchilar ulushi",
+    "names": {
+      "uz": "O'zbekcha",
+      "ru": "Ruscha",
+      "uzCyrl": "Ўзбекча (kirill)",
+      "en": "English",
+      "tg": "Tojikcha",
+      "ar": "Arabcha"
+    }
+  },
+  "engagement": {
+    "title": "Faollik",
+    "description": "Ilova imkoniyatlaridan foydalanish",
+    "items": {
+      "aiDoctorConversations": "AI doktor suhbatlari",
+      "healthActiveUsers": "Salomatlik balli faollari",
+      "streamViewers": "Efir tomoshabinlari",
+      "foodScans": "Kaloriya skaneri",
+      "medRemindersActive": "Dori eslatmalari",
+      "referrals": "Referal orqali kelganlar"
+    }
+  },
+  "confirmFunnel": {
+    "title": "Buyurtmani tasdiqlash voronkasi",
+    "description": "Operator yaratgan buyurtma → mijoz ilovada tasdiqlaydi",
+    "transition": "<b>{pct}</b> o'tdi · {lost} tasi tushib qoldi",
+    "steps": {
+      "pushSent": "Push yuborildi",
+      "opened": "Ilovada ochildi",
+      "slid": "Surib tasdiqladi",
+      "paymentSelected": "To'lov usuli tanlandi",
+      "confirmed": "Tasdiqlandi"
+    }
+  },
+  "cancelFunnel": {
+    "title": "Bekor qilish voronkasi",
+    "description": "3 bosqichli ushlab qolish oqimi qanday ishlayapti",
+    "transition": "<b>{pct}</b> o'tdi",
+    "retained": "<b>{count} ta buyurtma saqlab qolindi</b> — bekor qilishni boshlaganlarning {pct}",
+    "steps": {
+      "step1": "1 · Sabab tanladi",
+      "step2": "2 · Ushlab qolish ekrani",
+      "step3": "3 · Sabab yozdi",
+      "cancelled": "Bekor qildi"
+    }
+  },
+  "consultations": {
+    "title": "Onlayn konsultatsiyalar",
+    "description": "Ilovadagi shifokor qabuli",
+    "revenue": "Tushum",
+    "rating": "Baho",
+    "ratingScale": "/ 5",
+    "ratingCount": "{count} ta baho",
+    "created": "Yaratildi",
+    "paid": "To'landi",
+    "completed": "Yakunlandi",
+    "cancelled": "Bekor qilindi"
+  },
+  "loyalty": {
+    "title": "Ball va sovg'alar",
+    "description": "1% keshbek · har 10-buyurtmaga sovg'a",
+    "pointsIssued": "Berilgan ball",
+    "pointsSpent": "Sarflangan ball",
+    "pointsExpired": "Kuygan ball (oylik)",
+    "walletBalance": "Hamyonlardagi qoldiq",
+    "walletEquivalent": "≈ {value}",
+    "giftsEarned": "Yutilgan sovg'alar",
+    "giftsDelivered": "Yetkazilgan sovg'alar"
+  },
+  "doctorApp": {
+    "title": "Doctor Ali Pro",
+    "description": "Shifokorlar ilovasi",
+    "activeDoctors": "Faol shifokorlar",
+    "ordersCreated": "Yaratgan buyurtmalar",
+    "storesNote": "App Store / Google Play reytingi va yuklab olishlar — <b>2-bosqichda</b> ulanadi."
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "close": "Yopish",
+  "period": "Davr",
+  "total": "Jami",
+  "pcs": "dona",
+  "now": "hozir",
+  "today": "bugun",
+  "all": "Barchasi",
+  "details": "Batafsil",
+  "save": "Saqlash",
+  "saved": "Saqlandi",
+  "saveFailed": "Saqlab bo'lmadi. Qayta urinib ko'ring.",
+  "cancel": "Bekor qilish",
+  "readOnlyNote": "Boshliq paneli faqat ko'rish uchun — tahrirlash CRM / logist panelida.",
+  "delta": {
+    "pp": "f.p.",
+    "up": "o'sdi",
+    "down": "kamaydi",
+    "flat": "o'zgarmadi"
+  },
+  "chart": {
+    "view": "Ko'rinish",
+    "chart": "Grafik",
+    "table": "Jadval",
+    "total": "Jami"
+  },
+  "scale": {
+    "low": "kam",
+    "high": "ko'p"
+  },
+  "orderStatus": {
+    "pending": "Kutilmoqda",
+    "confirmed": "Tasdiqlangan",
+    "shipping": "Yo'lga chiqarilgan",
+    "delivered": "Yetkazilgan",
+    "cancelled": "Atkaz",
+    "unknown": "Noma'lum"
+  },
+  "severity": {
+    "critical": "Kritik",
+    "serious": "Jiddiy",
+    "moderate": "O'rta"
+  },
+  "ago": {
+    "now": "hozir",
+    "minutes": "{count} daq",
+    "hours": "{count} soat",
+    "days": "{count} kun"
+  },
+  "states": {
+    "emptyTitle": "Bu davrda ma'lumot yo'q",
+    "emptyDescription": "Kengroq davrni yoki boshqa filialni tanlab ko'ring.",
+    "noResultsTitle": "Hech narsa topilmadi",
+    "noResultsFor": "«{query}» topilmadi",
+    "noResultsDescription": "Qidiruv yoki filtrni o'zgartirib ko'ring.",
+    "clearFilters": "Filtrlarni tozalash",
+    "forbiddenTitle": "Bu bo'lim sizga ochilmagan",
+    "forbiddenDescription": "Kirish huquqini boshliq «Sozlamalar» da beradi.",
+    "offline": "Internet yo'q — oxirgi yuklangan ma'lumot ko'rsatilmoqda.",
+    "stale": "Yangilab bo'lmadi — oldingi ma'lumot ko'rsatilmoqda"
+  },
+  "errors": {
+    "title": "Ma'lumotni yuklab bo'lmadi",
+    "retry": "Qayta urinish",
+    "kind": {
+      "offline": "Internet aloqasi yo'q yoki server javob bermadi.",
+      "unauthorized": "Sessiya tugagan. Qaytadan kiring.",
+      "forbidden": "Bu ma'lumotni ko'rishga ruxsat yo'q.",
+      "not-found": "So'ralgan ma'lumot topilmadi.",
+      "validation": "So'rov noto'g'ri tuzilgan.",
+      "rate-limited": "So'rovlar juda ko'p. Bir ozdan so'ng urinib ko'ring.",
+      "server": "Serverda xatolik. Bir ozdan so'ng qayta urinib ko'ring.",
+      "contract": "Serverdan kutilmagan shakldagi javob keldi.",
+      "unknown": "Noma'lum xatolik yuz berdi."
+    }
+  },
+  "notFound": {
+    "title": "Sahifa topilmadi",
+    "description": "Manzil noto'g'ri yoki sahifa ko'chirilgan.",
+    "home": "Bosh sahifaga"
+  }
+}

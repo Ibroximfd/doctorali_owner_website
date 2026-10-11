@@ -1,0 +1,55 @@
+{
+  "period": {
+    "from": "2026-09-03",
+    "to": "2026-10-02",
+    "granularity": "day",
+    "label": "30d"
+  },
+  "compare": {
+    "from": "2026-08-04",
+    "to": "2026-09-02"
+  },
+  "filials": [
+    1,
+    2,
+    3
+  ],
+  "generated_at": "2026-10-02T09:05:00.000Z",
+  "freshness": {
+    "orders": "2026-10-02T09:05:00.000Z",
+    "clinic": "2026-10-02T09:03:30.000Z",
+    "app": "2026-10-02T03:00:00+05:00"
+  },
+  "data": [
+    {
+      "method": "cash",
+      "amount": 1284000000,
+      "count": 2410,
+      "share_pct": 55.1
+    },
+    {
+      "method": "click",
+      "amount": 398000000,
+      "count": 702,
+      "share_pct": 17.1
+    },
+    {
+      "method": "payme",
+      "amount": 301000000,
+      "count": 536,
+      "share_pct": 12.9
+    },
+    {
+      "method": "card",
+      "amount": 196000000,
+      "count": 824,
+      "share_pct": 8.4
+    },
+    {
+      "method": "terminal",
+      "amount": 153000000,
+      "count": 618,
+      "share_pct": 6.6
+    }
+  ]
+}

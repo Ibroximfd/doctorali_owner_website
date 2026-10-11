@@ -1,0 +1,313 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/*
+ * Doctor Ali Nazorat — dizayn tokenlari (manba: design/owner.css, tasdiqlangan prototip).
+ *
+ * Chrome neytral va brend yashiliga og'ishgan; rang faqat ma'lumot va holatda.
+ * Komponentlarda hex / px qo'lda yozilmaydi — faqat shu yerdagi tokenlardan
+ * kelib chiqqan Tailwind utilitylar (`bg-surface`, `text-ink-2`, `bg-series-1` …).
+ * Qorong'i mavzu — `<html class="dark">` (next-themes), faqat tokenlar almashadi.
+ */
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /* chrome */
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-scrim: var(--scrim);
+
+  /* holat (semantik) — har doim ikon + matn bilan */
+  --color-good: var(--good);
+  --color-good-soft: var(--good-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-serious: var(--serious);
+  --color-serious-soft: var(--serious-soft);
+  --color-crit: var(--crit);
+  --color-crit-soft: var(--crit-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+
+  /* buyurtma bosqichlari (platforma shartnomasi) */
+  --color-order-pending: var(--order-pending);
+  --color-order-confirmed: var(--order-confirmed);
+  --color-order-shipping: var(--order-shipping);
+  --color-order-delivered: var(--order-delivered);
+  --color-order-cancelled: var(--order-cancelled);
+
+  /* grafik: kategorik (tartib qat'iy), ketma-ket (bitta rang), chrome */
+  --color-series-1: var(--series-1);
+  --color-series-2: var(--series-2);
+  --color-series-3: var(--series-3);
+  --color-series-4: var(--series-4);
+  --color-series-5: var(--series-5);
+  --color-series-6: var(--series-6);
+  --color-series-7: var(--series-7);
+  --color-series-8: var(--series-8);
+  --color-seq-1: var(--seq-1);
+  --color-seq-2: var(--seq-2);
+  --color-seq-3: var(--seq-3);
+  --color-seq-4: var(--seq-4);
+  --color-seq-5: var(--seq-5);
+  --color-seq-6: var(--seq-6);
+  --color-seq-lo: var(--seq-lo);
+  --color-seq-mid: var(--seq-mid);
+  --color-seq-hi: var(--seq-hi);
+  --color-grid: var(--grid);
+  --color-axis: var(--axis);
+  --color-cmp: var(--cmp);
+
+  /* tipografiya */
+  --font-sans: var(--font-onest), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  --text-2xs: 0.6875rem;
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.875rem;
+  --text-md: 0.9375rem;
+  --text-lg: 1rem;
+  --text-xl: 1.25rem;
+  --text-kpi: 1.375rem;
+  --text-kpi--line-height: 1.1;
+  --text-2xl: 1.5rem;
+  --text-3xl: 2rem;
+  --text-hero: clamp(2.25rem, 4.6vw, 3.25rem);
+  --text-hero--line-height: 1.02;
+  --font-weight-mid: 550;
+  --font-weight-strong: 650;
+
+  /* shakl */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --shadow-pop: var(--elevation-pop);
+
+  /* harakat */
+  --animate-shimmer: shimmer 1.4s linear infinite;
+  --animate-flash: flash 1.6s ease-out;
+  --animate-live: live 2.4s infinite;
+  --animate-shake: shake 0.42s ease-in-out;
+
+  @keyframes shimmer {
+    from {
+      background-position: 100% 0;
+    }
+    to {
+      background-position: 0 0;
+    }
+  }
+  @keyframes flash {
+    from {
+      background-color: var(--accent-soft);
+    }
+    to {
+      background-color: transparent;
+    }
+  }
+  @keyframes shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    20%,
+    60% {
+      transform: translateX(-0.5rem);
+    }
+    40%,
+    80% {
+      transform: translateX(0.5rem);
+    }
+  }
+  @keyframes live {
+    0% {
+      box-shadow: 0 0 0 0 color-mix(in srgb, var(--good) 55%, transparent);
+    }
+    70%,
+    100% {
+      box-shadow: 0 0 0 7px transparent;
+    }
+  }
+}
+
+:root {
+  --bg: #f3f5f3;
+  --surface: #ffffff;
+  --surface-2: #f7f9f7;
+  --surface-3: #edf0ed;
+  --border: #e1e5e1;
+  --border-strong: #cbd2cc;
+  --ink: #111613;
+  --ink-2: #48524b;
+  --ink-3: #727c75;
+  --accent: #17694a;
+  --accent-ink: #ffffff;
+  --accent-soft: #e2f1e9;
+  --scrim: rgb(10 14 12 / 0.45);
+
+  --good: #18794a;
+  --good-soft: #e1f3e8;
+  --warn: #96590a;
+  --warn-soft: #fcefd4;
+  --serious: #b4501b;
+  --serious-soft: #fbe9dd;
+  --crit: #b3261e;
+  --crit-soft: #fbe5e3;
+  --info: #2a78d6;
+  --info-soft: #e3eefb;
+
+  --order-pending: #e08e0b;
+  --order-confirmed: #0a8fa3;
+  --order-shipping: #4f63d8;
+  --order-delivered: #2fa862;
+  --order-cancelled: #b3261e;
+
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --series-4: #eda100;
+  --series-5: #e87ba4;
+  --series-6: #008300;
+  --series-7: #4a3aa7;
+  --series-8: #e34948;
+  --seq-1: #cde2fb;
+  --seq-2: #9ec5f4;
+  --seq-3: #6da7ec;
+  --seq-4: #2f7bd8;
+  --seq-5: #256abf;
+  --seq-6: #104281;
+  --seq-lo: #0d366b;
+  --seq-mid: #ffffff;
+  --seq-hi: #ffffff;
+  --grid: #e9ece9;
+  --axis: #c9cfca;
+  --cmp: #b3bbb5;
+
+  --elevation-pop: 0 12px 32px -8px rgb(17 22 19 / 0.18), 0 2px 6px rgb(17 22 19 / 0.06);
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #0c0f0d;
+  --surface: #141815;
+  --surface-2: #191e1a;
+  --surface-3: #202622;
+  --border: #262d28;
+  --border-strong: #374139;
+  --ink: #f1f5f2;
+  --ink-2: #b4beb7;
+  --ink-3: #828d86;
+  --accent: #4fc48f;
+  --accent-ink: #06140d;
+  --accent-soft: #143021;
+  --scrim: rgb(0 0 0 / 0.6);
+
+  --good: #4fc48f;
+  --good-soft: #12301f;
+  --warn: #e6ad45;
+  --warn-soft: #33270f;
+  --serious: #ee9466;
+  --serious-soft: #371f12;
+  --crit: #ef7a72;
+  --crit-soft: #3a1715;
+  --info: #6da7ec;
+  --info-soft: #14273f;
+
+  --order-pending: #c98500;
+  --order-confirmed: #12a3a3;
+  --order-shipping: #6c74ee;
+  --order-delivered: #3dab6b;
+  --order-cancelled: #c24040;
+
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --series-3: #199e70;
+  --series-4: #c98500;
+  --series-5: #d55181;
+  --series-6: #008300;
+  --series-7: #9085e9;
+  --series-8: #e66767;
+  --seq-1: #15304f;
+  --seq-2: #1b4577;
+  --seq-3: #235a9e;
+  --seq-4: #2a78d6;
+  --seq-5: #5598e7;
+  --seq-6: #9ec5f4;
+  --seq-lo: #d6e6fb;
+  --seq-mid: #ffffff;
+  --seq-hi: #0b1f38;
+  --grid: #222924;
+  --axis: #374139;
+  --cmp: #566059;
+
+  --elevation-pop: 0 16px 40px -8px rgb(0 0 0 / 0.6), 0 2px 6px rgb(0 0 0 / 0.4);
+  color-scheme: dark;
+}
+
+@layer base {
+  *,
+  ::before,
+  ::after {
+    border-color: var(--border);
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@utility num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+@utility skeleton {
+  border-radius: var(--radius-sm);
+  background: linear-gradient(90deg, var(--surface-3) 25%, var(--surface-2) 45%, var(--surface-3) 65%);
+  background-size: 300% 100%;
+  animation: var(--animate-shimmer);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

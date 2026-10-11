@@ -1,0 +1,48 @@
+{
+  "description": "Mijoz qaytib kelyaptimi — yangi, takroriy xarid va qiymat",
+  "kpi": {
+    "total": "Jami mijozlar",
+    "new": "Yangi mijozlar",
+    "returningRate": "Qaytgan mijozlar ulushi",
+    "repeatRate": "Takroriy xarid",
+    "repeatRateNote": "90 kun ichida 2+ buyurtma",
+    "avgLtv": "Mijoz qiymati (o'rtacha)",
+    "ordersPerCustomer": "Bir mijozga buyurtma"
+  },
+  "cohorts": {
+    "title": "Kogorta: mijozlar qaytishi",
+    "description": "Birinchi xarid oyi bo'yicha — keyingi oylarda necha foizi yana xarid qildi",
+    "firstPurchase": "Birinchi xarid",
+    "size": "Mijoz",
+    "month": "{index}-oy",
+    "cellTitle": "{cohort} kogortasi · {index}-oy",
+    "returned": "Qaytganlar",
+    "customers": "Mijoz",
+    "cellLabel": "{cohort} kogortasi, {index}-oy: {percent} qaytdi — {customers} mijoz",
+    "low": "kam qaytdi",
+    "high": "ko'p qaytdi"
+  },
+  "mix": {
+    "title": "Yangi va qaytgan mijozlar",
+    "description": "Davrda xarid qilganlar",
+    "returning": "Qaytgan",
+    "new": "Yangi"
+  },
+  "top": {
+    "title": "Eng qimmatli mijozlar",
+    "description": "Jami xarid summasi bo'yicha",
+    "columns": {
+      "customer": "Mijoz",
+      "orders": "Buyurtma",
+      "spent": "Jami xarid",
+      "lastOrder": "Oxirgi",
+      "app": "Ilova"
+    },
+    "hasApp": "Bor",
+    "noApp": "Yo'q"
+  },
+  "regions": {
+    "title": "Mijozlar hududlar bo'yicha",
+    "description": "Eng faol {count} hudud"
+  }
+}

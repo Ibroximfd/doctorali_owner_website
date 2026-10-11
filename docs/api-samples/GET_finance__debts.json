@@ -1,0 +1,91 @@
+{
+  "period": {
+    "from": "2026-09-03",
+    "to": "2026-10-02",
+    "granularity": "day",
+    "label": "30d"
+  },
+  "compare": {
+    "from": "2026-08-04",
+    "to": "2026-09-02"
+  },
+  "filials": [
+    1,
+    2,
+    3
+  ],
+  "generated_at": "2026-10-02T09:05:00.000Z",
+  "freshness": {
+    "orders": "2026-10-02T09:05:00.000Z",
+    "clinic": "2026-10-02T09:03:30.000Z",
+    "app": "2026-10-02T03:00:00+05:00"
+  },
+  "data": {
+    "aging": [
+      {
+        "bucket": "0-7",
+        "amount": 14200000,
+        "count": 31
+      },
+      {
+        "bucket": "8-30",
+        "amount": 8400000,
+        "count": 18
+      },
+      {
+        "bucket": "31+",
+        "amount": 8600000,
+        "count": 14
+      }
+    ],
+    "top_debtors": [
+      {
+        "client": "Baxtiyor Normatov",
+        "phone": "+998901230011",
+        "filial": "Toshkent",
+        "remaining": 3200000,
+        "overdue_days": 46
+      },
+      {
+        "client": "Saida Mirzayeva",
+        "phone": "+998911230022",
+        "filial": "Qo'qon",
+        "remaining": 2400000,
+        "overdue_days": 38
+      },
+      {
+        "client": "Olim Rasulov",
+        "phone": "+998931230033",
+        "filial": "Toshkent",
+        "remaining": 1900000,
+        "overdue_days": 33
+      },
+      {
+        "client": "Nargiza Po'latova",
+        "phone": "+998941230044",
+        "filial": "Qo'qon",
+        "remaining": 1100000,
+        "overdue_days": 12
+      },
+      {
+        "client": "Jamshid Aliyev",
+        "phone": "+998951230055",
+        "filial": "Toshkent",
+        "remaining": 900000,
+        "overdue_days": 5
+      }
+    ],
+    "collected": {
+      "value": 24600000,
+      "previous": 23163841.81,
+      "delta_pct": 6.2,
+      "unit": "uzs"
+    },
+    "issued": {
+      "value": 27900000,
+      "previous": 28703703.7,
+      "delta_pct": -2.8,
+      "unit": "uzs"
+    }
+  }
+}

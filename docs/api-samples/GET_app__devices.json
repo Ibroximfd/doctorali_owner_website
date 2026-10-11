@@ -1,0 +1,112 @@
+{
+  "period": {
+    "from": "2026-09-03",
+    "to": "2026-10-02",
+    "granularity": "day",
+    "label": "30d"
+  },
+  "compare": {
+    "from": "2026-08-04",
+    "to": "2026-09-02"
+  },
+  "filials": [
+    1,
+    2,
+    3
+  ],
+  "generated_at": "2026-10-02T09:05:00.000Z",
+  "freshness": {
+    "orders": "2026-10-02T09:05:00.000Z",
+    "clinic": "2026-10-02T09:03:30.000Z",
+    "app": "2026-10-02T03:00:00+05:00"
+  },
+  "data": {
+    "platform": [
+      {
+        "key": "android",
+        "users": 58750,
+        "share_pct": 68
+      },
+      {
+        "key": "ios",
+        "users": 27650,
+        "share_pct": 32
+      }
+    ],
+    "versions": [
+      {
+        "version": "1.0.63",
+        "users": 46656,
+        "share_pct": 54,
+        "is_latest": true
+      },
+      {
+        "version": "1.0.62",
+        "users": 19872,
+        "share_pct": 23,
+        "is_latest": false
+      },
+      {
+        "version": "1.0.61",
+        "users": 9504,
+        "share_pct": 11,
+        "is_latest": false
+      },
+      {
+        "version": "older",
+        "users": 10368,
+        "share_pct": 12,
+        "is_latest": false
+      }
+    ],
+    "langs": [
+      {
+        "key": "uz",
+        "users": 52704,
+        "share_pct": 61
+      },
+      {
+        "key": "ru",
+        "users": 15552,
+        "share_pct": 18
+      },
+      {
+        "key": "uz-Cyrl",
+        "users": 14688,
+        "share_pct": 17
+      },
+      {
+        "key": "en",
+        "users": 1728,
+        "share_pct": 2
+      },
+      {
+        "key": "tg",
+        "users": 1210,
+        "share_pct": 1.4
+      },
+      {
+        "key": "ar",
+        "users": 518,
+        "share_pct": 0.6
+      }
+    ],
+    "markets": [
+      {
+        "key": "UZ",
+        "users": 83635,
+        "share_pct": 96.8
+      },
+      {
+        "key": "SA",
+        "users": 1642,
+        "share_pct": 1.9
+      },
+      {
+        "key": "INTL",
+        "users": 1123,
+        "share_pct": 1.3
+      }
+    ]
+  }
+}

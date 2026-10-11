@@ -1,0 +1,51 @@
+{
+  "period": {
+    "from": "2026-09-03",
+    "to": "2026-10-02",
+    "granularity": "day",
+    "label": "30d"
+  },
+  "compare": {
+    "from": "2026-08-04",
+    "to": "2026-09-02"
+  },
+  "filials": [
+    1,
+    2,
+    3
+  ],
+  "generated_at": "2026-10-02T09:05:00.000Z",
+  "freshness": {
+    "orders": "2026-10-02T09:05:00.000Z",
+    "clinic": "2026-10-02T09:03:30.000Z",
+    "app": "2026-10-02T03:00:00+05:00"
+  },
+  "data": [
+    {
+      "id": 1,
+      "name": "Toshkent",
+      "revenue": 312000000,
+      "visits_arrived": 1386,
+      "no_show_rate": 8.4,
+      "tills": 11600000,
+      "open_debt": 18600000,
+      "stock_value": 182000000,
+      "closing_status": "closed",
+      "closing_difference": 0,
+      "attendance_rate": 96
+    },
+    {
+      "id": 2,
+      "name": "Qo'qon",
+      "revenue": 174000000,
+      "visits_arrived": 754,
+      "no_show_rate": 10.9,
+      "tills": 6800000,
+      "open_debt": 12600000,
+      "stock_value": 102000000,
+      "closing_status": "closed",
+      "closing_difference": -180000,
+      "attendance_rate": 91
+    }
+  ]
+}

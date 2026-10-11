@@ -1,0 +1,169 @@
+{
+  "counts": {
+    "open": 10,
+    "critical": 2,
+    "serious": 4,
+    "moderate": 4
+  },
+  "results": [
+    {
+      "id": 901,
+      "code": "cod.unsettled",
+      "severity": "critical",
+      "status": "open",
+      "title": "Kuryerda naqd 2 kundan beri topshirilmagan",
+      "body": "Otabek Yusupov · 1 500 000 so'm (4 buyurtma)",
+      "filial": "Qo'qon",
+      "metric_value": 1500000,
+      "threshold": 5000000,
+      "ref": {
+        "type": "courier",
+        "id": "9"
+      },
+      "opened_at": "2026-09-30T09:05:00.000Z",
+      "acknowledged_at": null,
+      "resolved_at": null
+    },
+    {
+      "id": 902,
+      "code": "clinic.closing_mismatch",
+      "severity": "critical",
+      "status": "open",
+      "title": "Kassa yopilishida kamomad: −180 000 so'm",
+      "body": "Kecha · yopdi: S. Jo'rayeva",
+      "filial": "Qo'qon",
+      "metric_value": 180000,
+      "threshold": 50000,
+      "ref": null,
+      "opened_at": "2026-10-01T16:05:00.000Z",
+      "acknowledged_at": null,
+      "resolved_at": null
+    },
+    {
+      "id": 903,
+      "code": "orders.unassigned_courier",
+      "severity": "serious",
+      "status": "open",
+      "title": "18 ta tasdiqlangan buyurtma 3 soatdan ortiq kuryersiz",
+      "body": "Toshkent 11 · Samarqand 7 · jami 10,9 mln so'm",
+      "filial": null,
+      "metric_value": 18,
+      "threshold": 3,
+      "ref": null,
+      "opened_at": "2026-10-02T06:05:00.000Z",
+      "acknowledged_at": null,
+      "resolved_at": null
+    },
+    {
+      "id": 904,
+      "code": "orders.shipping_late",
+      "severity": "serious",
+      "status": "open",
+      "title": "21 ta buyurtma 48 soatdan ortiq yo'lda",
+      "body": "Qo'qon 9 · Samarqand 8 · Toshkent 4",
+      "filial": null,
+      "metric_value": 21,
+      "threshold": 48,
+      "ref": null,
+      "opened_at": "2026-10-02T04:05:00.000Z",
+      "acknowledged_at": null,
+      "resolved_at": null
+    },
+    {
+      "id": 905,
+      "code": "calls.missed_unhandled",
+      "severity": "serious",
+      "status": "open",
+      "title": "31 ta o'tkazib yuborilgan qo'ng'iroq hal qilinmagan",
+      "body": "Eng ko'p: Bekzod Olimov — 9 ta, eng eskisi 4 soat oldin",
+      "filial": null,
+      "metric_value": 31,
+      "threshold": 10,
+      "ref": null,
+      "opened_at": "2026-10-02T05:05:00.000Z",
+      "acknowledged_at": null,
+      "resolved_at": null
+    },
+    {
+      "id": 906,
+      "code": "orders.cancel_rate_high",
+      "severity": "serious",
+      "status": "open",
+      "title": "Atkaz ulushi 17,2%",
+      "body": "O'rtacha 12,6% · asosiy sabab: javob bermadi",
+      "filial": "Samarqand",
+      "metric_value": 17.2,
+      "threshold": 15,
+      "ref": null,
+      "opened_at": "2026-10-02T02:05:00.000Z",
+      "acknowledged_at": null,
+      "resolved_at": null
+    },
+    {
+      "id": 907,
+      "code": "debts.overdue",
+      "severity": "moderate",
+      "status": "open",
+      "title": "Muddati o'tgan qarz 8,6 mln so'm",
+      "body": "14 mijoz · eng kattasi: B. Normatov — 3,2 mln (46 kun)",
+      "filial": null,
+      "metric_value": 8600000,
+      "threshold": 10000000,
+      "ref": null,
+      "opened_at": "2026-10-01T09:05:00.000Z",
+      "acknowledged_at": null,
+      "resolved_at": null
+    },
+    {
+      "id": 908,
+      "code": "stock.out",
+      "severity": "moderate",
+      "status": "open",
+      "title": "2 mahsulot tugadi, 4 tasi kam qoldi",
+      "body": "Na'matak siropi (Qo'qon), Qora sedana yog'i (Toshkent)",
+      "filial": null,
+      "metric_value": 2,
+      "threshold": 0,
+      "ref": null,
+      "opened_at": "2026-10-02T03:05:00.000Z",
+      "acknowledged_at": null,
+      "resolved_at": null
+    },
+    {
+      "id": 909,
+      "code": "ratings.low",
+      "severity": "moderate",
+      "status": "open",
+      "title": "Past baho: 2 yulduz — Bekzod Olimov",
+      "body": "«Uzoq kutdim, qayta qo'ng'iroq qilishmadi» · mijoz: A. Sobirov",
+      "filial": "Toshkent",
+      "metric_value": 2,
+      "threshold": 2,
+      "ref": {
+        "type": "operator",
+        "id": "14"
+      },
+      "opened_at": "2026-10-02T08:03:00.000Z",
+      "acknowledged_at": null,
+      "resolved_at": null
+    },
+    {
+      "id": 910,
+      "code": "sales.filial_lagging",
+      "severity": "moderate",
+      "status": "open",
+      "title": "Samarqand jamoasi: bir operatorga sotuv o'rtachadan 17% past",
+      "body": "122 mln so'm · kompaniya o'rtachasi 147 mln · konversiya 28,7%",
+      "filial": "Samarqand",
+      "metric_value": 17.1,
+      "threshold": 15,
+      "ref": {
+        "type": "filial",
+        "id": "3"
+      },
+      "opened_at": "2026-10-02T00:05:00.000Z",
+      "acknowledged_at": null,
+      "resolved_at": null
+    }
+  ]
+}

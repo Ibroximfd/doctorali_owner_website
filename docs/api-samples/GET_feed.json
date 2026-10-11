@@ -1,0 +1,84 @@
+{
+  "results": [
+    {
+      "id": 7462216,
+      "at": "2026-10-02T09:04:00.000Z",
+      "kind": "order.created",
+      "filial": "Toshkent",
+      "title": "DA-184316 yaratildi · Payme to'lovi kutilmoqda",
+      "amount": 1240000,
+      "actor": "ilova",
+      "ref": null
+    },
+    {
+      "id": 7462215,
+      "at": "2026-10-02T09:00:00.000Z",
+      "kind": "order.confirmed",
+      "filial": "Samarqand",
+      "title": "DA-184315 mijoz ilovada tasdiqladi · naqd",
+      "amount": 600000,
+      "actor": "ilova",
+      "ref": null
+    },
+    {
+      "id": 7462214,
+      "at": "2026-10-02T08:56:00.000Z",
+      "kind": "cod.settled",
+      "filial": "Toshkent",
+      "title": "Kuryer naqd topshirdi · Sardor T.",
+      "amount": 1900000,
+      "actor": "logist",
+      "ref": null
+    },
+    {
+      "id": 7462213,
+      "at": "2026-10-02T08:52:00.000Z",
+      "kind": "order.cancelled",
+      "filial": "Toshkent",
+      "title": "DA-184313 atkaz · mijoz rad etdi",
+      "amount": 920000,
+      "actor": "Bekzod Olimov",
+      "ref": null
+    },
+    {
+      "id": 7462212,
+      "at": "2026-10-02T08:48:00.000Z",
+      "kind": "order.delivered",
+      "filial": "Qo'qon",
+      "title": "DA-184312 yetkazildi · Click",
+      "amount": 480000,
+      "actor": "Islom Qodirov",
+      "ref": null
+    },
+    {
+      "id": 7462211,
+      "at": "2026-10-02T08:44:00.000Z",
+      "kind": "consultation.paid",
+      "filial": null,
+      "title": "Konsultatsiya to'landi · dr. Nodira Sultonova",
+      "amount": 62500,
+      "actor": "ilova",
+      "ref": null
+    },
+    {
+      "id": 7462210,
+      "at": "2026-10-02T08:40:00.000Z",
+      "kind": "order.shipping",
+      "filial": "Qo'qon",
+      "title": "DA-184310 yo'lga chiqdi · kuryer Bobur R.",
+      "amount": 760000,
+      "actor": "logist",
+      "ref": null
+    },
+    {
+      "id": 7462209,
+      "at": "2026-10-02T08:36:00.000Z",
+      "kind": "clinic.payment",
+      "filial": "Qo'qon",
+      "title": "Klinika · muolaja to'lovi · terminal",
+      "amount": 350000,
+      "actor": "registratura",
+      "ref": null
+    }
+  ]
+}

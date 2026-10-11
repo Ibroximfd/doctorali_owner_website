@@ -1,0 +1,88 @@
+{
+  "filials": [
+    {
+      "id": 1,
+      "name": "Toshkent",
+      "region": "toshkent_shahar",
+      "is_main": true,
+      "has_clinic": true,
+      "has_sales": true
+    },
+    {
+      "id": 2,
+      "name": "Qo'qon",
+      "region": "fargona",
+      "is_main": false,
+      "has_clinic": true,
+      "has_sales": true
+    },
+    {
+      "id": 3,
+      "name": "Samarqand",
+      "region": "samarqand",
+      "is_main": false,
+      "has_clinic": false,
+      "has_sales": true
+    }
+  ],
+  "regions": [
+    {
+      "code": "toshkent_shahar",
+      "name": "Toshkent shahri"
+    },
+    {
+      "code": "toshkent",
+      "name": "Toshkent viloyati"
+    },
+    {
+      "code": "samarqand",
+      "name": "Samarqand"
+    },
+    {
+      "code": "fargona",
+      "name": "Farg'ona"
+    },
+    {
+      "code": "andijon",
+      "name": "Andijon"
+    },
+    {
+      "code": "namangan",
+      "name": "Namangan"
+    },
+    {
+      "code": "qashqadaryo",
+      "name": "Qashqadaryo"
+    },
+    {
+      "code": "buxoro",
+      "name": "Buxoro"
+    },
+    {
+      "code": "surxondaryo",
+      "name": "Surxondaryo"
+    },
+    {
+      "code": "xorazm",
+      "name": "Xorazm"
+    },
+    {
+      "code": "jizzax",
+      "name": "Jizzax"
+    },
+    {
+      "code": "navoiy",
+      "name": "Navoiy"
+    },
+    {
+      "code": "sirdaryo",
+      "name": "Sirdaryo"
+    },
+    {
+      "code": "qoraqalpogiston",
+      "name": "Qoraqalpog'iston"
+    }
+  ],
+  "first_data_date": "2024-03-01",
+  "currency": "UZS"
+}

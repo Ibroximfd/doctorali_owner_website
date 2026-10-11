@@ -1,0 +1,51 @@
+{
+  "periodLabel": "Davr",
+  "filialLabel": "Filial",
+  "compareLabel": "Taqqoslash",
+  "sheetTitle": "Filtr",
+  "done": "Tayyor",
+  "refresh": "Yangilash",
+  "updated": "Yangilandi {time}",
+  "period": {
+    "today": "Bugun",
+    "yesterday": "Kecha",
+    "7d": "7 kun",
+    "30d": "30 kun",
+    "90d": "90 kun",
+    "month": "Bu oy",
+    "prev_month": "O'tgan oy",
+    "year": "Yil",
+    "custom": "Oraliq"
+  },
+  "periodLong": {
+    "today": "Bugun",
+    "yesterday": "Kecha",
+    "7d": "Oxirgi 7 kun",
+    "30d": "Oxirgi 30 kun",
+    "90d": "Oxirgi 90 kun",
+    "month": "Bu oy",
+    "prev_month": "O'tgan oy",
+    "year": "Oxirgi 12 oy",
+    "custom": "Tanlangan oraliq"
+  },
+  "range": {
+    "trigger": "Oraliq",
+    "from": "Boshlanish sanasi",
+    "to": "Tugash sanasi",
+    "apply": "Qo'llash"
+  },
+  "filial": {
+    "all": "Barcha filiallar",
+    "count": "{count} ta filial"
+  },
+  "compare": {
+    "previous": "Oldingi davr bilan",
+    "yoy": "O'tgan yil bilan",
+    "none": "Taqqoslashsiz"
+  },
+  "compareOption": {
+    "previous": "Oldingi davr bilan",
+    "yoy": "O'tgan yilning shu davri bilan",
+    "none": "Taqqoslashsiz"
+  }
+}

@@ -1,0 +1,20 @@
+/node_modules
+/.next/
+/out/
+/build
+/coverage
+/test-results/
+/playwright-report/
+.DS_Store
+*.pem
+npm-debug.log*
+.env
+.env*.local
+.env.production
+*.tsbuildinfo
+next-env.d.ts
+.playwright-cli/
+
+# shartnoma tekshiruvi sessiyasi (tokenlar)
+.contract-session.json
+backend-login-error.log

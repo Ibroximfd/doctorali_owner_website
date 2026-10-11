@@ -1,0 +1,47 @@
+{
+  "label": "Разделы",
+  "quick": "Быстрый переход",
+  "home": "Doctor Ali Nazorat — главная",
+  "product": "Контроль",
+  "groups": {
+    "main": "Главное",
+    "business": "Бизнес",
+    "growth": "Рост",
+    "control": "Контроль",
+    "design": "Для дизайна"
+  },
+  "items": {
+    "overview": "Обзор",
+    "orders": "Заказы",
+    "finance": "Финансы",
+    "clinic": "Клиника",
+    "logistics": "Доставка",
+    "sales": "Отдел продаж",
+    "app": "Мобильное приложение",
+    "products": "Товары",
+    "customers": "Клиенты",
+    "doctors": "Врачи",
+    "alerts": "Сигналы",
+    "reports": "Отчёты",
+    "settings": "Настройки",
+    "states": "Галерея состояний"
+  },
+  "more": "Ещё",
+  "moreTitle": "Другие разделы",
+  "toggleSidebar": "Свернуть или развернуть боковую панель",
+  "toggleTheme": "Светлая / тёмная тема",
+  "search": "Поиск",
+  "searchPlaceholder": "Раздел или номер заказа, телефон, имя…",
+  "searchOrders": "Искать в заказах: «{query}»",
+  "sections": "Разделы",
+  "live": "Онлайн",
+  "sample": "Демо-данные",
+  "sampleHint": "Демо-режим — цифры не настоящие",
+  "alertsCount": "Сигналы: открыто {count}",
+  "logout": "Выйти",
+  "userFallback": "Руководитель",
+  "roles": {
+    "owner": "Владелец · только просмотр",
+    "viewer": "Наблюдатель · только просмотр"
+  }
+}

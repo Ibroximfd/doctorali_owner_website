@@ -1,0 +1,50 @@
+{
+  "period": {
+    "from": "2026-09-03",
+    "to": "2026-10-02",
+    "granularity": "day",
+    "label": "30d"
+  },
+  "compare": {
+    "from": "2026-08-04",
+    "to": "2026-09-02"
+  },
+  "filials": [
+    1,
+    2,
+    3
+  ],
+  "generated_at": "2026-10-02T09:05:00.000Z",
+  "freshness": {
+    "orders": "2026-10-02T09:05:00.000Z",
+    "clinic": "2026-10-02T09:03:30.000Z",
+    "app": "2026-10-02T03:00:00+05:00"
+  },
+  "data": {
+    "avg": 4.6,
+    "count": 1284,
+    "distribution": {
+      "1": 18,
+      "2": 26,
+      "3": 74,
+      "4": 312,
+      "5": 854
+    },
+    "low": [
+      {
+        "stars": 2,
+        "comment": "Uzoq kutdim, qayta qo'ng'iroq qilishmadi",
+        "operator": "Bekzod Olimov",
+        "client": "Anvar Sobirov",
+        "at": "2026-10-02T08:03:00.000Z"
+      },
+      {
+        "stars": 1,
+        "comment": "Buyurtma haqida noto'g'ri ma'lumot berildi",
+        "operator": "Jahongir Tursunov",
+        "client": "Olim Rasulov",
+        "at": "2026-10-01T08:25:00.000Z"
+      }
+    ]
+  }
+}

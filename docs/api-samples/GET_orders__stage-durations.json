@@ -1,0 +1,49 @@
+{
+  "period": {
+    "from": "2026-09-03",
+    "to": "2026-10-02",
+    "granularity": "day",
+    "label": "30d"
+  },
+  "compare": {
+    "from": "2026-08-04",
+    "to": "2026-09-02"
+  },
+  "filials": [
+    1,
+    2,
+    3
+  ],
+  "generated_at": "2026-10-02T09:05:00.000Z",
+  "freshness": {
+    "orders": "2026-10-02T09:05:00.000Z",
+    "clinic": "2026-10-02T09:03:30.000Z",
+    "app": "2026-10-02T03:00:00+05:00"
+  },
+  "data": [
+    {
+      "stage": "created_to_confirmed",
+      "p50_min": 110,
+      "avg_min": 138,
+      "p90_min": 310,
+      "target_min": 120,
+      "previous_p50_min": 124
+    },
+    {
+      "stage": "confirmed_to_shipped",
+      "p50_min": 220,
+      "avg_min": 262,
+      "p90_min": 540,
+      "target_min": 180,
+      "previous_p50_min": 205
+    },
+    {
+      "stage": "shipped_to_delivered",
+      "p50_min": 1290,
+      "avg_min": 1420,
+      "p90_min": 2640,
+      "target_min": 1440,
+      "previous_p50_min": 1360
+    }
+  ]
+}

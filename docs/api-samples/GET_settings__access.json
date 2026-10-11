@@ -1,0 +1,37 @@
+{
+  "results": [
+    {
+      "id": 1,
+      "full_name": "Boshliq",
+      "role": "owner",
+      "sections": [],
+      "filials": [],
+      "mask_pii": false
+    },
+    {
+      "id": 2,
+      "full_name": "Bosh hisobchi",
+      "role": "owner_viewer",
+      "sections": [
+        "finance",
+        "reports"
+      ],
+      "filials": [],
+      "mask_pii": true
+    },
+    {
+      "id": 3,
+      "full_name": "O'rinbosar",
+      "role": "owner_viewer",
+      "sections": [
+        "orders",
+        "logistics",
+        "sales"
+      ],
+      "filials": [
+        1
+      ],
+      "mask_pii": true
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "title": "Sozlamalar",
+  "subtitle": "Reja, signal chegaralari, kirish huquqlari va xavfsizlik",
+  "targets": {
+    "title": "Oylik reja — {month} {year}",
+    "description": "Tushum rejasi, mln so'm · «Umumiy» sahifadagi reja chizig'i shundan olinadi",
+    "columns": {
+      "filial": "Filial",
+      "delivery": "Yetkazib berish",
+      "clinic": "Klinika"
+    },
+    "inputLabel": {
+      "delivery": "{filial} — yetkazib berish rejasi, mln so'm",
+      "clinic": "{filial} — klinika rejasi, mln so'm"
+    },
+    "totalRow": "Jami",
+    "grandTotal": "Jami reja",
+    "grandTotalWithConsultation": "Jami reja (konsultatsiya {value} bilan)",
+    "saving": "Saqlanmoqda…",
+    "emptyTitle": "Filiallar topilmadi",
+    "emptyDescription": "Reja filiallar bo'yicha kiritiladi — avval filial qo'shilishi kerak.",
+    "errors": {
+      "amountInvalid": "Son kiriting",
+      "amountNegative": "Manfiy bo'lmasin"
+    }
+  },
+  "access": {
+    "title": "Kirish huquqlari",
+    "description": "Panelni kim ko'radi · hamma uchun faqat o'qish",
+    "columns": {
+      "user": "Foydalanuvchi",
+      "sections": "Bo'limlar",
+      "filials": "Filial",
+      "phones": "Telefonlar"
+    },
+    "allSections": "Hammasi",
+    "allFilials": "Barchasi",
+    "phonesFull": "To'liq",
+    "phonesMasked": "Maskalangan",
+    "roles": {
+      "owner": "Egasi",
+      "owner_viewer": "Kuzatuvchi"
+    },
+    "emptyTitle": "Hali hech kimga ruxsat berilmagan",
+    "emptyDescription": "Panelga kirish huquqi berilgan foydalanuvchilar shu yerda ko'rinadi."
+  },
+  "security": {
+    "title": "Xavfsizlik va ko'rinish",
+    "description": "Sessiyalar, til, mavzu",
+    "twoFactor": {
+      "title": "Ikki bosqichli kirish",
+      "description": "Parol + SMS kod · har kirishda",
+      "enabled": "Yoqilgan"
+    },
+    "sessions": {
+      "label": "Faol qurilmalar",
+      "activeNow": "hozir faol",
+      "thisDevice": "Bu qurilma",
+      "revoke": "Chiqarish",
+      "revokeLabel": "Chiqarish: {device}",
+      "revoking": "Chiqarilmoqda…",
+      "revoked": "Qurilma paneldan chiqarildi",
+      "confirmTitle": "Qurilmani paneldan chiqarasizmi?",
+      "confirmDescription": "«{device}» qurilmasidagi sessiya yopiladi. U yerdan qayta kirish uchun parol va tasdiqlash kodi kerak bo'ladi.",
+      "emptyTitle": "Faol sessiya yo'q",
+      "emptyDescription": "Panelga kirgan qurilmalar shu yerda ko'rinadi."
+    },
+    "language": {
+      "title": "Til",
+      "description": "Interfeys tili",
+      "options": {
+        "uz": "O'zbekcha",
+        "ru": "Русский"
+      }
+    },
+    "theme": {
+      "title": "Mavzu",
+      "description": "Yorug' / qorong'i",
+      "toggle": "Almashtirish",
+      "toggleLabel": "Mavzuni almashtirish"
+    }
+  }
+}

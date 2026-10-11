@@ -1,0 +1,114 @@
+{
+  "title": "Moliya",
+  "description": "Pul oqimi — tushum, yig'ilgan pul, xarajat, qarz va majburiyatlar",
+  "monthlyReport": "Oylik hisobot (PDF)",
+  "kpi": {
+    "revenue": "Tushum",
+    "revenueNote": "yetkazildi + klinika + konsultatsiya",
+    "collected": "Yig'ilgan pul",
+    "collectedNote": "haqiqatda qo'lga tushgan",
+    "expenses": "Xarajat",
+    "expensesNote": "yig'ilgan pulning {share}",
+    "netCash": "Sof qoldiq (taxminiy)",
+    "netCashNote": "yig'ilgan − xarajat, tannarxsiz"
+  },
+  "cashflow": {
+    "title": "Kirim va chiqim",
+    "description": "Davr bo'yicha pul oqimi, so'm",
+    "series": {
+      "inflow": "Kirim",
+      "outflow": "Chiqim"
+    },
+    "refunds": "Qaytarishlar",
+    "refundsNote": "{count} ta buyurtma",
+    "avgInflow": "O'rtacha kunlik kirim",
+    "biggestExpense": "Eng katta xarajat",
+    "biggestExpenseNote": "{share} · {value}",
+    "noExpenses": "xarajat yo'q"
+  },
+  "position": {
+    "title": "Pul qayerda turibdi",
+    "description": "Hozirgi holat",
+    "tills": "Klinika kassalari",
+    "cash": "Naqd",
+    "card": "Karta",
+    "terminal": "Terminal",
+    "cod": "Kuryerlarda naqd",
+    "codHint": "{count} kuryer",
+    "online": "Onlayn hisobda",
+    "onlineHint": "Click · Payme",
+    "debt": "Mijozlar qarzi",
+    "overdue": "muddati o'tgan"
+  },
+  "paymentMix": {
+    "title": "To'lov usullari",
+    "description": "Tushum qaysi yo'l bilan to'landi",
+    "method": {
+      "cash": "Naqd",
+      "click": "Click",
+      "payme": "Payme",
+      "card": "Karta",
+      "terminal": "Terminal"
+    }
+  },
+  "expenses": {
+    "title": "Xarajatlar",
+    "total": "Jami {value}",
+    "category": {
+      "salary": "Ish haqi",
+      "rent": "Ijara",
+      "supplies": "Sarf materiallari",
+      "transport": "Transport",
+      "utilities": "Kommunal",
+      "repair": "Ta'mirlash",
+      "other": "Boshqa"
+    }
+  },
+  "liabilities": {
+    "title": "Majburiyatlar",
+    "description": "Hali to'lanmagan — bizning qarzimiz",
+    "operatorCommission": "Operator komissiyasi",
+    "operatorCommissionNote": "to'lanmagan",
+    "doctorPayouts": "Shifokor to'lovlari",
+    "doctorPayoutsNote": "{count} shifokor",
+    "cashback": "Keshbek ballari",
+    "cashbackNote": "{points} ball",
+    "gifts": "Sovg'alar (10-buyurtma)",
+    "giftsNote": "{count} ta berildi",
+    "total": "Jami majburiyat"
+  },
+  "debts": {
+    "title": "Mijozlar qarzi",
+    "summary": "Ochiq {value} · {count} mijoz",
+    "agingLabel": "Qarz muddati",
+    "bucket": {
+      "week": "0–7 kun",
+      "month": "8–30 kun",
+      "older": "31+ kun"
+    },
+    "columns": {
+      "debtor": "Eng katta qarzdorlar",
+      "remaining": "Qoldiq",
+      "overdue": "Muddati o'tdi"
+    },
+    "days": "{count} kun",
+    "emptyTitle": "Ochiq qarz yo'q",
+    "emptyDescription": "Tanlangan filiallarda mijozlar qarzi qolmagan."
+  },
+  "closings": {
+    "title": "Kunlik kassa yopilishi",
+    "description": "Klinika filiallari · sanalgan naqd va kutilgan o'rtasidagi farq",
+    "columns": {
+      "date": "Sana",
+      "filial": "Filial",
+      "status": "Holat",
+      "difference": "Farq",
+      "closedBy": "Kim yopdi"
+    },
+    "status": {
+      "closed": "Yopilgan",
+      "open": "Yopilmagan",
+      "reopened": "Qayta ochilgan"
+    }
+  }
+}
