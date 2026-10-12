@@ -1,7 +1,7 @@
 # BACKEND HANDOFF — «Doctor Ali Nazorat» uchun API: to'liq topshirish hujjati
 
 Sana: 2026-10-05. Kim uchun: **backend jamoasi (Django)**.
-Maqsad: backend shu hujjatdagi shartnomani bajarsa, frontend **bitta sozlama o'zgarishi bilan** (namuna rejimidan haqiqiy backendga) kodga tegmasdan ishlaydi.
+Maqsad: backend shu hujjatdagi shartnomani bajarsa, frontend kodga tegmasdan ishlaydi (panel faqat backend bilan ishlaydi; server — `config/servers.mjs`).
 
 Frontend tayyor va namuna ma'lumot bilan to'liq ishlaydi. U backenddan nima kutayotgani quyidagi manbalarda aniq yozilgan; ular orasida ziddiyat bo'lsa, ustunlik tartibi shunday:
 
@@ -173,7 +173,6 @@ Bitta bo'limni tekshirish: `-- --only=sales/`. Skript faqat `GET` yuboradi va he
 
 **2-qadam — panelni ulash** (`doctor_ali_owner_next/.env.production` yoki server muhiti):
 ```
-NEXT_PUBLIC_API_MOCKING=0
 # server — `config/servers.mjs` (prod → my.imorganic.uz, default); boshqasiga: APP_SERVER=test
 NEXT_PUBLIC_WS_URL=wss://my.imorganic.uz/ws/owner/   # WS tayyor bo'lsa
 ```
@@ -205,4 +204,4 @@ NEXT_PUBLIC_WS_URL=wss://my.imorganic.uz/ws/owner/   # WS tayyor bo'lsa
 
 - `owner` roli platforma TZ dagi «superadmin yo'q» qoidasiga ziddek ko'rinadi. Taklif: `owner` faqat o'qiydi va boshqa panellarga kira olmaydi (`01_CONCEPT` §2). Tasdiq kerak.
 - `01_CONCEPT.md` §9 dagi savollar. Javob kelguncha ulardagi taxminlar amal qiladi.
-- Shartnomada yangi maydon yoki o'zgarish kerak bo'lsa: frontend jamoasiga ayting. Sxema, namuna (`npm run samples`) va shu tekshirgich birga yangilanadi.
+- Shartnomada yangi maydon yoki o'zgarish kerak bo'lsa: frontend jamoasiga ayting. Sxema, endpoint katalogi (`npm run endpoints:doc`) va shu tekshirgich birga yangilanadi.

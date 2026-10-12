@@ -17,7 +17,7 @@ Mavjud loyihalar (`../mehrigiyo_*`, `../doctor_ali_clinic_next`, `../mehrigiyo_p
 Skilllar: `clean-code-core` + `nextjs-clean-architecture` + `nextjs-ui` (+ grafik uchun `dataviz`).
 
 ## Tuzilma
-`src/app` (yo'llar, BFF) → `src/features/<x>/{model,api,hooks,ui}` → `src/shared/{ui,lib,hooks,config,mocks,meta,domain}`.
+`src/app` (yo'llar, BFF) → `src/features/<x>/{model,api,hooks,ui}` → `src/shared/{ui,lib,hooks,config,meta,domain,testing}`.
 Feature boshqa featureni import qilmaydi (ESLint tekshiradi); kompozitsiya `app` da. Namuna: `src/features/overview`.
 
 ## Buzilmaydigan qoidalar
@@ -29,8 +29,7 @@ Feature boshqa featureni import qilmaydi (ESLint tekshiradi); kompozitsiya `app`
 - Panel biznes ma'lumotini o'zgartirmaydi (istisno: o'z sozlamalari, signal "ko'rildi").
 
 ## Rejimlar
-`NEXT_PUBLIC_API_MOCKING=1` — backendsiz, `src/shared/mocks` javob beradi (istalgan login/parol, istalgan 6 xonali kod).
-`NEXT_PUBLIC_API_MOCKING=0` — haqiqiy backend. Serverlar yagona faylda: **`config/servers.mjs`** (`prod` — `my.imorganic.uz`, default; `test` — `imorganic.uz`). Doimiy almashtirish — shu fayldagi `DEFAULT_SERVER`; vaqtincha — `APP_SERVER=test npm run dev`. Boshqa manzil uchun `BACKEND_ORIGIN` (ustun turadi).
+Panel **faqat backend bilan** ishlaydi — namuna (mock) rejimi yo'q. Namuna ma'lumot faqat avtomatik testlar uchun (`src/shared/testing/fixtures`); ishchi kod uni import qilsa ESLint to'xtatadi. Serverlar yagona faylda: **`config/servers.mjs`** (`prod` — `my.imorganic.uz`, default; `test` — `imorganic.uz`). Doimiy almashtirish — shu fayldagi `DEFAULT_SERVER`; vaqtincha — `APP_SERVER=test npm run dev`. Boshqa manzil uchun `BACKEND_ORIGIN` (ustun turadi).
 
 **Telegram mini app:** `/tg` (PIN bilan kirish) — `src/features/telegram`, shartnoma `../doctor_ali_owner_bot/docs/`. Bu loyiha botning o'zini o'z ichiga olmaydi.
 

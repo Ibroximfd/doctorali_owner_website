@@ -2,7 +2,7 @@ import { HttpResponse, http } from "msw";
 import { setupServer } from "msw/node";
 import { afterAll, afterEach, beforeAll } from "vitest";
 
-import { resolveMock } from "@/shared/mocks/registry";
+import { resolveMock } from "@/shared/testing/fixtures/registry";
 
 import { TEST_NOW } from "./mock-api";
 

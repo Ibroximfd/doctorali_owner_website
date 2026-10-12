@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it } from "vitest";
 
 import { AppError } from "@/shared/lib/app-error";
 import { parseJson } from "@/shared/lib/envelope";
-import { resetTelegramMock } from "@/shared/mocks/handlers/telegram";
+import { resetTelegramMock } from "@/shared/testing/fixtures/handlers/telegram";
 import { mockSend } from "@/shared/testing/mock-api";
 import { sampleInitData } from "@/shared/testing/telegram";
 

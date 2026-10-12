@@ -1,10 +1,18 @@
 import { expect, type Page } from "@playwright/test";
 
-/** Namuna rejimida kirish: istalgan login va parol (SMS bosqichi yo'q — backend kabi). */
+/** Test backendga kirish: akkaunt muhitdan (`E2E_USERNAME`, `E2E_PASSWORD`) — kodda saqlanmaydi. */
+export const e2eCredentials = (): { username: string; password: string } => {
+  const username = process.env.E2E_USERNAME;
+  const password = process.env.E2E_PASSWORD;
+  if (!username || !password) throw new Error("E2E_USERNAME va E2E_PASSWORD kerak (test backend akkaunti).");
+  return { username, password };
+};
+
 export const signIn = async (page: Page): Promise<void> => {
   await page.goto("/login");
-  await page.getByLabel("Login").fill("devtest");
-  await page.getByLabel("Parol").fill("namuna-parol");
+  const { username, password } = e2eCredentials();
+  await page.getByLabel("Login").fill(username);
+  await page.getByLabel("Parol").fill(password);
   await page.getByRole("button", { name: "Davom etish" }).click();
   await expect(page.getByRole("heading", { level: 1, name: "Bugungi holat" })).toBeVisible();
 };

@@ -13,7 +13,6 @@ import { toAppError } from "@/shared/lib/app-error";
 import { cn } from "@/shared/lib/cn";
 import { safeNextPath } from "@/shared/lib/safe-next-path";
 import { currentWebApp, haptic, syncTelegramColors } from "@/shared/lib/telegram";
-import { MOCK_INIT_DATA } from "@/shared/mocks/telegram-dev";
 import { Banner } from "@/shared/ui/banner";
 import { Button } from "@/shared/ui/button";
 import { BrandMark } from "@/shared/ui/shell/brand";
@@ -60,8 +59,7 @@ export const TelegramEntry = ({ next, renderSignIn }: TelegramEntryProps) => {
 
   if (sdk.status === "loading") return <EntrySplash />;
 
-  // Namuna rejimida oddiy brauzerda ham sinab ko'rish mumkin (soxta initData bilan).
-  const initData = sdk.status === "ready" ? sdk.webApp.initData : env.isMocking ? MOCK_INIT_DATA : null;
+  const initData = sdk.status === "ready" ? sdk.webApp.initData : null;
   if (initData === null) return <NotInTelegram />;
 
   return <EntryFlow initData={initData} next={next} renderSignIn={renderSignIn} />;

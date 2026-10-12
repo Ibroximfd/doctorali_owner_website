@@ -19,7 +19,7 @@ export const useLiveChannel = (): void => {
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    if (env.isMocking || env.wsUrl === null) return;
+    if (env.wsUrl === null) return;
 
     let pending: ReturnType<typeof setTimeout> | undefined;
     const refreshSoon = () => {

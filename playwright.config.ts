@@ -1,8 +1,9 @@
 import { defineConfig, devices } from "@playwright/test";
 
 /**
- * E2E mock rejimida ishlaydi (`NEXT_PUBLIC_API_MOCKING=1`). Serverni o'zingiz
- * ishga tushiring (`npm run dev`), so'ng `npm run test:e2e`.
+ * E2E haqiqiy (test) backend bilan ishlaydi. Serverni o'zingiz ishga tushiring
+ * (`APP_SERVER=test npm run dev`), so'ng test akkaunti bilan:
+ *   E2E_USERNAME=… E2E_PASSWORD=… npm run test:e2e
  */
 export default defineConfig({
   testDir: "./e2e",

@@ -2,7 +2,6 @@
 
 import { useTranslations } from "next-intl";
 
-import { env } from "@/shared/config/env";
 import { NAV_GROUPS, visibleNavItems } from "@/shared/config/nav";
 import { routes, type PanelRouteKey } from "@/shared/config/routes";
 import { cn } from "@/shared/lib/cn";
@@ -36,7 +35,7 @@ export const Sidebar = ({
   const t = useTranslations("nav");
   // Yorliqlar faqat to'liq holatda ko'rinadi.
   const labelClass = isCollapsed ? "hidden" : "max-xl:hidden";
-  const items = visibleNavItems(allowedSections, env.isMocking);
+  const items = visibleNavItems(allowedSections);
 
   return (
     <aside

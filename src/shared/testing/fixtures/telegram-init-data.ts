@@ -3,7 +3,7 @@ import { z } from "zod";
 /**
  * Telegram mini app `initData` satri (`Telegram.WebApp.initData`): URL query
  * ko'rinishidagi juftlar, ichida `user` (JSON), `auth_date` va imzo `hash`.
- * Bu fayl faqat **o'qiydi** — imzoni tekshirish serverda (`telegram-init-data.server.ts`).
+ * Faqat testlardagi namuna backend uchun — haqiqiy tekshiruv backendda.
  */
 const userSchema = z.object({
   id: z.number().int().positive(),

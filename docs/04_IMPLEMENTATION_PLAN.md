@@ -12,7 +12,7 @@ Sana: 2026-10-02 (holat yangilandi: 2026-10-03). Hujjatlar: `01_CONCEPT` → `02
 | UI prototip (barcha ekranlar, desktop + telefon, yorug' + qorong'i) | ✅ `../design/` — egasi tasdiqladi (2026-10-03) |
 | Frontend kodi (F0–F4: barcha 15 ekran, namuna rejimida) | ✅ `src/` — lint · tsc · 813 test yashil; **brauzerda hali ishga tushirilmagan** (`npm run dev` — foydalanuvchida) |
 | Shartnoma qo'shimchalari (`02` §12) va JSON namunalar (`api-samples/`) | ✅ backend jamoasiga yuboriladi |
-| Haqiqiy API ga ulash (F5) | ⏸ backend `O-B0` ni bergach — server `config/servers.mjs` dan olinadi, `NEXT_PUBLIC_API_MOCKING=0` |
+| Haqiqiy API ga ulash (F5) | ✅ 2026-10-12 — test serverda `contract:check` 0 ✗; namuna rejimi koddan butunlay olib tashlandi (namuna ma'lumot faqat testlarda) |
 
 ## 1. Tracklar
 | Track | Kim | Hujjat |

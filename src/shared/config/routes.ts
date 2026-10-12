@@ -14,7 +14,6 @@ export const routes = {
   alerts: "/alerts",
   reports: "/reports",
   settings: "/settings",
-  states: "/states",
 } as const;
 
 /**
@@ -27,7 +26,7 @@ export type RouteKey = keyof typeof routes;
 export type PanelRouteKey = Exclude<RouteKey, "login">;
 
 /** Global filtr (davr · filial) ko'rsatilmaydigan sahifalar. */
-export const ROUTES_WITHOUT_SCOPE: readonly PanelRouteKey[] = ["alerts", "reports", "settings", "states"];
+export const ROUTES_WITHOUT_SCOPE: readonly PanelRouteKey[] = ["alerts", "reports", "settings"];
 
 export const routeKeyOf = (pathname: string): PanelRouteKey => {
   const match = (Object.keys(routes) as RouteKey[]).find(

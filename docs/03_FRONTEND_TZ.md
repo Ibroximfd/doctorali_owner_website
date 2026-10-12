@@ -34,7 +34,7 @@ src/
 │   ├── (panel)/layout.tsx · panel-shell.tsx   # qobiq kompozitsiyasi: signal soni, foydalanuvchi, buyurtma kartasi
 │   ├── (panel)/page.tsx                   # Umumiy
 │   ├── (panel)/{orders,finance,clinic,logistics,sales,app,products,customers,doctors,alerts,reports,settings,states}/page.tsx
-│   ├── api/owner/[...path]/route.ts       # BFF proksi (cookie → Bearer; namuna rejimida `shared/mocks`)
+│   ├── api/owner/[...path]/route.ts       # BFF proksi (cookie → Bearer)
 │   └── api/auth/{login,verify,logout,ws-ticket}/route.ts
 ├── features/
 │   ├── auth/ overview/ orders/ finance/ clinic/ logistics/ sales/
@@ -48,9 +48,8 @@ src/
 │   ├── config/       # env.ts (+ env.server.ts), routes.ts, nav.ts, order-status.ts, chart-palette.ts, regions.ts
 │   ├── domain/       # bir nechta bo'lim ishlatadigan shartnoma (alert)
 │   ├── meta/         # filiallar va lug'atlar (`meta/`)
-│   ├── mocks/        # namuna dvigateli, `sample.ts`, bo'limlar bo'yicha handlerlar
 │   ├── stores/       # ui-store (Zustand)
-│   └── testing/      # renderWithProviders, MSW server, mockGet, SCOPE_CASES
+│   └── testing/      # FAQAT testlar: renderWithProviders, MSW server, `fixtures/` (namuna backend), SCOPE_CASES
 ├── i18n/             # locales, request (cookie), set-locale (server action)
 └── messages/{uz,ru}/<fazo>.json           # (loyiha ildizida)
 ```
@@ -93,22 +92,21 @@ Moliyaviy ma'lumot — token brauzer JS ga **berilmaydi**:
 - WS: `GET /api/auth/ws-ticket` qisqa muddatli (60 s) ticket beradi → `wss://…/ws/owner/?token=<ticket>`.
 - Sessiya eslab qolinadi (egasi qarori, 2026-10-10): harakatsizlikda chiqarilmaydi; refresh cookie 14 kun, har yangilanishda muddati qaytadan boshlanadi. `useIdleTimeout` faqat Telegram mini app qulfi uchun. `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: same-origin`.
 - BFF backendga `X-Lang: uz|ru` yuboradi (server matnlari — signal sarlavhasi va h.k. — shu tilda keladi).
-- `env.ts` / `env.server.ts` (zod): `NEXT_PUBLIC_API_MOCKING` (`1` — namuna), `APP_SERVER` (server-only; `config/servers.mjs` dagi nom — `prod` default, `test`), `BACKEND_ORIGIN` (server-only, ixtiyoriy — serverdan ustun), `NEXT_PUBLIC_WS_URL` (ixtiyoriy), `NEXT_PUBLIC_TELEGRAM_BOT_USERNAME` (ixtiyoriy), `TELEGRAM_BOT_TOKEN` (server-only, faqat namuna rejimida initData imzosini tekshirish uchun).
+- `env.ts` / `env.server.ts` (zod): `APP_SERVER` (server-only; `config/servers.mjs` dagi nom — `prod` default, `test`), `BACKEND_ORIGIN` (server-only, ixtiyoriy — serverdan ustun), `NEXT_PUBLIC_WS_URL` (ixtiyoriy), `NEXT_PUBLIC_TELEGRAM_BOT_USERNAME` (ixtiyoriy), `TELEGRAM_BOT_TOKEN` (server-only, faqat namuna rejimida initData imzosini tekshirish uchun).
 
 ### 5.1 Telegram mini app (PIN bilan kirish) — 2026-10-05
 Shartnoma: `../doctor_ali_owner_bot/docs/` (`01_CONCEPT`, `02_BACKEND_TZ`). Mini app — shu panelning o'zi, faqat kirish boshqacha.
 - **`/tg`** — kirish nuqtasi (bot tugmasi shu manzilni ochadi; `src/proxy.ts` uni yo'naltirmaydi). `features/telegram/ui/telegram-entry.tsx`: Telegram SDK → `POST /api/auth/telegram/status` → bog'lanmagan bo'lsa parol + SMS (`auth` dagi `LoginForm`, `onSignedIn` bilan) → PIN o'rnatish (2 marta) → `link`; bog'langan bo'lsa → PIN → `login`; qulflangan bo'lsa — qolgan vaqt. Kirgach `?next=` ga (`safeNextPath`).
 - BFF: `app/api/auth/telegram/{status,login,link}` → backend `/api/owner/telegram/*`. **`status` har chaqirilganda oldingi sessiyani yopadi** — PIN har ochilishda so'raladi. Telegram sessiyasi: refresh 12 soat, `da_owner_channel=tg` belgisi (httpOnly emas, sir emas).
 - Panel ichida (`features/telegram/ui/telegram-runtime.tsx`, `panel-shell` da): Telegram mavzusi va ranglari, tizim «orqaga» tugmasi, **60 s dan ortiq fonda** yoki **5 daqiqa harakatsizlik** → chiqish → `/tg?next=<joriy sahifa>` (PIN). Sessiya tugasa ham `/login` emas, `/tg` ga (`shared/lib/channel.ts`).
-- Namuna rejimida backendsiz ishlaydi (`shared/mocks/handlers/telegram.ts`, xotirada); oddiy brauzerda soxta initData bilan (`shared/mocks/telegram-dev.ts`), `TELEGRAM_BOT_TOKEN` berilsa — faqat haqiqiy Telegramda.
 - Telegram Web (`web.telegram.org`) qo'llanmaydi: u freym ichida ochadi, panel esa `X-Frame-Options: DENY`.
 
-## 6. Ma'lumot qatlami va mock rejimi
+## 6. Ma'lumot qatlami
 
 - `features/x/model` — zod sxemalar `02_BACKEND_TZ` dagi shakllarda (`metricSchema`, `envelopeSchema(dataSchema)`); tiplar `z.infer`.
 - `features/x/api` — `ky` chaqiruv + `schema.parse`; xato → `AppError {kind: 'network'|'unauthorized'|'forbidden'|'validation'|'server', code, message}` (qiymat sifatida qaytadi/otiladi — UI `ErrorState` ko'rsatadi).
 - Noma'lum enum qiymati (yangi status/sabab) crash qilmaydi — «noma'lum» label.
-- **Namuna rejimi** (`NEXT_PUBLIC_API_MOCKING=1`): BFF (`/api/owner/*`) backend o'rniga `shared/mocks` dan javob beradi — brauzerda service worker yo'q, so'rovlar haqiqiy tarmoq so'rovi bo'lib qoladi. Namuna raqamlar prototipdagi bilan bir xil va `02` shakllariga aynan mos (shartnoma testlari har namunani zod sxemadan o'tkazadi). Testlarda xuddi shu resolver MSW orqali ishlaydi.
+- **Faqat API** (2026-10-12): ekrandagi har raqam backenddan (`/api/owner/*` BFF orqali) keladi. Namuna rejimi kodda yo'q; namuna ma'lumot faqat testlarda (`shared/testing/fixtures`, MSW orqali), ishchi kod uni import qilsa ESLint xato beradi. Ma'lumot yo'q bo'lsa — «—» yoki bo'sh holat, hech qachon soxta raqam emas.
 - Kalitlar chegarada `camelCase` ga o'tadi (`shared/lib/camelize`) — UI `snake_case` ko'rmaydi, har endpoint uchun qo'lda mapper yozilmaydi.
 
 ## 7. Dizayn tizimi (tokenlar — prototipdan)
@@ -180,7 +178,7 @@ npm run lint && npx tsc --noEmit && npm run test
 ```
 - Vitest: `shared/lib/format` (pul/son/delta), `metric` hisoblari, scope ↔ URL, zod parse (to'g'ri/noto'g'ri fixture), har feature hook (MSW).
 - Komponent: `StatTile`, `ChartCard` (jadval ko'rinishiga o'tish), holatlar galereyasi.
-- Playwright (`e2e/`, namuna rejimida): kirish/chiqish; har bo'lim xatosiz ochilishi va 390 / 768 / 1440 da gorizontal scroll yo'qligi; qorong'i mavzu; davr bo'limdan bo'limga saqlanishi; buyurtma kartasi; telefon tab-bari.
+- Playwright (`e2e/`, test backendda; akkaunt `E2E_USERNAME` / `E2E_PASSWORD` dan): kirish/chiqish; har bo'lim xatosiz ochilishi va 390 / 768 / 1440 da gorizontal scroll yo'qligi; qorong'i mavzu; davr bo'limdan bo'limga saqlanishi; buyurtma kartasi; telefon tab-bari.
 - `next build`/dev server — foydalanuvchi o'zi ishga tushiradi.
 
 ## 12. Deploy (taklif)

@@ -7,8 +7,7 @@
     "main": "Главное",
     "business": "Бизнес",
     "growth": "Рост",
-    "control": "Контроль",
-    "design": "Для дизайна"
+    "control": "Контроль"
   },
   "items": {
     "overview": "Обзор",
@@ -23,8 +22,7 @@
     "doctors": "Врачи",
     "alerts": "Сигналы",
     "reports": "Отчёты",
-    "settings": "Настройки",
-    "states": "Галерея состояний"
+    "settings": "Настройки"
   },
   "more": "Ещё",
   "moreTitle": "Другие разделы",
@@ -35,8 +33,6 @@
   "searchOrders": "Искать в заказах: «{query}»",
   "sections": "Разделы",
   "live": "Онлайн",
-  "sample": "Демо-данные",
-  "sampleHint": "Демо-режим — цифры не настоящие",
   "alertsCount": "Сигналы: открыто {count}",
   "logout": "Выйти",
   "userFallback": "Руководитель",

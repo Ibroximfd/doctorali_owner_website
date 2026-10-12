@@ -1,5 +1,5 @@
 import { PIN_LOCK_MINUTES, PIN_MAX_ATTEMPTS, isWeakPin } from "@/shared/domain/telegram-pin";
-import { parseInitData } from "@/shared/lib/telegram-init-data";
+import { parseInitData } from "@/shared/testing/fixtures/telegram-init-data";
 
 import type { MockContext } from "../engine";
 import { mockError, mockResponse, type MockHandler } from "../types";

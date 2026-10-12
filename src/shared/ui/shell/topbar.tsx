@@ -4,7 +4,6 @@ import { Bell, LogOut, Moon, PanelLeft, Search, Sun } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 
-import { env } from "@/shared/config/env";
 import { routes, type PanelRouteKey } from "@/shared/config/routes";
 
 import { ScopeLink } from "../scope-link";
@@ -45,14 +44,6 @@ export const Topbar = ({
         <PanelLeft aria-hidden className="size-4.5" strokeWidth={1.75} />
       </button>
       <div className="text-md font-strong min-w-0 truncate">{t(`items.${activeRoute}`)}</div>
-      {env.isMocking ? (
-        <span
-          title={t("sampleHint")}
-          className="bg-warn-soft text-2xs text-warn rounded-sm px-2 py-0.5 font-semibold whitespace-nowrap max-md:hidden"
-        >
-          {t("sample")}
-        </span>
-      ) : null}
 
       <div className="flex-1" />
 

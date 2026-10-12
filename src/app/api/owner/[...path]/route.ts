@@ -1,24 +1,20 @@
 import { type NextRequest } from "next/server";
 
 import { LOCALE_COOKIE } from "@/i18n/locales";
-import { env } from "@/shared/config/env";
 import {
   backendFetch,
   clientInfoOf,
   errorResponse,
-  jsonResponse,
   refreshAccess,
   relay,
   relayFile,
 } from "@/shared/lib/backend.server";
 import { clearSession, readSession, writeSession } from "@/shared/lib/session.server";
-import { resolveMock } from "@/shared/mocks/registry";
 
 /**
  * BFF: brauzer `/api/owner/…` ga murojaat qiladi, bu yerda httpOnly cookie dagi
  * token `Authorization: Bearer` ga aylanadi va so'rov backendga uzatiladi.
  * Token muddati tugagan bo'lsa bir marta yangilanib, so'rov qayta yuboriladi.
- * Namuna rejimida backend o'rniga `shared/mocks` javob beradi.
  */
 
 type RouteContext = { params: Promise<{ path: string[] }> };
@@ -49,16 +45,6 @@ async function handle(request: NextRequest, context: RouteContext): Promise<Resp
   // Django yo'llari `/` bilan tugaydi — Next uni `params` dan olib tashlaydi.
   const relativePath = `${path.join("/")}/`;
   const body = await readBody(request);
-
-  if (env.isMocking) {
-    const mock = resolveMock({
-      method: request.method,
-      path: relativePath,
-      searchParams: request.nextUrl.searchParams,
-      body,
-    });
-    return jsonResponse(mock.json, mock.status);
-  }
 
   const forward = (access: string | null) =>
     backendFetch(`/api/owner/${relativePath}`, {

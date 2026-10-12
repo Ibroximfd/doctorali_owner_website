@@ -1,6 +1,5 @@
 import { z } from "zod";
 
-import { env } from "@/shared/config/env";
 import { backendFetch, errorResponse, jsonResponse } from "@/shared/lib/backend.server";
 import { readSession } from "@/shared/lib/session.server";
 
@@ -8,11 +7,9 @@ const ticketSchema = z.object({ ticket: z.string().min(1), expires_in: z.number(
 
 /**
  * WebSocket uchun bir martalik qisqa token. Access token URL ga qo'yilmaydi —
- * u faqat shu yerda, server tomonida ishlatiladi. Namuna rejimida jonli kanal yo'q.
+ * u faqat shu yerda, server tomonida ishlatiladi.
  */
 export async function GET(): Promise<Response> {
-  if (env.isMocking) return jsonResponse({ ticket: null });
-
   const session = await readSession();
   if (session.access === null) return errorResponse(401, "unauthorized");
 

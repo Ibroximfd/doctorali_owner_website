@@ -1,21 +1,11 @@
 import { z } from "zod";
 
-import { env } from "@/shared/config/env";
 import { backendFetch, clientInfoOf, errorResponse, jsonResponse, relay } from "@/shared/lib/backend.server";
 import { writeSession } from "@/shared/lib/session.server";
 
 const inputSchema = z.object({ username: z.string().trim().min(1), password: z.string().min(1) });
 
 const tokensSchema = z.object({ access: z.string().min(1), refresh: z.string().min(1), user: z.unknown() });
-
-const SAMPLE_USER = {
-  id: 1,
-  full_name: "Boshliq",
-  role: "owner",
-  sections: [],
-  filials: [],
-  mask_pii: false,
-};
 
 /**
  * Login + parol. Backend SMS bosqichisiz darhol tokenlarni bersa — ular httpOnly cookie
@@ -25,11 +15,6 @@ const SAMPLE_USER = {
 export async function POST(request: Request): Promise<Response> {
   const input = inputSchema.safeParse(await request.json().catch(() => null));
   if (!input.success) return errorResponse(400, "validation_error");
-
-  if (env.isMocking) {
-    await writeSession({ access: "sample-access", refresh: "sample-refresh" }, "web");
-    return jsonResponse({ user: SAMPLE_USER });
-  }
 
   try {
     const response = await backendFetch("/api/owner/login/", {

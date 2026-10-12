@@ -3,7 +3,7 @@ import { vi } from "vitest";
 
 import type { TelegramWebApp } from "@/shared/lib/telegram";
 import { resetTelegramSdkForTests } from "@/shared/lib/telegram";
-import { resolveMock } from "@/shared/mocks/registry";
+import { resolveMock } from "@/shared/testing/fixtures/registry";
 
 /** Telegram SDK o'rnida: chaqiruvlar yoziladi, hodisalarni test o'zi chaqiradi. */
 export const installTelegram = (overrides: Partial<TelegramWebApp> = {}) => {

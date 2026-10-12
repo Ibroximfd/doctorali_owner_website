@@ -7,18 +7,18 @@ Poydevor tayyor. Har yangi bo'lim **`src/features/overview/`** dagi namunaga ayn
 2. Next 16: `AGENTS.md` qoidasi — o'zgargan API uchun `node_modules/next/dist/docs/01-app/` ga qarang (`params`/`searchParams` — `Promise`; `middleware` → `proxy`; global `PageProps` helperlari **ishlatilmaydi**, tiplar qo'lda yoziladi).
 3. Shartnoma: `docs/02_BACKEND_TZ.md` (endpoint shakllari), `docs/01_CONCEPT.md` §6 (metrika ta'riflari).
 4. Ko'rinish: `design/pages-*.js` + `design/data.js` — **tasdiqlangan prototip**; bloklar tarkibi, tartibi va matnlari shundan olinadi.
-5. Namuna: `src/features/overview/**`, `src/shared/ui/**`, `src/shared/mocks/{engine,sample,types}.ts`, `src/shared/mocks/handlers/overview.ts`.
+5. Namuna: `src/features/overview/**`, `src/shared/ui/**`; test ma'lumoti — `src/shared/testing/fixtures/handlers/overview.ts`.
 
 ## 1. Bitta feature tarkibi
 ```
 src/features/<x>/
 ├── model/<x>.schema.ts     # zod sxemalar (snake_case — simdagi shakl) + `Camelized<z.infer<…>>` tiplar
 ├── model/<x>.rules.ts      # toza funksiyalar (hisob, saralash, xaritalash) — React yo'q
-├── model/<x>.test.ts       # shartnoma testi (mock ↔ sxema) + qoidalar testi
+├── model/<x>.test.ts       # shartnoma testi (test ma'lumoti ↔ sxema) + qoidalar testi
 ├── api/<x>.api.ts          # apiGet/apiSend + parseEnvelope/parseJson — domen tipini qaytaradi
 ├── hooks/use-<x>.ts        # kalit fabrikasi + useQuery/useMutation
 └── ui/*.tsx                # bloklar + `<x>-screen.tsx` (+ `<x>-screen.test.tsx`)
-src/shared/mocks/handlers/<x>.ts   # shu bo'lim namunalari (`MockHandler[]`)
+src/shared/testing/fixtures/handlers/<x>.ts   # FAQAT testlar uchun namuna backend (`MockHandler[]`)
 messages/{uz,ru}/<x>.json          # shu bo'lim tarjimalari
 src/app/(panel)/<x>/page.tsx       # server komponent: PageHeader + <XScreen/>
 ```
@@ -48,8 +48,10 @@ export const useOrdersSummaryQuery = () => {
 - Noma'lum enum qiymati (yangi status/sabab) yiqitmaydi: sxemada `z.string()`, UI da tarjima bo'lmasa — qiymatning o'zi yoki "noma'lum".
 - Mutatsiya: `useMutation`; muvaffaqiyatda tegishli kalit invalidatsiya qilinadi; natija `sonner` `toast` bilan (`common.saved` / `common.saveFailed`).
 
-## 3. Namuna (mock) qatlam
-`src/shared/mocks/handlers/<x>.ts` — `MockHandler[]`. Javob **aynan `02_BACKEND_TZ` shaklida** (snake_case).
+## 3. Test ma'lumoti (faqat testlar)
+> Sayt **faqat API** bilan ishlaydi — namuna rejimi yo'q. Quyidagi namuna backend faqat avtomatik testlar (MSW) uchun; ishchi kod `@/shared/testing/*` ni import qilsa ESLint xato beradi.
+
+`src/shared/testing/fixtures/handlers/<x>.ts` — `MockHandler[]`. Javob **aynan `02_BACKEND_TZ` shaklida** (snake_case).
 ```ts
 export const ordersHandlers: MockHandler[] = [
   { method: "GET", path: "orders/summary/", resolve: (ctx) => envelope(ctx, { orders: ctx.metric(ctx.flow(sample.kpi.orders), 8.4, "count"), … }) },
@@ -101,12 +103,12 @@ Format: `formatNumber`, `formatPercent`, `formatDecimal`, `formatPhone` (`shared
 - So'rov rol va nom bo'yicha (`getByRole`, `getByText`), `data-testid` emas.
 
 ## 7. Shartnoma o'zgarsa
-Sxema yoki namunaga maydon qo'shsangiz: `docs/02_BACKEND_TZ.md` §12 ga yozing va `npm run samples` bilan `docs/api-samples/` ni qayta yarating — backend jamoasi shu ikkisidan o'qiydi.
+Sxemaga maydon qo'shsangiz: test ma'lumotiga ham qo'shing, `scripts/contract/endpoints.ts` ni yangilang (`npm run endpoints:doc`) va haqiqiy serverda `npm run contract:check -- --full` ni o'tkazing.
 
 ## 8. Tekshiruv
 ```
 npx tsc --noEmit
-npx eslint src/features/<x> src/shared/mocks/handlers/<x>.ts "src/app/(panel)/<x>" --max-warnings=0
+npx eslint src/features/<x> src/shared/testing/fixtures/handlers/<x>.ts "src/app/(panel)/<x>" --max-warnings=0
 npx vitest run src/features/<x> src/i18n
 ```
 `next build` / `next dev` **ishga tushirilmaydi** — ilovani foydalanuvchi o'zi ishga tushiradi.

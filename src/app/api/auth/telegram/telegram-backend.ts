@@ -2,19 +2,16 @@ import "server-only";
 
 import { z } from "zod";
 
-import { env } from "@/shared/config/env";
-import { serverEnv } from "@/shared/config/env.server";
 import { backendFetch, errorResponse, jsonResponse, type ClientInfo } from "@/shared/lib/backend.server";
 import { writeSession } from "@/shared/lib/session.server";
-import { INIT_DATA_MAX_LENGTH } from "@/shared/lib/telegram-init-data";
-import { checkInitData } from "@/shared/lib/telegram-init-data.server";
-import { resolveMock } from "@/shared/mocks/registry";
 
 /**
- * Telegram orqali kirishning umumiy qismi (`/api/auth/telegram/*`). Haqiqiy
- * rejimda `initData` ni backend tekshiradi; namuna rejimida — shu yerda
- * (bot tokeni berilgan bo'lsa), keyin javobni `shared/mocks` beradi.
+ * Telegram orqali kirishning umumiy qismi (`/api/auth/telegram/*`). `initData`
+ * imzosini backend tekshiradi (`doctor_ali_owner_bot/docs/02_BACKEND_TZ.md` §2).
  */
+
+/** Telegram bergan `initData` bir necha yuz belgi; juda uzuni — buzilgan yoki soxta. */
+const INIT_DATA_MAX_LENGTH = 4096;
 
 export const initDataSchema = z.string().min(1).max(INIT_DATA_MAX_LENGTH);
 export const pinSchema = z.string().regex(/^\d{4}$/);
@@ -28,14 +25,6 @@ export const forwardTelegram = async (
   client: ClientInfo,
   access?: string | null,
 ): Promise<Forwarded> => {
-  if (env.isMocking)
-    return resolveMock({
-      method: "POST",
-      path: `telegram/${action}/`,
-      searchParams: new URLSearchParams(),
-      body,
-    });
-
   const response = await backendFetch(`/api/owner/telegram/${action}/`, {
     method: "POST",
     body,
@@ -43,13 +32,6 @@ export const forwardTelegram = async (
     client,
   });
   return { status: response.status, json: await response.json().catch(() => null) };
-};
-
-/** Namuna rejimida imzo tekshiruvi; o'tmasa — tayyor xato javobi. */
-export const rejectForgedInitData = (initData: string): Response | null => {
-  if (!env.isMocking || serverEnv.telegramBotToken === null) return null;
-  const result = checkInitData(initData, serverEnv.telegramBotToken);
-  return result === "ok" ? null : errorResponse(400, `init_data_${result}`);
 };
 
 const tokensSchema = z.object({ access: z.string().min(1), refresh: z.string().min(1), user: z.unknown() });

@@ -3,13 +3,7 @@ import { z } from "zod";
 import { clientInfoOf, errorResponse, jsonResponse } from "@/shared/lib/backend.server";
 import { readSession } from "@/shared/lib/session.server";
 
-import {
-  forwardTelegram,
-  initDataSchema,
-  pinSchema,
-  rejectForgedInitData,
-  signInWithPin,
-} from "../telegram-backend";
+import { forwardTelegram, initDataSchema, pinSchema, signInWithPin } from "../telegram-backend";
 
 const inputSchema = z.object({ init_data: initDataSchema, pin: pinSchema });
 
@@ -24,9 +18,6 @@ export async function POST(request: Request): Promise<Response> {
 
   const session = await readSession();
   if (session.access === null) return errorResponse(401, "reauth_required");
-
-  const forged = rejectForgedInitData(input.data.init_data);
-  if (forged) return forged;
 
   try {
     const body = { init_data: input.data.init_data, pin: input.data.pin };

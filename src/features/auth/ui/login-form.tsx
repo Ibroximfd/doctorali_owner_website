@@ -6,7 +6,6 @@ import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { env } from "@/shared/config/env";
 import { toAppError, type AppError } from "@/shared/lib/app-error";
 import { Banner } from "@/shared/ui/banner";
 import { Button } from "@/shared/ui/button";
@@ -81,8 +80,6 @@ export const LoginForm = ({ next, onSignedIn }: LoginFormProps) => {
           }}
         />
       )}
-
-      {env.isMocking ? <Banner className="text-xs">{t("sampleHint")}</Banner> : null}
     </div>
   );
 };

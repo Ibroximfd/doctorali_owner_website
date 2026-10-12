@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { parseJson } from "@/shared/lib/envelope";
 import { metaSchema } from "@/shared/meta/meta.schema";
-import { sample } from "@/shared/mocks/sample";
+import { sample } from "@/shared/testing/fixtures/sample";
 import { TEST_NOW, mockGet, mockSend } from "@/shared/testing/mock-api";
 
 import {

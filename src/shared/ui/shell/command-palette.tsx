@@ -7,7 +7,6 @@ import { useTranslations } from "next-intl";
 import { Dialog } from "radix-ui";
 import { useState } from "react";
 
-import { env } from "@/shared/config/env";
 import { visibleNavItems } from "@/shared/config/nav";
 import { routes } from "@/shared/config/routes";
 import { useScopedHref } from "@/shared/hooks/use-scope";
@@ -60,7 +59,7 @@ export const CommandPalette = ({ open, onOpenChange, allowedSections }: CommandP
                 heading={t("sections")}
                 className="[&_[cmdk-group-heading]]:text-2xs [&_[cmdk-group-heading]]:text-ink-3 [&_[cmdk-group-heading]]:px-2.5 [&_[cmdk-group-heading]]:pt-2 [&_[cmdk-group-heading]]:pb-1 [&_[cmdk-group-heading]]:font-semibold [&_[cmdk-group-heading]]:tracking-widest [&_[cmdk-group-heading]]:uppercase"
               >
-                {visibleNavItems(allowedSections, env.isMocking).map((item) => (
+                {visibleNavItems(allowedSections).map((item) => (
                   <Command.Item
                     key={item.route}
                     value={t(`items.${item.route}`)}

@@ -10,14 +10,11 @@ npm install
 ```bash
 npm run dev
 ```
-`.env.development` da `NEXT_PUBLIC_API_MOCKING=1` — backendsiz, namuna ma'lumot bilan ochiladi: http://localhost:3000
-Kirish: **istalgan** login va parol, so'ng **istalgan** 6 xonali kod.
+Panel faqat backend bilan ishlaydi (namuna rejimi yo'q): http://localhost:3000 — kirish backend bergan login va parol bilan. Server — `config/servers.mjs`.
 
-### Haqiqiy backend bilan
+### Jonli hodisalar (ixtiyoriy)
 `.env.local`:
 ```
-NEXT_PUBLIC_API_MOCKING=0
-# ixtiyoriy — jonli hodisalar kanali
 NEXT_PUBLIC_WS_URL=wss://my.imorganic.uz/ws/owner/
 ```
 
@@ -57,7 +54,7 @@ npm run test:e2e
 | `docs/03_FRONTEND_TZ.md` | Web app: stack, tuzilma, tokenlar, moslashuvchanlik, holatlar |
 | `docs/04_IMPLEMENTATION_PLAN.md` | Bosqichlar, bog'liqliklar, xavflar |
 | `docs/05_FEATURE_GUIDE.md` | Yangi bo'lim qurish retsepti |
-| `docs/api-samples/` | Har endpointning namuna JSON javobi (backend uchun; `npm run samples` qayta yaratadi) |
+| `docs/api-samples/` | Har endpointning namuna JSON javobi (shartnoma tuzilgan paytdagi namunalar; endpoint katalogi — `npm run endpoints:doc`) |
 | `design/` | Tasdiqlangan UI prototip (`preview.html` — lokal; onlayn: https://claude.ai/artifact/Nkbgv351c5CTBkYbTYW5c1) |
 | `src/` | Ilova kodi (`app` → `features` → `shared`) |
 | `messages/{uz,ru}/` | Tarjimalar |

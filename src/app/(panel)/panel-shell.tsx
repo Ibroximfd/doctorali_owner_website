@@ -8,7 +8,6 @@ import { useOpenAlertsCount } from "@/features/alerts/hooks/use-alerts-query";
 import { useLogout, useMeQuery } from "@/features/auth/hooks/use-auth";
 import { OrderDrawer } from "@/features/orders/ui/order-drawer";
 import { TelegramRuntime } from "@/features/telegram/ui/telegram-runtime";
-import { env } from "@/shared/config/env";
 import { isRouteAllowed, visibleNavItems } from "@/shared/config/nav";
 import { routeKeyOf, routes } from "@/shared/config/routes";
 import { useLiveChannel } from "@/shared/hooks/use-live-channel";
@@ -57,7 +56,7 @@ const useRedirectToAllowedSection = (allowed: readonly string[]) => {
 
   useEffect(() => {
     if (allowed.length === 0 || isRouteAllowed(routeKeyOf(pathname), allowed)) return;
-    const first = visibleNavItems(allowed, env.isMocking)[0];
+    const first = visibleNavItems(allowed)[0];
     if (first) router.replace(routes[first.route]);
   }, [allowed, pathname, router]);
 };

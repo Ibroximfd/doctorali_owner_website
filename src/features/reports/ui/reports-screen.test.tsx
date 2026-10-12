@@ -6,7 +6,7 @@ import { Toaster, toast } from "sonner";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { parseJson } from "@/shared/lib/envelope";
-import { resetReportsMock } from "@/shared/mocks/handlers/reports";
+import { resetReportsMock } from "@/shared/testing/fixtures/handlers/reports";
 import { TEST_NOW, mockGet } from "@/shared/testing/mock-api";
 import { renderWithProviders } from "@/shared/testing/render";
 import { failNext, server, useMockApi } from "@/shared/testing/server";

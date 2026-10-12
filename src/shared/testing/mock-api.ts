@@ -1,4 +1,4 @@
-import { resolveMock } from "@/shared/mocks/registry";
+import { resolveMock } from "@/shared/testing/fixtures/registry";
 
 /** Testlar uchun qat'iy "hozir": 2026-10-02 14:05 (Toshkent), juma. */
 export const TEST_NOW = new Date("2026-10-02T09:05:00Z");

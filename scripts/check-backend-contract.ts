@@ -8,13 +8,11 @@
  *   OWNER_ACCESS_TOKEN=<owner JWT> npm run contract:check   # saqlangan sessiyasiz, tayyor token bilan
  *   npm run contract:check -- --full            # davr/filial/taqqoslashning 10 ta holatida
  *   npm run contract:check -- --only=sales/     # faqat bitta bo'lim
- *   npm run contract:check -- --mock            # namuna backendga (o'z-o'zini tekshirish)
  *
  * Natija: har endpoint ✓ / ✗ va mos kelmagan maydonlar ro'yxati. Xato bo'lsa chiqish kodi 1.
  * Faqat o'qiydi: hech qanday yozuvchi so'rov yuborilmaydi.
  */
 import { resolveBackend } from "../src/shared/config/backend-server";
-import { resolveMock } from "../src/shared/mocks/registry";
 
 import { checkAll, type CheckResult, type FetchJson } from "./contract/check";
 import { DEFAULT_SCOPE, SCOPE_MATRIX } from "./contract/endpoints";
@@ -52,9 +50,6 @@ const backendFetcher = (initial: ContractSession): FetchJson => {
   };
 };
 
-const mockFetcher: FetchJson = async (path, query) =>
-  resolveMock({ method: "GET", path, searchParams: new URLSearchParams(query) });
-
 const label = (result: CheckResult): string => {
   const query = new URLSearchParams(result.query).toString();
   return `GET /api/owner/${result.path}${query ? `?${query}` : ""}`;
@@ -69,7 +64,6 @@ const ICON: Record<CheckResult["outcome"], string> = {
 };
 
 const main = async () => {
-  const isMock = flag("mock");
   const envToken = process.env.OWNER_ACCESS_TOKEN;
   const session: ContractSession | null = envToken
     ? {
@@ -79,12 +73,12 @@ const main = async () => {
         savedAt: "",
       }
     : readSession();
-  if (!isMock && session === null) {
+  if (session === null) {
     console.error("Avval kiring: npm run backend:login (yoki OWNER_ACCESS_TOKEN bering).");
     process.exit(2);
   }
 
-  const fetcher = isMock || session === null ? mockFetcher : backendFetcher(session);
+  const fetcher = backendFetcher(session);
   const scopes = flag("full") ? SCOPE_MATRIX : [DEFAULT_SCOPE];
   const results = await checkAll(fetcher, scopes, option("only"));
 

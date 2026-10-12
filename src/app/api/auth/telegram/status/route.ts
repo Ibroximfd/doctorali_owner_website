@@ -3,7 +3,7 @@ import { z } from "zod";
 import { clientInfoOf, errorResponse, jsonResponse } from "@/shared/lib/backend.server";
 import { clearSession } from "@/shared/lib/session.server";
 
-import { forwardTelegram, initDataSchema, rejectForgedInitData } from "../telegram-backend";
+import { forwardTelegram, initDataSchema } from "../telegram-backend";
 
 const inputSchema = z.object({ init_data: initDataSchema });
 
@@ -16,9 +16,6 @@ export async function POST(request: Request): Promise<Response> {
 
   const input = inputSchema.safeParse(await request.json().catch(() => null));
   if (!input.success) return errorResponse(400, "init_data_invalid");
-
-  const forged = rejectForgedInitData(input.data.init_data);
-  if (forged) return forged;
 
   try {
     const result = await forwardTelegram(

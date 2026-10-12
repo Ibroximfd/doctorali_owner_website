@@ -258,7 +258,7 @@ Frontend backendni kutmaydi: shu hujjatdagi shakllar bo'yicha **MSW mock** bilan
 
 Frontend to'liq qurildi (namuna rejimida ishlaydi). Qurish paytida shartnomada **yo'q yoki ochiq qolgan** joylar aniqlandi — quyida ro'yxat. Yuqoridagi bo'limlar bilan zid kelsa, **shu bo'lim va `docs/api-samples/` ustun**.
 
-> **Aniq JSON shakllari:** `docs/api-samples/` — har `GET` endpoint uchun namuna javob (68 ta fayl, `npm run samples` bilan qayta yaratiladi). Frontend har javobni zod bilan tekshiradi: `src/features/<bo'lim>/model/*.schema.ts`. Sxemada yo'q qo'shimcha maydon zarar qilmaydi; sxemadagi maydon yo'q yoki turi boshqa bo'lsa — o'sha blok xato ko'rsatadi.
+> **Aniq JSON shakllari:** `docs/api-samples/` — har `GET` endpoint uchun namuna javob (68 ta fayl — shartnoma tuzilgan paytdagi namunalar; haqiqiy javob tekshiruvi — `npm run contract:check`). Frontend har javobni zod bilan tekshiradi: `src/features/<bo'lim>/model/*.schema.ts`. Sxemada yo'q qo'shimcha maydon zarar qilmaydi; sxemadagi maydon yo'q yoki turi boshqa bo'lsa — o'sha blok xato ko'rsatadi.
 
 > **Telegram bot va mini app (2-bosqich: avval sayt, keyin bot):** PIN bilan kirish (`/api/owner/telegram/*`) va bot xabarlari shartnomasi alohida — `../doctor_ali_owner_bot/docs/02_BACKEND_TZ.md`.
 

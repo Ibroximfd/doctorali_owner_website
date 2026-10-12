@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { parseEnvelope } from "@/shared/lib/envelope";
-import { sample } from "@/shared/mocks/sample";
+import { sample } from "@/shared/testing/fixtures/sample";
 import { SCOPE_CASES, mockGet } from "@/shared/testing/mock-api";
 
 import { rankProducts, shareOfMax, sortCategories, stockLevel } from "./products.rules";

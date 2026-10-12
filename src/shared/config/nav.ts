@@ -3,7 +3,6 @@ import {
   Building2,
   FileText,
   Headset,
-  Layers,
   LayoutDashboard,
   Leaf,
   Package,
@@ -18,7 +17,7 @@ import {
 
 import type { PanelRouteKey } from "./routes";
 
-export type NavGroupKey = "main" | "business" | "growth" | "control" | "design";
+export type NavGroupKey = "main" | "business" | "growth" | "control";
 
 export type NavItem = {
   route: PanelRouteKey;
@@ -26,8 +25,6 @@ export type NavItem = {
   group: NavGroupKey;
   /** Ochiq signallar soni shu element yonida ko'rsatiladi. */
   showsAlerts?: boolean;
-  /** Faqat namuna (mock) rejimida ko'rinadi. */
-  mockOnly?: boolean;
 };
 
 /** Yorliqlar `nav` tarjima nomlar fazosidan olinadi: `nav.items.<route>`, `nav.groups.<group>`. */
@@ -45,10 +42,9 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { route: "alerts", icon: Bell, group: "control", showsAlerts: true },
   { route: "reports", icon: FileText, group: "control" },
   { route: "settings", icon: SlidersHorizontal, group: "control" },
-  { route: "states", icon: Layers, group: "design", mockOnly: true },
 ];
 
-export const NAV_GROUPS: readonly NavGroupKey[] = ["main", "business", "growth", "control", "design"];
+export const NAV_GROUPS: readonly NavGroupKey[] = ["main", "business", "growth", "control"];
 
 /** Telefonda pastki tab-bar; qolganlari "Yana" varag'ida. */
 export const TAB_ROUTES: readonly PanelRouteKey[] = ["overview", "orders", "finance", "alerts"];
@@ -57,14 +53,8 @@ export const TAB_ROUTES: readonly PanelRouteKey[] = ["overview", "orders", "fina
  * Foydalanuvchiga ko'rinadigan bo'limlar. `allowed` — `me.sections`: **bo'sh = hammasi
  * ochiq** (biznes egasi), to'lgan bo'lsa faqat sanalganlari (`API_QOLLANMA` §2.2).
  */
-export const visibleNavItems = (allowed: readonly string[], isMocking: boolean): NavItem[] =>
-  NAV_ITEMS.filter(
-    (item) =>
-      (!item.mockOnly || isMocking) &&
-      (allowed.length === 0 || item.mockOnly || allowed.includes(item.route)),
-  );
+export const visibleNavItems = (allowed: readonly string[]): NavItem[] =>
+  NAV_ITEMS.filter((item) => allowed.length === 0 || allowed.includes(item.route));
 
 export const isRouteAllowed = (route: PanelRouteKey, allowed: readonly string[]): boolean =>
-  allowed.length === 0 ||
-  allowed.includes(route) ||
-  NAV_ITEMS.some((item) => item.route === route && item.mockOnly);
+  allowed.length === 0 || allowed.includes(route);

@@ -11,25 +11,11 @@ const isProduction = process.env.NODE_ENV === "production";
  * Qaysi server bilan ishlayotganimiz terminalda ko'rinib turadi — noto'g'ri serverga
  * ulanib o'tirmaslik uchun (nomlar va default — `config/servers.mjs`).
  */
-if (process.env.NEXT_PUBLIC_API_MOCKING === "1") {
-  console.info("Rejim: namuna ma'lumot (backendsiz) — istalgan login/parol bilan kiriladi.");
-} else {
+{
   const server = process.env.BACKEND_ORIGIN
     ? { label: "Boshqa manzil", origin: process.env.BACKEND_ORIGIN }
     : resolveServer();
   console.info(`Backend: ${server.label} — ${server.origin}`);
-}
-
-// Namuna rejimida istalgan parol bilan kiriladi — production build ataylab ruxsatsiz yig'ilmaydi.
-if (
-  isProduction &&
-  process.env.NEXT_PUBLIC_API_MOCKING === "1" &&
-  process.env.ALLOW_SAMPLE_DATA_IN_PRODUCTION !== "1"
-) {
-  throw new Error(
-    "Production build NEXT_PUBLIC_API_MOCKING=1 bilan: istalgan parol bilan kirish ochiq bo'ladi. " +
-      "Ataylab bo'lsa ALLOW_SAMPLE_DATA_IN_PRODUCTION=1 qo'ying (docs/DEPLOY.md).",
-  );
 }
 
 const originOf = (url: string | undefined): string => {

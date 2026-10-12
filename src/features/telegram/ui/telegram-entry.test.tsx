@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import { HttpResponse, http } from "msw";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { resetTelegramMock } from "@/shared/mocks/handlers/telegram";
+import { resetTelegramMock } from "@/shared/testing/fixtures/handlers/telegram";
 import { mockSend } from "@/shared/testing/mock-api";
 import { renderWithProviders } from "@/shared/testing/render";
 import { server, useMockApi } from "@/shared/testing/server";

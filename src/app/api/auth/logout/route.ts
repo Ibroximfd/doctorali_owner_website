@@ -1,4 +1,3 @@
-import { env } from "@/shared/config/env";
 import { backendFetch, jsonResponse } from "@/shared/lib/backend.server";
 import { clearSession, readSession } from "@/shared/lib/session.server";
 
@@ -6,7 +5,7 @@ import { clearSession, readSession } from "@/shared/lib/session.server";
 export async function POST(): Promise<Response> {
   const session = await readSession();
 
-  if (!env.isMocking && session.refresh !== null) {
+  if (session.refresh !== null) {
     // Backend javob bermasa ham foydalanuvchi chiqishi kerak.
     await backendFetch("/api/owner/logout/", {
       method: "POST",

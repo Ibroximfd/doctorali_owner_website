@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { z } from "zod";
 
 import { parseJson } from "@/shared/lib/envelope";
-import { resetReportsMock } from "@/shared/mocks/handlers/reports";
+import { resetReportsMock } from "@/shared/testing/fixtures/handlers/reports";
 import { TEST_NOW, mockGet, mockSend } from "@/shared/testing/mock-api";
 
 import {

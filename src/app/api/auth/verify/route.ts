@@ -1,6 +1,5 @@
 import { z } from "zod";
 
-import { env } from "@/shared/config/env";
 import { backendFetch, clientInfoOf, errorResponse, jsonResponse, relay } from "@/shared/lib/backend.server";
 import { writeSession } from "@/shared/lib/session.server";
 
@@ -15,13 +14,6 @@ const tokensSchema = z.object({ access: z.string().min(1), refresh: z.string().m
 export async function POST(request: Request): Promise<Response> {
   const input = inputSchema.safeParse(await request.json().catch(() => null));
   if (!input.success) return errorResponse(400, "validation_error");
-
-  if (env.isMocking) {
-    await writeSession({ access: "sample-access", refresh: "sample-refresh" }, "web");
-    return jsonResponse({
-      user: { id: 1, full_name: "Boshliq", role: "owner", sections: [], filials: [], mask_pii: false },
-    });
-  }
 
   try {
     const response = await backendFetch("/api/owner/login/verify/", {

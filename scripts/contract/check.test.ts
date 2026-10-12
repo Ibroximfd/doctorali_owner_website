@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { listMockHandlers, resolveMock } from "@/shared/mocks/registry";
+import { listMockHandlers, resolveMock } from "@/shared/testing/fixtures/registry";
 
 import { checkAll, checkEndpoint, type FetchJson } from "./check";
 import { CONTRACT_ENDPOINTS, SCOPE_MATRIX } from "./endpoints";

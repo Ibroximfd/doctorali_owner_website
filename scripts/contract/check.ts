@@ -72,6 +72,17 @@ export const checkEndpoint = async (
         results.push({ path, query, outcome: "network", problems: [String(error)] });
         continue;
       }
+      // Karta boshqa filialniki bo'lsa filial filtri bilan 404 — kutilgan javob, xato emas.
+      if (fetched.status === 404 && endpoint.idSource && query.filial) {
+        results.push({
+          path,
+          query,
+          outcome: "skipped",
+          status: 404,
+          problems: ["boshqa filial yozuvi — 404 kutilgan"],
+        });
+        continue;
+      }
       if (fetched.status !== 200) {
         results.push({
           path,

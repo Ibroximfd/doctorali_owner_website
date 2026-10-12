@@ -1,6 +1,6 @@
 # Endpoint katalogi — frontend chaqiradigan barcha `GET /api/owner/*`
 
-Avtomatik yaratilgan (`npm run samples`, manba — `scripts/contract/endpoints.ts`). Qo'lda tahrirlanmaydi.
+Avtomatik yaratilgan (`npm run endpoints:doc`, manba — `scripts/contract/endpoints.ts`). Qo'lda tahrirlanmaydi.
 Tekshiruv: `npm run contract:check` — har qator haqiqiy backendda chaqiriladi va sxema bilan solishtiriladi.
 
 Jami: **68** endpoint. «konvert» — `{period, compare, filials, generated_at, freshness, data}`, «oddiy» — konvertsiz JSON.
@@ -23,7 +23,7 @@ Jami: **68** endpoint. «konvert» — `{period, compare, filials, generated_at,
 | Buyurtmalar | `GET /api/owner/orders/:id/` | — | oddiy | [GET_orders__id.json](api-samples/GET_orders__id.json) | yo'q → 404 `order_not_found` |
 | Buyurtmalar | `GET /api/owner/orders/app-funnels/` | `period` `date_from` `date_to` `compare` `filial` | konvert | [GET_orders__app-funnels.json](api-samples/GET_orders__app-funnels.json) | Mobil ilova ekranida ko'rsatiladi |
 | Moliya | `GET /api/owner/finance/summary/` | `period` `date_from` `date_to` `compare` `filial` | konvert | [GET_finance__summary.json](api-samples/GET_finance__summary.json) |  |
-| Moliya | `GET /api/owner/finance/cashflow/` | `period` `date_from` `date_to` `compare` `filial` | konvert | [GET_finance__cashflow.json](api-samples/GET_finance__cashflow.json) |  |
+| Moliya | `GET /api/owner/finance/cashflow/` | `period` `date_from` `date_to` `compare` `filial` (`group=day` · `group=week` · `group=month`) | konvert | [GET_finance__cashflow.json](api-samples/GET_finance__cashflow.json) | `group` MAJBURIY (`day`/`week`/`month`) — frontend davr uzunligiga qarab yuboradi |
 | Moliya | `GET /api/owner/finance/cash-position/` | `period` `date_from` `date_to` `compare` `filial` | konvert | [GET_finance__cash-position.json](api-samples/GET_finance__cash-position.json) | hozirgi holat; davr e'tiborsiz |
 | Moliya | `GET /api/owner/finance/payment-mix/` | `period` `date_from` `date_to` `compare` `filial` | konvert | [GET_finance__payment-mix.json](api-samples/GET_finance__payment-mix.json) |  |
 | Moliya | `GET /api/owner/finance/expenses/` | `period` `date_from` `date_to` `compare` `filial` | konvert | [GET_finance__expenses.json](api-samples/GET_finance__expenses.json) |  |

@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-import { signIn } from "./helpers";
+import { e2eCredentials, signIn } from "./helpers";
 
 test("sessiyasiz tashrif kirish sahifasiga yo'naltiriladi va kirgach so'ralgan sahifaga qaytadi", async ({
   page,
@@ -8,8 +8,9 @@ test("sessiyasiz tashrif kirish sahifasiga yo'naltiriladi va kirgach so'ralgan s
   await page.goto("/finance?period=7d");
   await expect(page).toHaveURL(/\/login\?next=/);
 
-  await page.getByLabel("Login").fill("devtest");
-  await page.getByLabel("Parol").fill("namuna-parol");
+  const { username, password } = e2eCredentials();
+  await page.getByLabel("Login").fill(username);
+  await page.getByLabel("Parol").fill(password);
   await page.getByRole("button", { name: "Davom etish" }).click();
 
   await expect(page).toHaveURL(/\/finance\?period=7d/);

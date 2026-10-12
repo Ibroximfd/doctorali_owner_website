@@ -14,7 +14,7 @@
     "test:e2e": "playwright test",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\" \"messages/**/*.json\" \"*.{json,md,mjs,ts}\"",
     "verify": "npm run lint && npm run typecheck && npm run test",
-    "samples": "vite-node --config vitest.config.ts scripts/dump-api-samples.ts",
+    "endpoints:doc": "vite-node --config vitest.config.ts scripts/endpoints-doc.ts",
     "contract:check": "vite-node --config vitest.config.ts scripts/check-backend-contract.ts --",
     "backend:login": "vite-node --config vitest.config.ts scripts/backend-login.ts"
   },

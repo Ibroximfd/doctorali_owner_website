@@ -7,8 +7,7 @@
     "main": "Asosiy",
     "business": "Biznes",
     "growth": "O'sish",
-    "control": "Nazorat",
-    "design": "Dizayn uchun"
+    "control": "Nazorat"
   },
   "items": {
     "overview": "Umumiy",
@@ -23,8 +22,7 @@
     "doctors": "Shifokorlar",
     "alerts": "Signallar",
     "reports": "Hisobotlar",
-    "settings": "Sozlamalar",
-    "states": "Holatlar galereyasi"
+    "settings": "Sozlamalar"
   },
   "more": "Yana",
   "moreTitle": "Boshqa bo'limlar",
@@ -35,8 +33,6 @@
   "searchOrders": "Buyurtmalardan qidirish: «{query}»",
   "sections": "Bo'limlar",
   "live": "Jonli",
-  "sample": "Namuna ma'lumot",
-  "sampleHint": "Namuna rejimi — raqamlar haqiqiy emas",
   "alertsCount": "Signallar: {count} ta ochiq",
   "logout": "Chiqish",
   "userFallback": "Boshliq",

@@ -4,7 +4,6 @@ import { Ellipsis } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
-import { env } from "@/shared/config/env";
 import { TAB_ROUTES, visibleNavItems } from "@/shared/config/nav";
 import { routes, type PanelRouteKey } from "@/shared/config/routes";
 import { cn } from "@/shared/lib/cn";
@@ -19,7 +18,7 @@ export const Tabbar = ({ activeRoute, alertsCount, allowedSections }: TabbarProp
   const t = useTranslations("nav");
   const [isMoreOpen, setMoreOpen] = useState(false);
 
-  const visible = visibleNavItems(allowedSections, env.isMocking);
+  const visible = visibleNavItems(allowedSections);
   const tabs = visible.filter((item) => TAB_ROUTES.includes(item.route));
   const rest = visible.filter((item) => !TAB_ROUTES.includes(item.route));
   const isRestActive = rest.some((item) => item.route === activeRoute);
