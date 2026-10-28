@@ -1,0 +1,236 @@
+{
+  "title": "AI tahlil",
+  "description": "AI jarayonni o'zi tekshiradi: kamomad, xato va shubhali holatlar — dalillari bilan.",
+  "hero": {
+    "eyebrow": "AI · Claude · har kuni",
+    "score": "sog'lom ball",
+    "atRisk": "Xavf ostidagi pul",
+    "findings": "Ochiq topilma",
+    "scoreSr": "Biznes sog'lom bali: {value} / 100",
+    "health": "Biznes sog'lig'i",
+    "checksLine": "{total} tekshiruvdan {passed} tasi joyida",
+    "atRiskLine": "Xavf ostida <strong>{amount}</strong>",
+    "lastRunLine": "Oxirgi tahlil {time}",
+    "running": "AI hozir tahlil qilyapti"
+  },
+  "tabs": {
+    "label": "AI bo'limlari",
+    "findings": "Topilmalar",
+    "chat": "Suhbat",
+    "recommendations": "Tavsiyalar",
+    "checks": "Tekshiruvlar",
+    "reports": "Hisobotlar",
+    "actions": "Avto-tuzatish"
+  },
+  "severity": {
+    "critical": "Kritik",
+    "high": "Yuqori",
+    "medium": "O'rta",
+    "low": "Past"
+  },
+  "category": {
+    "shortage": "Kamomad",
+    "anomaly": "G'ayrioddiy o'zgarish",
+    "fraud_risk": "Shubhali holat",
+    "data_error": "Ma'lumot xatosi",
+    "process_delay": "Jarayon to'xtagan",
+    "reconciliation": "Manbalar mos emas"
+  },
+  "area": {
+    "sales": "Sotuv",
+    "logistics": "Yetkazib berish",
+    "warehouse": "Ombor",
+    "finance": "Moliya",
+    "clinic": "Klinika",
+    "app": "Mobil ilova",
+    "marketing": "Marketing"
+  },
+  "findings": {
+    "title": "AI topgan narsalar",
+    "description": "Eng jiddiysi tepada · har birida dalil va maslahat",
+    "filter": "Holat bo'yicha",
+    "open": "Ochiq",
+    "all": "Hammasi",
+    "emptyTitle": "Hozircha shubhali narsa yo'q",
+    "emptyDescription": "AI har soatda tekshiradi — biror narsa topsa shu yerda ko'rinadi."
+  },
+  "finding": {
+    "unverified": "Tasdiqlanmagan raqam",
+    "atRisk": "Xavf ostida",
+    "evidence": "Dalillar",
+    "advice": "Maslahat:",
+    "confidence": {
+      "high": "Ishonch yuqori",
+      "medium": "Ishonch o'rtacha",
+      "low": "Tekshirib ko'ring"
+    },
+    "confirm": "To'g'ri",
+    "dismiss": "Xato signal",
+    "escalate": "Muammoga aylantirish",
+    "openIssue": "Muammoni ochish",
+    "status": {
+      "confirmed": "Tasdiqlangan",
+      "false_positive": "Xato signal",
+      "resolved": "Hal bo'lgan",
+      "new": "Yangi"
+    },
+    "confirmedToast": "Rahmat — AI buni hisobga oladi",
+    "dismissedToast": "Belgilandi — AI bunday signalni takrorlamaydi",
+    "escalatedToast": "Muammolar markaziga o'tkazildi",
+    "failed": "Bajarilmadi. Qayta urinib ko'ring."
+  },
+  "chat": {
+    "history": "Suhbatlar",
+    "new": "Yangi",
+    "noHistory": "Hali suhbat yo'q — birinchi savolni bering.",
+    "conversation": "AI bilan suhbat",
+    "welcomeTitle": "Assalomu alaykum! Nimani tahlil qilay?",
+    "welcomeText": "Biznesingizning istalgan qismini so'rang — raqamlar bilan javob beraman, kerak bo'lsa Excel hisobot tayyorlab beraman.",
+    "starters": {
+      "daily": {
+        "title": "Bugungi hisobot",
+        "hint": "Klinika, filiallar, ilova — bitta hisobotda",
+        "prompt": "Bugungi kunlik hisobotni tayyorlab ber: klinika, sotuv filiallari, Doctor Ali ilovasi. Excel fayl ham kerak."
+      },
+      "app": {
+        "title": "Ilova faolligi",
+        "hint": "Faol, uzoq kirmagan, o'rtacha vaqt",
+        "prompt": "Doctor Ali ilovasida qancha faol foydalanuvchi bor, kim anchadan beri kirmagan va o'rtacha foydalanish vaqti qancha?"
+      },
+      "operators": {
+        "title": "Kim ishlamayapti?",
+        "hint": "Operatorlar va bo'limlar faolligi",
+        "prompt": "Bugun qaysi operator yoki operatorlar bo'limi ishlamayapti yoki sustlashgan?"
+      },
+      "cash": {
+        "title": "Qolib ketgan pul",
+        "hint": "Kuryerlar, kassa, yetkazilmagan buyurtmalar",
+        "prompt": "Qaysi kuryerda pul anchadan beri qolib ketgan va qaysi buyurtmalar bir necha kundan beri yetkazilmayapti?"
+      }
+    },
+    "thinking": "Tahlil qilyapman",
+    "replyFailed": "Javob tayyorlanmadi. Savolni qayta yuboring.",
+    "placeholder": "Savolingizni yozing: masalan, «o'tgan haftaga hisobot ber»",
+    "send": "Yuborish",
+    "disclaimer": "AI faqat tizimdagi raqamlarga tayanadi; muhim qarordan oldin dalillarni tekshiring.",
+    "fileReady": "tayyor",
+    "filePending": "tayyorlanmoqda…",
+    "fileFailed": "tayyorlanmadi",
+    "download": "Yuklab olish",
+    "limit": "Bugungi savollar limiti tugadi",
+    "forbidden": "Sizda AI bilan suhbat huquqi yo'q",
+    "failed": "Savol yuborilmadi. Qayta urinib ko'ring.",
+    "parts": "AI tayyorlagan qismlar",
+    "thinkingStatus": "AI javob tayyorlayapti"
+  },
+  "recommendations": {
+    "title": "O'sish uchun tavsiyalar",
+    "description": "AI raqamlar va prognoz asosida taklif qiladi: nima qilish kerak va qanday natija kutiladi",
+    "effect": "Kutilgan natija:",
+    "horizon": {
+      "now": "Hozir",
+      "week": "Shu hafta",
+      "month": "Shu oy"
+    },
+    "effort": {
+      "low": "Oson",
+      "medium": "O'rtacha",
+      "high": "Katta ish"
+    },
+    "emptyTitle": "Tavsiyalar tayyorlanmoqda",
+    "emptyDescription": "Kunlik tahlildan keyin shu yerda paydo bo'ladi."
+  },
+  "checks": {
+    "title": "Avtomatik tekshiruvlar",
+    "description": "AI siz, aniq hisob: ikki manba solishtiriladi — farq bo'lsa AI sababini izlaydi",
+    "columns": {
+      "check": "Tekshiruv",
+      "expected": "Kutilgan",
+      "actual": "Haqiqiy",
+      "diff": "Farq",
+      "status": "Holat",
+      "checked": "Tekshirildi"
+    },
+    "status": {
+      "fail": "Mos emas",
+      "warn": "Diqqat",
+      "pass": "Joyida"
+    }
+  },
+  "reports": {
+    "title": "AI hisobotlari",
+    "description": "Har kuni ertalab va har dushanba — biznes holati qisqa xulosada",
+    "kind": {
+      "daily": "Kunlik",
+      "weekly": "Haftalik"
+    },
+    "highlights": "Yaxshi tomonlar",
+    "risks": "Xavflar",
+    "actions": "Nima qilish kerak",
+    "emptyTitle": "Hali hisobot yo'q",
+    "emptyDescription": "Birinchi kunlik hisobot ertaga ertalab tayyor bo'ladi."
+  },
+  "actions": {
+    "title": "AI tuzatishlari",
+    "description": "AI topgan xatolarni o'zi tuzatishni taklif qiladi — tasdiqlang yoki rad eting",
+    "filter": "Holat bo'yicha",
+    "waiting": "Tasdiq kutmoqda",
+    "history": "Tarix",
+    "emptyTitle": "Tasdiq kutayotgan amal yo'q",
+    "emptyDescription": "Xavfsiz tuzatishlar avtomatik bajariladi — ularni «Tarix»da ko'rasiz.",
+    "risk": {
+      "low": "Kam xavf",
+      "medium": "O'rta xavf",
+      "high": "Yuqori xavf"
+    },
+    "status": {
+      "proposed": "Taklif",
+      "running": "Bajarilmoqda",
+      "done": "Bajarildi",
+      "failed": "Xato",
+      "rejected": "Rad etildi",
+      "stale": "Eskirgan",
+      "undone": "Bekor qilindi"
+    },
+    "mode": {
+      "auto": "Avtomatik",
+      "approve": "Tasdiq bilan",
+      "suggest": "Faqat tavsiya"
+    },
+    "preview": "O'zgarishlar: oldin va keyin",
+    "more": "Yana {count} ta o'zgarish",
+    "approve": "Tasdiqlash",
+    "reject": "Rad etish",
+    "undo": "Bekor qilish ({hours} soat qoldi)",
+    "decidedBy": "Qaror: {name}",
+    "toast": {
+      "approve": "Tasdiqlandi — bajarilmoqda",
+      "reject": "Rad etildi",
+      "undo": "Bekor qilindi — avvalgi holat qaytarildi"
+    },
+    "stale": "Holat o'zgargan — AI yangi taklif tayyorlaydi",
+    "undoExpired": "Bekor qilish muddati tugagan",
+    "failed": "Bajarilmadi. Qayta urinib ko'ring.",
+    "autopilot": "Avtopilot",
+    "autopilotDescription": "Qaysi tuzatishni AI o'zi bajaradi, qaysi biri tasdiq bilan",
+    "enabled": "Avtopilot yoqiq",
+    "paused": "Avtopilot to'xtatilgan",
+    "killSwitch": "Avtomatik tuzatishlarni yoqish yoki to'xtatish",
+    "killSwitchHint": "O'chirsangiz — hamma narsa faqat tasdiq bilan bajariladi",
+    "modeFor": "{name} rejimi",
+    "runsToday": "bugun {count} marta"
+  },
+  "aside": {
+    "title": "AI tuzatishlari",
+    "autoToday": "bugun {count} tasi avtomatik",
+    "needsApproval": "Tasdiq kerak",
+    "morePending": "Yana {count} ta taklif",
+    "noPending": "Tasdiq kutayotgan amal yo'q — xavfsiz tuzatishlar avtomatik bajariladi.",
+    "undo": "Bekor qilish",
+    "undoLeft": "{hours} soat bekor qilish mumkin",
+    "findingsTitle": "Topilmalar",
+    "confidence": "Ishonch: {value}%",
+    "allFindings": "Hammasi",
+    "noFindings": "Ochiq topilma yo'q"
+  }
+}

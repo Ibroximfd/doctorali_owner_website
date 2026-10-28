@@ -6,7 +6,7 @@ import { cn } from "@/shared/lib/cn";
 export const Input = ({ className, ...props }: ComponentProps<"input">) => (
   <input
     className={cn(
-      "border-border-strong bg-surface placeholder:text-ink-3 h-9.5 w-full min-w-0 rounded-md border px-3 text-base transition-[border-color,box-shadow]",
+      "border-border-strong bg-surface/60 placeholder:text-ink-3 h-10 w-full min-w-0 rounded-xl border px-3.5 text-base transition-[border-color,box-shadow]",
       // Fokus — bitta rang: umumiy fokus chizig'i o'rniga chegara + yumshoq halqa.
       // Xato holatida faqat qizil (qizil chegara ustida yashil chiziq chiqmasin).
       "focus-visible:border-accent focus-visible:ring-accent/25 focus-visible:ring-3 focus-visible:outline-none",

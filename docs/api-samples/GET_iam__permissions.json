@@ -1,0 +1,92 @@
+{
+  "results": [
+    {
+      "key": "warehouse.stock.view",
+      "title": "Qoldiqni ko'rish",
+      "module": "warehouse",
+      "level": "view",
+      "is_sensitive": false,
+      "description": null
+    },
+    {
+      "key": "warehouse.stock.detail",
+      "title": "Har mahsulot va harakat",
+      "module": "warehouse",
+      "level": "detail",
+      "is_sensitive": false,
+      "description": null
+    },
+    {
+      "key": "warehouse.cost.view",
+      "title": "Tannarx",
+      "module": "warehouse",
+      "level": "sensitive",
+      "is_sensitive": true,
+      "description": null
+    },
+    {
+      "key": "warehouse.inbound.create",
+      "title": "Prixod kiritish",
+      "module": "warehouse",
+      "level": "act",
+      "is_sensitive": false,
+      "description": null
+    },
+    {
+      "key": "warehouse.staff.manage",
+      "title": "Skladchilarni boshqarish",
+      "module": "warehouse",
+      "level": "manage",
+      "is_sensitive": false,
+      "description": null
+    },
+    {
+      "key": "callcenter.stats.view",
+      "title": "Jamoa KPI",
+      "module": "callcenter",
+      "level": "view",
+      "is_sensitive": false,
+      "description": null
+    },
+    {
+      "key": "callcenter.calls.detail",
+      "title": "Har qo'ng'iroq",
+      "module": "callcenter",
+      "level": "detail",
+      "is_sensitive": false,
+      "description": null
+    },
+    {
+      "key": "callcenter.recordings.listen",
+      "title": "Audio yozuvni tinglash",
+      "module": "callcenter",
+      "level": "sensitive",
+      "is_sensitive": true,
+      "description": null
+    },
+    {
+      "key": "callcenter.operators.manage",
+      "title": "Operatorlarni boshqarish",
+      "module": "callcenter",
+      "level": "manage",
+      "is_sensitive": false,
+      "description": null
+    },
+    {
+      "key": "couriers.live.view",
+      "title": "Kuryerlar joylashuvi",
+      "module": "couriers",
+      "level": "view",
+      "is_sensitive": false,
+      "description": null
+    },
+    {
+      "key": "couriers.manage",
+      "title": "Kuryerlarni boshqarish",
+      "module": "couriers",
+      "level": "manage",
+      "is_sensitive": false,
+      "description": null
+    }
+  ]
+}

@@ -85,5 +85,38 @@
       "in_transit": "Yo'lda",
       "received": "Qabul qilindi"
     }
+  },
+  "live": {
+    "title": "Jonli doska",
+    "description": "Kuryerlar hozir qayerda va qanday — 15 soniyada yangilanadi",
+    "live": "JONLI",
+    "regions": "Hududlar",
+    "allRegions": "Barcha hududlar",
+    "working": "Ishlayapti",
+    "cashToday": "Bugun naqd:",
+    "delivered": "Yetkazildi",
+    "pending": "Kutilmoqda",
+    "cancelled": "Atkaz",
+    "assigned": "Biriktirilgan",
+    "status": {
+      "moving": "Harakatda · {speed} km/soat",
+      "idle": "Turibdi",
+      "no_signal": "Signal yo'q",
+      "off_shift": "Smena yopiq"
+    },
+    "cash": "Qo'lida {value}",
+    "handover": "Topshirmoqchi",
+    "marketplace": "Marketplace"
+  },
+  "handovers": {
+    "title": "Kassaga topshirish",
+    "description": "Kuryerlar pulni kassaga topshirish so'rovlari",
+    "noPending": "Kutilayotgan so'rov yo'q",
+    "recent": "So'nggi qarorlar",
+    "status": {
+      "accepted": "Qabul qilindi",
+      "rejected": "Rad etildi",
+      "cancelled": "Bekor qilindi"
+    }
   }
 }

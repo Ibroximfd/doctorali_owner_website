@@ -60,7 +60,9 @@ describe("AppShell", () => {
     await userEvent.click(within(tabs).getByRole("button", { name: "Yana" }));
     const sheet = await screen.findByRole("dialog", { name: "Boshqa bo'limlar" });
     expect(within(sheet).getByRole("link", { name: "Klinika" })).toBeInTheDocument();
-    expect(within(sheet).queryByRole("link", { name: "Moliya" })).not.toBeInTheDocument();
+    expect(within(sheet).getByRole("link", { name: "Moliya" })).toBeInTheDocument();
+    // «Muammolar markazi» pastki menyuning o'zida — varaqda takrorlanmaydi
+    expect(within(sheet).queryByRole("link", { name: "Muammolar markazi" })).not.toBeInTheDocument();
   });
 
   it("hides the period filter on pages that do not depend on it", async () => {

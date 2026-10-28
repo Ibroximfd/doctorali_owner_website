@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Prognoz — Doctor Ali Nazorat</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,400&amp;family=Manrope:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap">
+<style>
+body{margin:0;background:#050d09}
+@keyframes reveal{from{opacity:0;filter:blur(10px);transform:translateY(14px)}to{opacity:1;filter:blur(0);transform:none}}
+@keyframes draw{from{stroke-dashoffset:1400}to{stroke-dashoffset:0}}
+@keyframes fan{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</helmet>
+<div style="position: relative; min-height: 1300px; display: flex; flex-wrap: wrap; font-family: Manrope, system-ui, sans-serif; color: #e8f1ec; background: radial-gradient(900px 500px at 80% 20%, rgba(111,179,255,.08), transparent 60%), #050d09; overflow: hidden">
+  <dc-import name="Sidebar" active="forecast" hint-size="240px,1300px"></dc-import>
+  <main style="flex: 999 1 560px; min-width: 0; padding: 28px 32px 56px">
+    <h1 style="margin: 0; font-family: Fraunces, serif; font-weight: 400; font-size: 50px; line-height: 1.08; letter-spacing: -.02em; max-width: 960px; animation: reveal .9s both">Noyabr oxirigacha tushum <span style="color: #8af0c2">9,8 mlrd</span> atrofida bo'ladi — oktyabrdan <span style="color: #3fd69a">+14%</span>. Ishonch oralig'i 9,1–10,6 mlrd.</h1>
+
+    <section aria-labelledby="fanTitle" style="margin-top: 26px; border-radius: 28px; padding: 24px 26px; background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.01)); border: 1px solid rgba(180,230,200,.09)">
+      <div style="display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap">
+        <h2 id="fanTitle" style="margin: 0; font-family: Fraunces, serif; font-weight: 400; font-size: 26px">Kunlik tushum</h2>
+        <span style="font-size: 13px; color: #6f877b">60 kun fakt · 30 kun prognoz · mln so'm</span>
+        <span style="margin-left: auto; display: flex; gap: 16px; font-size: 12px; color: #9db3a7">
+          <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 14px; height: 2px; background: #e8f1ec"></span>Fakt</span>
+          <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 14px; height: 2px; background: #3fd69a"></span>Prognoz</span>
+          <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 14px; height: 8px; border-radius: 2px; background: rgba(63,214,154,.25)"></span>80% oraliq</span>
+        </span>
+      </div>
+      <svg role="img" aria-label="Kunlik tushum: fakt va 30 kunlik prognoz, ishonch oralig'i bilan" viewBox="0 0 1100 360" style="width: 100%; height: auto; margin-top: 14px">
+        <g stroke="rgba(180,230,200,.07)"><line x1="40" x2="1090" y1="60" y2="60"></line><line x1="40" x2="1090" y1="140" y2="140"></line><line x1="40" x2="1090" y1="220" y2="220"></line><line x1="40" x2="1090" y1="300" y2="300"></line></g>
+        <g font-family="JetBrains Mono" font-size="11" fill="#6f877b"><text x="0" y="64">400</text><text x="0" y="144">300</text><text x="0" y="224">200</text><text x="0" y="304">100</text><text x="40" y="340">1 sen</text><text x="380" y="340">1 okt</text><text x="740" y="340">bugun</text><text x="1030" y="340">30 noy</text></g>
+        <g style="animation: fan 1.6s 1.2s cubic-bezier(.16,1,.3,1) both">
+          <path d="M740 168 L 800 150 L 860 138 L 920 120 L 980 104 L 1040 88 L 1090 74 L 1090 196 L 1040 190 L 980 186 L 920 182 L 860 178 L 800 176 L 740 168 Z" fill="rgba(63,214,154,.10)"></path>
+          <path d="M740 168 L 800 158 L 860 150 L 920 136 L 980 124 L 1040 112 L 1090 102 L 1090 170 L 1040 166 L 980 164 L 920 160 L 860 160 L 800 166 L 740 168 Z" fill="rgba(63,214,154,.20)"></path>
+        </g>
+        <path d="M40 250 L 70 238 L 100 246 L 130 228 L 160 236 L 190 220 L 220 230 L 250 214 L 280 222 L 310 206 L 340 214 L 370 198 L 400 210 L 430 192 L 460 200 L 490 186 L 520 196 L 550 180 L 580 190 L 610 174 L 640 184 L 670 170 L 700 178 L 740 168" fill="none" stroke="#e8f1ec" stroke-width="2.2" stroke-linejoin="round" stroke-dasharray="1400" style="animation: draw 1.6s cubic-bezier(.16,1,.3,1) both"></path>
+        <path d="M740 168 L 800 162 L 860 154 L 920 148 L 980 140 L 1040 132 L 1090 126" fill="none" stroke="#3fd69a" stroke-width="2.4" stroke-dasharray="6 6" style="animation: reveal 1s 1.4s both"></path>
+        <line x1="740" x2="740" y1="40" y2="310" stroke="rgba(232,194,106,.5)" stroke-dasharray="3 5"></line>
+        <circle cx="740" cy="168" r="6" fill="#e8c26a" style="animation: blink 2s infinite"></circle>
+        <g style="animation: reveal .8s 2s both">
+          <rect x="905" y="70" width="170" height="54" rx="12" fill="rgba(5,13,9,.9)" stroke="rgba(63,214,154,.35)"></rect>
+          <text x="920" y="92" font-family="Manrope" font-size="12" fill="#9db3a7">30-noyabr, kutilgan</text>
+          <text x="920" y="113" font-family="JetBrains Mono" font-size="16" fill="#8af0c2" font-weight="600">372 mln / kun</text>
+        </g>
+        <g style="animation: reveal .8s 1.8s both">
+          <rect x="560" y="236" width="170" height="54" rx="12" fill="rgba(5,13,9,.9)" stroke="rgba(232,194,106,.35)"></rect>
+          <text x="575" y="258" font-family="Manrope" font-size="12" fill="#9db3a7">Aksiya 2+1 boshlandi</text>
+          <text x="575" y="279" font-family="JetBrains Mono" font-size="14" fill="#e8c26a" font-weight="600">+11% o'sish</text>
+        </g>
+      </svg>
+    </section>
+
+    <div style="margin-top: 20px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px">
+      <sc-for list="{{cards}}" as="c" hint-placeholder-count="3">
+        <article style="padding: 20px; border-radius: 24px; background: {{c.bg}}; border: 1px solid {{c.border}}; animation: reveal .8s {{c.delay}} both">
+          <div style="font-size: 13px; color: #9db3a7">{{c.label}}</div>
+          <div style="margin-top: 8px; font: 400 34px Fraunces, serif; color: {{c.color}}">{{c.value}}</div>
+          <p style="margin: 8px 0 0; font-size: 14px; line-height: 1.5; color: #c8d6cf">{{c.text}}</p>
+        </article>
+      </sc-for>
+    </div>
+
+    <section aria-labelledby="sc" style="margin-top: 20px; border-radius: 28px; padding: 22px 26px; background: rgba(255,255,255,.025); border: 1px solid rgba(180,230,200,.09)">
+      <h2 id="sc" style="margin: 0; font-family: Fraunces, serif; font-weight: 400; font-size: 24px">Agar shunday qilsangiz</h2>
+      <div style="margin-top: 14px; display: flex; flex-direction: column; gap: 10px">
+        <sc-for list="{{scen}}" as="s" hint-placeholder-count="3">
+          <div style="display: grid; grid-template-columns: minmax(0, 1fr) 260px 110px; gap: 18px; align-items: center; padding: 12px 0; border-top: 1px solid rgba(180,230,200,.06)">
+            <span style="font-size: 15px">{{s.text}}</span>
+            <span style="height: 10px; border-radius: 5px; background: rgba(255,255,255,.05); overflow: hidden"><span style="display: block; height: 100%; width: {{s.pct}}%; border-radius: 5px; background: linear-gradient(90deg, #17664a, #3fd69a)"></span></span>
+            <span style="text-align: right; font: 600 15px 'JetBrains Mono', monospace; color: #8af0c2">{{s.gain}}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1300}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      cards: [
+        { label: 'Buyurtmalar, noyabr', value: '7 940', color: '#e8f1ec', text: 'Kuniga 265 ta. Dushanba eng yuqori — 312 ta.', bg: 'rgba(255,255,255,.03)', border: 'rgba(180,230,200,.09)', delay: '.2s' },
+        { label: 'Balzam yetishmovchiligi', value: '9-noyabr', color: '#ff8a6a', text: "Kirim bo'lmasa Toshkentda shu kuni tugaydi. Taxminiy yo'qotish 410 mln.", bg: 'rgba(255,138,106,.06)', border: 'rgba(255,138,106,.25)', delay: '.3s' },
+        { label: 'Kerakli kuryerlar', value: '+4', color: '#e8c26a', text: "Farg'ona va Samarqandda yuklama 120% dan oshadi.", bg: 'rgba(232,194,106,.05)', border: 'rgba(232,194,106,.2)', delay: '.4s' }
+      ],
+      scen: [
+        { text: 'Toshkentga 600 dona balzam 5-noyabrgacha olib kelish', pct: 85, gain: '+410 mln' },
+        { text: "Farg'onaga 2 ta qo'shimcha kuryer", pct: 52, gain: '+190 mln' },
+        { text: 'Nilufarning lidlarini Dilnozaga qayta taqsimlash', pct: 30, gain: '+96 mln' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

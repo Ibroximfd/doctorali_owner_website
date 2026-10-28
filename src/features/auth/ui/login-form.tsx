@@ -52,11 +52,11 @@ export const LoginForm = ({ next, onSignedIn }: LoginFormProps) => {
   const [challenge, setChallenge] = useState<Challenge | null>(null);
 
   return (
-    <div className="bg-surface flex w-full max-w-100 flex-col gap-4 rounded-2xl border p-6 md:p-7">
+    <div className="panel-surface bg-surface/70 shadow-pop flex w-full max-w-100 flex-col gap-5 rounded-4xl border p-6 backdrop-blur-xl md:p-8">
       <div className="flex items-center gap-2.5">
         <BrandMark />
         <div className="leading-tight">
-          <div className="text-md font-strong">Doctor Ali</div>
+          <div className="font-display text-xl">Doctor Ali</div>
           <div className="text-2xs text-ink-3 font-medium">{t("product")}</div>
         </div>
       </div>
@@ -120,7 +120,7 @@ const CredentialsStep = ({ defaultValues, onSignedIn, onChallenge }: Credentials
   return (
     <form onSubmit={(event) => void submit(event)} noValidate className="flex flex-col gap-4">
       <div>
-        <h1 className="font-strong text-xl tracking-tight">{t("title")}</h1>
+        <h1 className="font-display text-3xl">{t("title")}</h1>
         <p className="text-ink-3 mt-1 text-sm">{t("credentialsStep")}</p>
       </div>
       <Field
@@ -223,7 +223,7 @@ const CodeStep = ({ challenge, credentials, onChallenge, onBack, next, onSignedI
   return (
     <form onSubmit={(event) => void submit(event)} noValidate className="flex flex-col gap-4">
       <div>
-        <h1 className="font-strong text-xl tracking-tight">{t("codeTitle")}</h1>
+        <h1 className="font-display text-3xl">{t("codeTitle")}</h1>
         <p className="text-ink-3 mt-1 text-sm">
           {challenge.method === "totp"
             ? t("codeFromApp")

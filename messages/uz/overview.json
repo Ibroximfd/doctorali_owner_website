@@ -48,7 +48,7 @@
     "description": "Kanallar bo'yicha, so'm"
   },
   "feed": {
-    "title": "Jonli lenta",
+    "title": "Hozir",
     "description": "Muhim hodisalar real vaqtda",
     "live": "Jonli"
   },
@@ -88,5 +88,49 @@
       "online": "Onlayn hisobda (Click / Payme)",
       "debt": "Mijozlar qarzida"
     }
+  },
+  "welcome": {
+    "greeting": {
+      "morning": "Xayrli tong!",
+      "day": "Xayrli kun!",
+      "evening": "Xayrli kech!",
+      "night": "Xayrli tun!"
+    }
+  },
+  "brief": {
+    "label": "Asosiy xulosa",
+    "lead": "Bugun biznes <money>{today}</money> ishladi",
+    "trend": {
+      "up": " — kecha shu vaqtdagidan <good>{pct} ko'p</good>.",
+      "down": " — kecha shu vaqtdagidan <bad>{pct} kam</bad>.",
+      "flat": " — kechagi sur'atda.",
+      "none": "."
+    },
+    "alerts": {
+      "critical": " <bad>{count} ta kritik signal</bad> ochiq: {title}.",
+      "open": " {count} ta ochiq signal bor, kritiklari yo'q.",
+      "none": " Signal yo'q — hammasi joyida."
+    },
+    "period": "Davr tushumi <money>{revenue}</money>",
+    "plan": "oylik reja <gold>{pct}</gold> bajarildi",
+    "openAlert": "Signalni ochish",
+    "askAi": "AI bilan gaplashish",
+    "ai": {
+      "title": "AI brifingi · {when}",
+      "titleNever": "AI brifingi",
+      "findings": "{open} ta ochiq topilma · {critical} tasi kritik",
+      "risk": "xavf ostida {value}",
+      "noHeadline": "Bugungi tekshiruvlar hali yakunlanmagan."
+    }
+  },
+  "river": {
+    "title": "Pul oqimi",
+    "description": "Kanallar bo'yicha, ustma-ust · so'm",
+    "today": "Bugun",
+    "chartLabel": "Tushum kanallar bo'yicha: {first} dan {last} gacha, jami {total}",
+    "total": "Jami"
+  },
+  "ticker": {
+    "label": "Oxirgi hodisalar"
   }
 }

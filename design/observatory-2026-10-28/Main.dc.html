@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Bosh sahifa — Doctor Ali Nazorat</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&amp;family=Manrope:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap">
+<style>
+body{margin:0;background:#050d09}
+a{color:#3fd69a}a:hover{color:#8af0c2}
+::selection{background:#3fd69a;color:#04110b}
+@keyframes dash{to{stroke-dashoffset:-60}}
+@keyframes draw{from{stroke-dashoffset:520}to{stroke-dashoffset:0}}
+@keyframes ping{0%{transform:scale(.5);opacity:.8}100%{transform:scale(3);opacity:0}}
+@keyframes reveal{from{opacity:0;filter:blur(10px);transform:translateY(14px)}to{opacity:1;filter:blur(0);transform:none}}
+@keyframes mapin{from{opacity:0;transform:scale(.96);filter:blur(6px) saturate(.4)}to{opacity:1;transform:none;filter:none}}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes scan{0%{transform:translateY(-100%)}100%{transform:translateY(100%)}}
+@keyframes underline{from{background-size:0 2px}to{background-size:100% 2px}}
+@keyframes breathe{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.12);opacity:1}}
+@keyframes barup{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</helmet>
+<div style="position: relative; min-height: 1720px; display: flex; flex-wrap: wrap; font-family: Manrope, system-ui, sans-serif; color: #e8f1ec; background: radial-gradient(1200px 700px at 70% -10%, rgba(63,214,154,.10), transparent 60%), radial-gradient(900px 600px at 0% 30%, rgba(232,194,106,.06), transparent 60%), #050d09; overflow: hidden">
+  <svg aria-hidden="true" viewBox="0 0 1440 1720" preserveAspectRatio="none" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: .5; pointer-events: none">
+    <g fill="none" stroke="rgba(120,200,160,.06)" stroke-width="1">
+      <path d="M-40 220 C 240 160, 420 300, 720 210 S 1200 120, 1500 230"></path>
+      <path d="M-40 260 C 250 200, 430 340, 720 250 S 1210 160, 1500 270"></path>
+      <path d="M-40 300 C 260 240, 440 380, 720 290 S 1220 200, 1500 310"></path>
+      <path d="M-40 1200 C 300 1140, 520 1280, 820 1190 S 1260 1100, 1500 1210"></path>
+      <path d="M-40 1240 C 310 1180, 530 1320, 830 1230 S 1270 1140, 1500 1250"></path>
+    </g>
+  </svg>
+
+  <dc-import name="Sidebar" active="overview" hint-size="240px,1720px"></dc-import>
+
+  <main style="flex: 999 1 560px; min-width: 0; position: relative; padding: 0 32px 56px">
+    <header style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; height: 72px">
+      <span style="display: inline-flex; align-items: center; gap: 10px; font-size: 13px; color: #9db3a7">
+        <span style="position: relative; width: 8px; height: 8px"><span style="position: absolute; inset: 0; border-radius: 50%; background: #3fd69a; animation: ping 2.2s ease-out infinite"></span><span style="position: absolute; inset: 0; border-radius: 50%; background: #3fd69a"></span></span>
+        Seshanba, 28-oktabr · <span style="font-family: 'JetBrains Mono', monospace; color: #e8f1ec">21:47</span> · jonli
+      </span>
+      <div role="group" aria-label="Davr" style="margin-left: auto; display: flex; padding: 3px; border-radius: 12px; background: rgba(255,255,255,.04); border: 1px solid rgba(180,230,200,.09)">
+        <button style="height: 32px; padding: 0 14px; border: 0; border-radius: 9px; background: transparent; color: #9db3a7; font: 500 13px Manrope, sans-serif">Bugun</button>
+        <button style="height: 32px; padding: 0 14px; border: 0; border-radius: 9px; background: transparent; color: #9db3a7; font: 500 13px Manrope, sans-serif">7 kun</button>
+        <button aria-pressed="true" style="height: 32px; padding: 0 14px; border: 0; border-radius: 9px; background: #e8f1ec; color: #06110c; font: 700 13px Manrope, sans-serif">30 kun</button>
+        <button style="height: 32px; padding: 0 14px; border: 0; border-radius: 9px; background: transparent; color: #9db3a7; font: 500 13px Manrope, sans-serif">Oy</button>
+      </div>
+      <button style="height: 38px; padding: 0 14px; border-radius: 12px; border: 1px solid rgba(180,230,200,.12); background: rgba(255,255,255,.03); color: #e8f1ec; font: 600 13px Manrope, sans-serif; display: inline-flex; align-items: center; gap: 8px">Barcha filiallar
+        <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"></path></svg>
+      </button>
+      <button aria-label="Qidirish" style="height: 38px; padding: 0 12px; border-radius: 12px; border: 1px solid rgba(180,230,200,.12); background: rgba(255,255,255,.03); color: #9db3a7; font: 500 13px Manrope, sans-serif; display: inline-flex; align-items: center; gap: 10px">
+        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 2px 6px; border-radius: 6px; border: 1px solid rgba(180,230,200,.15)">⌘K</span>
+      </button>
+    </header>
+
+    <section aria-label="AI brifing" style="display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 28px; align-items: end; padding: 18px 0 28px">
+      <div>
+        <h1 style="margin: 0; font-family: Fraunces, Georgia, serif; font-weight: 400; font-size: 54px; line-height: 1.08; letter-spacing: -.02em; max-width: 980px; text-wrap: balance; animation: reveal .9s cubic-bezier(.16,1,.3,1) both">
+          Bugun biznes
+          <span style="color: #3fd69a; background: linear-gradient(#3fd69a,#3fd69a) left bottom / 0 2px no-repeat; animation: underline 1.2s .6s cubic-bezier(.16,1,.3,1) forwards">312 mln so'm</span>
+          ishladi — kechagidan <span style="color: #3fd69a">8% ko'p</span>. Faqat Samarqandda <em style="color: #ff8a6a">3 ta buyurtma tiqilib</em> qoldi.
+        </h1>
+        <div style="margin-top: 22px; display: flex; flex-wrap: wrap; gap: 10px; animation: reveal .9s .25s cubic-bezier(.16,1,.3,1) both">
+          <a href="Region.dc.html" style="min-height: 44px; padding: 0 18px; border-radius: 14px; background: #3fd69a; color: #04110b; font-weight: 700; font-size: 14px; display: inline-flex; align-items: center; gap: 10px; text-decoration: none; box-shadow: 0 10px 30px -10px rgba(63,214,154,.7)">
+            Samarqandga kirish
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+          </a>
+          <a href="Ai.dc.html" style="min-height: 44px; padding: 0 18px; border-radius: 14px; border: 1px solid rgba(180,230,200,.18); color: #e8f1ec; font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; gap: 10px; text-decoration: none">
+            <span style="width: 18px; height: 18px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #ffffff, #3fd69a 45%, #0f5a3c); animation: breathe 3s ease-in-out infinite"></span>
+            AI bilan gaplashish
+          </a>
+        </div>
+      </div>
+      <div style="border-left: 1px solid rgba(180,230,200,.12); padding-left: 22px; font-size: 13px; color: #9db3a7; line-height: 1.6; animation: reveal .9s .35s cubic-bezier(.16,1,.3,1) both">
+        <div style="color: #e8c26a; font-weight: 700; margin-bottom: 6px">AI brifingi · 1 daqiqa oldin</div>
+        Kassada <span style="color: #e8f1ec">3,2 mln</span> farq bor, Qo'qon operatorlari <span style="color: #e8f1ec">10:00 dan</span> beri buyurtma olmayapti. Qolgan 11 ta tekshiruv joyida.
+      </div>
+    </section>
+
+    <section aria-label="O'zbekiston jonli xaritasi" style="position: relative; border-radius: 28px; border: 1px solid rgba(180,230,200,.10); background: radial-gradient(80% 90% at 55% 50%, rgba(63,214,154,.10), transparent 70%), linear-gradient(180deg, #0a1812, #06100b); overflow: hidden">
+      <div aria-hidden="true" style="position: absolute; inset: 0; background-image: linear-gradient(rgba(180,230,200,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(180,230,200,.045) 1px, transparent 1px); background-size: 48px 48px; mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%); -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%)"></div>
+      <div aria-hidden="true" style="position: absolute; left: 0; right: 0; height: 40%; background: linear-gradient(180deg, transparent, rgba(63,214,154,.06), transparent); animation: scan 7s linear infinite"></div>
+
+      <div style="position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 300px">
+        <div style="position: relative; padding: 26px 10px 18px 26px">
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px; position: relative; z-index: 2">
+            <h2 style="margin: 0; font-family: Fraunces, serif; font-weight: 400; font-size: 26px; letter-spacing: -.01em">Hududlar</h2>
+            <div role="group" aria-label="Xarita ko'rsatkichi" style="display: flex; padding: 3px; border-radius: 10px; background: rgba(255,255,255,.04); border: 1px solid rgba(180,230,200,.09)">
+              <button aria-pressed="true" style="height: 28px; padding: 0 12px; border: 0; border-radius: 8px; background: rgba(63,214,154,.16); color: #8af0c2; font: 700 12px Manrope, sans-serif">Yetkazish</button>
+              <button style="height: 28px; padding: 0 12px; border: 0; border-radius: 8px; background: transparent; color: #9db3a7; font: 500 12px Manrope, sans-serif">Ombor</button>
+              <button style="height: 28px; padding: 0 12px; border: 0; border-radius: 8px; background: transparent; color: #9db3a7; font: 500 12px Manrope, sans-serif">Kuryerlar</button>
+            </div>
+            <span style="margin-left: auto; font-size: 12px; color: #6f877b">Viloyatni bosing — ichiga kirasiz</span>
+          </div>
+
+          <div style="position: relative; margin-top: 8px; aspect-ratio: 793 / 517; animation: mapin 1.4s cubic-bezier(.16,1,.3,1) both">
+            <img src="/_blob/1dd9acc1f31a2d0ad4c1716963446779" alt="O'zbekiston viloyatlari: rang — yetkazish ulushi" style="position: absolute; inset: 0; width: 100%; height: 100%">
+            <svg aria-hidden="true" viewBox="0 0 793 517" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible">
+              <defs>
+                <linearGradient id="arc" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e8c26a" stop-opacity="0"></stop><stop offset=".6" stop-color="#e8c26a"></stop><stop offset="1" stop-color="#ffffff"></stop></linearGradient>
+                <radialGradient id="hub"><stop offset="0" stop-color="#ffe7a8"></stop><stop offset="1" stop-color="#e8c26a" stop-opacity="0"></stop></radialGradient>
+              </defs>
+              <g fill="none" stroke-linecap="round">
+                <sc-for list="{{arcs}}" as="a" hint-placeholder-count="9">
+                  <g>
+                    <path d="{{a.d}}" stroke="rgba(232,194,106,.18)" stroke-width="1.2"></path>
+                    <path d="{{a.d}}" stroke="url(#arc)" stroke-width="2" stroke-dasharray="520" style="animation: draw 1.8s {{a.delay}} cubic-bezier(.16,1,.3,1) both"></path>
+                    <path d="{{a.d}}" stroke="rgba(255,255,255,.55)" stroke-width="1.2" stroke-dasharray="4 26" style="animation: dash 2.4s linear infinite"></path>
+                    <circle r="3.2" fill="#ffffff"><animateMotion dur="{{a.dur}}" repeatCount="indefinite" path="{{a.d}}"></animateMotion></circle>
+                  </g>
+                </sc-for>
+              </g>
+              <sc-for list="{{nodes}}" as="n" hint-placeholder-count="10">
+                <g>
+                  <circle cx="{{n.x}}" cy="{{n.y}}" r="{{n.r}}" fill="{{n.color}}" opacity=".35" style="animation: ping 2.6s {{n.delay}} ease-out infinite; transform-box: fill-box; transform-origin: center"></circle>
+                  <circle cx="{{n.x}}" cy="{{n.y}}" r="3.4" fill="{{n.color}}" stroke="#04110b" stroke-width="1.5"></circle>
+                </g>
+              </sc-for>
+              <circle cx="614" cy="270" r="26" fill="url(#hub)" style="animation: breathe 3s ease-in-out infinite; transform-box: fill-box; transform-origin: center"></circle>
+              <rect x="607" y="263" width="14" height="14" rx="3" fill="#e8c26a" stroke="#04110b" stroke-width="2" transform="rotate(45 614 270)"></rect>
+            </svg>
+            <sc-for list="{{labels}}" as="l" hint-placeholder-count="5">
+              <div style="position: absolute; left: {{l.x}}%; top: {{l.y}}%; transform: translate(-50%, calc(-100% - 14px)); padding: 6px 10px; border-radius: 10px; background: rgba(6,16,11,.82); border: 1px solid {{l.border}}; backdrop-filter: blur(8px); white-space: nowrap; box-shadow: 0 10px 30px -12px rgba(0,0,0,.8); animation: reveal .8s {{l.delay}} cubic-bezier(.16,1,.3,1) both">
+                <div style="font-size: 11px; color: #9db3a7">{{l.name}}</div>
+                <div style="font: 600 14px 'JetBrains Mono', monospace; color: {{l.color}}">{{l.value}}</div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 18px; font-size: 12px; color: #9db3a7">
+            <span style="display: inline-flex; align-items: center; gap: 10px">Yetkazish ulushi
+              <span style="width: 160px; height: 8px; border-radius: 4px; background: linear-gradient(90deg, #d0573f, #b9822f, #17664a, #2bb07c, #3fd69a)"></span>
+              <span style="font-family: 'JetBrains Mono', monospace">33% → 92%</span>
+            </span>
+            <span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 12px; height: 12px; transform: rotate(45deg); background: #e8c26a; border-radius: 2px"></span>Markaziy ombor · Toshkent</span>
+            <span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 18px; height: 2px; background: #e8c26a"></span>Bugungi jo'natmalar</span>
+          </div>
+        </div>
+
+        <aside aria-label="Hududlar reytingi" style="position: relative; border-left: 1px solid rgba(180,230,200,.08); padding: 26px 22px; background: linear-gradient(180deg, rgba(255,255,255,.02), transparent)">
+          <div style="font-size: 12px; color: #6f877b; margin-bottom: 14px">Yetkazish ulushi · 30 kun</div>
+          <ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px">
+            <sc-for list="{{ranking}}" as="r" hint-placeholder-count="8">
+              <li>
+                <a href="{{r.href}}" style="display: block; text-decoration: none; color: #e8f1ec">
+                  <span style="display: flex; align-items: baseline; gap: 8px"><span style="font: 400 11px 'JetBrains Mono', monospace; color: #6f877b; width: 16px">{{r.rank}}</span><span style="flex: 1; font-size: 13px; font-weight: 600">{{r.name}}</span><span style="font: 600 13px 'JetBrains Mono', monospace; color: {{r.color}}">{{r.rate}}</span></span>
+                  <span style="display: block; margin: 6px 0 0 24px; height: 4px; border-radius: 2px; background: rgba(255,255,255,.06); overflow: hidden"><span style="display: block; height: 100%; width: {{r.pct}}%; border-radius: 2px; background: {{r.color}}; transform-origin: left; animation: reveal 1s {{r.delay}} both"></span></span>
+                </a>
+              </li>
+            </sc-for>
+          </ol>
+        </aside>
+      </div>
+
+      <div style="position: relative; border-top: 1px solid rgba(180,230,200,.08); overflow: hidden; height: 44px; display: flex; align-items: center; mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent)">
+        <div style="display: flex; gap: 48px; white-space: nowrap; animation: ticker 40s linear infinite; font-size: 13px; color: #9db3a7">
+          <sc-for list="{{tickerTwice}}" as="t" hint-placeholder-count="8">
+            <span style="display: inline-flex; align-items: center; gap: 10px"><span style="width: 6px; height: 6px; border-radius: 50%; background: {{t.dot}}"></span>{{t.text}}<span style="font-family: 'JetBrains Mono', monospace; color: #e8f1ec">{{t.amount}}</span></span>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section aria-label="Asosiy ko'rsatkichlar" style="margin-top: 22px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px">
+      <sc-for list="{{instruments}}" as="k" hint-placeholder-count="4">
+        <div style="position: relative; border-radius: 22px; padding: 18px 18px 14px; background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.01)); border: 1px solid rgba(180,230,200,.09); overflow: hidden; animation: reveal .8s {{k.delay}} cubic-bezier(.16,1,.3,1) both">
+          <div style="font-size: 13px; color: #9db3a7">{{k.label}}</div>
+          <div style="margin-top: 6px; display: flex; align-items: baseline; gap: 8px"><span style="font: 600 32px 'JetBrains Mono', monospace; letter-spacing: -.03em">{{k.value}}</span><span style="font-size: 13px; color: #9db3a7">{{k.unit}}</span><span style="margin-left: auto; font: 600 12px 'JetBrains Mono', monospace; color: {{k.deltaColor}}">{{k.delta}}</span></div>
+          <div style="margin-top: 14px; height: 64px; display: flex; align-items: flex-end; gap: 3px">
+            <sc-for list="{{k.bars}}" as="b" hint-placeholder-count="24">
+              <span style="flex: 1; height: {{b.h}}%; border-radius: 3px 3px 1px 1px; background: {{b.c}}; transform-origin: bottom; animation: barup .9s {{b.d}} cubic-bezier(.16,1,.3,1) both"></span>
+            </sc-for>
+          </div>
+          <div style="margin-top: 8px; display: flex; justify-content: space-between; font: 400 10px 'JetBrains Mono', monospace; color: #6f877b"><span>{{k.from}}</span><span>{{k.to}}</span></div>
+        </div>
+      </sc-for>
+    </section>
+
+    <div style="margin-top: 22px; display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 16px">
+      <section aria-labelledby="river" style="border-radius: 24px; padding: 22px; background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.01)); border: 1px solid rgba(180,230,200,.09)">
+        <div style="display: flex; align-items: baseline; gap: 14px">
+          <h2 id="river" style="margin: 0; font-family: Fraunces, serif; font-weight: 400; font-size: 24px">Pul oqimi</h2>
+          <span style="font-size: 12px; color: #6f877b">kanallar bo'yicha, kunlik</span>
+          <ul style="margin: 0 0 0 auto; padding: 0; list-style: none; display: flex; gap: 16px; font-size: 12px; color: #9db3a7">
+            <li style="display: flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #3fd69a"></span>Yetkazib berish</li>
+            <li style="display: flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #e8c26a"></span>Klinika</li>
+            <li style="display: flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #6fb3ff"></span>Konsultatsiya</li>
+          </ul>
+        </div>
+        <div style="position: relative; margin-top: 16px">
+        <div style="position: absolute; left: 79%; top: 4%; transform: translateX(-50%); padding: 10px 12px; border-radius: 12px; background: rgba(6,16,11,.92); border: 1px solid rgba(180,230,200,.15); font-size: 12px; white-space: nowrap; box-shadow: 0 12px 30px -12px rgba(0,0,0,.9)">
+          <div style="color: #9db3a7">22-oktabr</div>
+          <div style="display: flex; gap: 14px; margin-top: 4px; font-family: 'JetBrains Mono', monospace"><span style="color: #3fd69a">218 mln</span><span style="color: #e8c26a">74 mln</span><span style="color: #6fb3ff">19 mln</span></div>
+        </div>
+        <svg role="img" aria-label="30 kunlik pul oqimi: yetkazib berish ulushi eng katta, umumiy o'sish" viewBox="0 0 860 260" style="width: 100%; height: auto">
+          <defs>
+            <linearGradient id="r1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3fd69a" stop-opacity=".9"></stop><stop offset="1" stop-color="#3fd69a" stop-opacity=".25"></stop></linearGradient>
+            <linearGradient id="r2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8c26a" stop-opacity=".9"></stop><stop offset="1" stop-color="#e8c26a" stop-opacity=".3"></stop></linearGradient>
+            <linearGradient id="r3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6fb3ff" stop-opacity=".85"></stop><stop offset="1" stop-color="#6fb3ff" stop-opacity=".3"></stop></linearGradient>
+          </defs>
+          <path d="M0 130 C 80 110, 140 150, 220 120 S 360 80, 440 100 S 600 60, 680 70 S 800 40, 860 34 L 860 130 C 800 136, 720 150, 640 146 S 480 160, 400 162 S 240 170, 160 166 S 60 172, 0 168 Z" fill="url(#r1)"></path>
+          <path d="M0 168 C 60 172, 160 166, 160 166 S 240 170, 400 162 S 560 156, 640 146 S 800 136, 860 130 L 860 196 C 760 200, 660 206, 560 204 S 360 212, 260 210 S 80 214, 0 214 Z" fill="url(#r2)"></path>
+          <path d="M0 214 C 80 214, 180 212, 260 210 S 460 206, 560 204 S 760 200, 860 196 L 860 240 L 0 240 Z" fill="url(#r3)"></path>
+          <path d="M680 20 V240" stroke="rgba(232,241,236,.25)" stroke-dasharray="2 4"></path>
+          <circle cx="680" cy="70" r="5" fill="#ffffff" stroke="#3fd69a" stroke-width="2"></circle>
+          <g font-family="JetBrains Mono" font-size="10" fill="#6f877b"><text x="0" y="256">29-sen</text><text x="400" y="256">13-okt</text><text x="812" y="256">28-okt</text></g>
+        </svg>
+        </div>
+      </section>
+      <section aria-labelledby="feed" style="border-radius: 24px; padding: 22px; background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.01)); border: 1px solid rgba(180,230,200,.09)">
+        <h2 id="feed" style="margin: 0; font-family: Fraunces, serif; font-weight: 400; font-size: 24px">Hozir</h2>
+        <ol style="list-style: none; margin: 16px 0 0; padding: 0; position: relative">
+          <span aria-hidden="true" style="position: absolute; left: 5px; top: 6px; bottom: 6px; width: 1px; background: linear-gradient(180deg, rgba(63,214,154,.5), transparent)"></span>
+          <sc-for list="{{feed}}" as="f" hint-placeholder-count="6">
+            <li style="position: relative; padding: 0 0 16px 22px; animation: reveal .7s {{f.delay}} cubic-bezier(.16,1,.3,1) both">
+              <span style="position: absolute; left: 0; top: 5px; width: 11px; height: 11px; border-radius: 50%; background: #06100b; border: 2px solid {{f.dot}}"></span>
+              <div style="display: flex; gap: 8px"><span style="flex: 1; font-size: 13px; font-weight: 600">{{f.title}}</span><span style="font: 600 12px 'JetBrains Mono', monospace">{{f.amount}}</span></div>
+              <div style="font-size: 12px; color: #6f877b">{{f.meta}}</div>
+            </li>
+          </sc-for>
+        </ol>
+      </section>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1720}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const arcs = [
+      ['M614 270 Q548 235 481 360', 0, 3.2], ['M614 270 Q486 220 357 339', .1, 4.2], ['M614 270 Q660 225 707 322', .15, 2.4],
+      ['M614 270 Q684 215 754 304', .2, 2.8], ['M614 270 Q424 150 234 269', .25, 5.2], ['M614 270 Q371 70 128 149', .3, 6.4],
+      ['M614 270 Q540 285 468 419', .35, 3.6], ['M614 270 Q572 320 531 467', .4, 3.8], ['M614 270 Q500 165 386 227', .45, 3.4]
+    ].map(([d, delay, dur]) => ({ d, delay: delay + 's', dur: dur + 's' }));
+    const nodeColor = (rate) => rate >= 75 ? '#3fd69a' : rate >= 55 ? '#e8c26a' : '#ff8a6a';
+    const nodes = [
+      ['samarqand', 481, 360, 76, 10], ['buxoro', 357, 339, 49, 8], ['fargona', 707, 322, 90, 9], ['andijon', 754, 304, 80, 8],
+      ['namangan', 706, 287, 83, 7], ['xorazm', 234, 269, 89, 6], ['qoraqalpogiston', 128, 149, 33, 7], ['qashqadaryo', 468, 419, 58, 7],
+      ['surxondaryo', 531, 467, 41, 7], ['navoiy', 386, 227, 68, 6], ['jizzax', 534, 336, 72, 6], ['sirdaryo', 585, 320, 77, 5]
+    ].map(([, x, y, rate, r], i) => ({ x, y, r, color: nodeColor(rate), delay: (i * 0.2) + 's' }));
+    const labels = [
+      { name: 'Toshkent shahri', value: '1 840 · 92%', x: 77.4, y: 52.4, color: '#3fd69a', border: 'rgba(63,214,154,.4)', delay: '.9s' },
+      { name: 'Samarqand', value: '412 · 76% · 3 tiqildi', x: 60.7, y: 69.7, color: '#e8c26a', border: 'rgba(232,194,106,.6)', delay: '1.05s' },
+      { name: 'Buxoro', value: '214 · 49%', x: 45.0, y: 65.7, color: '#ff8a6a', border: 'rgba(255,138,106,.5)', delay: '1.2s' },
+      { name: "Farg'ona", value: '388 · 90%', x: 89.1, y: 62.3, color: '#3fd69a', border: 'rgba(63,214,154,.4)', delay: '1.35s' },
+      { name: "Qoraqalpog'iston", value: '96 · 33%', x: 16.2, y: 28.8, color: '#ff8a6a', border: 'rgba(255,138,106,.5)', delay: '1.5s' }
+    ];
+    const rcol = (v) => v >= 75 ? '#3fd69a' : v >= 55 ? '#e8c26a' : '#ff8a6a';
+    const ranking = [
+      ['Toshkent shahri', 92], ["Farg'ona", 90], ['Xorazm', 89], ['Namangan', 83], ['Andijon', 80], ['Samarqand', 76], ['Qashqadaryo', 58], ['Buxoro', 49], ['Surxondaryo', 41], ["Qoraqalpog'iston", 33]
+    ].map(([name, v], i) => ({ rank: i + 1, name, rate: v + '%', pct: v, color: rcol(v), delay: (0.6 + i * 0.06) + 's', href: name === 'Samarqand' ? 'Region.dc.html' : '#' }));
+    const ticker = [
+      { dot: '#3fd69a', text: 'DA-184092 yetkazildi · Toshkent', amount: '760 000' },
+      { dot: '#6fb3ff', text: "Payme to'lovi · Qo'qon", amount: '1 370 000' },
+      { dot: '#e8c26a', text: 'Klinika kassasi yopildi · farq yo\'q', amount: '42,1 mln' },
+      { dot: '#ff8a6a', text: 'Kuryersiz buyurtma 3 soat · Samarqand', amount: '' },
+      { dot: '#3fd69a', text: 'Yangi buyurtma ilovadan · Andijon', amount: '1 120 000' },
+      { dot: '#3fd69a', text: 'Jasur K. kassaga topshirdi', amount: '3 500 000' }
+    ];
+    const bars = (vals, color, hiIdx) => vals.map((h, i) => ({ h, c: i === hiIdx ? '#ffffff' : color, d: (i * 0.025) + 's' }));
+    return {
+      arcs, nodes, labels, ranking, tickerTwice: ticker.concat(ticker),
+      instruments: [
+        { label: 'Buyurtmalar', value: '6 284', unit: 'ta', delta: '+8,4%', deltaColor: '#3fd69a', from: '00:00', to: '23:00', delay: '.1s', bars: bars([12,8,6,5,6,10,22,40,62,78,92,100,84,70,74,88,96,90,72,58,44,32,22,16], 'rgba(63,214,154,.55)', 11) },
+        { label: 'Yetkazildi', value: '88,6', unit: '%', delta: '+0,7 f.p.', deltaColor: '#3fd69a', from: '1-okt', to: '28-okt', delay: '.18s', bars: bars([70,72,68,74,76,73,78,80,77,79,82,84,81,83,85,84,86,88,85,87,89,88,90,89,88,90,91,89], 'rgba(63,214,154,.45)', 27) },
+        { label: 'Kuryerlarda naqd', value: '45,9', unit: 'mln', delta: '+12%', deltaColor: '#ff8a6a', from: 'Jasur K.', to: 'boshqalar', delay: '.26s', bars: bars([100,72,58,44,40,36,30,26,22,18,14,10], 'rgba(255,138,106,.55)', 0) },
+        { label: 'Klinika bemorlari', value: '1 148', unit: 'ta', delta: '+5,6%', deltaColor: '#3fd69a', from: 'Du', to: 'Ya', delay: '.34s', bars: bars([62,70,66,74,80,92,40,64,72,70,78,84,96,44], 'rgba(232,194,106,.55)', 12) }
+      ],
+      feed: [
+        { dot: '#3fd69a', title: 'DA-184092 yetkazildi', amount: '760 000', meta: 'Toshkent · Jasur K. · hozir', delay: '.2s' },
+        { dot: '#6fb3ff', title: "Payme to'lovi qabul qilindi", amount: '1,37 mln', meta: "Qo'qon · 2 daqiqa", delay: '.3s' },
+        { dot: '#e8c26a', title: 'AI: kassada 3,2 mln farq', amount: '', meta: 'Moliya · 20 daqiqa', delay: '.4s' },
+        { dot: '#ff8a6a', title: 'Kuryersiz buyurtma 3 soat', amount: '', meta: 'Samarqand · 12 daqiqa', delay: '.5s' },
+        { dot: '#3fd69a', title: 'Klinika kassasi yopildi', amount: '42,1 mln', meta: 'Toshkent · 8 daqiqa', delay: '.6s' },
+        { dot: '#3fd69a', title: 'Sardor A. prixod kiritdi', amount: '600 dona', meta: 'Toshkent ombori · 31 daqiqa', delay: '.7s' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

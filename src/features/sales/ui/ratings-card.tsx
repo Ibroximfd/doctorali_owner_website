@@ -81,7 +81,7 @@ const RatingsContent = ({ ratings }: { ratings: SalesRatings }) => {
       />
 
       <div className="mt-4 border-t pt-3">
-        <h3 className="text-2xs text-ink-3 mb-2 font-semibold tracking-widest uppercase">{t("lowTitle")}</h3>
+        <h3 className="text-2xs text-ink-3 mb-2 font-semibold">{t("lowTitle")}</h3>
         {low.length === 0 ? (
           <p className="text-ink-3 text-xs">{t("lowEmpty")}</p>
         ) : (

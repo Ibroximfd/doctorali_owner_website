@@ -6,6 +6,8 @@ type SegmentedProps<Value extends string> = {
   value: Value | null;
   onChange: (value: Value) => void;
   ariaLabel: string;
+  /** `hero` — to'q yashil bo'lim boshi ustida. */
+  tone?: "default" | "hero";
   className?: string;
 };
 
@@ -15,12 +17,17 @@ export const Segmented = <Value extends string>({
   value,
   onChange,
   ariaLabel,
+  tone = "default",
   className,
 }: SegmentedProps<Value>) => (
   <div
     role="group"
     aria-label={ariaLabel}
-    className={cn("bg-surface-3 inline-flex gap-0.5 rounded-md p-0.5", className)}
+    className={cn(
+      "inline-flex gap-1 rounded-xl border p-1",
+      tone === "hero" ? "bg-hero-ink/5" : "bg-surface-2/60",
+      className,
+    )}
   >
     {options.map((option) => (
       <button
@@ -29,8 +36,12 @@ export const Segmented = <Value extends string>({
         aria-pressed={option.value === value}
         onClick={() => onChange(option.value)}
         className={cn(
-          "font-mid h-7 rounded-sm px-2.5 text-xs whitespace-nowrap transition-colors",
-          option.value === value ? "bg-surface text-ink shadow-sm" : "text-ink-2 hover:text-ink",
+          "h-7.5 rounded-lg px-3 text-xs font-semibold whitespace-nowrap transition-colors",
+          option.value === value
+            ? "bg-accent-soft text-accent"
+            : tone === "hero"
+              ? "text-hero-ink-2 hover:text-hero-ink"
+              : "text-ink-2 hover:text-ink",
         )}
       >
         {option.label}

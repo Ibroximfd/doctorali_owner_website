@@ -1,0 +1,49 @@
+{
+  "results": [
+    {
+      "key": "warehouse_head",
+      "title": "Sklad boshlig'i",
+      "department": "warehouse",
+      "permissions": [
+        "warehouse.stock.view",
+        "warehouse.stock.detail",
+        "warehouse.inbound.create",
+        "warehouse.staff.manage",
+        "couriers.live.view"
+      ],
+      "is_system": true
+    },
+    {
+      "key": "warehouse_keeper",
+      "title": "Skladchi",
+      "department": "warehouse",
+      "permissions": [
+        "warehouse.stock.detail",
+        "warehouse.inbound.create"
+      ],
+      "is_system": true
+    },
+    {
+      "key": "call_center_admin",
+      "title": "Filial admini",
+      "department": "call_center",
+      "permissions": [
+        "callcenter.stats.view",
+        "callcenter.calls.detail",
+        "callcenter.recordings.listen",
+        "callcenter.operators.manage"
+      ],
+      "is_system": true
+    },
+    {
+      "key": "courier_head",
+      "title": "Kuryerlar boshlig'i",
+      "department": "couriers",
+      "permissions": [
+        "couriers.live.view",
+        "couriers.manage"
+      ],
+      "is_system": true
+    }
+  ]
+}

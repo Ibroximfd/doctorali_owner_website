@@ -9,7 +9,7 @@ type BannerProps = { icon?: LucideIcon; children: ReactNode; action?: ReactNode;
 export const Banner = ({ icon: Icon, children, action, className }: BannerProps) => (
   <div
     className={cn(
-      "bg-surface-3 text-ink-2 flex items-center gap-2.5 rounded-lg border px-3.5 py-2.5 text-sm",
+      "bg-surface-3/60 text-ink-2 flex items-center gap-2.5 rounded-2xl border px-4 py-3 text-sm",
       className,
     )}
   >

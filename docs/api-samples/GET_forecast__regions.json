@@ -1,0 +1,49 @@
+{
+  "period": {
+    "from": "2026-10-05",
+    "to": "2026-10-05",
+    "granularity": "hour",
+    "label": "today"
+  },
+  "compare": {
+    "from": "2026-10-04",
+    "to": "2026-10-04"
+  },
+  "filials": [
+    1,
+    2,
+    3
+  ],
+  "generated_at": "2026-10-05T09:00:00.000Z",
+  "freshness": {
+    "orders": "2026-10-05T09:00:00.000Z",
+    "clinic": "2026-10-05T08:58:30.000Z",
+    "app": "2026-10-05T03:00:00+05:00"
+  },
+  "data": [
+    {
+      "region": "toshkent_shahar",
+      "expected_orders": 2130,
+      "expected_revenue": 1469700000,
+      "growth_pct": 9.2
+    },
+    {
+      "region": "samarqand",
+      "expected_orders": 540,
+      "expected_revenue": 372600000,
+      "growth_pct": 24.5
+    },
+    {
+      "region": "fargona",
+      "expected_orders": 360,
+      "expected_revenue": 248400000,
+      "growth_pct": -2.1
+    },
+    {
+      "region": "andijon",
+      "expected_orders": 270,
+      "expected_revenue": 186300000,
+      "growth_pct": 6.4
+    }
+  ]
+}

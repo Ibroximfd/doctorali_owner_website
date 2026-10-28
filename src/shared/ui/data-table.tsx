@@ -90,7 +90,7 @@ export const DataTable = <Row,>({
                   key={column.id}
                   scope="col"
                   className={cn(
-                    "text-2xs text-ink-3 border-b px-2.5 py-2 font-semibold tracking-wider whitespace-nowrap uppercase first:pl-4.5 last:pr-4.5",
+                    "text-2xs text-ink-3 border-b px-2.5 py-2 font-semibold whitespace-nowrap first:pl-5.5 last:pr-5.5",
                     column.align === "right" ? "text-right" : "text-left",
                   )}
                 >
@@ -114,7 +114,7 @@ export const DataTable = <Row,>({
                   <td
                     key={column.id}
                     className={cn(
-                      "border-b px-2.5 py-2.5 align-middle whitespace-nowrap group-last:border-b-0 first:pl-4.5 last:pr-4.5",
+                      "border-b px-2.5 py-2.5 align-middle whitespace-nowrap group-last:border-b-0 first:pl-5.5 last:pr-5.5",
                       column.align === "right" && "text-right",
                       column.numeric && "num text-xs",
                     )}
@@ -132,7 +132,7 @@ export const DataTable = <Row,>({
                   <td
                     key={column.id}
                     className={cn(
-                      "border-border-strong font-strong border-t px-2.5 py-2.5 whitespace-nowrap first:pl-4.5 last:pr-4.5",
+                      "border-border-strong font-strong border-t px-2.5 py-2.5 whitespace-nowrap first:pl-5.5 last:pr-5.5",
                       column.align === "right" && "text-right",
                       column.numeric && "num text-xs",
                     )}
@@ -161,9 +161,7 @@ export const DataTable = <Row,>({
               {columns.map((column) => (
                 <div key={column.id} className={cn("min-w-0 text-sm", column.primary && "col-span-2")}>
                   {column.primary ? null : (
-                    <div className="text-2xs text-ink-3 mb-0.5 font-semibold tracking-wider uppercase">
-                      {column.header}
-                    </div>
+                    <div className="text-2xs text-ink-3 mb-0.5 font-semibold">{column.header}</div>
                   )}
                   <div className={cn(column.numeric && "num text-xs")}>{column.cell(row, index)}</div>
                 </div>
@@ -177,9 +175,7 @@ export const DataTable = <Row,>({
                 column.footer === undefined ? null : (
                   <div key={column.id} className={cn("min-w-0 text-sm", column.primary && "col-span-2")}>
                     {column.primary ? null : (
-                      <div className="text-2xs text-ink-3 mb-0.5 font-semibold tracking-wider uppercase">
-                        {column.header}
-                      </div>
+                      <div className="text-2xs text-ink-3 mb-0.5 font-semibold">{column.header}</div>
                     )}
                     <div className={cn(column.numeric && "num text-xs")}>{column.footer}</div>
                   </div>

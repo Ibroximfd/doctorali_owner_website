@@ -1,0 +1,32 @@
+{
+  "results": [
+    {
+      "key": "call_center_admin",
+      "title": "Call-center admini",
+      "sections": [
+        "warehouse"
+      ],
+      "mask_pii": true
+    },
+    {
+      "key": "logist",
+      "title": "Logist",
+      "sections": [
+        "logistics",
+        "warehouse",
+        "issues"
+      ],
+      "mask_pii": true
+    },
+    {
+      "key": "accountant",
+      "title": "Buxgalter",
+      "sections": [
+        "finance",
+        "settlements",
+        "reports"
+      ],
+      "mask_pii": false
+    }
+  ]
+}

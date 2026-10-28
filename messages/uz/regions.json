@@ -1,0 +1,121 @@
+{
+  "title": "Hududlar",
+  "description": "Rang — tanlangan ko'rsatkich. Viloyatni bosing: xarita yaqinlashadi, omborlar va kuryerlar ko'rinadi",
+  "descriptionZoomed": "Tilla kvadrat — ombor, nuqtalar — kuryerlar (yashil harakatda, sariq turibdi, qizil signal yo'q)",
+  "metric": "Xarita ko'rsatkichi",
+  "mapLabel": "O'zbekiston viloyatlari",
+  "open": "{name} viloyatiga kirish",
+  "metrics": {
+    "delivery": "Yetkazish",
+    "stock": "Ombor",
+    "couriers": "Kuryerlar"
+  },
+  "summary": {
+    "delivery": "{rate} yetkazildi · {orders} buyurtma",
+    "stock": "{units} dona · kam: {low}",
+    "couriers": "{working}/{total} ishlayapti · naqd {cash}"
+  },
+  "legend": {
+    "delivery": {
+      "good": "Yaxshi (75%+)",
+      "fair": "O'rtacha",
+      "watch": "E'tibor",
+      "bad": "Muammo (35% dan past)"
+    },
+    "stock": {
+      "good": "Yetarli",
+      "fair": "—",
+      "watch": "1 mahsulot kam",
+      "bad": "Bir nechtasi kam"
+    },
+    "couriers": {
+      "good": "75%+ ishlayapti",
+      "fair": "50%+",
+      "watch": "25%+",
+      "bad": "Deyarli hech kim"
+    }
+  },
+  "ranking": {
+    "delivery": "Eng e'tibor talab qiladigan hududlar:",
+    "stock": "Qoldig'i kam hududlar:",
+    "couriers": "Kuryerlarida eng ko'p naqd turgan hududlar:"
+  },
+  "live": {
+    "back": "Butun xaritaga qaytish",
+    "live": "Jonli · har 15 soniyada",
+    "stock": "Omborda, dona",
+    "cash": "Kuryerlarda naqd",
+    "inTransit": "Yo'lda",
+    "delivered": "Bugun yetkazildi",
+    "stuck": "{count} ta buyurtma 3 kundan beri yetkazilmagan",
+    "tabs": "Viloyat ma'lumotlari",
+    "tab": {
+      "couriers": "Kuryerlar",
+      "warehouses": "Omborlar",
+      "orders": "Buyurtmalar"
+    },
+    "noCouriers": "Bu viloyatda kuryer yo'q",
+    "noWarehouses": "Bu viloyatda ombor yo'q",
+    "status": {
+      "moving": "harakatda · {speed} km/soat",
+      "idle": "turibdi",
+      "no_signal": "signal yo'q",
+      "off_shift": "smena yopiq"
+    },
+    "task": {
+      "delivering": "{order} ni yetkazmoqda · {address} · ~{eta} daq",
+      "returning": "Omborga qaytmoqda",
+      "pickup": "Omborda yuk olmoqda",
+      "waiting": "Mijozni kutmoqda · {address}"
+    },
+    "lastSignal": "Oxirgi signal: {when}",
+    "noTask": "Vazifa yo'q",
+    "doneToday": "Bugun {delivered}/{assigned}",
+    "onHand": "qo'lida {value}",
+    "keeper": "Skladchi: {name}",
+    "days": "{value} kun",
+    "stock_": {
+      "out": "Tugagan",
+      "critical": "Kritik",
+      "low": "Kam",
+      "ok": "Yetarli"
+    },
+    "orders": {
+      "pending": "Yangi",
+      "confirmed": "Tasdiqlangan",
+      "shipping": "Yo'lda",
+      "delivered": "Yetkazilgan",
+      "cancelled": "Atkaz"
+    },
+    "alertTitle": "E'tibor kerak",
+    "noSignalList": "Signal yo'q: {names}",
+    "warehouseLabel": "{units} dona",
+    "noSignalLabel": "signal yo'q · {when}",
+    "cancelledToday": "{count} atkaz",
+    "dayFlow": "Kun oqimi",
+    "dayFlowNote": "buyurtmalar bosqichlar bo'yicha · hozir",
+    "more": "+{count}",
+    "onHandLabel": "qo'lida",
+    "stepsLabel": "Bugun {delivered} yetkazildi, {cancelled} atkaz, jami {assigned}"
+  },
+  "hint": "Viloyatni bosing — ichiga kirasiz",
+  "country": "O'zbekiston",
+  "labelValue": "{orders} · {rate}",
+  "legendHub": "Markaz · Toshkent",
+  "legendArcs": "Buyurtmalar oqimi — qalinligi hajmga mos",
+  "rankingValue": {
+    "stock": "{units} dona",
+    "couriers": "{cash}"
+  },
+  "zoomSubtitle": "{couriers} kuryer · {warehouses} ombor · bugun {orders} buyurtma",
+  "hover": {
+    "orders": "Buyurtmalar",
+    "delivered": "Yetkazildi",
+    "revenue": "Tushum",
+    "couriers": "Kuryerlar ishlayapti",
+    "stock": "Omborda, dona",
+    "lowSkus": "{count} ta mahsulot kam",
+    "open": "Bosing — batafsil ma'lumot",
+    "stockLow": "Ombor"
+  }
+}

@@ -7,6 +7,30 @@
  */
 import type { z } from "zod";
 
+import {
+  activitySchema,
+  candidatesSchema,
+  membersSchema,
+  templatesSchema,
+} from "@/features/access/model/access.schema";
+import {
+  accountDetailSchema,
+  accountsSchema,
+  departmentsSchema,
+  permissionsSchema,
+  rolesSchema,
+} from "@/features/access/model/iam.schema";
+import {
+  actionsResponseSchema,
+  aiSummarySchema,
+  autopilotSchema,
+  chatSchema,
+  chatsSchema,
+  checksSchema,
+  findingsResponseSchema,
+  recommendationsSchema,
+  reportsSchema as aiReportsSchema,
+} from "@/features/ai/model/ai.schema";
 import { alertRulesResponseSchema, alertsResponseSchema } from "@/features/alerts/model/alerts.schema";
 import { userSchema } from "@/features/auth/model/auth.schema";
 import {
@@ -33,9 +57,22 @@ import {
   returnsSchema,
 } from "@/features/finance/model/finance.schema";
 import {
+  forecastRegionsSchema,
+  forecastSeriesSchema,
+  forecastSummarySchema,
+  stockoutsSchema,
+} from "@/features/forecast/model/forecast.schema";
+import {
+  issueDetailSchema,
+  issuesResponseSchema,
+  recipientsSchema,
+} from "@/features/issues/model/issues.schema";
+import {
   attemptReasonsSchema,
   courierDetailSchema,
   couriersSchema,
+  handoversSchema,
+  liveSchema,
   logisticsSummarySchema,
   regionDeliverySchema,
   transfersSchema,
@@ -60,6 +97,8 @@ import {
   stuckOrdersSchema,
 } from "@/features/orders/model/orders.schema";
 import { feedSchema, overviewSchema } from "@/features/overview/model/overview.schema";
+import { regionLiveSchema, regionsSchema } from "@/features/regions/model/regions.schema";
+import { leaderboardSchema, profileSchema, teamsSchema } from "@/features/staff/model/staff.schema";
 import { productsSchema } from "@/features/products/model/products.schema";
 import {
   digestSchema,
@@ -82,6 +121,19 @@ import {
   sessionsResponseSchema,
   targetsSchema,
 } from "@/features/settings/model/settings.schema";
+import {
+  agingSchema,
+  b2bSchema,
+  regionSettlementsSchema,
+  settlementsSummarySchema,
+} from "@/features/settlements/model/settlements.schema";
+import { auditSchema, healthSchema, syncSchema } from "@/features/system/model/system.schema";
+import {
+  salesMixSchema,
+  stockSchema,
+  warehouseSummarySchema,
+  warehousesSchema,
+} from "@/features/warehouse/model/warehouse.schema";
 import { timeseriesSchema } from "@/shared/lib/envelope";
 import { metaSchema } from "@/shared/meta/meta.schema";
 
@@ -356,6 +408,268 @@ export const CONTRACT_ENDPOINTS: readonly ContractEndpoint[] = [
     shape: "plain",
     scoped: false,
     schema: accessResponseSchema,
+  },
+
+  /* ---------- v2 (`07_BACKEND_TZ_V2`): ERP integratsiyasi, AI, ruxsatlar ---------- */
+  {
+    section: "Hududlar",
+    path: "regions/",
+    ...SCOPED,
+    schema: regionsSchema,
+    note: "xarita: sotuv (davr) + ombor va kuryerlar (hozir)",
+  },
+  {
+    section: "Hududlar",
+    path: "regions/:id/live/",
+    shape: "envelope",
+    scoped: false,
+    schema: regionLiveSchema,
+    idSource: { path: "regions/", query: { period: "30d" }, pick: firstId("region") },
+    note: "viloyat ichi: omborlar, kuryerlar (lat/lng, vazifa, naqd); 15 s da so'raladi",
+  },
+  { section: "Ombor", path: "warehouse/summary/", ...SCOPED, schema: warehouseSummarySchema },
+  { section: "Ombor", path: "warehouse/warehouses/", ...SCOPED, schema: warehousesSchema },
+  {
+    section: "Ombor",
+    path: "warehouse/stock/",
+    ...SCOPED,
+    schema: stockSchema,
+    note: "`warehouse=<id>` — bitta ombor (ombor kartasi)",
+  },
+  { section: "Ombor", path: "warehouse/movements/", ...SCOPED, schema: timeseriesSchema },
+  {
+    section: "Ombor",
+    path: "warehouse/sales-mix/",
+    ...SCOPED,
+    schema: salesMixSchema,
+    note: "to'liq narx · chegirma · sovg'a",
+  },
+  {
+    section: "Xodimlar",
+    path: "staff/leaderboard/",
+    ...SCOPED,
+    schema: leaderboardSchema,
+    variants: [
+      { role: "operator" },
+      { role: "admin" },
+      { role: "courier" },
+      { role: "warehouse" },
+      { role: "logist" },
+    ],
+  },
+  { section: "Xodimlar", path: "staff/teams/", ...SCOPED, schema: teamsSchema, query: { role: "operator" } },
+  {
+    section: "Xodimlar",
+    path: "staff/:id/",
+    ...SCOPED,
+    schema: profileSchema,
+    idSource: {
+      path: "staff/leaderboard/",
+      query: { period: "30d", role: "operator" },
+      pick: (json) => {
+        const holder =
+          typeof json === "object" && json !== null && "data" in json
+            ? (json as { data: unknown }).data
+            : null;
+        const rows =
+          typeof holder === "object" && holder !== null && "rows" in holder
+            ? (holder as { rows: unknown }).rows
+            : [];
+        return Array.isArray(rows)
+          ? rows
+              .slice(0, 5)
+              .flatMap((row: unknown) =>
+                typeof row === "object" && row !== null && "id" in row
+                  ? [String((row as { id: unknown }).id)]
+                  : [],
+              )
+          : [];
+      },
+    },
+  },
+  { section: "Hisob-kitob", path: "settlements/summary/", ...SCOPED, schema: settlementsSummarySchema },
+  { section: "Hisob-kitob", path: "settlements/regions/", ...SCOPED, schema: regionSettlementsSchema },
+  { section: "Hisob-kitob", path: "settlements/aging/", ...SCOPED, schema: agingSchema },
+  { section: "Hisob-kitob", path: "settlements/b2b/", ...SCOPED, schema: b2bSchema },
+  {
+    section: "Yetkazib berish",
+    path: "logistics/live/",
+    shape: "envelope",
+    scoped: false,
+    schema: liveSchema,
+    note: "hozirgi holat; faqat `filial`; 15 s da so'raladi",
+  },
+  {
+    section: "Yetkazib berish",
+    path: "logistics/handovers/",
+    shape: "envelope",
+    scoped: false,
+    schema: handoversSchema,
+  },
+  {
+    section: "Muammolar",
+    path: "issues/",
+    shape: "plain",
+    scoped: false,
+    schema: issuesResponseSchema,
+    variants: [{ status: "open" }, { status: "all" }],
+  },
+  {
+    section: "Muammolar",
+    path: "issues/:id/",
+    shape: "plain",
+    scoped: false,
+    schema: issueDetailSchema,
+    idSource: { path: "issues/", query: { status: "all" }, pick: firstId() },
+  },
+  {
+    section: "Muammolar",
+    path: "issues/recipients/",
+    shape: "plain",
+    scoped: false,
+    schema: recipientsSchema,
+    variants: [{ domain: "warehouse" }, { domain: "logistics" }, { domain: "finance" }],
+  },
+  {
+    section: "Prognoz",
+    path: "forecast/summary/",
+    shape: "envelope",
+    scoped: false,
+    schema: forecastSummarySchema,
+    variants: [{ horizon: "7" }, { horizon: "30" }, { horizon: "90" }],
+  },
+  {
+    section: "Prognoz",
+    path: "forecast/timeseries/",
+    shape: "envelope",
+    scoped: false,
+    schema: forecastSeriesSchema,
+    variants: [
+      { horizon: "30", metric: "revenue" },
+      { horizon: "30", metric: "orders" },
+    ],
+  },
+  {
+    section: "Prognoz",
+    path: "forecast/stockouts/",
+    shape: "envelope",
+    scoped: false,
+    schema: stockoutsSchema,
+    query: { horizon: "30" },
+  },
+  {
+    section: "Prognoz",
+    path: "forecast/regions/",
+    shape: "envelope",
+    scoped: false,
+    schema: forecastRegionsSchema,
+    query: { horizon: "30" },
+  },
+  { section: "Tizim", path: "system/health/", shape: "plain", scoped: false, schema: healthSchema },
+  { section: "Tizim", path: "system/sync/", shape: "plain", scoped: false, schema: syncSchema },
+  {
+    section: "Tizim",
+    path: "system/audit/",
+    shape: "plain",
+    scoped: false,
+    schema: auditSchema,
+    query: { page: "1" },
+  },
+  { section: "AI tahlil", path: "ai/summary/", shape: "plain", scoped: false, schema: aiSummarySchema },
+  {
+    section: "AI tahlil",
+    path: "ai/findings/",
+    shape: "plain",
+    scoped: false,
+    schema: findingsResponseSchema,
+    variants: [{ status: "open" }, { status: "all" }],
+  },
+  {
+    section: "AI tahlil",
+    path: "ai/actions/",
+    shape: "plain",
+    scoped: false,
+    schema: actionsResponseSchema,
+    variants: [{ status: "proposed" }, { status: "all" }],
+    note: "AI avto-tuzatish (`08` §B)",
+  },
+  { section: "AI tahlil", path: "ai/autopilot/", shape: "plain", scoped: false, schema: autopilotSchema },
+  { section: "AI tahlil", path: "ai/checks/", shape: "plain", scoped: false, schema: checksSchema },
+  { section: "AI tahlil", path: "ai/reports/", shape: "plain", scoped: false, schema: aiReportsSchema },
+  {
+    section: "AI tahlil",
+    path: "ai/recommendations/",
+    shape: "plain",
+    scoped: false,
+    schema: recommendationsSchema,
+  },
+  { section: "AI tahlil", path: "ai/chats/", shape: "plain", scoped: false, schema: chatsSchema },
+  {
+    section: "AI tahlil",
+    path: "ai/chats/:id/",
+    shape: "plain",
+    scoped: false,
+    schema: chatSchema,
+    idSource: { path: "ai/chats/", query: {}, pick: firstId() },
+    note: "javob tayyorlanayotganda 1,5 s da so'raladi; chat bo'lmasa tekshiruv o'tkazib yuboriladi",
+  },
+  {
+    section: "Ruxsatlar",
+    path: "access/members/",
+    shape: "plain",
+    scoped: false,
+    schema: membersSchema,
+    query: { status: "all" },
+    note: "faqat `owner`",
+  },
+  {
+    section: "Ruxsatlar",
+    path: "access/candidates/",
+    shape: "plain",
+    scoped: false,
+    schema: candidatesSchema,
+    query: { search: "" },
+  },
+  { section: "Ruxsatlar", path: "access/templates/", shape: "plain", scoped: false, schema: templatesSchema },
+  {
+    section: "Ruxsatlar",
+    path: "access/activity/",
+    shape: "plain",
+    scoped: false,
+    schema: activitySchema,
+    query: { limit: "50" },
+  },
+  {
+    section: "Akkauntlar (IAM)",
+    path: "iam/departments/",
+    shape: "plain",
+    scoped: false,
+    schema: departmentsSchema,
+    note: "`08` §A",
+  },
+  {
+    section: "Akkauntlar (IAM)",
+    path: "iam/permissions/",
+    shape: "plain",
+    scoped: false,
+    schema: permissionsSchema,
+  },
+  { section: "Akkauntlar (IAM)", path: "iam/roles/", shape: "plain", scoped: false, schema: rolesSchema },
+  {
+    section: "Akkauntlar (IAM)",
+    path: "iam/accounts/",
+    shape: "plain",
+    scoped: false,
+    schema: accountsSchema,
+    query: { search: "" },
+  },
+  {
+    section: "Akkauntlar (IAM)",
+    path: "iam/accounts/:id/",
+    shape: "plain",
+    scoped: false,
+    schema: accountDetailSchema,
+    idSource: { path: "iam/accounts/", query: { search: "" }, pick: firstId() },
   },
 ];
 

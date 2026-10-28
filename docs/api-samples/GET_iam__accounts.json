@@ -1,0 +1,58 @@
+{
+  "results": [
+    {
+      "id": 51,
+      "user_id": 31,
+      "full_name": "Sardor Aliyev",
+      "phone": "+998901234567",
+      "department": "warehouse",
+      "title": "Toshkent ombori boshlig'i",
+      "role": "warehouse_head",
+      "status": "active",
+      "permissions_count": 5,
+      "sensitive_count": 0,
+      "scope": {
+        "filials": [
+          1
+        ],
+        "regions": [],
+        "warehouses": [
+          1
+        ],
+        "teams": []
+      },
+      "expires_at": null,
+      "last_login_at": "2026-10-05T08:00:00.000Z",
+      "created_at": "2026-09-01T10:00:00+05:00",
+      "unused_permissions": [
+        "warehouse.staff.manage"
+      ]
+    },
+    {
+      "id": 52,
+      "user_id": 22,
+      "full_name": "Malika Yusupova",
+      "phone": "+998935551122",
+      "department": "call_center",
+      "title": "Toshkent call-center admini",
+      "role": "call_center_admin",
+      "status": "blocked",
+      "permissions_count": 4,
+      "sensitive_count": 1,
+      "scope": {
+        "filials": [
+          1
+        ],
+        "regions": [],
+        "warehouses": [],
+        "teams": [
+          2
+        ]
+      },
+      "expires_at": null,
+      "last_login_at": null,
+      "created_at": "2026-09-10T10:00:00+05:00",
+      "unused_permissions": []
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "period": {
+    "from": "2026-09-06",
+    "to": "2026-10-05",
+    "granularity": "day",
+    "label": "30d"
+  },
+  "compare": {
+    "from": "2026-08-07",
+    "to": "2026-09-05"
+  },
+  "filials": [
+    1,
+    2,
+    3
+  ],
+  "generated_at": "2026-10-05T09:00:00.000Z",
+  "freshness": {
+    "orders": "2026-10-05T09:00:00.000Z",
+    "clinic": "2026-10-05T08:58:30.000Z",
+    "app": "2026-10-05T03:00:00+05:00"
+  },
+  "data": {
+    "count": 3,
+    "results": [
+      {
+        "id": 4,
+        "name": "Shifo Farm",
+        "region": "andijon",
+        "sales_count": 7,
+        "amount": 64000000,
+        "paid": 40000000,
+        "debt": 24000000,
+        "last_sale_at": "2026-10-20",
+        "oldest_debt_days": 38
+      },
+      {
+        "id": 5,
+        "name": "Dori-Darmon 12",
+        "region": "toshkent_shahar",
+        "sales_count": 12,
+        "amount": 96000000,
+        "paid": 96000000,
+        "debt": 0,
+        "last_sale_at": "2026-10-20",
+        "oldest_debt_days": null
+      },
+      {
+        "id": 6,
+        "name": "Navbahor apteka",
+        "region": "samarqand",
+        "sales_count": 3,
+        "amount": 21000000,
+        "paid": 9000000,
+        "debt": 12000000,
+        "last_sale_at": "2026-10-20",
+        "oldest_debt_days": 12
+      }
+    ]
+  }
+}

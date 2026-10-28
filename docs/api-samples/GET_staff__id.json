@@ -1,0 +1,139 @@
+{
+  "period": {
+    "from": "2026-09-06",
+    "to": "2026-10-05",
+    "granularity": "day",
+    "label": "30d"
+  },
+  "compare": {
+    "from": "2026-08-07",
+    "to": "2026-09-05"
+  },
+  "filials": [
+    1,
+    2,
+    3
+  ],
+  "generated_at": "2026-10-05T09:00:00.000Z",
+  "freshness": {
+    "orders": "2026-10-05T09:00:00.000Z",
+    "clinic": "2026-10-05T08:58:30.000Z",
+    "app": "2026-10-05T03:00:00+05:00"
+  },
+  "data": {
+    "id": 10,
+    "full_name": "Dilnoza Karimova",
+    "role": "operator",
+    "team": "Toshkent call-center",
+    "filial": "Toshkent",
+    "hired_at": "2025-03-01",
+    "score": 86.4,
+    "rank": 1,
+    "rank_of": 5,
+    "columns": [
+      {
+        "key": "leads",
+        "unit": "count",
+        "better": "higher"
+      },
+      {
+        "key": "orders",
+        "unit": "count",
+        "better": "higher"
+      },
+      {
+        "key": "conversion_pct",
+        "unit": "pct",
+        "better": "higher"
+      },
+      {
+        "key": "cancel_rate_pct",
+        "unit": "pct",
+        "better": "lower"
+      },
+      {
+        "key": "revenue",
+        "unit": "uzs",
+        "better": "higher"
+      },
+      {
+        "key": "rating",
+        "unit": "rating",
+        "better": "higher"
+      }
+    ],
+    "metrics": {
+      "leads": 412,
+      "orders": 158,
+      "conversion_pct": 38.3,
+      "cancel_rate_pct": 9.1,
+      "revenue": 109020000,
+      "rating": 4.8
+    },
+    "team_avg": {
+      "leads": 370.8,
+      "orders": 142.2,
+      "conversion_pct": 34.5,
+      "cancel_rate_pct": 8.2,
+      "revenue": 98118000,
+      "rating": 4.3
+    },
+    "funnel": [
+      {
+        "key": "leads",
+        "value": 412
+      },
+      {
+        "key": "contacted",
+        "value": 371
+      },
+      {
+        "key": "orders",
+        "value": 158
+      },
+      {
+        "key": "delivered",
+        "value": 139
+      }
+    ],
+    "score_trend": {
+      "labels": [
+        "2026-10-06",
+        "2026-10-13",
+        "2026-10-20",
+        "2026-10-27"
+      ],
+      "values": [
+        77.4,
+        81.4,
+        84.4,
+        86.4
+      ]
+    },
+    "ratings": {
+      "avg": 4.8,
+      "count": 96,
+      "distribution": {
+        "1": 0,
+        "2": 1,
+        "3": 3,
+        "4": 12,
+        "5": 80
+      }
+    },
+    "recent_reviews": [
+      {
+        "at": "2026-10-05T09:00:00.000Z",
+        "stars": 5,
+        "text": "Juda xushmuomala"
+      }
+    ],
+    "ai_summary": "Konversiyasi jamoadan 7 p.p. yuqori; kechqurun javob vaqti uzaymoqda.",
+    "strengths": [
+      "Tez javob"
+    ],
+    "weaknesses": [
+      "Kechki smenada sust"
+    ]
+  }
+}

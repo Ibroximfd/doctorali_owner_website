@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Ombor — Doctor Ali Nazorat</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,400&amp;family=Manrope:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap">
+<style>
+body{margin:0;background:#050d09}
+@keyframes wave{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes fill{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes flow{to{stroke-dashoffset:-40}}
+@keyframes reveal{from{opacity:0;filter:blur(10px);transform:translateY(14px)}to{opacity:1;filter:blur(0);transform:none}}
+@keyframes ping{0%{transform:scale(.5);opacity:.8}100%{transform:scale(3);opacity:0}}
+@keyframes grow{from{opacity:0;stroke-width:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</helmet>
+<div style="position: relative; min-height: 1500px; display: flex; flex-wrap: wrap; font-family: Manrope, system-ui, sans-serif; color: #e8f1ec; background: radial-gradient(900px 600px at 20% 0%, rgba(232,194,106,.08), transparent 60%), #050d09; overflow: hidden">
+  <dc-import name="Sidebar" active="warehouse" hint-size="240px,1500px"></dc-import>
+  <main style="flex: 999 1 560px; min-width: 0; position: relative; padding: 28px 32px 56px">
+    <header style="display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 24px">
+      <h1 style="margin: 0; font-family: Fraunces, serif; font-weight: 400; font-size: 50px; line-height: 1.08; letter-spacing: -.02em; max-width: 900px; animation: reveal .9s both">Omborlarda <span style="color: #e8c26a">5,03 mlrd</span> so'mlik mahsulot — o'rtacha <span style="color: #3fd69a">23 kunga</span> yetadi. Balzam Toshkentda <em style="color: #ff8a6a">3 kunda tugaydi</em>.</h1>
+      <div style="display: flex; gap: 8px">
+        <button style="min-height: 44px; padding: 0 16px; border-radius: 14px; border: 1px solid rgba(180,230,200,.16); background: transparent; color: #e8f1ec; font: 600 14px Manrope, sans-serif">Excel</button>
+        <a href="Issues.dc.html" style="min-height: 44px; padding: 0 16px; border-radius: 14px; background: #ff8a6a; color: #1a0702; font: 700 14px Manrope, sans-serif; display: inline-flex; align-items: center; text-decoration: none">Skladchiga xabar</a>
+      </div>
+    </header>
+
+    <section aria-label="Omborlar" style="margin-top: 28px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px">
+      <sc-for list="{{tanks}}" as="t" hint-placeholder-count="4">
+        <button style="position: relative; text-align: left; padding: 18px; border-radius: 24px; border: 1px solid {{t.border}}; background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.01)); color: #e8f1ec; font-family: Manrope, sans-serif; display: flex; flex-direction: column; gap: 14px; animation: reveal .8s {{t.delay}} cubic-bezier(.16,1,.3,1) both">
+          <span style="display: flex; align-items: flex-start; gap: 8px"><span style="flex: 1"><span style="display: block; font-size: 16px; font-weight: 700">{{t.name}}</span><span style="display: block; font-size: 12px; color: #6f877b">{{t.regions}}</span></span><span style="padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; background: {{t.stBg}}; color: {{t.stFg}}">{{t.status}}</span></span>
+          <span style="position: relative; display: block; height: 170px; border-radius: 18px; background: rgba(255,255,255,.03); border: 1px solid rgba(180,230,200,.08); overflow: hidden">
+            <span style="position: absolute; left: 0; right: 0; bottom: 0; height: {{t.level}}%; transform-origin: bottom; animation: fill 1.6s {{t.delay}} cubic-bezier(.16,1,.3,1) both; background: linear-gradient(180deg, {{t.c1}}, {{t.c2}})">
+              <svg aria-hidden="true" viewBox="0 0 400 20" preserveAspectRatio="none" style="position: absolute; left: 0; top: -12px; width: 200%; height: 14px; animation: wave 4s linear infinite"><path d="M0 10 Q 25 0 50 10 T 100 10 T 150 10 T 200 10 T 250 10 T 300 10 T 350 10 T 400 10 V20 H0 Z" fill="{{t.c1}}"></path></svg>
+            </span>
+            <span style="position: absolute; left: 14px; top: 12px"><span style="display: block; font: 600 30px 'JetBrains Mono', monospace">{{t.stock}}</span><span style="display: block; font-size: 12px; color: #c8d6cf">dona · {{t.value}}</span></span>
+            <span style="position: absolute; right: 14px; bottom: 12px; font: 600 13px 'JetBrains Mono', monospace; color: #04110b; background: rgba(232,241,236,.85); padding: 3px 8px; border-radius: 8px">{{t.cover}}</span>
+          </span>
+          <span style="display: flex; justify-content: space-between; font-size: 12px; color: #9db3a7"><span>Kirim <span style="font-family: 'JetBrains Mono', monospace; color: #6fb3ff">+{{t.inb}}</span></span><span>Chiqim <span style="font-family: 'JetBrains Mono', monospace; color: #3fd69a">−{{t.out}}</span></span></span>
+          <span style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: #9db3a7"><span style="width: 22px; height: 22px; border-radius: 50%; background: rgba(255,255,255,.07); display: grid; place-items: center; font-size: 10px; font-weight: 700; color: #e8f1ec">{{t.ki}}</span>{{t.keeper}}</span>
+        </button>
+      </sc-for>
+    </section>
+
+    <section aria-labelledby="flow" style="margin-top: 22px; border-radius: 28px; padding: 26px; background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.01)); border: 1px solid rgba(180,230,200,.09)">
+      <div style="display: flex; align-items: baseline; gap: 14px"><h2 id="flow" style="margin: 0; font-family: Fraunces, serif; font-weight: 400; font-size: 28px">Mahsulot qayerga ketdi</h2><span style="font-size: 13px; color: #6f877b">30 kun · 6 110 dona chiqim</span></div>
+      <svg role="img" aria-label="Chiqim: 4120 dona to'liq narxda, 1380 chegirmada, 610 sovg'a; sabablar bo'yicha bo'lingan" viewBox="0 0 1000 380" style="width: 100%; height: auto; margin-top: 18px">
+        <defs>
+          <linearGradient id="gF" x1="0" x2="1"><stop offset="0" stop-color="#e8c26a" stop-opacity=".5"></stop><stop offset="1" stop-color="#3fd69a" stop-opacity=".6"></stop></linearGradient>
+          <linearGradient id="gD" x1="0" x2="1"><stop offset="0" stop-color="#e8c26a" stop-opacity=".5"></stop><stop offset="1" stop-color="#e0a24a" stop-opacity=".65"></stop></linearGradient>
+          <linearGradient id="gG" x1="0" x2="1"><stop offset="0" stop-color="#e8c26a" stop-opacity=".5"></stop><stop offset="1" stop-color="#b49cff" stop-opacity=".65"></stop></linearGradient>
+        </defs>
+        <rect x="40" y="30" width="16" height="320" rx="4" fill="#e8c26a"></rect>
+        <path d="M56 30 C 250 30, 250 30, 420 30 L 420 246 C 250 246, 250 246, 56 246 Z" fill="url(#gF)" style="animation: reveal 1s .2s both"></path>
+        <path d="M56 246 C 250 246, 250 262, 420 262 L 420 334 C 250 334, 250 318, 56 318 Z" fill="url(#gD)" style="animation: reveal 1s .35s both"></path>
+        <path d="M56 318 C 250 318, 250 350, 420 350 L 420 382 C 250 382, 250 350, 56 350 Z" fill="url(#gG)" style="animation: reveal 1s .5s both"></path>
+        <rect x="420" y="30" width="16" height="216" rx="4" fill="#3fd69a"></rect>
+        <rect x="420" y="262" width="16" height="72" rx="4" fill="#e0a24a"></rect>
+        <rect x="420" y="350" width="16" height="30" rx="4" fill="#b49cff"></rect>
+        <path d="M436 262 C 620 262, 620 120, 800 120 L 800 163 C 620 163, 620 305, 436 305 Z" fill="#e0a24a" fill-opacity=".35" style="animation: reveal 1s .7s both"></path>
+        <path d="M436 305 C 620 305, 620 190, 800 190 L 800 219 C 620 219, 620 334, 436 334 Z" fill="#e0a24a" fill-opacity=".25" style="animation: reveal 1s .8s both"></path>
+        <path d="M436 350 C 620 350, 620 260, 800 260 L 800 281 C 620 281, 620 371, 436 371 Z" fill="#b49cff" fill-opacity=".35" style="animation: reveal 1s .9s both"></path>
+        <path d="M436 371 C 620 371, 620 310, 800 310 L 800 319 C 620 319, 620 380, 436 380 Z" fill="#b49cff" fill-opacity=".25" style="animation: reveal 1s 1s both"></path>
+        <path d="M56 138 C 250 138, 250 138, 420 138" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="1.5" stroke-dasharray="3 17" style="animation: flow 1.6s linear infinite"></path>
+        <path d="M56 282 C 250 282, 250 298, 420 298" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="1.5" stroke-dasharray="3 17" style="animation: flow 1.6s linear infinite"></path>
+        <rect x="800" y="120" width="12" height="43" rx="3" fill="#e0a24a"></rect>
+        <rect x="800" y="190" width="12" height="29" rx="3" fill="#e0a24a" fill-opacity=".7"></rect>
+        <rect x="800" y="260" width="12" height="21" rx="3" fill="#b49cff"></rect>
+        <rect x="800" y="310" width="12" height="9" rx="3" fill="#b49cff" fill-opacity=".7"></rect>
+        <g font-family="Manrope" font-size="14" fill="#e8f1ec">
+          <text x="64" y="20" fill="#e8c26a" font-weight="700">Ombordan chiqdi · 6 110</text>
+          <text x="446" y="56" font-weight="700">To'liq narxda</text><text x="446" y="76" font-family="JetBrains Mono" font-size="13" fill="#3fd69a">4 120 · 5,64 mlrd</text>
+          <text x="446" y="284" font-weight="700" font-size="13">Chegirmada</text>
+          <text x="446" y="372" font-weight="700" font-size="13" dy="-28">Sovg'a</text>
+          <text x="824" y="137">Operator chegirmasi</text><text x="824" y="156" font-family="JetBrains Mono" font-size="12" fill="#e0a24a">828 · 149,8 mln</text>
+          <text x="824" y="205">Ballar bilan</text><text x="824" y="222" font-family="JetBrains Mono" font-size="12" fill="#e0a24a">552 · 99,8 mln</text>
+          <text x="824" y="273">Aksiya 2+1</text><text x="824" y="290" font-family="JetBrains Mono" font-size="12" fill="#b49cff">427 · 585 mln</text>
+          <text x="824" y="319">Kompensatsiya</text><text x="824" y="336" font-family="JetBrains Mono" font-size="12" fill="#b49cff">183 · 250 mln</text>
+        </g>
+      </svg>
+      <div style="margin-top: 18px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+        <div style="padding: 14px 16px; border-radius: 18px; background: rgba(63,214,154,.06); border: 1px solid rgba(63,214,154,.2)"><div style="font-size: 12px; color: #9db3a7">To'liq narxdan tushum</div><div style="font: 600 26px 'JetBrains Mono', monospace">5,64 mlrd</div><div style="font-size: 12px; color: #6f877b">67% · ulush o'tgan oydan +3 f.p.</div></div>
+        <div style="padding: 14px 16px; border-radius: 18px; background: rgba(224,162,74,.06); border: 1px solid rgba(224,162,74,.22)"><div style="font-size: 12px; color: #9db3a7">Chegirmaga ketdi</div><div style="font: 600 26px 'JetBrains Mono', monospace; color: #e0a24a">249,6 mln</div><div style="font-size: 12px; color: #6f877b">o'rtacha chegirma 13%</div></div>
+        <div style="padding: 14px 16px; border-radius: 18px; background: rgba(180,156,255,.06); border: 1px solid rgba(180,156,255,.22)"><div style="font-size: 12px; color: #9db3a7">Sovg'a qiymati</div><div style="font: 600 26px 'JetBrains Mono', monospace; color: #b49cff">835,7 mln</div><div style="font-size: 12px; color: #6f877b">tannarxda 214 mln</div></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="risk" style="margin-top: 22px; border-radius: 28px; overflow: hidden; background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.01)); border: 1px solid rgba(180,230,200,.09)">
+      <div style="padding: 22px 26px 8px; display: flex; align-items: baseline; gap: 12px"><h2 id="risk" style="margin: 0; font-family: Fraunces, serif; font-weight: 400; font-size: 26px">Tugash vaqti</h2><span style="font-size: 13px; color: #6f877b">har mahsulot · har ombor · kunlar</span></div>
+      <div style="padding: 10px 26px 24px">
+        <sc-for list="{{runway}}" as="r" hint-placeholder-count="5">
+          <div style="display: grid; grid-template-columns: 220px minmax(0, 1fr) 120px; align-items: center; gap: 16px; padding: 10px 0; border-top: 1px solid rgba(180,230,200,.06)">
+            <span><span style="display: block; font-size: 14px; font-weight: 600">{{r.name}}</span><span style="display: block; font-size: 12px; color: #6f877b">{{r.wh}}</span></span>
+            <span style="position: relative; height: 22px; border-radius: 11px; background: repeating-linear-gradient(90deg, rgba(255,255,255,.04) 0 calc(100%/30 - 2px), transparent calc(100%/30 - 2px) calc(100%/30))">
+              <span style="position: absolute; left: 0; top: 0; bottom: 0; width: {{r.pct}}%; border-radius: 11px; background: {{r.color}}; transform-origin: left; animation: fill 1.2s {{r.delay}} cubic-bezier(.16,1,.3,1) both"></span>
+              <span style="position: absolute; left: calc({{r.pct}}% - 6px); top: 5px; width: 12px; height: 12px; border-radius: 50%; background: #ffffff; box-shadow: 0 0 0 4px {{r.halo}}"></span>
+            </span>
+            <span style="text-align: right; font: 600 14px 'JetBrains Mono', monospace; color: {{r.text}}">{{r.days}}</span>
+          </div>
+        </sc-for>
+        <div style="display: grid; grid-template-columns: 220px minmax(0, 1fr) 120px; gap: 16px; font: 400 11px 'JetBrains Mono', monospace; color: #6f877b"><span></span><span style="display: flex; justify-content: space-between"><span>bugun</span><span>+10</span><span>+20</span><span>+30 kun</span></span><span></span></div>
+      </div>
+    </section>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1500}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      tanks: [
+        { name: 'Toshkent markaziy', regions: 'Toshkent shahri · viloyat', status: 'Kritik', stBg: 'rgba(255,138,106,.16)', stFg: '#ff8a6a', stock: '2 434', value: '3,3 mlrd', cover: '21 kun', level: 62, c1: 'rgba(63,214,154,.55)', c2: 'rgba(15,90,60,.35)', inb: '2 400', out: '2 210', keeper: 'Sardor Aliyev', ki: 'SA', border: 'rgba(255,138,106,.35)', delay: '.1s' },
+        { name: "Qo'qon", regions: "Farg'ona · Andijon · Namangan", status: 'Tugagan', stBg: 'rgba(255,138,106,.16)', stFg: '#ff8a6a', stock: '990', value: '1,0 mlrd', cover: '27 kun', level: 44, c1: 'rgba(63,214,154,.5)', c2: 'rgba(15,90,60,.3)', inb: '720', out: '810', keeper: 'Dilshod Qodirov', ki: 'DQ', border: 'rgba(255,138,106,.25)', delay: '.2s' },
+        { name: 'Samarqand', regions: 'Samarqand', status: 'Kam qolgan', stBg: 'rgba(232,194,106,.16)', stFg: '#e8c26a', stock: '540', value: '312 mln', cover: '21 kun', level: 30, c1: 'rgba(232,194,106,.55)', c2: 'rgba(120,90,30,.3)', inb: '310', out: '380', keeper: 'Skladchi yo\'q', ki: '—', border: 'rgba(232,194,106,.25)', delay: '.3s' },
+        { name: 'Marketplace Andijon', regions: 'Andijon · ERP', status: 'Yetarli', stBg: 'rgba(63,214,154,.14)', stFg: '#3fd69a', stock: '560', value: '611 mln', cover: '42 kun', level: 84, c1: 'rgba(63,214,154,.6)', c2: 'rgba(15,90,60,.35)', inb: '200', out: '160', keeper: "Ulug'bek Sobirov", ki: 'US', border: 'rgba(180,230,200,.1)', delay: '.4s' }
+      ],
+      runway: [
+        { name: 'Asal-propolis', wh: "Qo'qon", days: 'tugagan', pct: 1, color: '#ff8a6a', halo: 'rgba(255,138,106,.35)', text: '#ff8a6a', delay: '.2s' },
+        { name: 'Mehrigiyo balzami', wh: 'Toshkent markaziy', days: '2,7 kun', pct: 9, color: 'linear-gradient(90deg, #ff8a6a, #e0a24a)', halo: 'rgba(255,138,106,.35)', text: '#ff8a6a', delay: '.3s' },
+        { name: 'Asal-propolis', wh: 'Samarqand', days: '22 kun', pct: 73, color: 'linear-gradient(90deg, #17664a, #3fd69a)', halo: 'rgba(63,214,154,.3)', text: '#e8f1ec', delay: '.4s' },
+        { name: 'Shifobaxsh choy', wh: 'Samarqand', days: '23,6 kun', pct: 79, color: 'linear-gradient(90deg, #17664a, #3fd69a)', halo: 'rgba(63,214,154,.3)', text: '#e8f1ec', delay: '.5s' },
+        { name: 'Shifobaxsh choy', wh: 'Toshkent markaziy', days: '37 kun', pct: 100, color: 'linear-gradient(90deg, #17664a, #3fd69a)', halo: 'rgba(63,214,154,.3)', text: '#3fd69a', delay: '.6s' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

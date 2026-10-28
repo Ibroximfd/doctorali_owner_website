@@ -1,0 +1,40 @@
+{
+  "enabled": true,
+  "playbooks": [
+    {
+      "key": "order.fix_region",
+      "title": "Buyurtma viloyatini tuzatish",
+      "risk": "low",
+      "mode": "auto",
+      "allowed_modes": [
+        "auto",
+        "approve",
+        "suggest"
+      ],
+      "runs_today": 7
+    },
+    {
+      "key": "order.assign_courier",
+      "title": "Kuryersiz buyurtmani biriktirish",
+      "risk": "medium",
+      "mode": "approve",
+      "allowed_modes": [
+        "auto",
+        "approve",
+        "suggest"
+      ],
+      "runs_today": 2
+    },
+    {
+      "key": "stock.reorder_draft",
+      "title": "Ta'minotchiga buyurtma qoralamasi",
+      "risk": "high",
+      "mode": "approve",
+      "allowed_modes": [
+        "approve",
+        "suggest"
+      ],
+      "runs_today": 0
+    }
+  ]
+}

@@ -2,6 +2,8 @@ import "server-only";
 
 import { z } from "zod";
 
+import { isDemoMode } from "../../../config/servers.mjs";
+
 import { resolveBackend } from "./backend-server";
 
 /** Faqat serverda o'qiladigan sozlamalar. Brauzer bundle'iga tushmaydi. */
@@ -27,4 +29,6 @@ export const serverEnv = {
   /** Qaysi server ishlatilyapti: `prod` / `test` / `custom` — diagnostika uchun. */
   backendServer: backend.name,
   isProduction: parsed.NODE_ENV === "production",
+  /** Demo: BFF backend o'rniga ichki namuna bazadan javob beradi (`config/servers.mjs`). */
+  isDemo: isDemoMode(),
 } as const;

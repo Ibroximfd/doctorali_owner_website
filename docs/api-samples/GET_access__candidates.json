@@ -1,0 +1,36 @@
+{
+  "results": [
+    {
+      "user_id": 44,
+      "full_name": "Sardor Aliyev",
+      "phone": "+998901234567",
+      "platform_role": "operator_admin",
+      "filial": "Toshkent",
+      "has_access": true
+    },
+    {
+      "user_id": 45,
+      "full_name": "Malika Yusupova",
+      "phone": "+998935551122",
+      "platform_role": "logist",
+      "filial": "Toshkent",
+      "has_access": true
+    },
+    {
+      "user_id": 46,
+      "full_name": "Nodira Rasulova",
+      "phone": null,
+      "platform_role": "accountant",
+      "filial": null,
+      "has_access": false
+    },
+    {
+      "user_id": 47,
+      "full_name": "Javohir Ergashev",
+      "phone": "+998912223344",
+      "platform_role": "operator_admin",
+      "filial": "Qo'qon",
+      "has_access": false
+    }
+  ]
+}

@@ -3,7 +3,7 @@
 Avtomatik yaratilgan (`npm run endpoints:doc`, manba — `scripts/contract/endpoints.ts`). Qo'lda tahrirlanmaydi.
 Tekshiruv: `npm run contract:check` — har qator haqiqiy backendda chaqiriladi va sxema bilan solishtiriladi.
 
-Jami: **68** endpoint. «konvert» — `{period, compare, filials, generated_at, freshness, data}`, «oddiy» — konvertsiz JSON.
+Jami: **112** endpoint. «konvert» — `{period, compare, filials, generated_at, freshness, data}`, «oddiy» — konvertsiz JSON.
 
 | Bo'lim | Endpoint | Parametrlar | Javob | Namuna | Izoh |
 |---|---|---|---|---|---|
@@ -75,3 +75,47 @@ Jami: **68** endpoint. «konvert» — `{period, compare, filials, generated_at,
 | Sozlamalar | `GET /api/owner/targets/` | `month=2026-10` | oddiy | [GET_targets.json](api-samples/GET_targets.json) |  |
 | Sozlamalar | `GET /api/owner/sessions/` | — | oddiy | [GET_sessions.json](api-samples/GET_sessions.json) |  |
 | Sozlamalar | `GET /api/owner/settings/access/` | — | oddiy | [GET_settings__access.json](api-samples/GET_settings__access.json) |  |
+| Hududlar | `GET /api/owner/regions/` | `period` `date_from` `date_to` `compare` `filial` | konvert | [GET_regions.json](api-samples/GET_regions.json) | xarita: sotuv (davr) + ombor va kuryerlar (hozir) |
+| Hududlar | `GET /api/owner/regions/:id/live/` | — | konvert | [GET_regions__id__live.json](api-samples/GET_regions__id__live.json) | viloyat ichi: omborlar, kuryerlar (lat/lng, vazifa, naqd); 15 s da so'raladi |
+| Ombor | `GET /api/owner/warehouse/summary/` | `period` `date_from` `date_to` `compare` `filial` | konvert | [GET_warehouse__summary.json](api-samples/GET_warehouse__summary.json) |  |
+| Ombor | `GET /api/owner/warehouse/warehouses/` | `period` `date_from` `date_to` `compare` `filial` | konvert | [GET_warehouse__warehouses.json](api-samples/GET_warehouse__warehouses.json) |  |
+| Ombor | `GET /api/owner/warehouse/stock/` | `period` `date_from` `date_to` `compare` `filial` | konvert | [GET_warehouse__stock.json](api-samples/GET_warehouse__stock.json) | `warehouse=<id>` — bitta ombor (ombor kartasi) |
+| Ombor | `GET /api/owner/warehouse/movements/` | `period` `date_from` `date_to` `compare` `filial` | konvert | [GET_warehouse__movements.json](api-samples/GET_warehouse__movements.json) |  |
+| Ombor | `GET /api/owner/warehouse/sales-mix/` | `period` `date_from` `date_to` `compare` `filial` | konvert | [GET_warehouse__sales-mix.json](api-samples/GET_warehouse__sales-mix.json) | to'liq narx · chegirma · sovg'a |
+| Xodimlar | `GET /api/owner/staff/leaderboard/` | `period` `date_from` `date_to` `compare` `filial` (`role=operator` · `role=admin` · `role=courier` · `role=warehouse` · `role=logist`) | konvert | [GET_staff__leaderboard.json](api-samples/GET_staff__leaderboard.json) |  |
+| Xodimlar | `GET /api/owner/staff/teams/` | `period` `date_from` `date_to` `compare` `filial` `role=operator` | konvert | [GET_staff__teams.json](api-samples/GET_staff__teams.json) |  |
+| Xodimlar | `GET /api/owner/staff/:id/` | `period` `date_from` `date_to` `compare` `filial` | konvert | [GET_staff__id.json](api-samples/GET_staff__id.json) |  |
+| Hisob-kitob | `GET /api/owner/settlements/summary/` | `period` `date_from` `date_to` `compare` `filial` | konvert | [GET_settlements__summary.json](api-samples/GET_settlements__summary.json) |  |
+| Hisob-kitob | `GET /api/owner/settlements/regions/` | `period` `date_from` `date_to` `compare` `filial` | konvert | [GET_settlements__regions.json](api-samples/GET_settlements__regions.json) |  |
+| Hisob-kitob | `GET /api/owner/settlements/aging/` | `period` `date_from` `date_to` `compare` `filial` | konvert | [GET_settlements__aging.json](api-samples/GET_settlements__aging.json) |  |
+| Hisob-kitob | `GET /api/owner/settlements/b2b/` | `period` `date_from` `date_to` `compare` `filial` | konvert | [GET_settlements__b2b.json](api-samples/GET_settlements__b2b.json) |  |
+| Yetkazib berish | `GET /api/owner/logistics/live/` | — | konvert | [GET_logistics__live.json](api-samples/GET_logistics__live.json) | hozirgi holat; faqat `filial`; 15 s da so'raladi |
+| Yetkazib berish | `GET /api/owner/logistics/handovers/` | — | konvert | [GET_logistics__handovers.json](api-samples/GET_logistics__handovers.json) |  |
+| Muammolar | `GET /api/owner/issues/` | (`status=open` · `status=all`) | oddiy | [GET_issues.json](api-samples/GET_issues.json) |  |
+| Muammolar | `GET /api/owner/issues/:id/` | — | oddiy | [GET_issues__id.json](api-samples/GET_issues__id.json) |  |
+| Muammolar | `GET /api/owner/issues/recipients/` | (`domain=warehouse` · `domain=logistics` · `domain=finance`) | oddiy | [GET_issues__recipients.json](api-samples/GET_issues__recipients.json) |  |
+| Prognoz | `GET /api/owner/forecast/summary/` | (`horizon=7` · `horizon=30` · `horizon=90`) | konvert | [GET_forecast__summary.json](api-samples/GET_forecast__summary.json) |  |
+| Prognoz | `GET /api/owner/forecast/timeseries/` | (`horizon=30` `metric=revenue` · `horizon=30` `metric=orders`) | konvert | [GET_forecast__timeseries.json](api-samples/GET_forecast__timeseries.json) |  |
+| Prognoz | `GET /api/owner/forecast/stockouts/` | `horizon=30` | konvert | [GET_forecast__stockouts.json](api-samples/GET_forecast__stockouts.json) |  |
+| Prognoz | `GET /api/owner/forecast/regions/` | `horizon=30` | konvert | [GET_forecast__regions.json](api-samples/GET_forecast__regions.json) |  |
+| Tizim | `GET /api/owner/system/health/` | — | oddiy | [GET_system__health.json](api-samples/GET_system__health.json) |  |
+| Tizim | `GET /api/owner/system/sync/` | — | oddiy | [GET_system__sync.json](api-samples/GET_system__sync.json) |  |
+| Tizim | `GET /api/owner/system/audit/` | `page=1` | oddiy | [GET_system__audit.json](api-samples/GET_system__audit.json) |  |
+| AI tahlil | `GET /api/owner/ai/summary/` | — | oddiy | [GET_ai__summary.json](api-samples/GET_ai__summary.json) |  |
+| AI tahlil | `GET /api/owner/ai/findings/` | (`status=open` · `status=all`) | oddiy | [GET_ai__findings.json](api-samples/GET_ai__findings.json) |  |
+| AI tahlil | `GET /api/owner/ai/actions/` | (`status=proposed` · `status=all`) | oddiy | [GET_ai__actions.json](api-samples/GET_ai__actions.json) | AI avto-tuzatish (`08` §B) |
+| AI tahlil | `GET /api/owner/ai/autopilot/` | — | oddiy | [GET_ai__autopilot.json](api-samples/GET_ai__autopilot.json) |  |
+| AI tahlil | `GET /api/owner/ai/checks/` | — | oddiy | [GET_ai__checks.json](api-samples/GET_ai__checks.json) |  |
+| AI tahlil | `GET /api/owner/ai/reports/` | — | oddiy | [GET_ai__reports.json](api-samples/GET_ai__reports.json) |  |
+| AI tahlil | `GET /api/owner/ai/recommendations/` | — | oddiy | [GET_ai__recommendations.json](api-samples/GET_ai__recommendations.json) |  |
+| AI tahlil | `GET /api/owner/ai/chats/` | — | oddiy | [GET_ai__chats.json](api-samples/GET_ai__chats.json) |  |
+| AI tahlil | `GET /api/owner/ai/chats/:id/` | — | oddiy | [GET_ai__chats__id.json](api-samples/GET_ai__chats__id.json) | javob tayyorlanayotganda 1,5 s da so'raladi; chat bo'lmasa tekshiruv o'tkazib yuboriladi |
+| Ruxsatlar | `GET /api/owner/access/members/` | `status=all` | oddiy | [GET_access__members.json](api-samples/GET_access__members.json) | faqat `owner` |
+| Ruxsatlar | `GET /api/owner/access/candidates/` | `search=` | oddiy | [GET_access__candidates.json](api-samples/GET_access__candidates.json) |  |
+| Ruxsatlar | `GET /api/owner/access/templates/` | — | oddiy | [GET_access__templates.json](api-samples/GET_access__templates.json) |  |
+| Ruxsatlar | `GET /api/owner/access/activity/` | `limit=50` | oddiy | [GET_access__activity.json](api-samples/GET_access__activity.json) |  |
+| Akkauntlar (IAM) | `GET /api/owner/iam/departments/` | — | oddiy | [GET_iam__departments.json](api-samples/GET_iam__departments.json) | `08` §A |
+| Akkauntlar (IAM) | `GET /api/owner/iam/permissions/` | — | oddiy | [GET_iam__permissions.json](api-samples/GET_iam__permissions.json) |  |
+| Akkauntlar (IAM) | `GET /api/owner/iam/roles/` | — | oddiy | [GET_iam__roles.json](api-samples/GET_iam__roles.json) |  |
+| Akkauntlar (IAM) | `GET /api/owner/iam/accounts/` | `search=` | oddiy | [GET_iam__accounts.json](api-samples/GET_iam__accounts.json) |  |
+| Akkauntlar (IAM) | `GET /api/owner/iam/accounts/:id/` | — | oddiy | [GET_iam__accounts__id.json](api-samples/GET_iam__accounts__id.json) |  |

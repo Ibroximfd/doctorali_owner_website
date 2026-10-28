@@ -8,11 +8,13 @@ Frontend tayyor va namuna ma'lumot bilan to'liq ishlaydi. U backenddan nima kuta
 | # | Manba | Nima |
 |---|---|---|
 | 1 | **`npm run contract:check`** | haqiqiy backendni frontend sxemalari bilan avtomatik tekshiradi — oxirgi hakam |
-| 2 | **`docs/api-samples/*.json`** | har `GET` endpointning aniq JSON namunasi (68 ta) |
+| 2 | **`docs/api-samples/*.json`** | har `GET` endpointning aniq JSON namunasi (113 ta; yetishmaganlari `npm run api:samples` bilan qo'shiladi) |
 | 3 | **`docs/ENDPOINTS.md`** | barcha `GET` endpointlar katalogi: yo'l, parametrlar, javob turi |
 | 4 | **shu hujjat** | umumiy qoidalar, auth, yozuvchi so'rovlar, xatolar, ulash tartibi |
 | 5 | `docs/02_BACKEND_TZ.md` | ma'lumot modeli, agregat qatlam, signal qoidalari, ishlash talablari |
 | 6 | `docs/01_CONCEPT.md` §6 | **metrikalar lug'ati** — har raqam qanday hisoblanadi |
+| 6a | **`docs/07_BACKEND_TZ_V2.md`** | **v2 (2026-10-28):** ombor, hisob-kitob, jonli logistika, muammolar markazi + mas'ulga xabar, prognoz, tizim holati, **AI tahlil (Claude API)**, **ruxsatlar** (boshliq xodimga bo'lim ochadi) |
+| 6b | **`docs/08_PLATFORM_ACCESS_AND_AI_OPS.md`** | **butun platforma akkauntlari va ruxsatlari (IAM)** owner paneldan · AI avto-tuzatish (playbook + tasdiq + undo) · call-center to'liq tafsilot · AI chat vositalari katalogi · hudud drill-down (`regions/*`) |
 | 7 | `../doctor_ali_owner_bot/docs/02_BACKEND_TZ.md` | **2-bosqich** — Telegram: PIN bilan kirish va bot xabarlari. Bot sayt ishga tushgandan **keyin** qilinadi |
 
 ---

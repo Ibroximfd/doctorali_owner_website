@@ -1,0 +1,112 @@
+{
+  "period": {
+    "from": "2026-09-06",
+    "to": "2026-10-05",
+    "granularity": "day",
+    "label": "30d"
+  },
+  "compare": {
+    "from": "2026-08-07",
+    "to": "2026-09-05"
+  },
+  "filials": [
+    1,
+    2,
+    3
+  ],
+  "generated_at": "2026-10-05T09:00:00.000Z",
+  "freshness": {
+    "orders": "2026-10-05T09:00:00.000Z",
+    "clinic": "2026-10-05T08:58:30.000Z",
+    "app": "2026-10-05T03:00:00+05:00"
+  },
+  "data": [
+    {
+      "id": 1,
+      "name": "Toshkent markaziy",
+      "source": "doctor_ali",
+      "regions": [
+        "toshkent_shahar",
+        "toshkent"
+      ],
+      "keeper": {
+        "id": 31,
+        "full_name": "Sardor Aliyev",
+        "phone": "+998901234567"
+      },
+      "stock_units": 2434,
+      "stock_value": 622680000,
+      "inbound": 3180,
+      "outbound": 3000,
+      "low_skus": 0,
+      "out_skus": 1,
+      "days_of_cover": 24.3,
+      "status": "critical",
+      "last_movement_at": "2026-10-05T08:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "name": "Qo'qon",
+      "source": "doctor_ali",
+      "regions": [
+        "fargona",
+        "andijon",
+        "namangan"
+      ],
+      "keeper": {
+        "id": 32,
+        "full_name": "Dilshod Qodirov",
+        "phone": "+998911112233"
+      },
+      "stock_units": 990,
+      "stock_value": 515000000,
+      "inbound": 1145,
+      "outbound": 1080,
+      "low_skus": 0,
+      "out_skus": 1,
+      "days_of_cover": 27.5,
+      "status": "out",
+      "last_movement_at": "2026-10-05T07:00:00.000Z"
+    },
+    {
+      "id": 3,
+      "name": "Samarqand",
+      "source": "doctor_ali",
+      "regions": [
+        "samarqand"
+      ],
+      "keeper": null,
+      "stock_units": 540,
+      "stock_value": 276650000,
+      "inbound": 801,
+      "outbound": 756,
+      "low_skus": 0,
+      "out_skus": 0,
+      "days_of_cover": 21.4,
+      "status": "ok",
+      "last_movement_at": "2026-10-05T06:00:00.000Z"
+    },
+    {
+      "id": 4,
+      "name": "Marketplace Andijon",
+      "source": "marketplace",
+      "regions": [
+        "andijon"
+      ],
+      "keeper": {
+        "id": 41,
+        "full_name": "Ulug'bek Sobirov",
+        "phone": null
+      },
+      "stock_units": 560,
+      "stock_value": 568000000,
+      "inbound": 420,
+      "outbound": 396,
+      "low_skus": 0,
+      "out_skus": 0,
+      "days_of_cover": 42.4,
+      "status": "ok",
+      "last_movement_at": "2026-10-05T05:00:00.000Z"
+    }
+  ]
+}

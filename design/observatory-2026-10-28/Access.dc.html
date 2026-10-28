@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Ruxsatlar — Doctor Ali Nazorat</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,400&amp;family=Manrope:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap">
+<style>
+body{margin:0;background:#050d09}
+@keyframes reveal{from{opacity:0;filter:blur(10px);transform:translateY(14px)}to{opacity:1;filter:blur(0);transform:none}}
+@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</helmet>
+<div style="position: relative; min-height: 1300px; display: flex; flex-wrap: wrap; font-family: Manrope, system-ui, sans-serif; color: #e8f1ec; background: radial-gradient(800px 500px at 70% 0%, rgba(63,214,154,.08), transparent 60%), #050d09; overflow: hidden">
+  <dc-import name="Sidebar" active="access" hint-size="240px,1300px"></dc-import>
+  <main style="flex: 999 1 560px; min-width: 0; padding: 28px 32px 56px">
+    <header style="display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 24px">
+      <h1 style="margin: 0; font-family: Fraunces, serif; font-weight: 400; font-size: 50px; line-height: 1.08; letter-spacing: -.02em; max-width: 880px; animation: reveal .9s both">Platformaga <span style="color: #8af0c2">14 kishi</span> kiradi. Hech kim o'zi ko'rmasligi kerak bo'lgan narsani ko'rmaydi.</h1>
+      <button style="min-height: 46px; padding: 0 18px; border-radius: 14px; border: 0; background: #3fd69a; color: #04110b; font: 700 14px Manrope, sans-serif">Akkaunt ochish</button>
+    </header>
+
+    <section aria-label="Shablonlar" style="margin-top: 24px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px">
+      <sc-for list="{{roles}}" as="r" hint-placeholder-count="4">
+        <div style="padding: 16px; border-radius: 20px; background: rgba(255,255,255,.03); border: 1px solid {{r.border}}; animation: reveal .7s {{r.delay}} both">
+          <div style="display: flex; justify-content: space-between; align-items: baseline"><span style="font-size: 15px; font-weight: 700">{{r.name}}</span><span style="font: 600 20px 'JetBrains Mono', monospace; color: {{r.color}}">{{r.count}}</span></div>
+          <div style="margin-top: 4px; font-size: 12px; color: #6f877b">{{r.scope}}</div>
+        </div>
+      </sc-for>
+    </section>
+
+    <section aria-labelledby="mx" style="margin-top: 20px; border-radius: 28px; overflow: hidden; background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.01)); border: 1px solid rgba(180,230,200,.09)">
+      <div style="padding: 20px 24px 6px; display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap">
+        <h2 id="mx" style="margin: 0; font-family: Fraunces, serif; font-weight: 400; font-size: 26px">Kim nimani ko'radi</h2>
+        <span style="display: flex; gap: 14px; font-size: 12px; color: #9db3a7">
+          <span style="display: inline-flex; gap: 6px; align-items: center"><span style="width: 12px; height: 12px; border-radius: 4px; background: rgba(111,179,255,.35)"></span>Ko'rish</span>
+          <span style="display: inline-flex; gap: 6px; align-items: center"><span style="width: 12px; height: 12px; border-radius: 4px; background: rgba(63,214,154,.45)"></span>Batafsil</span>
+          <span style="display: inline-flex; gap: 6px; align-items: center"><span style="width: 12px; height: 12px; border-radius: 4px; background: rgba(232,194,106,.55)"></span>Maxfiy</span>
+          <span style="display: inline-flex; gap: 6px; align-items: center"><span style="width: 12px; height: 12px; border-radius: 4px; background: #ff8a6a"></span>Amal</span>
+        </span>
+      </div>
+      <div role="table" style="padding: 8px 24px 22px">
+        <div role="row" style="display: grid; grid-template-columns: 260px repeat(8, minmax(0, 1fr)); gap: 6px; padding: 8px 0; font-size: 12px; color: #6f877b">
+          <span role="columnheader">Akkaunt</span>
+          <sc-for list="{{modules}}" as="m" hint-placeholder-count="8"><span role="columnheader" style="text-align: center">{{m}}</span></sc-for>
+        </div>
+        <sc-for list="{{people}}" as="p" hint-placeholder-count="6">
+          <div role="row" style="display: grid; grid-template-columns: 260px repeat(8, minmax(0, 1fr)); gap: 6px; align-items: center; padding: 8px 0; border-top: 1px solid rgba(180,230,200,.05)">
+            <span role="cell" style="display: flex; align-items: center; gap: 10px"><span style="width: 34px; height: 34px; border-radius: 50%; background: {{p.avatar}}; display: grid; place-items: center; font-size: 11px; font-weight: 700; color: #04110b">{{p.ki}}</span><span><span style="display: block; font-size: 14px; font-weight: 600">{{p.name}}</span><span style="display: block; font-size: 12px; color: #6f877b">{{p.role}}</span></span></span>
+            <sc-for list="{{p.cells}}" as="c" hint-placeholder-count="8">
+              <span role="cell" aria-label="{{c.label}}" style="height: 34px; border-radius: 10px; background: {{c.bg}}; border: 1px solid {{c.border}}; display: grid; place-items: center; font: 600 11px 'JetBrains Mono', monospace; color: {{c.fg}}; animation: pop .5s {{c.delay}} cubic-bezier(.34,1.56,.64,1) both">{{c.text}}</span>
+            </sc-for>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="margin-top: 20px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px">
+      <div style="padding: 20px; border-radius: 24px; background: rgba(232,194,106,.05); border: 1px solid rgba(232,194,106,.22)">
+        <div style="font-size: 14px; font-weight: 700; color: #e8c26a">AI kuzatuvi</div>
+        <p style="margin: 8px 0 0; font-size: 15px; line-height: 1.5; color: #c8d6cf">Qo'qon skladchisi Dilshod 9 kundan beri tizimga kirmagan, lekin ombor bo'yicha "amal" huquqi saqlanib turibdi. Darajani "ko'rish"ga tushirishni tavsiya qilaman.</p>
+        <div style="margin-top: 12px; display: flex; gap: 8px"><button style="min-height: 40px; padding: 0 14px; border-radius: 12px; border: 0; background: #e8c26a; color: #1a1204; font: 700 13px Manrope, sans-serif">Tushirish</button><button style="min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px solid rgba(180,230,200,.16); background: transparent; color: #e8f1ec; font: 600 13px Manrope, sans-serif">Qoldirish</button></div>
+      </div>
+      <div style="padding: 20px; border-radius: 24px; background: rgba(255,255,255,.025); border: 1px solid rgba(180,230,200,.09)">
+        <div style="font-size: 14px; font-weight: 700">So'nggi o'zgarishlar</div>
+        <sc-for list="{{audit}}" as="a" hint-placeholder-count="3">
+          <div style="display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 12px; padding: 9px 0; border-top: 1px solid rgba(180,230,200,.05); font-size: 13px"><span style="font-family: 'JetBrains Mono', monospace; color: #6f877b">{{a.time}}</span><span style="color: #c8d6cf">{{a.text}}</span></div>
+        </sc-for>
+      </div>
+    </section>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1300}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const L = {
+      '-': { text: '', bg: 'rgba(255,255,255,.02)', border: 'rgba(180,230,200,.05)', fg: '#6f877b', label: "Yo'q" },
+      v: { text: 'K', bg: 'rgba(111,179,255,.16)', border: 'rgba(111,179,255,.3)', fg: '#a9d0ff', label: "Ko'rish" },
+      d: { text: 'B', bg: 'rgba(63,214,154,.2)', border: 'rgba(63,214,154,.35)', fg: '#8af0c2', label: 'Batafsil' },
+      s: { text: 'M', bg: 'rgba(232,194,106,.22)', border: 'rgba(232,194,106,.4)', fg: '#f3d891', label: 'Maxfiy' },
+      a: { text: 'A', bg: '#ff8a6a', border: '#ff8a6a', fg: '#1a0702', label: 'Amal' }
+    };
+    let k = 0;
+    const row = (s) => s.split('').map((ch) => ({ ...L[ch], delay: (0.3 + (k++) * 0.012).toFixed(3) + 's' }));
+    return {
+      roles: [
+        { name: 'Skladchilar', count: 4, scope: 'Faqat o\'z ombori', color: '#e8c26a', border: 'rgba(232,194,106,.2)', delay: '.1s' },
+        { name: 'Filial adminlari', count: 5, scope: "O'z filiali · buyurtma, kassa", color: '#3fd69a', border: 'rgba(63,214,154,.2)', delay: '.15s' },
+        { name: 'Call-center adminlari', count: 3, scope: 'Operatorlar, qo\'ng\'iroqlar', color: '#6fb3ff', border: 'rgba(111,179,255,.2)', delay: '.2s' },
+        { name: 'Kuryerlar boshliqlari', count: 2, scope: 'Kuryerlar, topshirish', color: '#ff8a6a', border: 'rgba(255,138,106,.2)', delay: '.25s' }
+      ],
+      modules: ['Ombor', 'Buyurtma', 'Kassa', 'Kuryer', 'Call', 'Klinika', 'Xodim', 'AI'],
+      people: [
+        { name: 'Sardor Aliyev', role: 'Skladchi · Toshkent', ki: 'SA', avatar: '#e8c26a', cells: row('ad--v---') },
+        { name: 'Dilshod Qodirov', role: "Skladchi · Qo'qon", ki: 'DQ', avatar: '#e8c26a', cells: row('av------') },
+        { name: 'Malika Rasulova', role: 'Call-center admini', ki: 'MR', avatar: '#6fb3ff', cells: row('-d---a-d') },
+        { name: 'Bobur Toshmatov', role: "Kuryerlar boshlig'i", ki: 'BT', avatar: '#ff8a6a', cells: row('vvsa--v-') },
+        { name: 'Kamola Nazarova', role: 'Filial admini · Samarqand', ki: 'KN', avatar: '#3fd69a', cells: row('vaadvv--') },
+        { name: 'Farhod (investor)', role: 'Faqat ko\'rish', ki: 'FA', avatar: '#9db3a7', cells: row('vvvvvvvv') }
+      ],
+      audit: [
+        { time: 'bugun 11:02', text: 'Kamola Nazarova uchun "Kassa" → amal (siz)' },
+        { time: 'kecha 18:40', text: 'Farhod: investor shabloni berildi, 30 kun muddat' },
+        { time: '25.10', text: 'Nilufar Q. akkaunti vaqtincha bloklandi' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

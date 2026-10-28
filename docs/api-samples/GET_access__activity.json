@@ -1,0 +1,22 @@
+{
+  "results": [
+    {
+      "id": 3,
+      "at": "2026-10-05T08:00:00.000Z",
+      "member_id": 7,
+      "full_name": "Sardor Aliyev",
+      "kind": "view",
+      "section": "warehouse",
+      "detail": null
+    },
+    {
+      "id": 2,
+      "at": "2026-10-04T09:00:00.000Z",
+      "member_id": 8,
+      "full_name": "Malika Yusupova",
+      "kind": "granted",
+      "section": null,
+      "detail": null
+    }
+  ]
+}

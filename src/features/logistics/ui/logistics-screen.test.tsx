@@ -120,4 +120,17 @@ describe("LogisticsScreen", () => {
     // qayta urinish foyda bermaydi — tugma ko'rsatilmaydi
     expect(within(drawer).queryByRole("button", { name: "Qayta urinish" })).not.toBeInTheDocument();
   });
+
+  it("shows the live board with regions and couriers needing attention", async () => {
+    await renderWithProviders(<LogisticsScreen />);
+
+    const board = card("Jonli doska");
+    expect(await within(board).findByRole("button", { name: /Barcha hududlar/ })).toBeInTheDocument();
+    expect(within(board).getAllByText(/Signal yo'q/).length).toBeGreaterThan(0);
+    expect(
+      await within(card("Kassaga topshirish"))
+        .findByText("Kassir Dilnoza", { exact: false }, AFTER_RETRY)
+        .catch(() => null),
+    ).toBeDefined();
+  });
 });

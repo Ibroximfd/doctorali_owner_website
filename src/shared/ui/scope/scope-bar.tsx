@@ -357,7 +357,7 @@ export const MobileScope = () => {
 
 const SheetGroup = ({ title, children }: { title: string; children: ReactNode }) => (
   <section>
-    <h3 className="text-ink-3 mt-3.5 mb-2 text-xs font-semibold tracking-wider uppercase">{title}</h3>
+    <h3 className="text-ink-3 mt-3.5 mb-2 text-xs font-semibold">{title}</h3>
     <div className="flex flex-wrap gap-2">{children}</div>
   </section>
 );

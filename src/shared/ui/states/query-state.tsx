@@ -2,10 +2,10 @@
 
 import type { ReactNode } from "react";
 
-import { toAppError } from "@/shared/lib/app-error";
+import { isMissingEndpoint, toAppError } from "@/shared/lib/app-error";
 import { cn } from "@/shared/lib/cn";
 
-import { EmptyState, ErrorState, ForbiddenState, StaleNote } from "./states";
+import { EmptyState, ErrorState, ForbiddenState, SourcePendingState, StaleNote } from "./states";
 
 /** TanStack Query natijasining bu komponentga kerakli qismi. */
 type QueryLike<Data> = {
@@ -47,6 +47,7 @@ export const QueryState = <Data,>({
     if (isPending) return <>{skeleton}</>;
     const appError = toAppError(error);
     if (appError.kind === "forbidden") return <ForbiddenState />;
+    if (isMissingEndpoint(appError)) return <SourcePendingState />;
     return <ErrorState error={appError} onRetry={() => void refetch()} />;
   }
 

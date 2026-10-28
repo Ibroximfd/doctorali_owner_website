@@ -53,3 +53,31 @@ export const regionName = (
   code: string,
   regions: readonly { code: string; name: string }[] | undefined,
 ): string => regions?.find((region) => region.code === code)?.name ?? code;
+
+export const LIVE_STATUSES = ["moving", "idle", "no_signal", "off_shift"] as const;
+export type LiveStatus = (typeof LIVE_STATUSES)[number];
+export const isLiveStatus = (value: string): value is LiveStatus =>
+  LIVE_STATUSES.some((known) => known === value);
+
+/** Kuryerdagi naqd ogohlantirishi: 10 mln dan ko'p yoki 24 soatdan beri topshirilmagan (ERP qoidasi). */
+export const CASH_LIMIT = 10_000_000;
+const CASH_HOURS = 24;
+
+export const isCashOverheld = (
+  courier: { cashOnHand: number; cashSince: string | null },
+  now: number,
+): boolean =>
+  courier.cashOnHand > CASH_LIMIT ||
+  (courier.cashOnHand > 0 &&
+    courier.cashSince !== null &&
+    now - Date.parse(courier.cashSince) > CASH_HOURS * 3_600_000);
+
+/** Jonli ro'yxat tartibi: e'tibor talab qiladiganlar (signal yo'q, naqd ko'p) tepada, keyin harakatdagilar. */
+export const sortLive = <Row extends { status: string; cashOnHand: number; cashSince: string | null }>(
+  rows: readonly Row[],
+  now: number,
+): Row[] => {
+  const order = ["no_signal", "idle", "moving", "off_shift"];
+  const rank = (row: Row) => (isCashOverheld(row, now) ? -1 : Math.max(0, order.indexOf(row.status)));
+  return [...rows].sort((a, b) => rank(a) - rank(b));
+};

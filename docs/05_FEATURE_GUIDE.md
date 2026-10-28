@@ -82,8 +82,13 @@ Raqamlar `sample.ts` dan (faqat o'qiladi; yetishmasa — o'z handler faylingizga
 | `AlertItem` | signal qatori |
 | `QueryState` + `StatRowSkeleton`, `ChartSkeleton`, `ListSkeleton`, `TableSkeleton`, `BlockSkeleton`, `EmptyState`, `NoResults`, `ErrorState`, `StateBlock` | **holatlar galereyasi** |
 | `ScopeLink` | ichki havola (filtrni saqlaydi) |
+| `SectionHero`, `HeroStat` | bo'lim boshi (yagona `h1`): yashil-tilla gradient, parallaks illyustratsiya, jonli raqamlar |
+| `illustrations/*` (`WarehouseArt`, `ForecastArt`, `IssuesArt`, `SettlementsArt`, `SystemArt`, `CourierArt`, `AccessArt`, `PulseArt`) | bo'lim illyustratsiyalari (SVG, tokenlar) |
+| `motion/reveal` (`Stagger`, `StaggerItem`, `Reveal`, `EASE_OUT`), `motion/animated-number` | kirish animatsiyasi va sanab chiquvchi raqam |
+| `RegionMap`, `regionTone` | O'zbekiston choropleth xaritasi (`config/uz-map.ts`) |
+| `icons/brand-icons` | brend ikonkalari (lucide bilan bir xil API) |
 
-Hooklar: `useScopeQuery`, `useAllFilialsQuery` (filial filtrisiz), `useFilialFocus` (`toggle(id)`, `isFocused(id)`, `clear()`, `hasFocus` — panelni bitta filialga toraytirish), `useScope`, `useFormat` (`money`, `moneyCompact`, `duration`, `time`, `date`, `dateTime`, `bucket`, `month`, `currency`), `usePeriodLabel`, `useRelativeTime`, `useOrderDrawer` (`openOrder(id)`), `useMetaQuery`.
+Hooklar: `useCanAct` (`stores/session-store` — ko'ruvchiga yozuvchi tugmalar yashiriladi), `useRegionName` (`meta`), `useScopeQuery`, `useAllFilialsQuery` (filial filtrisiz), `useFilialFocus` (`toggle(id)`, `isFocused(id)`, `clear()`, `hasFocus` — panelni bitta filialga toraytirish), `useScope`, `useFormat` (`money`, `moneyCompact`, `duration`, `time`, `date`, `dateTime`, `bucket`, `month`, `currency`), `usePeriodLabel`, `useRelativeTime`, `useOrderDrawer` (`openOrder(id)`), `useMetaQuery`.
 Format: `formatNumber`, `formatPercent`, `formatDecimal`, `formatPhone` (`shared/lib/format`). Ranglar: `seriesColor(i)`, `seriesBg(i)`, `STATUS_COLORS`, `orderStatusStyle(status)` (`shared/config`).
 
 ## 5. Majburiy qoidalar

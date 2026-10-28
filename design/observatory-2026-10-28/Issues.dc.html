@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Muammolar — Doctor Ali Nazorat</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,400&amp;family=Manrope:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap">
+<style>
+body{margin:0;background:#050d09}
+@keyframes reveal{from{opacity:0;filter:blur(10px);transform:translateY(14px)}to{opacity:1;filter:blur(0);transform:none}}
+@keyframes ring{from{stroke-dashoffset:126}}
+@keyframes ping{0%{transform:scale(.6);opacity:.8}100%{transform:scale(2.6);opacity:0}}
+@keyframes slide{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes sent{0%{transform:translateX(0);opacity:1}100%{transform:translateX(40px);opacity:0}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</helmet>
+<div style="position: relative; min-height: 1500px; display: flex; flex-wrap: wrap; font-family: Manrope, system-ui, sans-serif; color: #e8f1ec; background: radial-gradient(800px 500px at 30% -10%, rgba(255,138,106,.10), transparent 60%), #050d09; overflow: hidden">
+  <dc-import name="Sidebar" active="issues" hint-size="240px,1500px"></dc-import>
+  <main style="flex: 999 1 560px; min-width: 0; padding: 28px 32px 56px">
+    <header style="display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 24px">
+      <h1 style="margin: 0; font-family: Fraunces, serif; font-weight: 400; font-size: 50px; line-height: 1.08; letter-spacing: -.02em; max-width: 920px; animation: reveal .9s both"><span style="color: #ff8a6a">3 ta muammo</span> bugun sizni kutyapti. Eng qimmati — kuryerda qolgan <span style="color: #e8c26a">18,4 mln</span> so'm.</h1>
+      <div style="display: flex; gap: 6px; padding: 4px; border-radius: 14px; background: rgba(255,255,255,.04); border: 1px solid rgba(180,230,200,.09)">
+        <button style="min-height: 40px; padding: 0 14px; border-radius: 10px; border: 0; background: rgba(255,138,106,.16); color: #ffb39e; font: 700 13px Manrope, sans-serif">Ochiq · 7</button>
+        <button style="min-height: 40px; padding: 0 14px; border-radius: 10px; border: 0; background: transparent; color: #9db3a7; font: 600 13px Manrope, sans-serif">Jarayonda · 4</button>
+        <button style="min-height: 40px; padding: 0 14px; border-radius: 10px; border: 0; background: transparent; color: #9db3a7; font: 600 13px Manrope, sans-serif">Hal bo'ldi · 31</button>
+      </div>
+    </header>
+
+    <section aria-label="Yo'nalishlar bo'yicha" style="margin-top: 26px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px">
+      <sc-for list="{{domains}}" as="d" hint-placeholder-count="5">
+        <div style="padding: 14px 16px; border-radius: 18px; background: rgba(255,255,255,.03); border: 1px solid rgba(180,230,200,.08); animation: reveal .7s {{d.delay}} both">
+          <div style="display: flex; justify-content: space-between; font-size: 13px; color: #9db3a7"><span>{{d.label}}</span><span style="font: 600 13px 'JetBrains Mono', monospace; color: {{d.color}}">{{d.count}}</span></div>
+          <div style="margin-top: 10px; height: 6px; border-radius: 3px; background: rgba(255,255,255,.05); overflow: hidden"><div style="height: 100%; width: {{d.pct}}%; background: {{d.color}}; border-radius: 3px; transform-origin: left; animation: slide 1.1s {{d.delay}} cubic-bezier(.16,1,.3,1) both"></div></div>
+        </div>
+      </sc-for>
+    </section>
+
+    <div style="margin-top: 22px; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 20px; align-items: start">
+      <section aria-label="Muammolar ro'yxati" style="display: flex; flex-direction: column; gap: 12px">
+        <sc-for list="{{issues}}" as="i" hint-placeholder-count="6">
+          <article style="position: relative; display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; gap: 16px; align-items: center; padding: 16px 18px; border-radius: 22px; background: {{i.bg}}; border: 1px solid {{i.border}}; box-shadow: {{i.shadow}}; animation: reveal .8s {{i.delay}} cubic-bezier(.16,1,.3,1) both">
+            <span style="position: relative; width: 56px; height: 56px">
+              <svg aria-hidden="true" viewBox="0 0 48 48" width="56" height="56" style="transform: rotate(-90deg)"><circle cx="24" cy="24" r="20" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="4"></circle><circle cx="24" cy="24" r="20" fill="none" stroke="{{i.color}}" stroke-width="4" stroke-linecap="round" stroke-dasharray="126" stroke-dashoffset="{{i.ring}}" style="animation: ring 1.4s {{i.delay}} cubic-bezier(.16,1,.3,1) both"></circle></svg>
+              <span style="position: absolute; inset: 0; display: grid; place-items: center; font: 600 11px 'JetBrains Mono', monospace; color: {{i.color}}">{{i.sla}}</span>
+            </span>
+            <span style="min-width: 0">
+              <span style="display: flex; gap: 8px; align-items: center; font-size: 12px; color: #6f877b"><span style="padding: 2px 7px; border-radius: 6px; background: rgba(255,255,255,.05); color: #c8d6cf">{{i.domain}}</span>{{i.age}}</span>
+              <span style="display: block; margin-top: 6px; font-size: 16px; font-weight: 700; line-height: 1.3">{{i.title}}</span>
+              <span style="display: block; margin-top: 4px; font-size: 13px; color: #9db3a7">{{i.detail}}</span>
+            </span>
+            <span style="text-align: right">
+              <span style="display: block; font: 600 18px 'JetBrains Mono', monospace; color: {{i.color}}">{{i.amount}}</span>
+              <span style="display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; font-size: 12px; color: #9db3a7"><span style="width: 22px; height: 22px; border-radius: 50%; background: rgba(255,255,255,.07); display: grid; place-items: center; font-size: 10px; font-weight: 700; color: #e8f1ec">{{i.ki}}</span>{{i.owner}}</span>
+            </span>
+          </article>
+        </sc-for>
+      </section>
+
+      <aside aria-label="Tanlangan muammo" style="position: sticky; top: 20px; border-radius: 28px; padding: 24px; background: linear-gradient(180deg, rgba(255,138,106,.08), rgba(255,255,255,.015) 40%); border: 1px solid rgba(255,138,106,.25); animation: reveal 1s .3s both">
+        <div style="display: flex; align-items: center; gap: 10px">
+          <span style="position: relative; width: 12px; height: 12px"><span style="position: absolute; inset: 0; border-radius: 50%; background: #ff8a6a"></span><span style="position: absolute; inset: 0; border-radius: 50%; background: #ff8a6a; animation: ping 1.8s infinite"></span></span>
+          <span style="font-size: 13px; font-weight: 700; color: #ffb39e">Kritik · SLA 2 soat 14 daq qoldi</span>
+        </div>
+        <h2 style="margin: 14px 0 0; font-family: Fraunces, serif; font-weight: 400; font-size: 30px; line-height: 1.15">Jasur Karimovda 18,4 mln so'm 3 kundan beri topshirilmagan</h2>
+        <p style="margin: 10px 0 0; font-size: 14px; line-height: 1.55; color: #9db3a7">14 ta buyurtma yetkazilgan, naqd pul olingan, lekin kassaga kirim qilinmagan. Oxirgi joylashuv — Samarqand, Registon ko'chasi, 40 daqiqa oldin.</p>
+
+        <div style="margin-top: 20px; position: relative; padding-left: 22px">
+          <span style="position: absolute; left: 6px; top: 6px; bottom: 6px; width: 2px; background: linear-gradient(180deg, #ff8a6a, rgba(255,138,106,.1))"></span>
+          <sc-for list="{{timeline}}" as="t" hint-placeholder-count="4">
+            <div style="position: relative; padding: 0 0 14px">
+              <span style="position: absolute; left: -21px; top: 4px; width: 12px; height: 12px; border-radius: 50%; background: #050d09; border: 2px solid {{t.color}}"></span>
+              <span style="display: block; font: 400 11px 'JetBrains Mono', monospace; color: #6f877b">{{t.time}}</span>
+              <span style="display: block; font-size: 14px; color: #e8f1ec">{{t.text}}</span>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="margin-top: 8px; padding: 14px; border-radius: 18px; background: rgba(5,13,9,.6); border: 1px solid rgba(180,230,200,.1)">
+          <div style="font-size: 12px; color: #6f877b">Mas'ulga xabar · Telegram + ilova</div>
+          <div style="margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap">
+            <span style="padding: 6px 10px; border-radius: 999px; background: rgba(63,214,154,.14); color: #8af0c2; font-size: 12px; font-weight: 700">Kuryerlar boshlig'i · Bobur</span>
+            <span style="padding: 6px 10px; border-radius: 999px; background: rgba(255,255,255,.05); color: #9db3a7; font-size: 12px">Samarqand filial admini</span>
+          </div>
+          <p style="margin: 12px 0 0; font-size: 14px; line-height: 1.5; color: #c8d6cf">Bobur, Jasur Karimovdagi 18,4 mln bugun soat 18:00 gacha kassaga topshirilsin. Natijani shu yerda belgilang.</p>
+          <div style="margin-top: 12px; display: flex; gap: 8px">
+            <button style="flex: 1; min-height: 44px; border-radius: 12px; border: 0; background: #ff8a6a; color: #1a0702; font: 700 14px Manrope, sans-serif">Xabar yuborish</button>
+            <button style="min-height: 44px; padding: 0 14px; border-radius: 12px; border: 1px solid rgba(180,230,200,.16); background: transparent; color: #e8f1ec; font: 600 14px Manrope, sans-serif">AI'dan so'rash</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1500}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const crit = { color: '#ff8a6a', bg: 'linear-gradient(90deg, rgba(255,138,106,.10), rgba(255,255,255,.015))', border: 'rgba(255,138,106,.3)', shadow: '0 20px 50px -30px rgba(255,138,106,.5)' };
+    const warn = { color: '#e8c26a', bg: 'rgba(255,255,255,.025)', border: 'rgba(232,194,106,.18)', shadow: 'none' };
+    const low = { color: '#6fb3ff', bg: 'rgba(255,255,255,.02)', border: 'rgba(180,230,200,.08)', shadow: 'none' };
+    return {
+      domains: [
+        { label: 'Pul / kassa', count: 2, pct: 90, color: '#ff8a6a', delay: '.05s' },
+        { label: 'Yetkazish', count: 2, pct: 70, color: '#e8c26a', delay: '.1s' },
+        { label: 'Ombor', count: 1, pct: 45, color: '#e8c26a', delay: '.15s' },
+        { label: 'Call-center', count: 1, pct: 30, color: '#6fb3ff', delay: '.2s' },
+        { label: 'Tizim', count: 1, pct: 20, color: '#6fb3ff', delay: '.25s' }
+      ],
+      issues: [
+        { ...crit, sla: '2:14', ring: 100, domain: 'Pul', age: '3 kun', title: "Kuryerda 18,4 mln topshirilmagan", detail: 'Jasur Karimov · Samarqand · 14 buyurtma', amount: '18,4 mln', owner: 'Bobur T.', ki: 'BT', delay: '.1s' },
+        { ...crit, sla: '5:40', ring: 70, domain: 'Ombor', age: 'bugun', title: 'Balzam Toshkentda 2,7 kunda tugaydi', detail: "Kirim rejalashtirilmagan · kuniga 82 dona", amount: '−240 dona', owner: 'Sardor A.', ki: 'SA', delay: '.18s' },
+        { ...warn, sla: '1 kun', ring: 50, domain: 'Yetkazish', age: '4 kun', title: "Farg'onada 23 buyurtma 3+ kun yo'lda", detail: "O'rtacha 18 soat · 2 kuryer ishda emas", amount: '23 ta', owner: 'Dilshod Q.', ki: 'DQ', delay: '.26s' },
+        { ...warn, sla: '1 kun', ring: 40, domain: 'Pul', age: '2 kun', title: 'Click to\'lovlari ERP bilan 3,2 mln farq', detail: '7 tranzaksiya mos kelmadi', amount: '3,2 mln', owner: 'Moliya', ki: 'MO', delay: '.34s' },
+        { ...low, sla: '3 kun', ring: 20, domain: 'Call-center', age: 'bugun', title: "Operator Nilufar: bekor qilish 31%", detail: "O'rtachadan 2,1 barobar yuqori · 64 lid", amount: '31%', owner: 'Malika R.', ki: 'MR', delay: '.42s' },
+        { ...low, sla: '3 kun', ring: 15, domain: 'Tizim', age: '6 soat', title: 'ERP sinxroni 2 marta uzildi', detail: 'Oxirgi muvaffaqiyatli — 3 daqiqa oldin', amount: '2×', owner: 'IT', ki: 'IT', delay: '.5s' }
+      ],
+      timeline: [
+        { time: '25.10 · 14:20', text: 'Buyurtmalar yetkazildi, naqd olindi', color: '#3fd69a' },
+        { time: '26.10 · 09:00', text: 'Kassaga topshirish muddati o\'tdi', color: '#e8c26a' },
+        { time: '27.10 · 10:12', text: 'AI aniqladi, muammo ochildi', color: '#ff8a6a' },
+        { time: 'hozir', text: 'Mas\'ul hali javob bermadi', color: '#ff8a6a' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

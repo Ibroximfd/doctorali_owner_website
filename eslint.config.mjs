@@ -9,7 +9,7 @@ import nextTs from "eslint-config-next/typescript";
  * qilmaydi (kompozitsiya `app` da), `shared` esa hech kimni tanimaydi.
  *
  * Qo'shimcha: namuna (soxta) ma'lumot va test yordamchilari (`src/shared/testing`)
- * faqat testlarda — ishchi kod ularni import qilmaydi, sayt faqat API ma'lumotini ko'rsatadi.
+ * faqat testlarda va demo rejimda (`src/shared/demo`) — boshqa ishchi kod ularni import qilmaydi.
  * ESLint da bitta qoidani keyingi blok to'liq almashtiradi, shuning uchun har blok
  * o'ziga kerakli hamma taqiqni o'zi sanaydi.
  */
@@ -78,11 +78,16 @@ const eslintConfig = defineConfig([
   },
   {
     files: ["src/shared/**/*.{ts,tsx}"],
-    ignores: [...TEST_FILES, "src/shared/testing/**"],
+    ignores: [...TEST_FILES, "src/shared/testing/**", "src/shared/demo/**"],
     rules: restrict([SHARED_UP, NO_TEST_DATA]),
   },
   {
     files: ["src/shared/**/*.test.{ts,tsx}", "src/shared/testing/**/*.{ts,tsx}"],
+    rules: restrict([SHARED_UP]),
+  },
+  {
+    // Demo rejim (`config/servers.mjs`) — namuna bazani ishchi kodga ulaydigan YAGONA joy.
+    files: ["src/shared/demo/**/*.{ts,tsx}"],
     rules: restrict([SHARED_UP]),
   },
   ...featureBoundaries,

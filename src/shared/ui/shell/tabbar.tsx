@@ -29,7 +29,7 @@ export const Tabbar = ({ activeRoute, alertsCount, allowedSections }: TabbarProp
     <>
       <nav
         aria-label={t("quick")}
-        className="bg-surface/95 fixed inset-x-0 bottom-0 z-40 grid grid-cols-5 border-t px-1 pt-1.5 pb-[calc(0.375rem+env(safe-area-inset-bottom))] backdrop-blur-md md:hidden"
+        className="bg-bg/85 fixed inset-x-0 bottom-0 z-40 grid grid-cols-5 border-t px-1 pt-1.5 pb-[calc(0.375rem+env(safe-area-inset-bottom))] backdrop-blur-xl md:hidden"
       >
         {tabs.map((item) => {
           const isActive = item.route === activeRoute;
@@ -42,7 +42,7 @@ export const Tabbar = ({ activeRoute, alertsCount, allowedSections }: TabbarProp
             >
               <item.icon aria-hidden className="size-5" strokeWidth={1.75} />
               {item.showsAlerts && alertsCount > 0 ? (
-                <span className="num bg-crit text-2xs text-surface absolute top-0 left-1/2 ml-1 min-w-4 rounded-full px-1 text-center leading-tight font-semibold">
+                <span className="num bg-crit text-2xs text-accent-ink absolute top-0 left-1/2 ml-1 min-w-4 rounded-full px-1 text-center leading-tight font-semibold">
                   {alertsCount}
                 </span>
               ) : null}
@@ -72,7 +72,7 @@ export const Tabbar = ({ activeRoute, alertsCount, allowedSections }: TabbarProp
                 aria-current={isActive ? "page" : undefined}
                 onClick={() => setMoreOpen(false)}
                 className={cn(
-                  "font-mid flex flex-col items-center gap-1.5 rounded-lg border px-1.5 py-3.5 text-center text-xs",
+                  "font-mid flex flex-col items-center gap-1.5 rounded-2xl border px-1.5 py-3.5 text-center text-xs",
                   isActive ? "bg-accent-soft text-accent border-transparent" : "text-ink-2",
                 )}
               >

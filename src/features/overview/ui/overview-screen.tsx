@@ -1,4 +1,7 @@
+import type { ReactNode } from "react";
+
 import { Grid, span } from "@/shared/ui/grid";
+import { Reveal } from "@/shared/ui/motion/reveal";
 
 import { AttentionCard } from "./attention-card";
 import { CashPositionCard } from "./cash-position-card";
@@ -7,19 +10,22 @@ import { LiveFeed } from "./live-feed";
 import { OverviewKpis } from "./overview-kpis";
 import { PipelineCard } from "./pipeline-card";
 import { RevenueHero } from "./revenue-hero";
-import { RevenueTrend } from "./revenue-trend";
+import { RevenueRiver } from "./revenue-river";
 
-/** "Umumiy" sahifasi: xulosa tepada, tafsilot pastda. Har blok o'z holatlarini o'zi ko'rsatadi. */
-export const OverviewScreen = () => (
+/**
+ * "Umumiy" sahifasi: «brief» sarlavhadan keyin xarita sahnasi, instrument panellar, pul oqimi
+ * va «Hozir» vaqt chizig'i; tafsilot pastda. Har blok o'z holatlarini o'zi ko'rsatadi.
+ * `regionSlot` — hudud xaritasi (`features/regions`), kompozitsiya `app` da.
+ */
+export const OverviewScreen = ({ regionSlot }: { regionSlot?: ReactNode }) => (
   <>
-    <Grid className="mb-4">
-      <RevenueHero className={span.c8} />
-      <AttentionCard className={span.c4} />
-    </Grid>
+    {regionSlot ? <Reveal className="mb-4">{regionSlot}</Reveal> : null}
     <OverviewKpis />
     <Grid>
-      <RevenueTrend className={span.c8} />
+      <RevenueRiver className={span.c8} />
       <LiveFeed className={span.c4} />
+      <RevenueHero className={span.c8} />
+      <AttentionCard className={span.c4} />
       <PipelineCard className={span.full} />
       <FilialsTable className={span.c8} />
       <CashPositionCard className={span.c4} />

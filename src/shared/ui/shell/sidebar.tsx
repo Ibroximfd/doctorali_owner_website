@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
 
 import { NAV_GROUPS, visibleNavItems } from "@/shared/config/nav";
@@ -40,7 +41,7 @@ export const Sidebar = ({
   return (
     <aside
       className={cn(
-        "bg-surface sticky top-0 z-30 flex h-dvh w-16 shrink-0 flex-col border-r max-md:hidden",
+        "from-surface to-bg sticky top-0 z-30 flex h-dvh w-16 shrink-0 flex-col border-r bg-gradient-to-b max-md:hidden",
         !isCollapsed && "xl:w-62",
       )}
     >
@@ -48,14 +49,14 @@ export const Sidebar = ({
         href={routes.overview}
         aria-label={t("home")}
         className={cn(
-          "flex h-14 shrink-0 items-center gap-2.5 max-xl:justify-center",
-          isCollapsed ? "justify-center" : "xl:px-4",
+          "flex h-18 shrink-0 items-center gap-3 max-xl:justify-center",
+          isCollapsed ? "justify-center" : "xl:px-5",
         )}
       >
-        <BrandMark />
+        <BrandMark className="shadow-glow size-9 rounded-xl shadow-lg" />
         <span className={cn("leading-tight", labelClass)}>
-          <span className="text-md font-strong block whitespace-nowrap">Doctor Ali</span>
-          <span className="text-2xs text-ink-3 block font-medium tracking-wide">{t("product")}</span>
+          <span className="font-display block text-xl whitespace-nowrap">Doctor Ali</span>
+          <span className="text-2xs text-ink-3 block font-medium">{t("product")}</span>
         </span>
       </ScopeLink>
 
@@ -69,12 +70,7 @@ export const Sidebar = ({
           return (
             <div key={group} className="flex flex-col gap-0.5">
               {group === "main" ? null : (
-                <div
-                  className={cn(
-                    "text-2xs text-ink-3 px-2.5 pt-3.5 pb-1.5 font-semibold tracking-widest uppercase",
-                    labelClass,
-                  )}
-                >
+                <div className={cn("text-2xs text-ink-3 px-3 pt-4.5 pb-1.5 font-semibold", labelClass)}>
                   {t(`groups.${group}`)}
                 </div>
               )}
@@ -88,19 +84,26 @@ export const Sidebar = ({
                     title={t(`items.${item.route}`)}
                     aria-current={isActive ? "page" : undefined}
                     className={cn(
-                      "relative flex h-10 items-center gap-2.5 rounded-md text-sm font-medium whitespace-nowrap max-xl:justify-center xl:h-9",
-                      isCollapsed ? "justify-center" : "xl:px-2.5",
-                      isActive
-                        ? "bg-accent-soft text-accent font-semibold"
-                        : "text-ink-2 hover:bg-surface-3 hover:text-ink",
+                      "relative flex h-10 items-center gap-3 rounded-xl text-sm font-medium whitespace-nowrap max-xl:justify-center xl:h-9.5",
+                      isCollapsed ? "justify-center" : "xl:px-3",
+                      isActive ? "text-ink font-bold" : "text-ink-2 hover:bg-surface-3/60 hover:text-ink",
                     )}
                   >
-                    <item.icon aria-hidden className="size-4.5 shrink-0" strokeWidth={1.75} />
-                    <span className={labelClass}>{t(`items.${item.route}`)}</span>
+                    {/* faol belgi bo'limlar orasida «oqib» o'tadi */}
+                    {isActive ? (
+                      <motion.span
+                        aria-hidden
+                        layoutId="nav-active"
+                        transition={{ type: "spring", stiffness: 420, damping: 34 }}
+                        className="from-accent/16 to-accent/3 ring-accent/22 absolute inset-0 rounded-xl bg-gradient-to-r ring-1 ring-inset"
+                      />
+                    ) : null}
+                    <item.icon aria-hidden className="relative size-4.5 shrink-0" strokeWidth={1.75} />
+                    <span className={cn("relative", labelClass)}>{t(`items.${item.route}`)}</span>
                     {showCount ? (
                       <span
                         className={cn(
-                          "num bg-crit text-2xs text-surface rounded-full text-center font-semibold",
+                          "num bg-crit text-2xs text-accent-ink relative rounded-full text-center font-semibold",
                           isCollapsed
                             ? "absolute top-0.5 right-1 min-w-4 px-1"
                             : "max-xl:absolute max-xl:top-0.5 max-xl:right-1 max-xl:min-w-4 max-xl:px-1 xl:ml-auto xl:min-w-5 xl:px-1.5 xl:py-0.5",
@@ -119,13 +122,13 @@ export const Sidebar = ({
 
       <div
         className={cn(
-          "flex shrink-0 items-center gap-2.5 border-t p-2.5 max-xl:justify-center",
+          "flex shrink-0 items-center gap-2.5 border-t px-3 py-3.5 max-xl:justify-center xl:px-4.5",
           isCollapsed && "justify-center",
         )}
       >
         <span
           aria-hidden
-          className="bg-surface-3 font-strong text-ink-2 grid size-8 shrink-0 place-items-center rounded-full text-xs"
+          className="from-gold to-gold/50 text-accent-ink font-strong grid size-8.5 shrink-0 place-items-center rounded-full bg-gradient-to-br text-xs"
         >
           {initialsOf(userName)}
         </span>

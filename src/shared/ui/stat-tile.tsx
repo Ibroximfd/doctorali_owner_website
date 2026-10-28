@@ -33,12 +33,12 @@ export const StatTile = ({
 }: StatTileProps) => (
   <div
     className={cn(
-      "bg-surface flex min-w-0 flex-col gap-1.5 rounded-lg border px-3 py-2.5 md:px-3.5 md:py-3",
+      "panel-surface flex min-w-0 flex-col gap-2 rounded-2xl border px-3.5 py-3 md:px-4 md:py-3.5",
       className,
     )}
   >
     <div className="text-ink-2 truncate text-xs font-medium">{label}</div>
-    <div className="font-strong md:text-kpi text-xl leading-none tracking-tight whitespace-nowrap">
+    <div className="num md:text-kpi text-xl leading-none font-semibold whitespace-nowrap">
       {value}
       {unit ? <span className="text-ink-3 ml-1 text-xs font-medium tracking-normal">{unit}</span> : null}
     </div>

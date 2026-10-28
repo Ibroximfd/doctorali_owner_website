@@ -134,8 +134,8 @@ const MessagePreview = ({ preview }: { preview: DigestPreview }) => {
 
   return (
     <div className="pt-3">
-      <h3 className="text-2xs text-ink-3 mb-2 font-semibold tracking-wider uppercase">{t("title")}</h3>
-      <div className="bg-surface-3 text-ink-2 rounded-lg border px-3.5 py-2.5 text-xs leading-relaxed">
+      <h3 className="text-2xs text-ink-3 mb-2 font-semibold">{t("title")}</h3>
+      <div className="bg-surface-3/60 text-ink-2 rounded-2xl border px-4 py-3 text-xs leading-relaxed">
         <p className="text-ink font-semibold">
           {t("heading", { date: format.date(`${preview.date}T12:00:00+05:00`) })}
         </p>

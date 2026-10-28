@@ -19,7 +19,7 @@ type StockItem = { key: string; product: string; note: string; pill: ReactNode }
 
 const StockList = ({ title, items }: { title: string; items: readonly StockItem[] }) => (
   <section className="mt-3.5">
-    <h3 className="text-2xs text-ink-3 mb-1 font-semibold tracking-widest uppercase">{title}</h3>
+    <h3 className="text-2xs text-ink-3 mb-1 font-semibold">{title}</h3>
     <ul>
       {items.map((item) => (
         <li key={item.key} className="flex items-center gap-3 border-b py-2 last:border-b-0">

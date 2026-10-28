@@ -44,7 +44,7 @@ describe("OverviewScreen", () => {
 
     expect((await screen.findAllByText("2,33 mlrd")).length).toBeGreaterThan(0);
     // lenta bloki o'z xatosini ko'rsatadi, qayta urinish bilan
-    const feed = screen.getByText("Jonli lenta").closest("section");
+    const feed = screen.getByRole("heading", { name: "Hozir" }).closest("section");
     expect(
       await within(feed as HTMLElement).findByRole("button", { name: "Qayta urinish" }),
     ).toBeInTheDocument();

@@ -159,7 +159,101 @@ const transfers = (ctx: MockContext) => {
 };
 
 /** `logistics` bo'limi namunalari (`02_BACKEND_TZ` §4.6 + bitta kuryer kartasi). */
+/** Jonli doska: kuryerlar namunadagi bilan bir xil (id, ism), holat va naqd — hozirgi vaqtga bog'liq. */
+const LIVE_STATES = [
+  ["moving", 34, 62, 4_200_000, 3],
+  ["idle", 0, 41, 1_100_000, 5],
+  ["no_signal", null, 12, 12_600_000, 30],
+  ["off_shift", null, null, 0, 0],
+] as const;
+
+const live = (ctx: MockContext) => {
+  const scoped = sample.couriers.filter((courier) => isInScope(ctx, courier.filial));
+  const couriers = scoped.map((courier, index) => {
+    const [status, speed, battery, cash, cashHours] =
+      LIVE_STATES[index % LIVE_STATES.length] ?? LIVE_STATES[0];
+    const region = MOCK_REGION_OF[courier.filial] ?? "toshkent_shahar";
+    return {
+      id: courier.id,
+      full_name: courier.name,
+      filial: courier.filial,
+      region,
+      source: index === 5 ? "marketplace" : "doctor_ali",
+      status,
+      speed_kmh: speed,
+      last_signal_at:
+        status === "off_shift"
+          ? null
+          : new Date(ctx.now.getTime() - (status === "no_signal" ? 40 : 1) * 60_000).toISOString(),
+      shift_started_at:
+        status === "off_shift" ? null : new Date(ctx.now.getTime() - 5 * HOUR_MS).toISOString(),
+      battery_pct: battery,
+      assigned_today: 14 + index,
+      delivered_today: 8 + index,
+      cancelled_today: index % 3,
+      cash_on_hand: cash,
+      cash_since: cash > 0 ? new Date(ctx.now.getTime() - cashHours * HOUR_MS).toISOString() : null,
+      handover_pending: index === 0 ? 3_500_000 : null,
+    };
+  });
+  const regions = [...new Set(couriers.map((courier) => courier.region))].map((region) => {
+    const own = couriers.filter((courier) => courier.region === region);
+    return {
+      region,
+      couriers_total: own.length,
+      couriers_working: own.filter((courier) => courier.status === "moving" || courier.status === "idle")
+        .length,
+      delivered_today: sumOf(own, (courier) => courier.delivered_today),
+      pending_today: sumOf(
+        own,
+        (courier) => courier.assigned_today - courier.delivered_today - courier.cancelled_today,
+      ),
+      cash_today: sumOf(own, (courier) => courier.cash_on_hand),
+    };
+  });
+  return envelope(ctx, { couriers, regions });
+};
+
+const MOCK_REGION_OF: Record<string, string> = {
+  Toshkent: "toshkent_shahar",
+  "Qo'qon": "fargona",
+  Samarqand: "samarqand",
+};
+
+const handovers = (ctx: MockContext) =>
+  envelope(ctx, {
+    pending: [
+      {
+        id: 77,
+        courier_id: 1,
+        courier_name: "Jasur Karimov",
+        amount: 3_500_000,
+        requested_at: new Date(ctx.now.getTime() - 20 * 60_000).toISOString(),
+      },
+    ],
+    recent: [
+      {
+        id: 75,
+        courier_name: "Bekzod Toshmatov",
+        amount: 2_100_000,
+        status: "accepted",
+        decided_at: new Date(ctx.now.getTime() - 2 * HOUR_MS).toISOString(),
+        decided_by: "Kassir Dilnoza",
+      },
+      {
+        id: 74,
+        courier_name: "Aziz Rahimov",
+        amount: 900_000,
+        status: "rejected",
+        decided_at: new Date(ctx.now.getTime() - 5 * HOUR_MS).toISOString(),
+        decided_by: "Kassir Dilnoza",
+      },
+    ],
+  });
+
 export const logisticsHandlers: MockHandler[] = [
+  { method: "GET", path: "logistics/live/", resolve: live },
+  { method: "GET", path: "logistics/handovers/", resolve: handovers },
   { method: "GET", path: "logistics/summary/", resolve: summary },
   { method: "GET", path: "logistics/couriers/", resolve: courierList },
   { method: "GET", path: "logistics/couriers/:id/", resolve: courierDetail },

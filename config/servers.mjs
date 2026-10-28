@@ -39,6 +39,26 @@ export const SERVERS = {
  */
 export const DEFAULT_SERVER = "prod";
 
+/**
+ * ⬇︎ DEMO REJIM. `true` — panel backendga umuman chiqmaydi: BFF har so'rovga ichki
+ * namuna (mock) bazadan javob beradi, kirish istalgan login/parol bilan ochiladi.
+ * Backend tayyor bo'lgach `false` qiling (yoki vaqtincha: `APP_DEMO=0 npm run dev`).
+ */
+export const DEFAULT_DEMO = true;
+
+/**
+ * Demo rejimdagi alohida kirish (taqdimot uchun). Faqat namuna bazani ochadi —
+ * haqiqiy backend akkauntiga hech qanday aloqasi yo'q. Xohlasangiz shu yerda almashtiring.
+ */
+export const DEMO_CREDENTIALS = { username: "demo", password: "DoctorAli-2026" };
+
+/** `APP_DEMO=1` / `APP_DEMO=0` fayldagi defaultdan ustun turadi. */
+export function isDemoMode(value = process.env.APP_DEMO) {
+  if (value === "1" || value === "true") return true;
+  if (value === "0" || value === "false") return false;
+  return DEFAULT_DEMO;
+}
+
 /** Nomi bo'yicha serverni beradi; noto'g'ri nom jimgina o'tib ketmaydi. */
 export function resolveServer(name = process.env.APP_SERVER || DEFAULT_SERVER) {
   const server = SERVERS[name];

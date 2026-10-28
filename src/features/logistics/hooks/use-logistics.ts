@@ -9,6 +9,8 @@ import {
   loadCourier,
   loadCouriers,
   loadDeliveryTimeseries,
+  loadHandovers,
+  loadLiveBoard,
   loadLogisticsSummary,
   loadRegionDelivery,
   loadTransfers,
@@ -24,6 +26,8 @@ export const logisticsKeys = {
   regions: (scope: readonly string[]) => [...logisticsKeys.all, "regions", ...scope] as const,
   attemptReasons: (scope: readonly string[]) => [...logisticsKeys.all, "attempt-reasons", ...scope] as const,
   transfers: (scope: readonly string[]) => [...logisticsKeys.all, "transfers", ...scope] as const,
+  live: (filial: string) => [...logisticsKeys.all, "live", filial] as const,
+  handovers: (filial: string) => [...logisticsKeys.all, "handovers", filial] as const,
 };
 
 export const useLogisticsSummaryQuery = () => {
@@ -89,5 +93,30 @@ export const useTransfersQuery = () => {
     queryKey: logisticsKeys.transfers(key),
     queryFn: () => loadTransfers(params),
     ...options,
+  });
+};
+
+/** Jonli doska 15 soniyada yangilanadi (kuryer holati tez o'zgaradi). */
+const LIVE_MS = 15_000;
+
+export const useLiveBoardQuery = () => {
+  const { params } = useScopeQuery();
+  const filial = String(params.filial ?? "");
+  return useQuery({
+    queryKey: logisticsKeys.live(filial),
+    queryFn: () => loadLiveBoard(params),
+    refetchInterval: LIVE_MS,
+    placeholderData: (previous) => previous,
+  });
+};
+
+export const useHandoversQuery = () => {
+  const { params } = useScopeQuery();
+  const filial = String(params.filial ?? "");
+  return useQuery({
+    queryKey: logisticsKeys.handovers(filial),
+    queryFn: () => loadHandovers(params),
+    refetchInterval: 20_000,
+    placeholderData: (previous) => previous,
   });
 };

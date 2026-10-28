@@ -1,0 +1,104 @@
+{
+  "title": "Xodimlar reytingi",
+  "description": "Har bir xodim va jamoa: kimga qancha ish berildi, qanchasi natija bo'ldi, qanday baholanyapti.",
+  "hero": {
+    "eyebrow": "Reyting · {role}",
+    "lead": "Bu davrda <gold>{name}</gold> — {metric}: {value}, jamoa o'rtachasidan <mint>{ratio} barobar</mint> yuqori."
+  },
+  "roles": {
+    "operator": "Operatorlar",
+    "admin": "Call-center adminlari",
+    "courier": "Kuryerlar",
+    "warehouse": "Skladchilar",
+    "logist": "Logistlar"
+  },
+  "metrics": {
+    "leads": "Lid berildi",
+    "contacted": "Bog'lanildi",
+    "orders": "Buyurtma",
+    "conversion_pct": "Konversiya",
+    "delivered": "Yetkazildi",
+    "cancel_rate_pct": "Atkaz",
+    "revenue": "Tushum",
+    "avg_response_min": "Javob vaqti",
+    "calls": "Qo'ng'iroq",
+    "talk_minutes": "Gaplashdi",
+    "quality_score": "Sifat (AI)",
+    "rating": "Baho",
+    "team_size": "Jamoa",
+    "team_leads": "Jamoa lidlari",
+    "team_conversion_pct": "Jamoa konversiyasi",
+    "team_cancel_rate_pct": "Jamoa atkazi",
+    "team_revenue": "Jamoa tushumi",
+    "team_score": "Jamoa bali",
+    "distribution_min": "Taqsimlash vaqti",
+    "assigned": "Biriktirildi",
+    "success_rate_pct": "Yetkazish ulushi",
+    "on_time_pct": "O'z vaqtida",
+    "avg_delivery_min": "O'rtacha vaqt",
+    "rating_count": "Baholar",
+    "cash_discipline_pct": "Naqd intizomi",
+    "per_day": "Kuniga",
+    "km": "Masofa, km",
+    "picks": "Yig'ildi",
+    "accuracy_pct": "Aniqlik",
+    "inventory_gap_pct": "Inventar farqi",
+    "avg_pick_min": "Yig'ish vaqti",
+    "avg_assign_min": "Biriktirish vaqti",
+    "late_pct": "Kechikkan",
+    "reassign_pct": "Qayta biriktirish"
+  },
+  "badges": {
+    "top_conversion": "Eng yuqori konversiya",
+    "most_improved": "Eng ko'p o'sgan",
+    "fastest": "Eng tez",
+    "best_rated": "Eng yaxshi baholangan",
+    "needs_attention": "E'tibor kerak"
+  },
+  "board": {
+    "title": "Reyting",
+    "description": "{role} · ball 0–100 rolning asosiy ko'rsatkichlari jamlanmasi. Qatorni bosing — xodim profili",
+    "roles": "Rollar",
+    "teams": "Jamoalar",
+    "allTeams": "Barcha jamoalar",
+    "rank": "O'rin",
+    "name": "Xodim",
+    "score": "Ball",
+    "notEnough": "ma'lumot kam",
+    "rankDelta": "O'rni {count} pog'onaga o'zgardi",
+    "open": "{name} profilini ochish"
+  },
+  "teams": {
+    "title": "Jamoalar",
+    "members": "{count} kishi"
+  },
+  "funnel": {
+    "leads": "Lid berildi",
+    "contacted": "Bog'lanildi",
+    "orders": "Buyurtma",
+    "delivered": "Yetkazildi",
+    "cancelled": "Atkaz",
+    "assigned": "Biriktirildi",
+    "picked": "Olib ketildi",
+    "returned": "Qaytarildi"
+  },
+  "profile": {
+    "title": "Xodim",
+    "notFoundTitle": "Xodim topilmadi",
+    "notFoundDescription": "Havola eskirgan yoki xodim boshqa jamoaga o'tgan.",
+    "score": "Ball",
+    "rank": "{of} kishi ichida {rank}-o'rin",
+    "since": "{date} dan beri ishlaydi",
+    "ai": "AI xulosasi",
+    "vsTeam": "Jamoa o'rtachasi bilan",
+    "vsTeamHint": "O'ng ustun — jamoa o'rtachasi; yashil — jamoadan yaxshiroq",
+    "funnel": "Voronka",
+    "passed": "{value} o'tdi",
+    "ratings": "Mijoz baholari"
+  },
+  "podium": {
+    "label": "Eng yaxshi uchlik",
+    "caption": "{metric} · ball {score}",
+    "score": "ball"
+  }
+}

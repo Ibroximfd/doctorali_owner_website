@@ -2,9 +2,12 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import { cn } from "@/shared/lib/cn";
 
-/** Karta — 1px chegara, soyasiz. Soya faqat qalqib chiquvchilarda. */
+/**
+ * Karta — «instrument» paneli: yuqoridan xira yorug'lik, 1px nozik chegara, soyasiz.
+ * Soya faqat qalqib chiquvchilarda.
+ */
 export const Card = ({ className, ...props }: ComponentPropsWithoutRef<"section">) => (
-  <section className={cn("bg-surface flex min-w-0 flex-col rounded-xl border", className)} {...props} />
+  <section className={cn("panel-surface flex min-w-0 flex-col rounded-3xl border", className)} {...props} />
 );
 
 type CardHeaderProps = {
@@ -16,10 +19,10 @@ type CardHeaderProps = {
 };
 
 export const CardHeader = ({ title, description, action, className }: CardHeaderProps) => (
-  <div className={cn("flex items-start gap-2.5 px-3.5 pt-3.5 md:px-4.5 md:pt-4", className)}>
+  <div className={cn("flex items-start gap-2.5 px-4 pt-4 md:px-5.5 md:pt-5", className)}>
     <div className="min-w-0">
-      <h2 className="font-strong text-base leading-tight">{title}</h2>
-      {description ? <p className="text-ink-3 mt-0.5 text-xs">{description}</p> : null}
+      <h2 className="font-display text-display">{title}</h2>
+      {description ? <p className="text-ink-3 mt-1 text-xs">{description}</p> : null}
     </div>
     {action ? <div className="ml-auto flex shrink-0 items-center gap-1.5">{action}</div> : null}
   </div>
@@ -34,7 +37,7 @@ export const CardBody = ({ className, flush = false, ...props }: CardBodyProps) 
   <div
     className={cn(
       "min-w-0 flex-1",
-      flush ? "pt-2 pb-1.5" : "px-3.5 pt-3 pb-3.5 md:px-4.5 md:pt-3.5 md:pb-4.5",
+      flush ? "pt-2 pb-1.5" : "px-4 pt-3 pb-4 md:px-5.5 md:pt-4 md:pb-5.5",
       className,
     )}
     {...props}

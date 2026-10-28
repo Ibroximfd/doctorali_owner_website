@@ -85,5 +85,38 @@
       "in_transit": "В пути",
       "received": "Принято"
     }
+  },
+  "live": {
+    "title": "Онлайн-доска",
+    "description": "Где сейчас курьеры и что с ними — обновление каждые 15 секунд",
+    "live": "ОНЛАЙН",
+    "regions": "Регионы",
+    "allRegions": "Все регионы",
+    "working": "Работают",
+    "cashToday": "Наличные сегодня:",
+    "delivered": "Доставлено",
+    "pending": "Ожидают",
+    "cancelled": "Отказ",
+    "assigned": "Назначено",
+    "status": {
+      "moving": "В движении · {speed} км/ч",
+      "idle": "Стоит",
+      "no_signal": "Нет сигнала",
+      "off_shift": "Смена закрыта"
+    },
+    "cash": "На руках {value}",
+    "handover": "Хочет сдать",
+    "marketplace": "Маркетплейс"
+  },
+  "handovers": {
+    "title": "Сдача в кассу",
+    "description": "Запросы курьеров на сдачу денег в кассу",
+    "noPending": "Ожидающих запросов нет",
+    "recent": "Последние решения",
+    "status": {
+      "accepted": "Принято",
+      "rejected": "Отклонено",
+      "cancelled": "Отменено"
+    }
   }
 }

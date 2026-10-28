@@ -9,13 +9,17 @@ import {
   dailySeries,
   isAttemptReason,
   isTransferStatus,
+  isCashOverheld,
   regionName,
+  sortLive,
   unsettledDays,
 } from "./logistics.rules";
 import {
   attemptReasonsSchema,
   courierDetailSchema,
   couriersSchema,
+  handoversSchema,
+  liveSchema,
   logisticsSummarySchema,
   regionDeliverySchema,
   transfersSchema,
@@ -215,5 +219,30 @@ describe("logistics helpers", () => {
     expect(regionName("samarqand", regions)).toBe("Samarqand");
     expect(regionName("new_region", regions)).toBe("new_region");
     expect(regionName("samarqand", undefined)).toBe("samarqand");
+  });
+});
+
+describe("logistics live board", () => {
+  it.each(SCOPE_CASES)("matches the schema and region totals add up for %o", (query) => {
+    const board = parseEnvelope(liveSchema, mockGet("logistics/live/", query)).data;
+    expect(board.regions.reduce((sum, row) => sum + row.couriersTotal, 0)).toBe(board.couriers.length);
+    expect(() => parseEnvelope(handoversSchema, mockGet("logistics/handovers/", query))).not.toThrow();
+  });
+
+  it("flags cash held too long or too much and puts it first", () => {
+    const now = Date.parse("2026-10-28T12:00:00+05:00");
+    expect(isCashOverheld({ cashOnHand: 12_000_000, cashSince: null }, now)).toBe(true);
+    expect(isCashOverheld({ cashOnHand: 1_000_000, cashSince: "2026-10-27T10:00:00+05:00" }, now)).toBe(true);
+    expect(isCashOverheld({ cashOnHand: 1_000_000, cashSince: "2026-10-28T10:00:00+05:00" }, now)).toBe(
+      false,
+    );
+    const sorted = sortLive(
+      [
+        { status: "moving", cashOnHand: 0, cashSince: null },
+        { status: "idle", cashOnHand: 20_000_000, cashSince: null },
+      ],
+      now,
+    );
+    expect(sorted[0]?.status).toBe("idle");
   });
 });

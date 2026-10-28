@@ -12,7 +12,11 @@ Mavjud loyihalar (`../mehrigiyo_*`, `../doctor_ali_clinic_next`, `../mehrigiyo_p
 | `docs/02_BACKEND_TZ.md` | API shartnomasi — sxemalar va namunalar shunga aynan mos |
 | `docs/03_FRONTEND_TZ.md` | arxitektura, tokenlar, moslashuvchanlik, holatlar |
 | `docs/05_FEATURE_GUIDE.md` | **yangi bo'lim qanday quriladi** — retsept va qoidalar |
-| `design/` | tasdiqlangan UI prototip (ko'rinish uchun yagona manba) |
+| `docs/06_ERP_INTEGRATION.md` | ERP dan olingan va yangi bo'limlar (Ombor, Hisob-kitob, Muammolar, Prognoz, AI, Ruxsatlar, Tizim), UI/harakat tizimi |
+| `docs/07_BACKEND_TZ_V2.md` | shu bo'limlar uchun backend shartnomasi (AI — Claude API, ruxsatlar, xabar yuborish) |
+| `docs/08_PLATFORM_ACCESS_AND_AI_OPS.md` | butun platforma akkauntlari va ruxsatlari (IAM), AI avto-tuzatish, AI chat vositalari, call-center, hudud drill-down, xodimlar reytingi |
+| `design/observatory-2026-10-28/` | **amaldagi** tasdiqlangan UI — «tungi observatoriya» (Claude Design canvas artboardlari; qorong'i mavzu asosiy) |
+| `design/` (ildiz) | eski birinchi prototip — faqat tarix uchun |
 
 Skilllar: `clean-code-core` + `nextjs-clean-architecture` + `nextjs-ui` (+ grafik uchun `dataviz`).
 
@@ -26,10 +30,13 @@ Feature boshqa featureni import qilmaydi (ESLint tekshiradi); kompozitsiya `app`
 - Dizayn qiymatlari faqat tokenlardan (`src/app/globals.css`); hex / ixtiyoriy Tailwind qiymati yo'q.
 - Har ma'lumot bloki `QueryState` ichida: skeleton · bo'sh · xato+qayta urinish · ruxsat yo'q · tayyor.
 - UI matni faqat `messages/{uz,ru}/<fazo>.json` dan; ikkala til bir xil kalitlar bilan.
-- Panel biznes ma'lumotini o'zgartirmaydi (istisno: o'z sozlamalari, signal "ko'rildi").
+- Panel biznes ma'lumotini o'zgartirmaydi (istisno: o'z sozlamalari, signal "ko'rildi", mas'ulga xabar, AI topilmasiga baho, ruxsat berish — faqat boshliq). Ko'ruvchi (`owner_viewer`) uchun yozuvchi tugmalar `useCanAct()` bilan yashiriladi.
+- Harakat: `motion` (`motion/react`); umumiy qismlar — `SectionHero`, `Stagger`/`Reveal`, `AnimatedNumber`, `RegionMap`, `shared/ui/illustrations`. `prefers-reduced-motion` hurmat qilinadi.
 
 ## Rejimlar
-Panel **faqat backend bilan** ishlaydi — namuna (mock) rejimi yo'q. Namuna ma'lumot faqat avtomatik testlar uchun (`src/shared/testing/fixtures`); ishchi kod uni import qilsa ESLint to'xtatadi. Serverlar yagona faylda: **`config/servers.mjs`** (`prod` — `my.imorganic.uz`, default; `test` — `imorganic.uz`). Doimiy almashtirish — shu fayldagi `DEFAULT_SERVER`; vaqtincha — `APP_SERVER=test npm run dev`. Boshqa manzil uchun `BACKEND_ORIGIN` (ustun turadi).
+**Demo (hozirgi default)** — `config/servers.mjs` dagi `DEFAULT_DEMO = true`. BFF backendga chiqmaydi: `backendFetch` → `src/shared/demo/demo-backend.server.ts` → namuna baza (`src/shared/testing/fixtures`, javoblar shartnomaga aynan mos). Kirish — alohida demo login/parol (`DEMO_CREDENTIALS`, o'sha faylda). Holat (ko'rildi, ruxsatlar, AI suhbatlari, eksportlar) server xotirasida; qayta ishga tushirilsa boshlang'ich holatga qaytadi. Hisobot va AI ilovalari haqiqiy XLSX/PDF bo'lib yuklanadi (`src/shared/demo/xlsx.ts`, `pdf.ts`). AI chat javobi savol mavzusiga qarab (`fixtures/handlers/ai-answers.ts`). Namuna bazani ishchi kodga faqat `src/shared/demo/` ulaydi (ESLint).
+
+**Backend bilan** — `DEFAULT_DEMO = false` yoki vaqtincha `APP_DEMO=0 npm run dev`. Serverlar shu faylda (`prod` — `my.imorganic.uz`, default; `test` — `imorganic.uz`); vaqtincha — `APP_SERVER=test`. Boshqa manzil uchun `BACKEND_ORIGIN` (ustun turadi).
 
 **Telegram mini app:** `/tg` (PIN bilan kirish) — `src/features/telegram`, shartnoma `../doctor_ali_owner_bot/docs/`. Bu loyiha botning o'zini o'z ichiga olmaydi.
 

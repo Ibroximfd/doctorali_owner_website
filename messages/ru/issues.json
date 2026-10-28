@@ -1,0 +1,110 @@
+{
+  "title": "Центр проблем",
+  "description": "Что сломалось, почему и кто отвечает — сообщение ответственному в один клик.",
+  "hero": {
+    "eyebrow": "Контроль · онлайн",
+    "calm": "Открытых проблем нет — новая появится здесь и в Telegram.",
+    "summary": "Вас ждут <crit>{count} проблем(ы)</crit>.",
+    "summaryTop": "Вас ждут <crit>{count} проблем(ы)</crit>. Самая дорогая — «{title}», <gold>{value}</gold>."
+  },
+  "tabs": {
+    "open": "Открытые",
+    "progress": "В работе",
+    "resolved": "Решены",
+    "withCount": "{label} · {count}"
+  },
+  "ring": {
+    "minutes": "мин",
+    "hours": "ч",
+    "days": "дн",
+    "label": "Обнаружено {value} {unit} назад · {status}"
+  },
+  "severity": {
+    "critical": "Критично",
+    "high": "Высокая",
+    "medium": "Средняя",
+    "low": "Низкая"
+  },
+  "status": {
+    "open": "Открыта",
+    "notified": "Уведомлён",
+    "acknowledged": "Просмотрено",
+    "in_progress": "В работе",
+    "resolved": "Решена"
+  },
+  "domain": {
+    "warehouse": "Склад",
+    "logistics": "Доставка",
+    "finance": "Финансы",
+    "system": "Система",
+    "clinic": "Клиника",
+    "sales": "Продажи"
+  },
+  "impact": {
+    "money": "Влияние: {value} {currency}",
+    "orders": "Влияние: {value} заказов",
+    "units": "Влияние: {value} шт",
+    "minutes": "Влияние: {value}"
+  },
+  "impactShort": {
+    "orders": "{value} зак.",
+    "units": "{value} шт."
+  },
+  "board": {
+    "title": "Проблемы",
+    "statusFilter": "По статусу",
+    "domainFilter": "По области",
+    "responsible": "{name} · {role}",
+    "noResponsible": "Ответственный не назначен",
+    "notifiedTimes": "Уведомлён {count} раз",
+    "emptyTitle": "Открытых проблем нет",
+    "emptyDescription": "Всё в порядке — новая проблема появится здесь и в Telegram."
+  },
+  "drawer": {
+    "title": "Проблема",
+    "notFoundTitle": "Проблема не найдена",
+    "notFoundDescription": "Ссылка устарела или проблема удалена.",
+    "diagnostics": "Диагностика",
+    "details": "Сведения",
+    "entity": "Объект",
+    "filial": "Филиал",
+    "responsible": "Ответственный",
+    "detected": "Обнаружено",
+    "timeline": "История",
+    "selected": "Выбранная проблема",
+    "age": "{value} назад",
+    "askAi": "Спросить AI"
+  },
+  "timeline": {
+    "detected": "Обнаружено",
+    "notified": "Отправлено сообщение",
+    "acknowledged": "Ответственный просмотрел",
+    "comment": "Комментарий",
+    "escalated": "Эскалировано",
+    "resolved": "Решено"
+  },
+  "notify": {
+    "recipient": "Кому",
+    "responsibleTag": "ответственный",
+    "channels": "Каналы",
+    "channel": {
+      "telegram": "Telegram",
+      "sms": "SMS",
+      "app": "Приложение"
+    },
+    "urgency": "Срочность",
+    "normal": "Обычно",
+    "urgent": "Срочно",
+    "message": "Текст сообщения",
+    "template": "{name}, здравствуйте. «{title}». Причина: {cause}. Пожалуйста, проверьте и ответьте сегодня.",
+    "send": "Отправить сообщение",
+    "sending": "Отправка…",
+    "sent": "Сообщение отправлено: {name}",
+    "partial": "Отправлено, но не сработали каналы: {channels}",
+    "forbidden": "У вас нет права отправлять сообщения",
+    "throttled": "По этой проблеме только что писали — попробуйте через минуту",
+    "failed": "Сообщение не отправлено. Попробуйте ещё раз.",
+    "noRecipients": "Для этой области не найдено получателей.",
+    "heading": "Сообщение ответственному · {channels}"
+  }
+}

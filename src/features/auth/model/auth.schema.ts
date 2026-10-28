@@ -33,6 +33,11 @@ export const userSchema = z.object({
   sections: z.array(z.string()).default([]),
   filials: z.array(z.number()).default([]),
   mask_pii: z.boolean().default(false),
+  /** Ruxsatlar (`07_BACKEND_TZ_V2` §9.2) — eski backend yubormasa ham ishlaydi. */
+  regions: z.array(z.string()).default([]),
+  can_export: z.boolean().default(true),
+  expires_at: z.string().nullable().default(null),
+  granted_by: z.string().nullable().default(null),
 });
 export type User = Camelized<z.infer<typeof userSchema>>;
 

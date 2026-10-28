@@ -18,8 +18,8 @@ export const Chip = ({ pressed, children, count, size = "sm", className, ...prop
       "font-mid inline-flex shrink-0 items-center gap-1.5 rounded-full border whitespace-nowrap transition-colors",
       size === "sm" ? "h-7 px-2.5 text-xs" : "h-9 px-3.5 text-sm",
       pressed
-        ? "border-ink bg-ink text-surface"
-        : "border-border-strong bg-surface text-ink-2 hover:text-ink",
+        ? "border-accent/40 bg-accent-soft text-accent"
+        : "border-border-strong bg-surface/40 text-ink-2 hover:text-ink",
       className,
     )}
     {...props}

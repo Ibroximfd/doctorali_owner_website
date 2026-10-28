@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>AI tahlil — Doctor Ali Nazorat</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,400&amp;family=Manrope:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap">
+<style>
+body{margin:0;background:#050d09}
+a{color:#3fd69a}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes spinr{to{transform:rotate(-360deg)}}
+@keyframes morph{0%,100%{border-radius:42% 58% 55% 45% / 48% 42% 58% 52%}50%{border-radius:58% 42% 45% 55% / 42% 58% 42% 58%}}
+@keyframes reveal{from{opacity:0;filter:blur(10px);transform:translateY(14px)}to{opacity:1;filter:blur(0);transform:none}}
+@keyframes typing{0%,80%,100%{transform:translateY(0);opacity:.35}40%{transform:translateY(-4px);opacity:1}}
+@keyframes check{from{stroke-dashoffset:20}to{stroke-dashoffset:0}}
+@keyframes barup{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes shimmer{from{background-position:200% 0}to{background-position:-200% 0}}
+@keyframes ring{from{stroke-dashoffset:302}to{stroke-dashoffset:54}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</helmet>
+<div style="position: relative; min-height: 1720px; display: flex; flex-wrap: wrap; font-family: Manrope, system-ui, sans-serif; color: #e8f1ec; background: radial-gradient(900px 600px at 38% 8%, rgba(63,214,154,.14), transparent 60%), radial-gradient(700px 500px at 90% 40%, rgba(232,194,106,.07), transparent 60%), #050d09; overflow: hidden">
+  <dc-import name="Sidebar" active="ai" hint-size="240px,1720px"></dc-import>
+  <main style="flex: 999 1 560px; min-width: 0; position: relative; padding: 24px 32px 56px; display: grid; grid-template-columns: minmax(0, 1fr) 420px; gap: 22px; align-items: start">
+
+    <section aria-label="AI bilan suhbat" style="display: flex; flex-direction: column; gap: 20px">
+      <div style="display: flex; align-items: center; gap: 26px; padding: 10px 0 6px">
+        <div aria-hidden="true" style="position: relative; width: 150px; height: 150px; flex-shrink: 0">
+          <div style="position: absolute; inset: -30px; border-radius: 50%; background: radial-gradient(circle, rgba(63,214,154,.35), transparent 65%); filter: blur(10px)"></div>
+          <div style="position: absolute; inset: 0; background: conic-gradient(from 0deg, #3fd69a, #e8c26a, #6fb3ff, #3fd69a); filter: blur(14px); opacity: .85; animation: spin 7s linear infinite, morph 6s ease-in-out infinite"></div>
+          <div style="position: absolute; inset: 14px; background: conic-gradient(from 180deg, #0f5a3c, #3fd69a, #0a2a1d, #e8c26a, #0f5a3c); filter: blur(6px); animation: spinr 9s linear infinite, morph 5s ease-in-out infinite reverse"></div>
+          <div style="position: absolute; inset: 34px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #ffffff, rgba(138,240,194,.9) 30%, rgba(15,90,60,.2) 70%); mix-blend-mode: screen; animation: morph 4s ease-in-out infinite"></div>
+          <svg viewBox="0 0 150 150" style="position: absolute; inset: 0; transform: rotate(-90deg)">
+            <circle cx="75" cy="75" r="48" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="3"></circle>
+            <circle cx="75" cy="75" r="48" fill="none" stroke="#e8f1ec" stroke-width="3" stroke-linecap="round" stroke-dasharray="302" stroke-dashoffset="54" style="animation: ring 1.6s cubic-bezier(.16,1,.3,1) both"></circle>
+          </svg>
+        </div>
+        <div style="animation: reveal 1s cubic-bezier(.16,1,.3,1) both">
+          <h1 style="margin: 0; font-family: Fraunces, serif; font-weight: 400; font-size: 46px; line-height: 1.05; letter-spacing: -.02em">Biznes sog'lig'i <span style="font-family: 'JetBrains Mono', monospace; font-size: 40px">82</span><span style="color: #6f877b; font-size: 26px">/100</span></h1>
+          <p style="margin: 8px 0 0; font-size: 15px; color: #9db3a7; max-width: 560px">12 tekshiruvdan 9 tasi joyida. Xavf ostida <span style="color: #ff8a6a; font-weight: 700">5,0 mln so'm</span> — ikkalasini quyida tuzatishni taklif qildim.</p>
+        </div>
+      </div>
+
+      <div role="tablist" aria-label="AI bo'limlari" style="display: flex; gap: 6px; flex-wrap: wrap">
+        <button role="tab" aria-selected="true" style="height: 38px; padding: 0 16px; border-radius: 999px; border: 1px solid rgba(63,214,154,.4); background: rgba(63,214,154,.14); color: #e8f1ec; font: 700 13px Manrope, sans-serif">Suhbat</button>
+        <button role="tab" aria-selected="false" style="height: 38px; padding: 0 16px; border-radius: 999px; border: 1px solid rgba(180,230,200,.12); background: transparent; color: #9db3a7; font: 500 13px Manrope, sans-serif">Topilmalar 3</button>
+        <button role="tab" aria-selected="false" style="height: 38px; padding: 0 16px; border-radius: 999px; border: 1px solid rgba(180,230,200,.12); background: transparent; color: #9db3a7; font: 500 13px Manrope, sans-serif">Tavsiyalar</button>
+        <button role="tab" aria-selected="false" style="height: 38px; padding: 0 16px; border-radius: 999px; border: 1px solid rgba(180,230,200,.12); background: transparent; color: #9db3a7; font: 500 13px Manrope, sans-serif">Tekshiruvlar</button>
+        <button role="tab" aria-selected="false" style="height: 38px; padding: 0 16px; border-radius: 999px; border: 1px solid rgba(180,230,200,.12); background: transparent; color: #9db3a7; font: 500 13px Manrope, sans-serif">Hisobotlar</button>
+      </div>
+
+      <div style="border-radius: 28px; border: 1px solid rgba(180,230,200,.1); background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.01)); padding: 26px; display: flex; flex-direction: column; gap: 22px">
+        <div style="align-self: flex-end; max-width: 70%; padding: 14px 18px; border-radius: 22px 22px 6px 22px; background: #e8f1ec; color: #06110c; font-size: 15px; line-height: 1.5; animation: reveal .7s both">Bugungi hisobotni ber: klinika, sotuv filiallari va Doctor Ali ilovasi. Excel ham kerak.</div>
+
+        <div style="display: flex; gap: 14px; animation: reveal .8s .2s both">
+          <span aria-hidden="true" style="width: 34px; height: 34px; flex-shrink: 0; border-radius: 50%; background: conic-gradient(from 0deg, #3fd69a, #e8c26a, #6fb3ff, #3fd69a); filter: saturate(1.2); animation: spin 6s linear infinite"></span>
+          <div style="flex: 1; min-width: 0">
+            <ol aria-label="AI qilgan ishlar" style="list-style: none; margin: 0 0 12px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px">
+              <sc-for list="{{tools}}" as="t" hint-placeholder-count="5">
+                <li style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 999px; background: rgba(63,214,154,.08); border: 1px solid rgba(63,214,154,.2); font-size: 12px; color: #8af0c2; animation: reveal .5s {{t.delay}} both">
+                  <svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#3fd69a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10" stroke-dasharray="20" style="animation: check .5s {{t.delay}} both"></path></svg>{{t.label}}
+                </li>
+              </sc-for>
+            </ol>
+            <p style="margin: 0; font-family: Fraunces, serif; font-size: 22px; line-height: 1.4">Bugun <span style="color: #3fd69a">312 mln so'm</span> tushdi — kechagidan 8% ko'p. Klinika rekord qildi: <span style="color: #e8c26a">96 bemor</span>. Ilovada faollik biroz tushdi.</p>
+
+            <div style="margin-top: 18px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+              <sc-for list="{{kpis}}" as="k" hint-placeholder-count="3">
+                <div style="padding: 14px; border-radius: 16px; background: rgba(255,255,255,.035); border: 1px solid rgba(180,230,200,.09)">
+                  <div style="font-size: 12px; color: #9db3a7">{{k.label}}</div>
+                  <div style="font: 600 24px 'JetBrains Mono', monospace; margin-top: 2px">{{k.value}}</div>
+                  <div style="font: 600 12px 'JetBrains Mono', monospace; color: {{k.color}}">{{k.delta}}</div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="margin-top: 14px; padding: 16px; border-radius: 16px; background: rgba(255,255,255,.025); border: 1px solid rgba(180,230,200,.08)">
+              <div style="font-size: 12px; color: #9db3a7; margin-bottom: 12px">Filiallar bo'yicha tushum, bugun</div>
+              <sc-for list="{{filials}}" as="f" hint-placeholder-count="3">
+                <div style="display: grid; grid-template-columns: 110px minmax(0, 1fr) 90px; align-items: center; gap: 12px; margin-bottom: 10px">
+                  <span style="font-size: 13px">{{f.name}}</span>
+                  <span style="height: 10px; border-radius: 5px; background: rgba(255,255,255,.05); overflow: hidden"><span style="display: block; height: 100%; width: {{f.pct}}%; border-radius: 5px; background: linear-gradient(90deg, #17664a, #3fd69a); transform-origin: left; animation: barup 1.1s {{f.delay}} cubic-bezier(.16,1,.3,1) both"></span></span>
+                  <span style="font: 600 13px 'JetBrains Mono', monospace; text-align: right">{{f.value}}</span>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="margin-top: 14px; display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 18px; background: linear-gradient(90deg, rgba(63,214,154,.12), rgba(63,214,154,.03)); border: 1px solid rgba(63,214,154,.25)">
+              <span style="width: 44px; height: 52px; border-radius: 8px; background: #1d6b4a; display: grid; place-items: center; font: 700 10px 'JetBrains Mono', monospace; color: #e8f1ec; box-shadow: 0 8px 18px -8px rgba(0,0,0,.8)">XLSX</span>
+              <span style="flex: 1"><span style="display: block; font-size: 14px; font-weight: 700">Kunlik hisobot — 28.10.2026</span><span style="display: block; font-size: 12px; color: #9db3a7">6 varaq · klinika, filiallar, ilova, ombor</span></span>
+              <a href="#" style="min-height: 42px; padding: 0 18px; border-radius: 12px; background: #3fd69a; color: #04110b; font-weight: 700; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; text-decoration: none">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 4v12M6 11l6 6 6-6M5 20h14"></path></svg>Yuklab olish</a>
+            </div>
+            <div style="margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px">
+              <button style="height: 34px; padding: 0 14px; border-radius: 999px; border: 1px solid rgba(180,230,200,.16); background: transparent; color: #e8f1ec; font: 500 13px Manrope, sans-serif">Ilova faolligi nega tushdi?</button>
+              <button style="height: 34px; padding: 0 14px; border-radius: 999px; border: 1px solid rgba(180,230,200,.16); background: transparent; color: #e8f1ec; font: 500 13px Manrope, sans-serif">Ertangi prognoz</button>
+              <a href="Region.dc.html" style="height: 34px; padding: 0 14px; border-radius: 999px; border: 1px solid rgba(63,214,154,.35); color: #8af0c2; font-size: 13px; display: inline-flex; align-items: center; text-decoration: none">Samarqand ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <div style="align-self: flex-end; max-width: 70%; padding: 14px 18px; border-radius: 22px 22px 6px 22px; background: #e8f1ec; color: #06110c; font-size: 15px">Qaysi operator bugun ishlamayapti?</div>
+        <div style="display: flex; gap: 14px; align-items: center">
+          <span aria-hidden="true" style="width: 34px; height: 34px; border-radius: 50%; background: conic-gradient(from 0deg, #3fd69a, #e8c26a, #6fb3ff, #3fd69a); animation: spin 1.6s linear infinite"></span>
+          <div role="status" style="display: flex; align-items: center; gap: 10px; font-size: 14px; color: transparent; background: linear-gradient(90deg, #6f877b 20%, #e8f1ec 50%, #6f877b 80%); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; animation: shimmer 2.2s linear infinite">Call-center jurnallarini o'qiyapman…</div>
+        </div>
+
+        <form style="display: flex; align-items: flex-end; gap: 10px; padding: 8px 8px 8px 18px; border-radius: 20px; border: 1px solid rgba(180,230,200,.18); background: rgba(6,16,11,.7); box-shadow: 0 20px 50px -20px rgba(63,214,154,.25)">
+          <label for="ask" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Savol</label>
+          <textarea id="ask" rows="1" placeholder="Istalgan narsani so'rang — «o'tgan hafta Samarqand bo'yicha hisobot»" style="flex: 1; min-height: 44px; border: 0; outline: 0; resize: none; background: transparent; color: #e8f1ec; font: 15px Manrope, sans-serif; padding: 12px 0"></textarea>
+          <button type="button" aria-label="Ovozli savol" style="width: 44px; height: 44px; border-radius: 14px; border: 1px solid rgba(180,230,200,.16); background: transparent; color: #9db3a7; display: grid; place-items: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"></rect><path d="M5 11a7 7 0 0 0 14 0M12 18v3"></path></svg></button>
+          <button aria-label="Yuborish" style="width: 44px; height: 44px; border-radius: 14px; border: 0; background: #3fd69a; color: #04110b; display: grid; place-items: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"></path></svg></button>
+        </form>
+      </div>
+    </section>
+
+    <aside aria-label="AI tuzatishlari" style="display: flex; flex-direction: column; gap: 14px; padding-top: 10px">
+      <div style="display: flex; align-items: baseline; gap: 10px"><h2 style="margin: 0; font-family: Fraunces, serif; font-weight: 400; font-size: 26px">AI tuzatishlari</h2><span style="font-size: 12px; color: #6f877b">bugun 11 tasi avtomatik</span></div>
+
+      <article style="border-radius: 22px; padding: 18px; background: linear-gradient(180deg, rgba(232,194,106,.10), rgba(232,194,106,.02)); border: 1px solid rgba(232,194,106,.3); animation: reveal .8s .3s both">
+        <div style="display: flex; gap: 8px; font-size: 11px; font-weight: 700"><span style="padding: 3px 8px; border-radius: 6px; background: rgba(232,194,106,.18); color: #e8c26a">Tasdiq kerak</span><span style="padding: 3px 8px; border-radius: 6px; background: rgba(255,255,255,.06); color: #9db3a7">O'rta xavf</span></div>
+        <h3 style="margin: 10px 0 0; font-size: 16px; line-height: 1.35">Samarqanddagi 3 buyurtmani bo'sh kuryerga o'tkazish</h3>
+        <p style="margin: 6px 0 0; font-size: 13px; color: #9db3a7">Aziz R. signali 40 daqiqadan beri yo'q; Urgutda Bekzod T. bo'sh.</p>
+        <ul style="list-style: none; margin: 12px 0 0; padding: 10px 12px; border-radius: 12px; background: rgba(0,0,0,.25); display: flex; flex-direction: column; gap: 8px; font-size: 12px">
+          <li style="display: grid; grid-template-columns: 74px 1fr 16px 1fr; align-items: center; gap: 6px"><span style="font-family: 'JetBrains Mono', monospace">DA-184011</span><span style="color: #ff8a6a; text-decoration: line-through">Aziz R.</span><span aria-hidden="true" style="color: #6f877b">→</span><span style="color: #8af0c2; font-weight: 700">Bekzod T.</span></li>
+          <li style="display: grid; grid-template-columns: 74px 1fr 16px 1fr; align-items: center; gap: 6px"><span style="font-family: 'JetBrains Mono', monospace">DA-184017</span><span style="color: #ff8a6a; text-decoration: line-through">Aziz R.</span><span aria-hidden="true" style="color: #6f877b">→</span><span style="color: #8af0c2; font-weight: 700">Bekzod T.</span></li>
+          <li style="display: grid; grid-template-columns: 74px 1fr 16px 1fr; align-items: center; gap: 6px"><span style="font-family: 'JetBrains Mono', monospace">DA-184020</span><span style="color: #ff8a6a; text-decoration: line-through">Aziz R.</span><span aria-hidden="true" style="color: #6f877b">→</span><span style="color: #8af0c2; font-weight: 700">Jasur K.</span></li>
+        </ul>
+        <div style="margin-top: 14px; display: flex; gap: 8px">
+          <button style="flex: 1; min-height: 42px; border: 0; border-radius: 12px; background: #e8c26a; color: #1c1304; font: 700 14px Manrope, sans-serif">Tasdiqlash</button>
+          <button style="min-height: 42px; padding: 0 16px; border-radius: 12px; border: 1px solid rgba(232,194,106,.35); background: transparent; color: #e8c26a; font: 600 14px Manrope, sans-serif">Rad etish</button>
+        </div>
+      </article>
+
+      <sc-for list="{{fixes}}" as="f" hint-placeholder-count="3">
+        <article style="border-radius: 18px; padding: 14px 16px; background: rgba(255,255,255,.03); border: 1px solid rgba(180,230,200,.09); animation: reveal .7s {{f.delay}} both">
+          <div style="display: flex; align-items: center; gap: 10px">
+            <span style="width: 30px; height: 30px; border-radius: 10px; background: rgba(63,214,154,.12); display: grid; place-items: center"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3fd69a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span>
+            <span style="flex: 1; font-size: 14px; font-weight: 600">{{f.title}}</span>
+            <button style="height: 30px; padding: 0 10px; border-radius: 9px; border: 1px solid rgba(180,230,200,.14); background: transparent; color: #9db3a7; font: 500 12px Manrope, sans-serif">Bekor qilish</button>
+          </div>
+          <div style="margin: 6px 0 0 40px; font-size: 12px; color: #6f877b">{{f.meta}}</div>
+        </article>
+      </sc-for>
+
+      <div style="margin-top: 6px; border-radius: 22px; padding: 18px; background: rgba(255,255,255,.03); border: 1px solid rgba(180,230,200,.09)">
+        <div style="display: flex; align-items: center; justify-content: space-between"><h3 style="margin: 0; font-size: 15px">Topilmalar</h3><span style="font-size: 12px; color: #6f877b">ishonch bilan</span></div>
+        <sc-for list="{{findings}}" as="x" hint-placeholder-count="3">
+          <div style="margin-top: 14px">
+            <div style="display: flex; gap: 10px; align-items: baseline"><span style="width: 8px; height: 8px; border-radius: 50%; background: {{x.color}}; flex-shrink: 0"></span><span style="flex: 1; font-size: 13px; font-weight: 600">{{x.title}}</span><span style="font: 600 13px 'JetBrains Mono', monospace; color: {{x.color}}">{{x.risk}}</span></div>
+            <div style="margin: 8px 0 0 18px; display: flex; align-items: center; gap: 10px"><span style="flex: 1; height: 4px; border-radius: 2px; background: rgba(255,255,255,.06); overflow: hidden"><span style="display: block; height: 100%; width: {{x.conf}}%; background: {{x.color}}; transform-origin: left; animation: barup 1.2s {{x.delay}} cubic-bezier(.16,1,.3,1) both"></span></span><span style="font: 400 11px 'JetBrains Mono', monospace; color: #6f877b">{{x.conf}}%</span></div>
+          </div>
+        </sc-for>
+      </div>
+    </aside>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1720}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      tools: [
+        { label: "Buyurtmalar o'qildi", delay: '.3s' }, { label: 'Klinika kassasi', delay: '.45s' }, { label: 'Filiallar', delay: '.6s' },
+        { label: 'Ilova faolligi', delay: '.75s' }, { label: 'Excel tayyorlandi', delay: '.9s' }
+      ],
+      kpis: [
+        { label: 'Tushum', value: '312 mln', delta: '+8,1%', color: '#3fd69a' },
+        { label: 'Klinika', value: '96 bemor', delta: '+12%', color: '#3fd69a' },
+        { label: 'Ilova DAU', value: '4 820', delta: '−2%', color: '#ff8a6a' }
+      ],
+      filials: [
+        { name: 'Toshkent', value: '198 mln', pct: 100, delay: '.4s' },
+        { name: "Qo'qon", value: '74 mln', pct: 37, delay: '.5s' },
+        { name: 'Samarqand', value: '40 mln', pct: 20, delay: '.6s' }
+      ],
+      fixes: [
+        { title: '3 buyurtmada viloyat tuzatildi', meta: "Avtomatik · manzil Andijonda, Farg'ona deb yozilgan edi · 22 soat bekor qilish mumkin", delay: '.45s' },
+        { title: 'Bitrix sinxroni qayta ishga tushirildi', meta: "Avtomatik · 132 bitim olindi, 2 tasida telefon noto'g'ri", delay: '.55s' },
+        { title: 'Jasur K. ga naqd eslatmasi yuborildi', meta: 'Avtomatik · 4,2 mln, 2 kundan beri', delay: '.65s' }
+      ],
+      findings: [
+        { title: "Kuryer #12 da 3,2 mln topshirilmagan", risk: '3,2 mln', conf: 86, color: '#ff8a6a', delay: '.5s' },
+        { title: "Qo'qon operatorlari 2 soat jim", risk: '—', conf: 72, color: '#e8c26a', delay: '.6s' },
+        { title: 'Samarqand omborida chiqim 4% ko\'p', risk: '1,8 mln', conf: 41, color: '#9db3a7', delay: '.7s' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+{
+  "title": "Прогноз",
+  "description": "Какой будет выручка, заказы и деньги в ближайшие дни, какой товар закончится.",
+  "hero": {
+    "eyebrow": "Прогноз · 80% доверительный интервал",
+    "horizon": "Горизонт прогноза",
+    "days": "{count} дн.",
+    "revenue": "Выручка за {count} дн.",
+    "accuracy": "Точность модели",
+    "plan": "Выполнение плана",
+    "sentence": "За следующие {count} дн. выручка составит около <strong>{value} {currency}</strong> — <delta>{change}</delta>. Доверительный интервал {low}–{high}.",
+    "sentenceFlat": "За следующие {count} дн. выручка составит около <strong>{value} {currency}</strong>. Доверительный интервал {low}–{high}."
+  },
+  "highlights": {
+    "orders": "Заказы, {count} дн.",
+    "ordersText": "Примерно {perDay} в день. Интервал: {low} – {high}.",
+    "stockout": "Ближайшая нехватка",
+    "stockoutText": "{name} на складе «{warehouse}» закончится через {days} дн. Нужно заказать {reorder} шт.",
+    "noStockout": "Нет",
+    "noStockoutText": "На выбранном горизонте ни один товар не закончится.",
+    "cashIn": "Ожидаемые поступления",
+    "cashInText": "Интервал: {low} – {high} (±{spread}%)."
+  },
+  "chart": {
+    "description": "Факт и прогноз · конус — доверительный интервал",
+    "metric": "Показатель",
+    "revenue": "Выручка",
+    "orders": "Заказы",
+    "actual": "Факт",
+    "forecast": "Прогноз",
+    "band": "Интервал 80%",
+    "range": "интервал: {low} – {high}",
+    "today": "Сегодня",
+    "titleRevenue": "Выручка по дням",
+    "titleOrders": "Заказы по дням",
+    "band50": "Интервал 50%",
+    "expectedOn": "{date}, ожидается",
+    "peakOn": "Пиковый день · {date}"
+  },
+  "stockouts": {
+    "title": "Товары, которые закончатся",
+    "description": "В пределах горизонта — ближайшие сверху, сколько заказать",
+    "days": "{value} дн.",
+    "columns": {
+      "product": "Товар",
+      "date": "Закончится",
+      "qty": "Остаток",
+      "out": "Расход в день",
+      "reorder": "Заказать"
+    },
+    "emptyTitle": "Ничего не закончится",
+    "emptyDescription": "На выбранном горизонте запаса хватит."
+  },
+  "regions": {
+    "title": "Прогноз по регионам",
+    "description": "Ожидаемая выручка и рост"
+  }
+}

@@ -4,7 +4,9 @@ Sana: 2026-10-09. Kim uchun: **egasi / DevOps**. Har qadamda nima qilinishi va n
 
 ## 0. Rejim
 
-Panel **faqat backend bilan** ishlaydi — namuna (soxta) ma'lumot rejimi kodda yo'q (2026-10-12 da butunlay olib tashlandi). Barcha raqamlar `config/servers.mjs` dagi serverdan keladi. Chiqarishdan oldin: backend `npm run contract:check -- --full` dan 0 ta ✗ bilan o'tgan bo'lsin (`BACKEND_HANDOFF.md` §8).
+**Hozir — DEMO rejim (2026-10-28 dan, taqdimot uchun).** `config/servers.mjs` da `DEFAULT_DEMO = true`: panel backendga umuman murojaat qilmaydi, barcha bo'limlar ichki namuna (mock) bazadan ishlaydi — xarita, AI chat, Excel/PDF hisobotlar ham. Serverga odatdagidek (§3, Docker) chiqariladi; `BACKEND_ORIGIN` / `APP_SERVER` shart emas. Kirish — alohida demo login/parol: `config/servers.mjs` dagi `DEMO_CREDENTIALS` (kerak bo'lsa shu yerda almashtiring). Demo o'zgarishlari (ko'rildi, ruxsatlar, AI suhbatlari) server xotirasida — konteyner qayta ishga tushsa boshlang'ich holatga qaytadi.
+
+**Backend tayyor bo'lganda** — `DEFAULT_DEMO = false` (yoki konteynerga `APP_DEMO=0`). Shunda barcha raqamlar `config/servers.mjs` dagi serverdan keladi. Undan oldin: backend `npm run contract:check -- --full` dan 0 ta ✗ bilan o'tgan bo'lsin (`BACKEND_HANDOFF.md` §8).
 
 ## 1. Sizdan kerak
 

@@ -1,0 +1,129 @@
+{
+  "title": "Ombor",
+  "description": "Qoldiq qayerda, qancha kunga yetadi va nimasi tugayapti — hamma omborlar bir joyda.",
+  "hero": {
+    "eyebrow": "Ombor · qoldiqlar",
+    "value": "Qoldiq qiymati",
+    "cover": "Yetadi",
+    "days": "{value} kun",
+    "problems": "Muammoli mahsulot"
+  },
+  "kpi": {
+    "units": "Jami qoldiq, dona",
+    "skus": "{count} xil mahsulot",
+    "value": "Qoldiq qiymati",
+    "snapshot": "23:00 holati · {time}",
+    "live": "Jonli hisob · {time}",
+    "inbound": "Kirim (davr), dona",
+    "outbound": "Chiqim (davr), dona",
+    "cover": "O'rtacha yetadi",
+    "daysUnit": "kun",
+    "problems": "Muammoli mahsulot",
+    "problemsNote": "{out} tasi tugagan · {low} tasi kam"
+  },
+  "status": {
+    "out": "Tugagan",
+    "critical": "Kritik",
+    "low": "Kam qolgan",
+    "ok": "Yetarli",
+    "empty": "Bo'sh ombor"
+  },
+  "grid": {
+    "title": "Omborlar",
+    "description": "Bosing — ombor kartasi: har mahsulot qoldig'i va skladchi",
+    "open": "{name} omborini ochish",
+    "noRegions": "Hudud biriktirilmagan",
+    "inbound": "Kirim",
+    "outbound": "Chiqim",
+    "days": "{value} kun",
+    "noKeeper": "Skladchi biriktirilmagan",
+    "marketplace": "Marketplace",
+    "unitsValue": "dona · {value}",
+    "noCover": "Chiqim yo'q"
+  },
+  "stock": {
+    "title": "Mahsulot qoldig'i",
+    "description": "Eng xavflisi tepada: necha kunga yetadi va qachon tugaydi",
+    "filter": "Holat bo'yicha filtr",
+    "filters": {
+      "all": "Hammasi",
+      "problems": "Tugagan va kritik",
+      "low": "Kam qolgan"
+    },
+    "columns": {
+      "product": "Mahsulot",
+      "qty": "Qoldiq / min",
+      "dailyOut": "Kunlik chiqim",
+      "cover": "Yetadi, kun",
+      "stockout": "Tugash sanasi",
+      "value": "Qiymati",
+      "status": "Holat"
+    }
+  },
+  "movements": {
+    "title": "Kirim va chiqim",
+    "description": "Davr bo'yicha, dona",
+    "series": {
+      "inbound": "Kirim",
+      "outbound": "Chiqim"
+    }
+  },
+  "drawer": {
+    "title": "Ombor",
+    "notFoundTitle": "Ombor topilmadi",
+    "notFoundDescription": "Havola eskirgan yoki ombor tanlangan filialga tegishli emas.",
+    "stock": "Qoldiq, dona",
+    "value": "Qiymati",
+    "cover": "Yetadi, kun",
+    "problems": "Muammoli",
+    "details": "Ma'lumot",
+    "keeper": "Skladchi",
+    "regions": "Hududlar",
+    "lastMovement": "Oxirgi harakat",
+    "products": "Mahsulotlar"
+  },
+  "mix": {
+    "title": "Sotuv tarkibi",
+    "description": "Ombordan chiqqan mahsulot: to'liq narxda, chegirmada yoki sovg'a sifatida — davr bo'yicha",
+    "full": "To'liq narxda",
+    "discount": "Chegirmada",
+    "gift": "Sovg'a",
+    "fullRevenue": "To'liq narxdan tushum",
+    "discountAmount": "Chegirma summasi",
+    "giftValue": "Sovg'a qiymati",
+    "avgDiscount": "O'rtacha chegirma {value}",
+    "giftCost": "Tannarxda: {value}",
+    "byProduct": "Mahsulotlar bo'yicha",
+    "reasons": {
+      "operator_discount": "Operator chegirmasi",
+      "loyalty_points": "Ballar bilan",
+      "promo_code": "Promo-kod",
+      "bulk": "Ulgurji",
+      "doctor": "Shifokor tavsiyasi",
+      "promo_2plus1": "Aksiya 2+1",
+      "compensation": "Kompensatsiya",
+      "sample": "Namuna",
+      "other": "Boshqa"
+    },
+    "columns": {
+      "product": "Mahsulot",
+      "full": "To'liq, dona",
+      "discount": "Chegirma, dona",
+      "gift": "Sovg'a, dona",
+      "avgDiscount": "O'rt. chegirma",
+      "lost": "Chegirma + sovg'a"
+    },
+    "source": "Ombordan chiqdi",
+    "unitsSuffix": "dona",
+    "fullShare": "Chiqimning {value} qismi",
+    "flowLabel": "Chiqim oqimi: {full} dona to'liq narxda, {discount} dona chegirmada, {gift} dona sovg'a; sabablar bo'yicha bo'lingan"
+  },
+  "runway": {
+    "title": "Tugash vaqti",
+    "description": "Har mahsulot · har ombor — necha kundan keyin tugaydi",
+    "days": "{value} kun",
+    "meter": "{name}, {warehouse}: necha kunga yetadi",
+    "today": "bugun",
+    "axis": "+{value} kun"
+  }
+}

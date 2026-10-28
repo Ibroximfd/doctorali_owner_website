@@ -1,0 +1,40 @@
+{
+  "results": [
+    {
+      "id": 31,
+      "kind": "daily",
+      "period_from": "2026-10-27",
+      "period_to": "2026-10-27",
+      "created_at": "2026-10-05T03:00:00.000Z",
+      "health_score": 82,
+      "headline": "Tushum rejadan 4% yuqori, lekin kassada farq bor",
+      "highlights": [
+        "Toshkent klinikasi rekord: 96 bemor"
+      ],
+      "risks": [
+        "Kuryer #12 da 3,2 mln so'm"
+      ],
+      "actions": [
+        "Bugun kassa solishtiruvi"
+      ]
+    },
+    {
+      "id": 30,
+      "kind": "weekly",
+      "period_from": "2026-10-20",
+      "period_to": "2026-10-26",
+      "created_at": "2026-10-04T03:00:00.000Z",
+      "health_score": 58,
+      "headline": "Samarqandda atkaz o'smoqda",
+      "highlights": [
+        "Ilova DAU +12%"
+      ],
+      "risks": [
+        "Samarqand atkaz 19%"
+      ],
+      "actions": [
+        "Ikkinchi kuryer"
+      ]
+    }
+  ]
+}

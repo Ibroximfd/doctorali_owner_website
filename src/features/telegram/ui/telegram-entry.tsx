@@ -426,9 +426,7 @@ const EntryCard = ({ children }: { children: ReactNode }) => (
 
 const StepLabel = ({ step }: { step: 1 | 2 }) => {
   const t = useTranslations("telegram.link");
-  return (
-    <span className="text-accent text-2xs font-semibold tracking-wider uppercase">{t("step", { step })}</span>
-  );
+  return <span className="text-accent text-2xs font-semibold">{t("step", { step })}</span>;
 };
 
 const TextButton = ({

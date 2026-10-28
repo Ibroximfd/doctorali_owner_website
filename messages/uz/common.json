@@ -57,7 +57,9 @@
     "forbiddenTitle": "Bu bo'lim sizga ochilmagan",
     "forbiddenDescription": "Kirish huquqini boshliq «Sozlamalar» da beradi.",
     "offline": "Internet yo'q — oxirgi yuklangan ma'lumot ko'rsatilmoqda.",
-    "stale": "Yangilab bo'lmadi — oldingi ma'lumot ko'rsatilmoqda"
+    "stale": "Yangilab bo'lmadi — oldingi ma'lumot ko'rsatilmoqda",
+    "pendingTitle": "Tez orada",
+    "pendingDescription": "Bu ma'lumot serverda hali yoqilmagan. Backend tayyor bo'lishi bilan shu yerda o'zi paydo bo'ladi."
   },
   "errors": {
     "title": "Ma'lumotni yuklab bo'lmadi",

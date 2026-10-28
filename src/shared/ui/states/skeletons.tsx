@@ -15,7 +15,7 @@ export const StatRowSkeleton = ({ count = 6 }: { count?: 4 | 6 }) => (
     )}
   >
     {Array.from({ length: count }, (_, index) => (
-      <div key={index} className="bg-surface flex flex-col gap-2 rounded-lg border px-3.5 py-3">
+      <div key={index} className="panel-surface flex flex-col gap-2 rounded-2xl border px-4 py-3.5">
         <Bone className="h-3 w-3/5" />
         <Bone className="h-6 w-4/5" />
         <Bone className="h-4 w-2/5" />

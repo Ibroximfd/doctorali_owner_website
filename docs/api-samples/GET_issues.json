@@ -1,0 +1,105 @@
+{
+  "counts": {
+    "open": 3,
+    "critical": 1,
+    "notified": 1,
+    "resolved_today": 1
+  },
+  "results": [
+    {
+      "id": 501,
+      "code": "stock.critical",
+      "domain": "warehouse",
+      "severity": "critical",
+      "status": "open",
+      "title": "Toshkent omborida Mehrigiyo balzami 3 kunga yetadi",
+      "cause": "Kunlik chiqim 31 dona, qoldiq 84 dona; oxirgi prixod 12 kun oldin",
+      "impact": {
+        "kind": "money",
+        "value": 46000000
+      },
+      "filial": "Toshkent",
+      "entity": {
+        "type": "product",
+        "id": "7",
+        "label": "MB-500"
+      },
+      "responsible": {
+        "id": 31,
+        "full_name": "Sardor Aliyev",
+        "role": "skladchi",
+        "phone": "+998901234567",
+        "channels": [
+          "telegram",
+          "sms"
+        ]
+      },
+      "detected_at": "2026-10-05T08:20:00.000Z",
+      "updated_at": "2026-10-05T08:20:00.000Z",
+      "notifications_count": 0,
+      "last_notified_at": null
+    },
+    {
+      "id": 502,
+      "code": "cash.overheld",
+      "domain": "finance",
+      "severity": "high",
+      "status": "notified",
+      "title": "Kuryer Jasur Karimovda 2 kundan beri 4,2 mln so'm",
+      "cause": "Naqd 26-oktyabrdan beri kassaga topshirilmagan",
+      "impact": {
+        "kind": "money",
+        "value": 4200000
+      },
+      "filial": "Toshkent",
+      "entity": {
+        "type": "courier",
+        "id": "12",
+        "label": "Jasur Karimov"
+      },
+      "responsible": {
+        "id": 18,
+        "full_name": "Dilnoza Karimova",
+        "role": "kassir",
+        "phone": null,
+        "channels": [
+          "sms"
+        ]
+      },
+      "detected_at": "2026-10-05T06:00:00.000Z",
+      "updated_at": "2026-10-05T06:00:00.000Z",
+      "notifications_count": 1,
+      "last_notified_at": "2026-10-05T09:00:00.000Z"
+    },
+    {
+      "id": 503,
+      "code": "delivery.late",
+      "domain": "logistics",
+      "severity": "medium",
+      "status": "acknowledged",
+      "title": "Samarqandda 14 ta buyurtma 3 kundan beri yo'lda",
+      "cause": "Kuryer biriktirilgan, lekin yetkazildi belgisi yo'q",
+      "impact": {
+        "kind": "orders",
+        "value": 14
+      },
+      "filial": "Samarqand",
+      "entity": null,
+      "responsible": {
+        "id": 22,
+        "full_name": "Malika Yusupova",
+        "role": "logist",
+        "phone": "+998935551122",
+        "channels": [
+          "telegram",
+          "sms",
+          "app"
+        ]
+      },
+      "detected_at": "2026-10-04T23:00:00.000Z",
+      "updated_at": "2026-10-04T23:00:00.000Z",
+      "notifications_count": 2,
+      "last_notified_at": "2026-10-05T09:00:00.000Z"
+    }
+  ]
+}

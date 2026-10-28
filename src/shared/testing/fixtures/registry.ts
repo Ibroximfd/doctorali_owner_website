@@ -1,19 +1,29 @@
 import { buildContext } from "./engine";
+import { accessHandlers } from "./handlers/access";
+import { aiHandlers } from "./handlers/ai";
 import { alertsHandlers } from "./handlers/alerts";
 import { clinicHandlers } from "./handlers/clinic";
 import { customersHandlers } from "./handlers/customers";
 import { doctorsHandlers } from "./handlers/doctors";
 import { financeHandlers } from "./handlers/finance";
+import { forecastHandlers } from "./handlers/forecast";
+import { iamHandlers } from "./handlers/iam";
+import { issuesHandlers } from "./handlers/issues";
 import { logisticsHandlers } from "./handlers/logistics";
 import { metaHandlers } from "./handlers/meta";
 import { mobileAppHandlers } from "./handlers/mobile-app";
 import { ordersHandlers } from "./handlers/orders";
 import { overviewHandlers } from "./handlers/overview";
 import { productsHandlers } from "./handlers/products";
+import { regionsHandlers } from "./handlers/regions";
 import { reportsHandlers } from "./handlers/reports";
 import { salesHandlers } from "./handlers/sales";
 import { settingsHandlers } from "./handlers/settings";
+import { settlementsHandlers } from "./handlers/settlements";
+import { staffHandlers } from "./handlers/staff";
+import { systemHandlers } from "./handlers/system";
 import { telegramHandlers } from "./handlers/telegram";
+import { warehouseHandlers } from "./handlers/warehouse";
 import { mockError, type MockHandler, type MockResponse } from "./types";
 
 const isMockResponse = (value: unknown): value is MockResponse =>
@@ -39,6 +49,16 @@ const HANDLERS: readonly MockHandler[] = [
   ...reportsHandlers,
   ...settingsHandlers,
   ...telegramHandlers,
+  ...warehouseHandlers,
+  ...settlementsHandlers,
+  ...issuesHandlers,
+  ...aiHandlers,
+  ...forecastHandlers,
+  ...accessHandlers,
+  ...systemHandlers,
+  ...regionsHandlers,
+  ...staffHandlers,
+  ...iamHandlers,
 ];
 
 const segmentsOf = (path: string): string[] => path.split("/").filter((segment) => segment !== "");

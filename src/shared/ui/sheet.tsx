@@ -21,7 +21,7 @@ export const Sheet = ({ open, onOpenChange, title, children, className }: SheetP
       <Dialog.Content
         aria-describedby={undefined}
         className={cn(
-          "bg-surface shadow-pop fixed inset-x-0 bottom-0 z-50 max-h-[86dvh] overflow-y-auto rounded-t-2xl px-4 pt-2 pb-[calc(1.125rem+env(safe-area-inset-bottom))]",
+          "bg-surface shadow-pop fixed inset-x-0 bottom-0 z-50 max-h-[86dvh] overflow-y-auto rounded-t-4xl border-t px-4 pt-2 pb-[calc(1.125rem+env(safe-area-inset-bottom))]",
           "data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom-8 data-[state=closed]:fade-out",
           "data-[state=open]:animate-in data-[state=open]:slide-in-from-bottom-8 data-[state=open]:fade-in",
           className,

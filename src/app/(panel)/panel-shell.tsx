@@ -11,6 +11,7 @@ import { TelegramRuntime } from "@/features/telegram/ui/telegram-runtime";
 import { isRouteAllowed, visibleNavItems } from "@/shared/config/nav";
 import { routeKeyOf, routes } from "@/shared/config/routes";
 import { useLiveChannel } from "@/shared/hooks/use-live-channel";
+import { useSessionStore } from "@/shared/stores/session-store";
 import { AppShell } from "@/shared/ui/shell/app-shell";
 
 /**
@@ -24,6 +25,9 @@ export const PanelShell = ({ children }: { children: ReactNode }) => {
   const logout = useLogout();
   const allowedSections = me?.sections ?? [];
   useRedirectToAllowedSection(allowedSections);
+  const isViewer = me?.role === "owner_viewer";
+  const setCanAct = useSessionStore((state) => state.setCanAct);
+  useEffect(() => setCanAct(!isViewer), [isViewer, setCanAct]);
 
   useLiveChannel();
   // Saytda harakatsizlik uchun chiqarilmaydi: boshliq qarori — bir marta kirgach sessiya eslab

@@ -40,3 +40,27 @@ export const feedDotClass = (kind: string): string => FEED_DOT[kind] ?? "bg-ink-
 export const STALE_STAGES = ["pending", "confirmed", "shipping"] as const;
 export const isStaleStage = (status: string): status is (typeof STALE_STAGES)[number] =>
   (STALE_STAGES as readonly string[]).includes(status);
+
+/** Bugungi tushum kechagi shu vaqtga nisbatan: ±1% dan kichik farq — «kechagi sur'atda». */
+export type TodayTrend = { kind: "up" | "down" | "flat" | "none"; pct: number };
+const FLAT_PCT = 1;
+
+export const todayTrend = (quick: Overview["revenueQuick"]): TodayTrend => {
+  if (quick.todaySameTimeYesterday <= 0) return { kind: "none", pct: 0 };
+  const pct = ((quick.today - quick.todaySameTimeYesterday) / quick.todaySameTimeYesterday) * 100;
+  if (Math.abs(pct) < FLAT_PCT) return { kind: "flat", pct: 0 };
+  return { kind: pct > 0 ? "up" : "down", pct: Math.abs(pct) };
+};
+
+/** Ustma-ust maydon grafigi uchun: har seriya o'zidan oldingilar ustiga qo'shiladi. */
+export const stackSeries = (series: readonly { values: readonly number[] }[]): number[][] => {
+  const length = Math.max(0, ...series.map((item) => item.values.length));
+  const running = Array.from({ length }, () => 0);
+  return series.map((item) =>
+    running.map((base, index) => {
+      const next = base + Math.max(0, item.values[index] ?? 0);
+      running[index] = next;
+      return next;
+    }),
+  );
+};

@@ -1,0 +1,49 @@
+{
+  "period": {
+    "from": "2026-09-06",
+    "to": "2026-10-05",
+    "granularity": "day",
+    "label": "30d"
+  },
+  "compare": {
+    "from": "2026-08-07",
+    "to": "2026-09-05"
+  },
+  "filials": [
+    1,
+    2,
+    3
+  ],
+  "generated_at": "2026-10-05T09:00:00.000Z",
+  "freshness": {
+    "orders": "2026-10-05T09:00:00.000Z",
+    "clinic": "2026-10-05T08:58:30.000Z",
+    "app": "2026-10-05T03:00:00+05:00"
+  },
+  "data": [
+    {
+      "id": 2,
+      "name": "Toshkent call-center",
+      "lead": "Malika Yusupova (admin)",
+      "members": 3,
+      "score": 74.7,
+      "metrics": {
+        "conversion_pct": 33,
+        "cancel_rate_pct": 12,
+        "revenue": 300000000
+      }
+    },
+    {
+      "id": 3,
+      "name": "Qo'qon call-center",
+      "lead": "Sardor Aliyev (admin)",
+      "members": 2,
+      "score": 56.4,
+      "metrics": {
+        "conversion_pct": 34,
+        "cancel_rate_pct": 13,
+        "revenue": 200000000
+      }
+    }
+  ]
+}

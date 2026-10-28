@@ -1,0 +1,41 @@
+{
+  "period": {
+    "from": "2026-09-06",
+    "to": "2026-10-05",
+    "granularity": "day",
+    "label": "30d"
+  },
+  "compare": {
+    "from": "2026-08-07",
+    "to": "2026-09-05"
+  },
+  "filials": [
+    1,
+    2,
+    3
+  ],
+  "generated_at": "2026-10-05T09:00:00.000Z",
+  "freshness": {
+    "orders": "2026-10-05T09:00:00.000Z",
+    "clinic": "2026-10-05T08:58:30.000Z",
+    "app": "2026-10-05T03:00:00+05:00"
+  },
+  "data": {
+    "receivable": 334282620,
+    "overdue": 212149920,
+    "regions_in_debt": 4,
+    "b2b_debt": 36000000,
+    "collected": {
+      "value": 2299062180,
+      "previous": 2164841977.4,
+      "delta_pct": 6.2,
+      "unit": "uzs"
+    },
+    "expenses": {
+      "value": 83245200,
+      "previous": 80507930.37,
+      "delta_pct": 3.4,
+      "unit": "uzs"
+    }
+  }
+}

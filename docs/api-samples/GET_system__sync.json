@@ -1,0 +1,29 @@
+{
+  "sources": [
+    {
+      "source": "bitrix",
+      "last_run_at": "2026-10-05T08:55:00.000Z",
+      "status": "ok",
+      "imported": 132,
+      "failed": 2,
+      "next_run_at": "2026-10-05T09:05:00.000Z"
+    },
+    {
+      "source": "marketplace_erp",
+      "last_run_at": "2026-10-05T08:57:00.000Z",
+      "status": "ok",
+      "imported": 418,
+      "failed": 0,
+      "next_run_at": "2026-10-05T09:02:00.000Z"
+    }
+  ],
+  "errors": [
+    {
+      "id": 9,
+      "source": "bitrix",
+      "at": "2026-10-05T08:54:00.000Z",
+      "entity_ref": "DEAL-48211",
+      "message": "Telefon raqami noto'g'ri"
+    }
+  ]
+}

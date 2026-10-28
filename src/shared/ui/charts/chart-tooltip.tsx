@@ -34,7 +34,7 @@ export const ChartTooltip = ({
   const total = rows.reduce((sum, entry) => sum + entry.value, 0);
 
   return (
-    <div className="bg-surface shadow-pop min-w-40 rounded-lg border px-3 py-2.5 text-xs">
+    <div className="bg-surface shadow-pop min-w-40 rounded-xl border px-3.5 py-2.5 text-xs">
       <div className="text-2xs text-ink-3 mb-1.5 font-semibold">{String(label ?? "")}</div>
       {rows.map((entry) => (
         <div key={String(entry.dataKey)} className="flex items-center gap-2 py-0.5">

@@ -5,12 +5,16 @@ import {
   attemptReasonsSchema,
   courierDetailSchema,
   couriersSchema,
+  handoversSchema,
+  liveSchema,
   logisticsSummarySchema,
   regionDeliverySchema,
   transfersSchema,
   type AttemptReason,
   type Courier,
   type CourierDetail,
+  type Handovers,
+  type LiveBoard,
   type LogisticsSummary,
   type RegionDelivery,
   type Transfer,
@@ -39,3 +43,10 @@ export const loadTransfers = async (params: QueryParams): Promise<Envelope<Trans
   const envelope = parseEnvelope(transfersSchema, await apiGet("logistics/transfers/", params));
   return { ...envelope, data: envelope.data.results };
 };
+
+/** Jonli doska — hozirgi holat (davrga bog'liq emas, filial filtri ishlaydi). */
+export const loadLiveBoard = async (params: QueryParams): Promise<Envelope<LiveBoard>> =>
+  parseEnvelope(liveSchema, await apiGet("logistics/live/", { filial: params.filial }));
+
+export const loadHandovers = async (params: QueryParams): Promise<Envelope<Handovers>> =>
+  parseEnvelope(handoversSchema, await apiGet("logistics/handovers/", { filial: params.filial }));

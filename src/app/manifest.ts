@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "Doctor Ali — boshliq uchun nazorat paneli",
     start_url: "/",
     display: "standalone",
-    background_color: "#f3f5f3",
-    theme_color: "#17694a",
+    background_color: "#050d09",
+    theme_color: "#050d09",
     icons: [
       { src: "/brand/doctor-ali-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
       { src: "/brand/doctor-ali-512.png", sizes: "512x512", type: "image/png", purpose: "any" },

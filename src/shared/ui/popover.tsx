@@ -20,7 +20,7 @@ export const PopoverContent = ({
       align={align}
       sideOffset={sideOffset}
       className={cn(
-        "bg-surface shadow-pop data-[state=open]:animate-in data-[state=open]:fade-in data-[state=open]:zoom-in-95 z-50 min-w-56 rounded-lg border p-1.5",
+        "bg-surface shadow-pop data-[state=open]:animate-in data-[state=open]:fade-in data-[state=open]:zoom-in-95 z-50 min-w-56 rounded-2xl border p-1.5",
         className,
       )}
       {...props}

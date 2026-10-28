@@ -1,0 +1,58 @@
+{
+  "title": "Prognoz",
+  "description": "Kelgusi kunlarda tushum, buyurtma va pul qancha bo'ladi, qaysi mahsulot tugaydi.",
+  "hero": {
+    "eyebrow": "Bashorat · 80% ishonch oralig'i",
+    "horizon": "Prognoz ufqi",
+    "days": "{count} kun",
+    "revenue": "{count} kunlik tushum",
+    "accuracy": "Model aniqligi",
+    "plan": "Reja bajariladi",
+    "sentence": "Keyingi {count} kunda tushum <strong>{value} {currency}</strong> atrofida bo'ladi — <delta>{change}</delta>. Ishonch oralig'i {low}–{high}.",
+    "sentenceFlat": "Keyingi {count} kunda tushum <strong>{value} {currency}</strong> atrofida bo'ladi. Ishonch oralig'i {low}–{high}."
+  },
+  "highlights": {
+    "orders": "Buyurtmalar, {count} kun",
+    "ordersText": "Kuniga taxminan {perDay} ta. Oraliq: {low} – {high}.",
+    "stockout": "Eng yaqin tugash",
+    "stockoutText": "{name} {warehouse}da {days} kunda tugaydi. {reorder} dona buyurtma qilish kerak.",
+    "noStockout": "Yo'q",
+    "noStockoutText": "Tanlangan ufqda hech bir mahsulot tugamaydi.",
+    "cashIn": "Kutilgan pul kirimi",
+    "cashInText": "Oraliq: {low} – {high} (±{spread}%)."
+  },
+  "chart": {
+    "description": "Fakt va prognoz · konus — ishonch oralig'i",
+    "metric": "Ko'rsatkich",
+    "revenue": "Tushum",
+    "orders": "Buyurtmalar",
+    "actual": "Fakt",
+    "forecast": "Prognoz",
+    "band": "80% oraliq",
+    "range": "oraliq: {low} – {high}",
+    "today": "Bugun",
+    "titleRevenue": "Kunlik tushum",
+    "titleOrders": "Kunlik buyurtmalar",
+    "band50": "50% oraliq",
+    "expectedOn": "{date}, kutilgan",
+    "peakOn": "Eng yuqori kun · {date}"
+  },
+  "stockouts": {
+    "title": "Tugaydigan mahsulotlar",
+    "description": "Prognoz ufqi ichida — eng yaqini tepada, qancha buyurtma qilish kerak",
+    "days": "{value} kun",
+    "columns": {
+      "product": "Mahsulot",
+      "date": "Tugaydi",
+      "qty": "Qoldiq",
+      "out": "Kunlik chiqim",
+      "reorder": "Buyurtma qilish"
+    },
+    "emptyTitle": "Hech narsa tugamaydi",
+    "emptyDescription": "Tanlangan ufqda zaxira yetarli."
+  },
+  "regions": {
+    "title": "Hududlar prognozi",
+    "description": "Kutilgan tushum va o'sish"
+  }
+}

@@ -14,6 +14,17 @@ import { TipProvider } from "@/shared/ui/tip";
 /** Qayta urinish foyda bermaydigan xatolar: ruxsat, shartnoma, noto'g'ri so'rov. */
 const NON_RETRYABLE = new Set(["unauthorized", "forbidden", "not-found", "validation", "contract"]);
 
+/**
+ * Ma'lumot shu muddat «yangi» hisoblanadi: bo'limlar orasida o'tganda keshdagi natija
+ * darhol chiziladi va qayta so'ralmaydi. Jonli bloklar o'z `refetchInterval` i bilan yangilanadi.
+ */
+const STALE_MS = 30_000;
+/** Ko'rinmay qolgan bo'lim keshi shuncha saqlanadi — qaytib kelganda skeleton chiqmaydi. */
+const GC_MS = 10 * 60_000;
+/** Osilgan backendda kutish: bitta qayta urinish, 1 s dan keyin (eski: 2 urinish × 20 s). */
+const MAX_RETRIES = 1;
+const RETRY_DELAY_MS = 1000;
+
 /** Sessiya tugagan bo'lsa — kirish sahifasiga (Telegramda — PIN ga), qaytib kelish manzili bilan. */
 const redirectToLogin = () => {
   const { pathname, search } = window.location;
@@ -35,7 +46,10 @@ const createQueryClient = () =>
     defaultOptions: {
       queries: {
         retry: (failureCount, error) =>
-          !(isAppError(error) && NON_RETRYABLE.has(error.kind)) && failureCount < 2,
+          !(isAppError(error) && NON_RETRYABLE.has(error.kind)) && failureCount < MAX_RETRIES,
+        retryDelay: RETRY_DELAY_MS,
+        staleTime: STALE_MS,
+        gcTime: GC_MS,
         refetchOnWindowFocus: true,
         // Tab yashirin bo'lsa davriy yangilanish to'xtaydi.
         refetchIntervalInBackground: false,
@@ -49,7 +63,7 @@ export const Providers = ({ children }: { children: ReactNode }) => {
   const [queryClient] = useState(createQueryClient);
 
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
       <QueryClientProvider client={queryClient}>
         <NuqsAdapter>
           <TipProvider>{children}</TipProvider>

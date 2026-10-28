@@ -1,6 +1,6 @@
 "use client";
 
-import { Clock, Inbox, Lock, RefreshCw, SearchX, TriangleAlert, WifiOff } from "lucide-react";
+import { Clock, Hourglass, Inbox, Lock, RefreshCw, SearchX, TriangleAlert, WifiOff } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 
@@ -70,6 +70,12 @@ export const ErrorState = ({ error, onRetry }: { error: AppError; onRetry?: () =
       }
     />
   );
+};
+
+/** Ma'lumot manbai backendda hali yoqilmagan — xato emas, qayta urinish ham kerak emas. */
+export const SourcePendingState = () => {
+  const t = useTranslations("common.states");
+  return <StateBlock icon={Hourglass} title={t("pendingTitle")} description={t("pendingDescription")} />;
 };
 
 /** Bo'lim foydalanuvchiga ochilmagan (`owner_viewer`). */

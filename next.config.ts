@@ -1,7 +1,7 @@
 import createNextIntlPlugin from "next-intl/plugin";
 import type { NextConfig } from "next";
 
-import { resolveServer } from "./config/servers.mjs";
+import { isDemoMode, resolveServer } from "./config/servers.mjs";
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
@@ -11,7 +11,8 @@ const isProduction = process.env.NODE_ENV === "production";
  * Qaysi server bilan ishlayotganimiz terminalda ko'rinib turadi — noto'g'ri serverga
  * ulanib o'tirmaslik uchun (nomlar va default — `config/servers.mjs`).
  */
-{
+if (isDemoMode()) console.info("Backend: DEMO — ichki namuna (mock) baza, tashqi so'rov yo'q");
+else {
   const server = process.env.BACKEND_ORIGIN
     ? { label: "Boshqa manzil", origin: process.env.BACKEND_ORIGIN }
     : resolveServer();
@@ -72,6 +73,9 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   // Django yo'llari `/` bilan tugaydi; Next uni olib tashlasa backend 301 qaytaradi.
   skipTrailingSlashRedirect: true,
+  // `radix-ui` — barcha primitivlar bitta paketda; faqat ishlatilganlari to'plamga kirsin
+  // (recharts va lucide-react Next ro'yxatida allaqachon bor).
+  experimental: { optimizePackageImports: ["radix-ui"] },
   async headers() {
     return [{ source: "/:path*", headers: SECURITY_HEADERS }];
   },

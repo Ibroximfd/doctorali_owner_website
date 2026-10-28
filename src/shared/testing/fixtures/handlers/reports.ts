@@ -109,7 +109,7 @@ export const resetReportsMock = (): void => {
 
 const jobState = (job: Job) => ({
   status: job.status,
-  url: job.status === "ready" ? "#" : null,
+  url: job.status === "ready" ? `/api/owner/reports/export/${job.id}/file/` : null,
   expires_at: job.readyAt === null ? null : new Date(Date.parse(job.readyAt) + LINK_TTL_MS).toISOString(),
 });
 

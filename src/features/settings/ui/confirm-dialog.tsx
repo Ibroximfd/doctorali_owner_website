@@ -39,7 +39,7 @@ export const ConfirmDialog = ({
     <Dialog.Root open={open} onOpenChange={(next) => (isPending ? undefined : onOpenChange(next))}>
       <Dialog.Portal>
         <Dialog.Overlay className="bg-scrim data-[state=open]:animate-in data-[state=open]:fade-in fixed inset-0 z-50" />
-        <Dialog.Content className="bg-surface shadow-pop data-[state=open]:animate-in data-[state=open]:fade-in fixed inset-x-4 top-1/2 z-50 mx-auto flex max-w-md -translate-y-1/2 flex-col gap-4 rounded-xl border p-5">
+        <Dialog.Content className="bg-surface shadow-pop data-[state=open]:animate-in data-[state=open]:fade-in fixed inset-x-4 top-1/2 z-50 mx-auto flex max-w-md -translate-y-1/2 flex-col gap-4 rounded-3xl border p-5">
           <div>
             <Dialog.Title className="font-strong text-lg leading-tight">{title}</Dialog.Title>
             <Dialog.Description className="text-ink-2 mt-1.5 text-sm">{description}</Dialog.Description>

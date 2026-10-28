@@ -1,0 +1,24 @@
+{
+  "results": [
+    {
+      "key": "warehouse",
+      "title": "Ombor",
+      "accounts_count": 1
+    },
+    {
+      "key": "call_center",
+      "title": "Call-center",
+      "accounts_count": 1
+    },
+    {
+      "key": "couriers",
+      "title": "Kuryerlar",
+      "accounts_count": 0
+    },
+    {
+      "key": "cash",
+      "title": "Kassa",
+      "accounts_count": 0
+    }
+  ]
+}

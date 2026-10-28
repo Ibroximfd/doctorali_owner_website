@@ -79,3 +79,63 @@ export const transfersSchema = z.object({
   ),
 });
 export type Transfer = Camelized<z.infer<typeof transfersSchema>>["results"][number];
+
+/** `GET /logistics/live/` (`07_BACKEND_TZ_V2` §4) — hozirgi holat; `status`, `source` — ochiq ro'yxat. */
+export const liveSchema = z.object({
+  couriers: z.array(
+    z.object({
+      id: z.number(),
+      full_name: z.string(),
+      filial: z.string(),
+      region: z.string(),
+      source: z.string(),
+      status: z.string(),
+      speed_kmh: z.number().nullable(),
+      last_signal_at: z.string().nullable(),
+      shift_started_at: z.string().nullable(),
+      battery_pct: z.number().nullable(),
+      assigned_today: z.number(),
+      delivered_today: z.number(),
+      cancelled_today: z.number(),
+      cash_on_hand: z.number(),
+      cash_since: z.string().nullable(),
+      handover_pending: z.number().nullable(),
+    }),
+  ),
+  regions: z.array(
+    z.object({
+      region: z.string(),
+      couriers_total: z.number(),
+      couriers_working: z.number(),
+      delivered_today: z.number(),
+      pending_today: z.number(),
+      cash_today: z.number(),
+    }),
+  ),
+});
+export type LiveBoard = Camelized<z.infer<typeof liveSchema>>;
+export type LiveCourier = LiveBoard["couriers"][number];
+
+/** `GET /logistics/handovers/` — kassaga topshirish so'rovlari va so'nggi qarorlar. */
+export const handoversSchema = z.object({
+  pending: z.array(
+    z.object({
+      id: z.number(),
+      courier_id: z.number(),
+      courier_name: z.string(),
+      amount: z.number(),
+      requested_at: z.string(),
+    }),
+  ),
+  recent: z.array(
+    z.object({
+      id: z.number(),
+      courier_name: z.string(),
+      amount: z.number(),
+      status: z.string(),
+      decided_at: z.string(),
+      decided_by: z.string().nullable(),
+    }),
+  ),
+});
+export type Handovers = Camelized<z.infer<typeof handoversSchema>>;

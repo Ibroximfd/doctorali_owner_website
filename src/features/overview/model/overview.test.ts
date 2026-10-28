@@ -3,7 +3,14 @@ import { describe, expect, it } from "vitest";
 import { parseEnvelope, parseJson, timeseriesSchema } from "@/shared/lib/envelope";
 import { SCOPE_CASES, mockGet } from "@/shared/testing/mock-api";
 
-import { activeChannels, feedDotClass, isStaleStage, planPace } from "./overview.rules";
+import {
+  activeChannels,
+  feedDotClass,
+  isStaleStage,
+  planPace,
+  stackSeries,
+  todayTrend,
+} from "./overview.rules";
 import { feedSchema, overviewSchema } from "./overview.schema";
 
 const overviewFor = (query: Record<string, string>) =>
@@ -82,5 +89,24 @@ describe("feed and pipeline helpers", () => {
   it("only in-progress stages can be stale", () => {
     expect(isStaleStage("shipping")).toBe(true);
     expect(isStaleStage("delivered")).toBe(false);
+  });
+});
+
+describe("brief and river rules", () => {
+  const quick = { today: 110, todaySameTimeYesterday: 100, yesterday: 0, week: 0, month: 0 };
+
+  it("compares today with yesterday at the same time", () => {
+    expect(todayTrend(quick)).toEqual({ kind: "up", pct: 10 });
+    expect(todayTrend({ ...quick, today: 80 })).toEqual({ kind: "down", pct: 20 });
+    expect(todayTrend({ ...quick, today: 100.5 }).kind).toBe("flat");
+    expect(todayTrend({ ...quick, todaySameTimeYesterday: 0 }).kind).toBe("none");
+  });
+
+  it("stacks series on top of each other, ignoring negatives", () => {
+    expect(stackSeries([{ values: [1, 2] }, { values: [3, -1] }, { values: [1] }])).toEqual([
+      [1, 2],
+      [4, 2],
+      [5, 2],
+    ]);
   });
 });

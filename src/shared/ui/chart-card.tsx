@@ -157,7 +157,7 @@ const ChartTableView = ({
                 key={header}
                 scope="col"
                 className={cn(
-                  "bg-surface text-2xs text-ink-3 sticky top-0 border-b px-3 py-2 font-semibold tracking-wider whitespace-nowrap uppercase",
+                  "bg-surface text-2xs text-ink-3 sticky top-0 border-b px-3 py-2 font-semibold whitespace-nowrap",
                   index === 0 ? "text-left" : "text-right",
                 )}
               >

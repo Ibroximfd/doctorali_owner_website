@@ -18,7 +18,7 @@ type CommandPaletteProps = {
 };
 
 const itemClass =
-  "flex h-9.5 cursor-pointer items-center gap-2.5 rounded-md px-2.5 text-sm text-ink-2 data-[selected=true]:bg-surface-3 data-[selected=true]:text-ink";
+  "flex h-10 cursor-pointer items-center gap-2.5 rounded-xl px-3 text-sm text-ink-2 data-[selected=true]:bg-surface-3 data-[selected=true]:text-ink";
 
 /** ⌘K: bo'limga o'tish yoki buyurtmalardan qidirish (raqam, telefon, ism). */
 export const CommandPalette = ({ open, onOpenChange, allowedSections }: CommandPaletteProps) => {
@@ -41,7 +41,7 @@ export const CommandPalette = ({ open, onOpenChange, allowedSections }: CommandP
         <Dialog.Overlay className="bg-scrim data-[state=open]:animate-in data-[state=open]:fade-in fixed inset-0 z-50" />
         <Dialog.Content
           aria-describedby={undefined}
-          className="bg-surface shadow-pop data-[state=open]:animate-in data-[state=open]:fade-in fixed top-[12vh] left-1/2 z-50 w-[min(35rem,calc(100%-2rem))] -translate-x-1/2 overflow-hidden rounded-xl border"
+          className="bg-surface shadow-pop data-[state=open]:animate-in data-[state=open]:fade-in fixed top-[12vh] left-1/2 z-50 w-[min(35rem,calc(100%-2rem))] -translate-x-1/2 overflow-hidden rounded-3xl border"
         >
           <Dialog.Title className="sr-only">{t("search")}</Dialog.Title>
           <Command label={t("search")} shouldFilter>
@@ -57,7 +57,7 @@ export const CommandPalette = ({ open, onOpenChange, allowedSections }: CommandP
             <Command.List className="max-h-[50vh] overflow-y-auto p-1.5">
               <Command.Group
                 heading={t("sections")}
-                className="[&_[cmdk-group-heading]]:text-2xs [&_[cmdk-group-heading]]:text-ink-3 [&_[cmdk-group-heading]]:px-2.5 [&_[cmdk-group-heading]]:pt-2 [&_[cmdk-group-heading]]:pb-1 [&_[cmdk-group-heading]]:font-semibold [&_[cmdk-group-heading]]:tracking-widest [&_[cmdk-group-heading]]:uppercase"
+                className="[&_[cmdk-group-heading]]:text-2xs [&_[cmdk-group-heading]]:text-ink-3 [&_[cmdk-group-heading]]:px-2.5 [&_[cmdk-group-heading]]:pt-2 [&_[cmdk-group-heading]]:pb-1 [&_[cmdk-group-heading]]:font-semibold"
               >
                 {visibleNavItems(allowedSections).map((item) => (
                   <Command.Item

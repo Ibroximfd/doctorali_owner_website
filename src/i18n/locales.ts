@@ -27,5 +27,14 @@ export const MESSAGE_NAMESPACES = [
   "alerts",
   "reports",
   "settings",
+  "warehouse",
+  "settlements",
+  "issues",
+  "forecast",
+  "system",
+  "ai",
+  "access",
+  "regions",
+  "staff",
 ] as const;
 export type MessageNamespace = (typeof MESSAGE_NAMESPACES)[number];

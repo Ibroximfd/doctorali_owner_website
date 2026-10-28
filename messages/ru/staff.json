@@ -1,0 +1,104 @@
+{
+  "title": "Рейтинг сотрудников",
+  "description": "Каждый сотрудник и команда: сколько работы дали, сколько стало результатом, как оценивают.",
+  "hero": {
+    "eyebrow": "Рейтинг · {role}",
+    "lead": "В этом периоде у <gold>{name}</gold> — {metric}: {value}, в <mint>{ratio} раза</mint> выше среднего по команде."
+  },
+  "roles": {
+    "operator": "Операторы",
+    "admin": "Админы колл-центра",
+    "courier": "Курьеры",
+    "warehouse": "Кладовщики",
+    "logist": "Логисты"
+  },
+  "metrics": {
+    "leads": "Выдано лидов",
+    "contacted": "Связались",
+    "orders": "Заказы",
+    "conversion_pct": "Конверсия",
+    "delivered": "Доставлено",
+    "cancel_rate_pct": "Отказ",
+    "revenue": "Выручка",
+    "avg_response_min": "Время ответа",
+    "calls": "Звонки",
+    "talk_minutes": "Разговор",
+    "quality_score": "Качество (AI)",
+    "rating": "Оценка",
+    "team_size": "Команда",
+    "team_leads": "Лиды команды",
+    "team_conversion_pct": "Конверсия команды",
+    "team_cancel_rate_pct": "Отказ команды",
+    "team_revenue": "Выручка команды",
+    "team_score": "Балл команды",
+    "distribution_min": "Время распределения",
+    "assigned": "Назначено",
+    "success_rate_pct": "Доля доставки",
+    "on_time_pct": "Вовремя",
+    "avg_delivery_min": "Среднее время",
+    "rating_count": "Оценок",
+    "cash_discipline_pct": "Дисциплина наличных",
+    "per_day": "В день",
+    "km": "Пробег, км",
+    "picks": "Собрано",
+    "accuracy_pct": "Точность",
+    "inventory_gap_pct": "Расхождение инвентаря",
+    "avg_pick_min": "Время сборки",
+    "avg_assign_min": "Время назначения",
+    "late_pct": "Опоздания",
+    "reassign_pct": "Переназначения"
+  },
+  "badges": {
+    "top_conversion": "Лучшая конверсия",
+    "most_improved": "Больше всех вырос",
+    "fastest": "Самый быстрый",
+    "best_rated": "Лучшие оценки",
+    "needs_attention": "Нужно внимание"
+  },
+  "board": {
+    "title": "Рейтинг",
+    "description": "{role} · балл 0–100 — сводка ключевых показателей роли. Нажмите строку — профиль сотрудника",
+    "roles": "Роли",
+    "teams": "Команды",
+    "allTeams": "Все команды",
+    "rank": "Место",
+    "name": "Сотрудник",
+    "score": "Балл",
+    "notEnough": "мало данных",
+    "rankDelta": "Место изменилось на {count}",
+    "open": "Открыть профиль: {name}"
+  },
+  "teams": {
+    "title": "Команды",
+    "members": "{count} чел."
+  },
+  "funnel": {
+    "leads": "Выдано лидов",
+    "contacted": "Связались",
+    "orders": "Заказы",
+    "delivered": "Доставлено",
+    "cancelled": "Отказ",
+    "assigned": "Назначено",
+    "picked": "Забрано",
+    "returned": "Возврат"
+  },
+  "profile": {
+    "title": "Сотрудник",
+    "notFoundTitle": "Сотрудник не найден",
+    "notFoundDescription": "Ссылка устарела или сотрудник перешёл в другую команду.",
+    "score": "Балл",
+    "rank": "{rank}-е место из {of}",
+    "since": "работает с {date}",
+    "ai": "Вывод AI",
+    "vsTeam": "Сравнение со средним по команде",
+    "vsTeamHint": "Правый столбец — среднее по команде; зелёный — лучше команды",
+    "funnel": "Воронка",
+    "passed": "прошло {value}",
+    "ratings": "Оценки клиентов"
+  },
+  "podium": {
+    "label": "Лучшая тройка",
+    "caption": "{metric} · балл {score}",
+    "score": "балл"
+  }
+}

@@ -103,7 +103,7 @@ describe("ReportsScreen", () => {
     const link = await within(card("Eksport tarixi")).findAllByRole("link", {
       name: "Yuklab olish: Operatorlar",
     });
-    expect(link[0]).toHaveAttribute("href", "#");
+    expect(link[0]).toHaveAttribute("href", "/api/owner/reports/export/exp-1003/file/");
     expect(within(card("Eksport tarixi")).queryByText("Tayyorlanmoqda")).not.toBeInTheDocument();
   });
 
@@ -129,7 +129,10 @@ describe("ReportsScreen", () => {
     expect(created.getByText("PDF")).toBeInTheDocument();
 
     expect(await created.findByText("Tayyor")).toBeInTheDocument();
-    expect(created.getByRole("link", { name: "Yuklab olish: Qarzdorlar" })).toHaveAttribute("href", "#");
+    expect(created.getByRole("link", { name: "Yuklab olish: Qarzdorlar" })).toHaveAttribute(
+      "href",
+      "/api/owner/reports/export/exp-1004/file/",
+    );
     expect(savedExports()[0]).toMatchObject({
       report: "debts",
       format: "pdf",

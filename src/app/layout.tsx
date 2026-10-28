@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist_Mono, Onest } from "next/font/google";
+import { Fraunces, JetBrains_Mono, Manrope } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import type { ReactNode } from "react";
@@ -8,15 +8,22 @@ import { Providers } from "./providers";
 
 import "./globals.css";
 
-const onest = Onest({
+const manrope = Manrope({
   subsets: ["latin", "latin-ext", "cyrillic"],
-  variable: "--font-onest",
+  variable: "--font-manrope",
   display: "swap",
 });
-const geistMono = Geist_Mono({
-  subsets: ["latin"],
-  weight: ["500", "600"],
-  variable: "--font-geist-mono",
+const fraunces = Fraunces({
+  subsets: ["latin", "latin-ext"],
+  axes: ["opsz"],
+  style: ["normal", "italic"],
+  variable: "--font-fraunces",
+  display: "swap",
+});
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "600"],
+  variable: "--font-jetbrains",
   display: "swap",
 });
 
@@ -44,7 +51,7 @@ export const viewport: Viewport = {
   viewportFit: "cover",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#f3f5f3" },
-    { media: "(prefers-color-scheme: dark)", color: "#0c0f0d" },
+    { media: "(prefers-color-scheme: dark)", color: "#050d09" },
   ],
 };
 
@@ -52,7 +59,11 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   const [locale, messages] = await Promise.all([getLocale(), getMessages()]);
 
   return (
-    <html lang={locale} className={`${onest.variable} ${geistMono.variable}`} suppressHydrationWarning>
+    <html
+      lang={locale}
+      className={`${manrope.variable} ${fraunces.variable} ${jetbrainsMono.variable}`}
+      suppressHydrationWarning
+    >
       <body>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Providers>{children}</Providers>

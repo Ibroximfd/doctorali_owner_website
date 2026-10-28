@@ -14,7 +14,7 @@ export type Camelized<T> = T extends readonly (infer Item)[]
     ? { [Key in keyof T as Key extends string ? CamelCase<Key> : Key]: Camelized<T[Key]> }
     : T;
 
-const camelKey = (key: string): string =>
+export const camelKey = (key: string): string =>
   key.replace(/_([a-z0-9])/g, (_, char: string) => char.toUpperCase());
 
 const isPlainObject = (value: unknown): value is Record<string, unknown> =>

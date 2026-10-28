@@ -6,6 +6,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { ROUTES_WITHOUT_SCOPE, routeKeyOf } from "@/shared/config/routes";
 import { useUiStore } from "@/shared/stores/ui-store";
 
+import { AmbientBackground } from "../ambient-background";
 import { MobileScope, ScopeBar } from "../scope/scope-bar";
 import { OfflineBanner } from "../states";
 import { CommandPalette } from "./command-palette";
@@ -59,6 +60,7 @@ export const AppShell = ({
 
   return (
     <div className="flex min-h-dvh">
+      <AmbientBackground />
       <Sidebar
         activeRoute={activeRoute}
         alertsCount={alertsCount}

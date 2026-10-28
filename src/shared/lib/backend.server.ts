@@ -3,10 +3,12 @@ import "server-only";
 import { z } from "zod";
 
 import { serverEnv } from "@/shared/config/env.server";
+import { demoFetch } from "@/shared/demo/demo-backend.server";
 
 /** Django backendga server tomonidan murojaat (BFF). Brauzer bu manzilni ko'rmaydi. */
 
-const BACKEND_TIMEOUT_MS = 20_000;
+// Brauzer klientining chegarasidan (10 s) biroz kam — BFF o'zi tushunarli 502 qaytarib ulgursin.
+const BACKEND_TIMEOUT_MS = 9_000;
 
 /** Brauzer haqida backend audit jurnali va urinishlar cheklovi uchun bilishi kerak bo'lganlar. */
 export type ClientInfo = { ip: string | null; userAgent: string | null };
@@ -34,6 +36,9 @@ export const backendFetch = async (
   path: string,
   { method = "GET", body, access, search = "", lang, client }: BackendInit = {},
 ): Promise<Response> => {
+  // Demo: tashqi so'rov yo'q — javob ichki namuna bazadan (`config/servers.mjs`).
+  if (serverEnv.isDemo) return demoFetch(path, { method, body, search });
+
   const headers = new Headers({ accept: "application/json" });
   if (body !== undefined) headers.set("content-type", "application/json");
   if (access) headers.set("authorization", `Bearer ${access}`);

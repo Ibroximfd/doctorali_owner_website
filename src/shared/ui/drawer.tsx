@@ -29,20 +29,20 @@ export const Drawer = ({ open, onOpenChange, title, subtitle, children, classNam
         <Dialog.Content
           aria-describedby={undefined}
           className={cn(
-            "bg-surface shadow-pop fixed inset-y-0 right-0 z-50 flex w-full flex-col md:w-130 md:border-l",
+            "bg-surface shadow-pop fixed inset-y-0 right-0 z-50 flex w-full flex-col md:w-130 md:rounded-l-3xl md:border-l",
             "data-[state=closed]:animate-out data-[state=closed]:fade-out data-[state=closed]:slide-out-to-right-6",
             "data-[state=open]:animate-in data-[state=open]:fade-in data-[state=open]:slide-in-from-right-6",
             className,
           )}
         >
-          <div className="flex items-start gap-2.5 border-b px-4.5 py-3.5">
+          <div className="flex items-start gap-2.5 border-b px-5 py-4.5">
             <div className="min-w-0 flex-1">
-              <Dialog.Title className="font-strong text-lg leading-tight">{title}</Dialog.Title>
+              <Dialog.Title className="font-display text-2xl leading-tight">{title}</Dialog.Title>
               {subtitle ? <div className="mt-1 flex flex-wrap items-center gap-2">{subtitle}</div> : null}
             </div>
             <Dialog.Close
               aria-label={t("close")}
-              className="text-ink-2 hover:bg-surface-3 hover:text-ink grid size-8.5 shrink-0 place-items-center rounded-md"
+              className="text-ink-2 hover:bg-surface-3 hover:text-ink grid size-9 shrink-0 place-items-center rounded-xl"
             >
               <X aria-hidden className="size-4.5" />
             </Dialog.Close>
@@ -57,7 +57,7 @@ export const Drawer = ({ open, onOpenChange, title, subtitle, children, classNam
 /** Drawer ichidagi bo'lim sarlavhasi. */
 export const DrawerSection = ({ title, children }: { title: string; children: ReactNode }) => (
   <section>
-    <h3 className="text-2xs text-ink-3 mb-2 font-semibold tracking-widest uppercase">{title}</h3>
+    <h3 className="text-2xs text-ink-3 mb-2 font-semibold">{title}</h3>
     {children}
   </section>
 );

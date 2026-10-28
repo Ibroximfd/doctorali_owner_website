@@ -33,6 +33,13 @@ const renderState = (state: Query) =>
   );
 
 describe("QueryState", () => {
+  it("shows a calm «coming soon» state, without retry, when the endpoint is not on the server yet", async () => {
+    await renderState(query({ error: new AppError("not-found", "backend_error", "backend_error") }));
+
+    expect(screen.getByText("Tez orada")).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Qayta urinish" })).not.toBeInTheDocument();
+  });
+
   it("shows the skeleton on the first load", async () => {
     await renderState(query({ isPending: true }));
 

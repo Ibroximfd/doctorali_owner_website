@@ -2,10 +2,16 @@
 export const routes = {
   login: "/login",
   overview: "/",
+  issues: "/issues",
+  ai: "/ai",
+  forecast: "/forecast",
   orders: "/orders",
   finance: "/finance",
   clinic: "/clinic",
   logistics: "/logistics",
+  warehouse: "/warehouse",
+  settlements: "/settlements",
+  staff: "/staff",
   sales: "/sales",
   app: "/app",
   products: "/products",
@@ -13,6 +19,8 @@ export const routes = {
   doctors: "/doctors",
   alerts: "/alerts",
   reports: "/reports",
+  system: "/system",
+  access: "/access",
   settings: "/settings",
 } as const;
 
@@ -26,7 +34,17 @@ export type RouteKey = keyof typeof routes;
 export type PanelRouteKey = Exclude<RouteKey, "login">;
 
 /** Global filtr (davr · filial) ko'rsatilmaydigan sahifalar. */
-export const ROUTES_WITHOUT_SCOPE: readonly PanelRouteKey[] = ["alerts", "reports", "settings"];
+export const ROUTES_WITHOUT_SCOPE: readonly PanelRouteKey[] = [
+  "alerts",
+  "reports",
+  "settings",
+  // hozirgi holat yoki o'z ufqi bilan ishlaydi (davr filtri ma'nosiz)
+  "issues",
+  "ai",
+  "forecast",
+  "system",
+  "access",
+];
 
 export const routeKeyOf = (pathname: string): PanelRouteKey => {
   const match = (Object.keys(routes) as RouteKey[]).find(

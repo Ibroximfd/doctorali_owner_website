@@ -27,6 +27,16 @@ export class AppError extends Error {
 
 export const isAppError = (error: unknown): error is AppError => error instanceof AppError;
 
+/** Klient eslab qolgan, backendda hali yoqilmagan endpoint. */
+export const ENDPOINT_MISSING = "endpoint_missing";
+
+/**
+ * Yo'l backendda umuman yo'q (BFF Django HTML 404 ni `backend_error` ga aylantiradi)
+ * yoki shunday deb eslab qolingan — bu xato emas, bo'lim hali ulanmagan.
+ */
+export const isMissingEndpoint = (error: AppError): boolean =>
+  error.kind === "not-found" && (error.code === ENDPOINT_MISSING || error.code === "backend_error");
+
 export const kindFromStatus = (status: number | undefined): AppErrorKind => {
   if (status === undefined) return "offline";
   if (status === 401) return "unauthorized";

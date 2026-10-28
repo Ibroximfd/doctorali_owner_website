@@ -28,6 +28,21 @@
   --color-accent-soft: var(--accent-soft);
   --color-scrim: var(--scrim);
 
+  /* brend: Doctor Ali tillasi va chuqur yashil (hero, illyustratsiya, fon) */
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-forest: var(--forest);
+  --color-forest-2: var(--forest-2);
+  --color-mint: var(--mint);
+  --color-ember: var(--ember);
+  --color-glow: var(--glow);
+  --color-hero-ink: var(--hero-ink);
+  --color-hero-ink-2: var(--hero-ink-2);
+  --color-hero-alert: var(--hero-alert);
+  --color-aurora-1: var(--aurora-1);
+  --color-aurora-2: var(--aurora-2);
+  --color-aurora-3: var(--aurora-3);
+
   /* holat (semantik) — har doim ikon + matn bilan */
   --color-good: var(--good);
   --color-good-soft: var(--good-soft);
@@ -70,8 +85,11 @@
   --color-cmp: var(--cmp);
 
   /* tipografiya */
-  --font-sans: var(--font-onest), system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  --font-sans: var(--font-manrope), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "SF Mono", Menlo, monospace;
+  /* sarlavha (Fraunces lotincha; kirill harflari Georgia ga tushadi) */
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --text-3xs: 0.5625rem;
   --text-2xs: 0.6875rem;
   --text-xs: 0.75rem;
   --text-sm: 0.8125rem;
@@ -83,8 +101,10 @@
   --text-kpi--line-height: 1.1;
   --text-2xl: 1.5rem;
   --text-3xl: 2rem;
-  --text-hero: clamp(2.25rem, 4.6vw, 3.25rem);
-  --text-hero--line-height: 1.02;
+  --text-hero: clamp(2rem, 3.6vw, 3.25rem);
+  --text-hero--line-height: 1.08;
+  --text-display: clamp(1.375rem, 1.8vw, 1.75rem);
+  --text-display--line-height: 1.15;
   --font-weight-mid: 550;
   --font-weight-strong: 650;
 
@@ -94,6 +114,8 @@
   --radius-lg: 12px;
   --radius-xl: 16px;
   --radius-2xl: 20px;
+  --radius-3xl: 24px;
+  --radius-4xl: 28px;
   --shadow-pop: var(--elevation-pop);
 
   /* harakat */
@@ -101,6 +123,88 @@
   --animate-flash: flash 1.6s ease-out;
   --animate-live: live 2.4s infinite;
   --animate-shake: shake 0.42s ease-in-out;
+  --animate-sweep: sweep 9s ease-in-out infinite;
+  --animate-ping-soft: ping-soft 2.4s ease-out infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-dash: dash 3.2s linear infinite;
+  --animate-spin-slow: spin 14s linear infinite;
+  --animate-spin-reverse: spin-reverse 22s linear infinite;
+  --animate-breathe: breathe 4s ease-in-out infinite;
+  --animate-typing: typing 1.2s ease-in-out infinite;
+  --animate-rise: rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  @keyframes sweep {
+    0%,
+    35% {
+      transform: translateX(-120%) skewX(-18deg);
+    }
+    75%,
+    100% {
+      transform: translateX(320%) skewX(-18deg);
+    }
+  }
+  @keyframes ping-soft {
+    0% {
+      transform: scale(0.6);
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(2.4);
+      opacity: 0;
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-6px);
+    }
+  }
+  @keyframes dash {
+    to {
+      stroke-dashoffset: -48;
+    }
+  }
+  @keyframes spin-reverse {
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+  @keyframes breathe {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 0.85;
+    }
+    50% {
+      transform: scale(1.06);
+      opacity: 1;
+    }
+  }
+  @keyframes typing {
+    0%,
+    80%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.35;
+    }
+    40% {
+      transform: translateY(-4px);
+      opacity: 1;
+    }
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
 
   @keyframes shimmer {
     from {
@@ -197,63 +301,99 @@
   --cmp: #b3bbb5;
 
   --elevation-pop: 0 12px 32px -8px rgb(17 22 19 / 0.18), 0 2px 6px rgb(17 22 19 / 0.06);
+
+  --gold: #b88a2c;
+  --gold-soft: #f6ecd4;
+  --forest: #0f3d2b;
+  --forest-2: #17694a;
+  --mint: #7fd6a8;
+  --hero-ink: #111613;
+  --hero-ink-2: #48524b;
+  --hero-alert: #b3261e;
+  --aurora-1: rgb(23 105 74 / 0.16);
+  --aurora-2: rgb(184 138 44 / 0.12);
+  --aurora-3: rgb(127 214 168 / 0.16);
+  --ember: #c4502b;
+  --panel-top: #ffffff;
+  --panel-bottom: #fbfcfb;
+  --glow: rgb(23 105 74 / 0.18);
   color-scheme: light;
 }
 
+/*
+ * «Tungi observatoriya» — tasdiqlangan canvas dizayni (asosiy mavzu).
+ * Chuqur yashil-qora fon, yalpiz va tilla nur, ember — e'tibor rangi.
+ */
 .dark {
-  --bg: #0c0f0d;
-  --surface: #141815;
-  --surface-2: #191e1a;
-  --surface-3: #202622;
-  --border: #262d28;
-  --border-strong: #374139;
-  --ink: #f1f5f2;
-  --ink-2: #b4beb7;
-  --ink-3: #828d86;
-  --accent: #4fc48f;
-  --accent-ink: #06140d;
-  --accent-soft: #143021;
-  --scrim: rgb(0 0 0 / 0.6);
+  --bg: #050d09;
+  --surface: #0b1712;
+  --surface-2: #0f1d17;
+  --surface-3: #15251e;
+  --border: rgb(180 230 200 / 0.09);
+  --border-strong: rgb(180 230 200 / 0.18);
+  --ink: #e8f1ec;
+  --ink-2: #9db3a7;
+  --ink-3: #7a9285;
+  --accent: #3fd69a;
+  --accent-ink: #04110b;
+  --accent-soft: rgb(63 214 154 / 0.14);
+  --scrim: rgb(2 6 4 / 0.7);
 
-  --good: #4fc48f;
-  --good-soft: #12301f;
-  --warn: #e6ad45;
-  --warn-soft: #33270f;
-  --serious: #ee9466;
-  --serious-soft: #371f12;
-  --crit: #ef7a72;
-  --crit-soft: #3a1715;
-  --info: #6da7ec;
-  --info-soft: #14273f;
+  --good: #3fd69a;
+  --good-soft: rgb(63 214 154 / 0.13);
+  --warn: #e8c26a;
+  --warn-soft: rgb(232 194 106 / 0.14);
+  --serious: #f0a060;
+  --serious-soft: rgb(240 160 96 / 0.14);
+  --crit: #ff8a6a;
+  --crit-soft: rgb(255 138 106 / 0.14);
+  --info: #6fb3ff;
+  --info-soft: rgb(111 179 255 / 0.14);
 
-  --order-pending: #c98500;
-  --order-confirmed: #12a3a3;
-  --order-shipping: #6c74ee;
-  --order-delivered: #3dab6b;
-  --order-cancelled: #c24040;
+  --order-pending: #e8c26a;
+  --order-confirmed: #4fc8d0;
+  --order-shipping: #8f9bff;
+  --order-delivered: #3fd69a;
+  --order-cancelled: #ff8a6a;
 
-  --series-1: #3987e5;
-  --series-2: #d95926;
-  --series-3: #199e70;
-  --series-4: #c98500;
-  --series-5: #d55181;
-  --series-6: #008300;
-  --series-7: #9085e9;
+  --series-1: #6fb3ff;
+  --series-2: #ff8a6a;
+  --series-3: #3fd69a;
+  --series-4: #e8c26a;
+  --series-5: #e87ba4;
+  --series-6: #4fc8d0;
+  --series-7: #b49cff;
   --series-8: #e66767;
-  --seq-1: #15304f;
-  --seq-2: #1b4577;
-  --seq-3: #235a9e;
-  --seq-4: #2a78d6;
-  --seq-5: #5598e7;
-  --seq-6: #9ec5f4;
-  --seq-lo: #d6e6fb;
+  --seq-1: #0f2a20;
+  --seq-2: #144232;
+  --seq-3: #1b6047;
+  --seq-4: #25875f;
+  --seq-5: #3fd69a;
+  --seq-6: #8af0c2;
+  --seq-lo: #e8f1ec;
   --seq-mid: #ffffff;
-  --seq-hi: #0b1f38;
-  --grid: #222924;
-  --axis: #374139;
-  --cmp: #566059;
+  --seq-hi: #04110b;
+  --grid: rgb(180 230 200 / 0.07);
+  --axis: rgb(180 230 200 / 0.16);
+  --cmp: #4d6358;
 
-  --elevation-pop: 0 16px 40px -8px rgb(0 0 0 / 0.6), 0 2px 6px rgb(0 0 0 / 0.4);
+  --elevation-pop: 0 24px 60px -12px rgb(0 0 0 / 0.7), 0 2px 8px rgb(0 0 0 / 0.4);
+  --panel-top: rgb(255 255 255 / 0.04);
+  --panel-bottom: rgb(255 255 255 / 0.012);
+  --glow: rgb(63 214 154 / 0.35);
+
+  --gold: #e8c26a;
+  --gold-soft: rgb(232 194 106 / 0.14);
+  --forest: #0b2a1e;
+  --forest-2: #145a3e;
+  --mint: #8af0c2;
+  --ember: #ff8a6a;
+  --hero-ink: #e8f1ec;
+  --hero-ink-2: #9db3a7;
+  --hero-alert: #ff8a6a;
+  --aurora-1: rgb(63 214 154 / 0.1);
+  --aurora-2: rgb(232 194 106 / 0.07);
+  --aurora-3: rgb(111 179 255 / 0.06);
   color-scheme: dark;
 }
 
@@ -300,6 +440,103 @@
   background: linear-gradient(90deg, var(--surface-3) 25%, var(--surface-2) 45%, var(--surface-3) 65%);
   background-size: 300% 100%;
   animation: var(--animate-shimmer);
+}
+
+/* Bo'lim boshi (hero) foni: chuqur yashil gradient + tilla nur. */
+@utility hero-surface {
+  background:
+    radial-gradient(
+      90% 120% at 100% 0%,
+      color-mix(in srgb, var(--gold) 12%, transparent) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      80% 120% at 0% 100%,
+      color-mix(in srgb, var(--accent) 12%, transparent) 0%,
+      transparent 55%
+    ),
+    linear-gradient(180deg, var(--panel-top), var(--panel-bottom));
+}
+
+/* Barg tomirlari naqshi (fon va hero ustida). */
+@utility leaf-pattern {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    color-mix(in srgb, var(--ink) 9%, transparent) 1px,
+    transparent 0
+  );
+  background-size: 22px 22px;
+}
+
+/*
+ * Orqa fon «aurora» nuri (`AmbientBackground`): uch qatlamli radial gradient bitta
+ * qatlamda — `filter: blur` va doimiy animatsiyasiz, shuning uchun aylantirishda
+ * GPU qayta chizmaydi (eski suzuvchi dog'lar har kadrda 3 ta katta blur chizardi).
+ */
+/* Xarita ustidagi nom: rangli maydon ustida ham o'qilsin — fon rangidagi yumshoq kontur. */
+@utility map-label {
+  text-shadow:
+    0 0 3px var(--color-bg),
+    0 0 8px var(--color-bg),
+    0 1px 1px var(--color-bg);
+}
+
+@utility ambient-glow {
+  background:
+    radial-gradient(60vmax 50vmax at 0% 0%, var(--aurora-1), transparent 70%),
+    radial-gradient(50vmax 40vmax at 100% 0%, var(--aurora-2), transparent 70%),
+    radial-gradient(60vmax 45vmax at 50% 100%, var(--aurora-3), transparent 70%);
+}
+@utility fade-mask-top {
+  mask-image: radial-gradient(ellipse at top, black 10%, transparent 70%);
+}
+@utility fade-mask-x {
+  mask-image: linear-gradient(90deg, transparent, black 18%, black 82%, transparent);
+}
+
+/* Illyustratsiya orbitasi: kanva (320×220) markazi atrofida aylanadi. */
+@utility art-orbit {
+  transform-box: view-box;
+  transform-origin: 160px 112px;
+}
+/* SVG bo'lagi o'z markazi atrofida (suzish, puls). */
+@utility art-self {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* Ketma-ket animatsiya (yozilmoqda nuqtalari). */
+@utility anim-delay-1 {
+  animation-delay: 150ms;
+}
+@utility anim-delay-2 {
+  animation-delay: 300ms;
+}
+
+/* Tilla matn (raqam va sarlavhada urg'u) — yaxlit rang, gradient emas. */
+@utility text-gilded {
+  color: var(--gold);
+}
+
+/* Panel kartasi: yuqoridan pastga xira yorug'lik (canvas «instrument» kartalari). */
+@utility panel-surface {
+  background: linear-gradient(180deg, var(--panel-top), var(--panel-bottom));
+}
+
+/* Sarlavha shrifti (Fraunces) — opsz o'q bilan katta o'lchamda nozik. */
+@utility font-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-optical-sizing: auto;
+  letter-spacing: -0.02em;
+}
+
+/* Fon to'ri (xarita sahnasi, grafik orqasi). */
+@utility grid-lines {
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 48px 48px;
 }
 
 @media (prefers-reduced-motion: reduce) {

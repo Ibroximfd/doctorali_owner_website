@@ -178,8 +178,8 @@ describe("AlertRulesCard", () => {
   });
 
   it("offers a retry when the rules fail to load and recovers", async () => {
-    // Ikki marta yiqiladi (so'rov + klientning bitta avtomatik takrori), keyin odatdagi javobga o'tadi.
-    let failuresLeft = 2;
+    // Bir marta yiqiladi (HTTP klient o'zi qayta urinmaydi — takrorlash faqat Query da), keyin tiklanadi.
+    let failuresLeft = 1;
     server.use(
       http.get("*/api/owner/alerts/rules/", () => {
         if (failuresLeft === 0) return undefined;

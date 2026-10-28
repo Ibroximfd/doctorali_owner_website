@@ -1,0 +1,68 @@
+{
+  "results": [
+    {
+      "id": 7,
+      "user_id": 44,
+      "full_name": "Sardor Aliyev",
+      "phone": "+998901234567",
+      "title": "Call-center admini",
+      "platform_role": "operator_admin",
+      "sections": [
+        "warehouse"
+      ],
+      "filials": [
+        1
+      ],
+      "regions": [],
+      "mask_pii": true,
+      "can_export": false,
+      "expires_at": "2026-10-07T09:00:00.000Z",
+      "status": "active",
+      "last_seen_at": "2026-10-05T08:00:00.000Z",
+      "created_at": "2026-09-15T09:00:00.000Z",
+      "note": "Qoldiqni operatorlarga aytib turish uchun"
+    },
+    {
+      "id": 8,
+      "user_id": 45,
+      "full_name": "Malika Yusupova",
+      "phone": "+998935551122",
+      "title": "Logist",
+      "platform_role": "logist",
+      "sections": [
+        "logistics",
+        "warehouse",
+        "issues"
+      ],
+      "filials": [],
+      "regions": [],
+      "mask_pii": true,
+      "can_export": true,
+      "expires_at": null,
+      "status": "pending",
+      "last_seen_at": null,
+      "created_at": "2026-10-04T09:00:00.000Z",
+      "note": null
+    },
+    {
+      "id": 6,
+      "user_id": 46,
+      "full_name": "Nodira Rasulova",
+      "phone": null,
+      "title": "Buxgalter",
+      "platform_role": "accountant",
+      "sections": [
+        "finance"
+      ],
+      "filials": [],
+      "regions": [],
+      "mask_pii": false,
+      "can_export": true,
+      "expires_at": null,
+      "status": "revoked",
+      "last_seen_at": null,
+      "created_at": "2026-08-06T09:00:00.000Z",
+      "note": null
+    }
+  ]
+}

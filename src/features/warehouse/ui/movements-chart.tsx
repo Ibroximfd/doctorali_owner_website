@@ -2,26 +2,29 @@
 
 import { useTranslations } from "next-intl";
 
-import { CHANNEL_COLOR, seriesColor, type ChannelKey } from "@/shared/config/chart-palette";
+import { seriesColor } from "@/shared/config/chart-palette";
 import { useFormat } from "@/shared/hooks/use-format";
+import { formatNumber } from "@/shared/lib/format";
 import { Card, CardBody, CardHeader } from "@/shared/ui/card";
 import { ChartCard } from "@/shared/ui/chart-card";
 import { ChartSkeleton, QueryState } from "@/shared/ui/states";
 
-import { useRevenueTrendQuery } from "../hooks/use-overview";
+import { useMovementsQuery } from "../hooks/use-warehouse";
 
-const isChannel = (key: string): key is ChannelKey => key in CHANNEL_COLOR;
+/** Seriya → rang: kirim va chiqim har doim bir xil rangda. */
+const MOVEMENT_COLOR: Record<string, string> = { inbound: seriesColor(0), outbound: seriesColor(2) };
 
-export const RevenueTrend = ({ className }: { className?: string }) => {
-  const t = useTranslations("overview");
+/** Kunlik kirim va chiqim (dona). */
+export const MovementsChart = ({ className }: { className?: string }) => {
+  const t = useTranslations("warehouse.movements");
   const tCommon = useTranslations("common");
   const format = useFormat();
-  const query = useRevenueTrendQuery();
+  const query = useMovementsQuery();
 
   if (query.data === undefined) {
     return (
       <Card className={className}>
-        <CardHeader title={t("trend.title")} description={t("trend.description")} />
+        <CardHeader title={t("title")} description={t("description")} />
         <CardBody>
           <QueryState query={query} skeleton={<ChartSkeleton />}>
             {() => null}
@@ -32,23 +35,21 @@ export const RevenueTrend = ({ className }: { className?: string }) => {
   }
 
   const { period, data } = query.data;
-
   return (
     <ChartCard
       className={className}
       kind="trend"
-      title={t("trend.title")}
-      description={t("trend.description")}
+      title={t("title")}
+      description={t("description")}
       columnLabel={tCommon("period")}
-      formatValue={format.money}
-      formatAxis={format.moneyCompact}
-      showTotal
+      formatValue={formatNumber}
       data={{
         labels: data.labels.map((label) => format.bucket(label, period.granularity)),
         series: data.series.map((series, index) => ({
           key: series.key,
-          name: isChannel(series.key) ? t(`channels.${series.key}`) : series.key,
-          color: seriesColor(isChannel(series.key) ? CHANNEL_COLOR[series.key] : index),
+          name:
+            series.key === "inbound" || series.key === "outbound" ? t(`series.${series.key}`) : series.key,
+          color: MOVEMENT_COLOR[series.key] ?? seriesColor(index + 3),
           values: series.values,
         })),
       }}
