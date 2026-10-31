@@ -7,7 +7,6 @@ import type { ReactNode } from "react";
 
 import { MONEY_LOCATION_BG } from "@/shared/config/chart-palette";
 import { useFormat } from "@/shared/hooks/use-format";
-import { pointChange } from "@/shared/lib/envelope";
 import { formatNumber, formatPercent } from "@/shared/lib/format";
 import { Card, CardBody, CardHeader } from "@/shared/ui/card";
 import { DataTable, type Column } from "@/shared/ui/data-table";
@@ -104,7 +103,15 @@ const MoneyHero = ({ overview }: { overview: Overview }) => {
           <AnimatedNumber value={revenue.value ?? 0} format={format.moneyCompact} />
           <span className="text-ink-3 ml-2 text-xl">{format.currency}</span>
         </div>
-        <MetricDelta value={revenue.deltaPct} className="mt-2" />
+        {/* solishtiruv backenddan (B-17): `delta_pct: null` — oldingisi 0, o'zgarish chizilmaydi */}
+        <div className="mt-2 flex flex-wrap items-center gap-2">
+          <MetricDelta value={revenue.deltaPct} />
+          {revenue.previous === null ? null : (
+            <span className="text-ink-3 text-xs">
+              {t("previous", { value: format.moneyCompact(revenue.previous) })}
+            </span>
+          )}
+        </div>
       </div>
       <div className="lg:col-span-7">
         <p className="text-ink-2 mb-2.5 text-sm font-medium">{t("whereTitle")}</p>
@@ -154,8 +161,7 @@ const OrdersRow = ({ overview }: { overview: Overview }) => {
       <StatTile
         label={t("conversion")}
         value={formatPercent(conversion.value)}
-        delta={pointChange(conversion)}
-        deltaUnit="pp"
+        delta={conversion.deltaPct}
         note={t("conversionNote")}
       />
     </StatRow>

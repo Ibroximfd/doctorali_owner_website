@@ -53,7 +53,8 @@ const analytics = (ctx: MockContext) => {
     trend: {
       labels: ctx.period.labels,
       sold: ctx.series(total.sold, 31),
-      cancelled: ctx.series(total.cancelled, 37),
+      delivered: ctx.series(total.delivered, 33),
+      otkaz: ctx.series(total.cancelled, 37),
     },
     filials: filials.map(({ filial, flow }) => ({
       id: filial.id,

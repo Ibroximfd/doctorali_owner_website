@@ -14,10 +14,16 @@ import {
 } from "@/shared/lib/lenient";
 
 /**
- * «Ilova» — `GET /api/owner/app/v2/` (javob B-14): ilova zakazlari, DAU/MAU, operator referali
- * (`referred_by`, `tracked: true`). Ilova = mehrigiyo + sino_ai. Aniq shakl hujjatda yo'q — o'qish
- * chidamli (`shared/lib/lenient`); javobda yo'q bo'lim — `null` (blok «backend kutilmoqda»).
+ * «Ilova» — `GET /api/owner/app/v2/` (B-14, B-20 / N-8): ilova zakazlari (`orders.revenue` — puli,
+ * `orders.trend`), foydalanuvchilar (`users.trend`; DAU/MAU — faqat joriy ko'rsatkich, kunlik
+ * qatori backendda yo'q), operator referali `referrals {tracked, operators:[{id, full_name, filial,
+ * invited, ordered}]}`. Trendlar (jonli javob): `orders.trend {labels, orders, delivered}`,
+ * `users.trend {labels, new}`. Ilova = mehrigiyo + sino_ai. Javobda yo'q bo'lim — `null` (blok
+ * «backend kutilmoqda»); yo'q trend — bo'sh.
  */
+
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === "object" && value !== null && !Array.isArray(value);
 
 export const APP_ORDER_STATUSES = ["pending", "confirmed", "in_transit", "delivered", "cancelled"] as const;
 export type AppOrderStatus = (typeof APP_ORDER_STATUSES)[number];
@@ -67,7 +73,7 @@ const appFilialSchema = withFilialCode(
 
 /**
  * `total` = kutilmoqda + sotilgan (tasdiqlangandan boshlab). Jonli javob: `{totals:{…holatlar},
- * by_filial}` — tushum va trend yo'q (0 va bo'sh).
+ * by_filial, revenue (satr), trend}`.
  */
 const appOrdersSchema = withDefaults(
   (raw) => ({ total: statusTotal(raw.totals ?? raw.statuses) }),
@@ -75,12 +81,12 @@ const appOrdersSchema = withDefaults(
     { statuses: ["totals", "by_status"], filials: ["by_filial"] },
     z.object({
       total: num,
-      /** Ilova zakazlari puli — `app/v2/` da yo'q (savol B-20): `null` → «—». */
+      /** Ilova zakazlari puli (N-8: davrda yaratilgan va yetkazilganlar); kelmasa `null` → «—». */
       revenue: optNum,
       statuses: statusesSchema,
       trend: z.preprocess(
         (raw) => raw ?? {},
-        z.object({ labels: list(z.string()), total: numbers("total"), delivered: numbers("delivered") }),
+        z.object({ labels: list(z.string()), orders: numbers(), delivered: numbers() }),
       ),
       filials: list(appFilialSchema),
     }),
@@ -89,7 +95,10 @@ const appOrdersSchema = withDefaults(
 export type AppOrders = Camelized<z.infer<typeof appOrdersSchema>>;
 export type AppFilialOrders = AppOrders["filials"][number];
 
-/** Jami, davrda yangi, DAU (o'rtacha kunlik), MAU (30 kun). */
+/**
+ * Jami, davrda yangi, DAU (o'rtacha kunlik), MAU (30 kun) — joriy ko'rsatkichlar. `trend` — yangi
+ * foydalanuvchilar kunlar bo'yicha (B-20). DAU/MAU kunlik qatori backendda yo'q va so'ralmaydi.
+ */
 const appUsersSchema = aliases(
   { users_total: ["total"], new_users: ["new_in_period"] },
   z.object({
@@ -97,36 +106,45 @@ const appUsersSchema = aliases(
     new_users: num,
     dau: num,
     mau: num,
-    trend: z.preprocess(
-      (raw) => raw ?? {},
-      z.object({ labels: list(z.string()), dau: numbers("dau"), mau: numbers("mau") }),
-    ),
+    trend: z.preprocess((raw) => raw ?? {}, z.object({ labels: list(z.string()), new: numbers() })),
   }),
 );
 export type AppUsers = Camelized<z.infer<typeof appUsersSchema>>;
 
-/** Operator ilovaga olib kirgan foydalanuvchilar (`referred_by`). */
-const appOperatorSchema = flattenRef(
-  "filial",
-  withFilialCode(
-    aliases(
-      {
-        invited: ["referred", "users", "invited_users"],
-        ordered: ["orders", "ordered_users"],
-        full_name: ["name"],
-      },
-      z.object({
-        id: num,
-        full_name: str,
-        filial_id: num,
-        filial_code: str,
-        filial_name: str,
-        invited: num,
-        ordered: num,
-      }),
+/** Referal qatori `filial` — `{id, name}` yoki nom satri; satr bo'lsa `filial_name` ga. */
+const filialNameOf = <Shape extends z.ZodTypeAny>(schema: Shape) =>
+  z.preprocess(
+    (raw) =>
+      isRecord(raw) && typeof raw.filial === "string"
+        ? { ...raw, filial_name: raw.filial_name ?? raw.filial, filial: undefined }
+        : raw,
+    schema,
+  );
+
+/** Operator ilovaga olib kirgan foydalanuvchilar (B-20: `{id, full_name, filial, invited, ordered}`). */
+const appOperatorSchema = filialNameOf(
+  flattenRef(
+    "filial",
+    withFilialCode(
+      aliases(
+        {
+          invited: ["referred", "users", "invited_users"],
+          ordered: ["orders", "ordered_users"],
+          full_name: ["name"],
+        },
+        z.object({
+          id: num,
+          full_name: str,
+          filial_id: num,
+          filial_code: str,
+          filial_name: str,
+          invited: num,
+          ordered: num,
+        }),
+      ),
+      "filial_code",
+      "filial_name",
     ),
-    "filial_code",
-    "filial_name",
   ),
 );
 export type AppOperator = Camelized<z.infer<typeof appOperatorSchema>>;

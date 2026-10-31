@@ -28,7 +28,7 @@ const orders = (ctx: MockContext) => {
     },
     trend: {
       labels: ctx.period.labels,
-      total: ctx.series(received, 51),
+      orders: ctx.series(received, 51),
       delivered: ctx.series(total.delivered, 53),
     },
     filials: rows.map(({ filial, flow }) => ({
@@ -48,8 +48,8 @@ const DAU_BASE = 6_200;
 const MAU_BASE = 41_500;
 
 /**
- * DAU — har nuqtada o'rtacha kunlik aktiv (soatlik davrda — o'sha soatdagi aktivlar), MAU —
- * nuqtagacha bo'lgan 30 kundagi aktivlar. Ikkalasi alohida grafikda (shkalasi har xil).
+ * DAU — davrdagi o'rtacha kunlik aktiv, MAU — oxirgi 30 kun (joriy ko'rsatkichlar; kunlik qatori
+ * backendda yo'q, B-20). `trend` — yangi foydalanuvchilar davr bo'yicha.
  */
 const users = (ctx: MockContext) => {
   const random = rng(97);
@@ -59,16 +59,13 @@ const users = (ctx: MockContext) => {
     const growth = 0.94 + (0.08 * index) / Math.max(1, count - 1);
     return Math.round((isHourly ? DAU_BASE / 9 : DAU_BASE) * growth * (0.9 + random() * 0.2));
   });
-  const mau = ctx.period.labels.map((_, index) =>
-    Math.round(MAU_BASE * (0.96 + (0.05 * index) / Math.max(1, count - 1))),
-  );
   const average = dau.length ? Math.round(dau.reduce((sum, value) => sum + value, 0) / dau.length) : 0;
   return {
     users_total: USERS_TOTAL,
     new_users: scaled(ctx, 2_640),
     dau: isHourly ? DAU_BASE : average,
-    mau: mau.at(-1) ?? MAU_BASE,
-    trend: { labels: ctx.period.labels, dau, mau },
+    mau: MAU_BASE,
+    trend: { labels: ctx.period.labels, new: ctx.series(scaled(ctx, 2_640), 59) },
   };
 };
 

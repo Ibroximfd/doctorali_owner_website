@@ -27,14 +27,19 @@
     "due": "Qarz {value}",
     "paid": "To'langan",
     "formula": "{count} manzil × narx",
-    "paidLabel": "To'landi"
+    "paidLabel": "To'landi",
+    "notTracked": "Tizimda kuzatilmaydi",
+    "notTrackedNote": "Haqning to'langanini tizim hozircha qayd etmaydi — faqat hisoblangan summa ko'rsatiladi."
   },
   "handovers": {
     "title": "Filiallarga topshirilgan pul",
-    "description": "Bosh kuryer → filial: oxirgi pul topshirish, kechikkanlar tepada",
+    "description": "Bosh kuryer → filial: oxirgi pul topshirish, tasdiqlanmaganlar tepada",
     "route": "{chief} → {filial}",
-    "onTime": "o'z vaqtida",
-    "late": "Kechikdi"
+    "status": {
+      "pending": "Kutilmoqda",
+      "confirmed": "Tasdiqlandi",
+      "disputed": "Bahsli"
+    }
   },
   "chiefs": {
     "title": "Bosh kuryerlar bilan hisob",
@@ -46,7 +51,8 @@
     "collected": "Yig'ildi",
     "handed": "Topshirildi",
     "pending": "Hali yetmagan",
-    "fee": "Haq: to'langan / jami"
+    "fee": "Haq: to'langan / jami",
+    "feeTotal": "Haq (hisoblangan)"
   },
   "map": {
     "title": "Viloyatlar",

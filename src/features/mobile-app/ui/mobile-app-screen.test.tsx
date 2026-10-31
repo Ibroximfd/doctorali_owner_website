@@ -18,7 +18,6 @@ describe("MobileAppScreen", () => {
   useMockApi();
 
   it("shows app orders with statuses, filials, and users with DAU and MAU", async () => {
-    const user = userEvent.setup();
     await renderWithProviders(<MobileAppScreen />, { searchParams: "?period=30d" });
 
     expect((await screen.findAllByText("Tushgan zakazlar")).length).toBeGreaterThan(0);
@@ -28,9 +27,10 @@ describe("MobileAppScreen", () => {
     expect((await within(card("Filiallar kesimida")).findAllByText("Toshkent 2")).length).toBeGreaterThan(0);
 
     expect((await screen.findAllByText("Jami foydalanuvchi")).length).toBeGreaterThan(0);
-    const chart = within(card("Aktiv foydalanuvchilar"));
-    await user.click(chart.getByRole("button", { name: "MAU" }));
-    expect(chart.getByRole("button", { name: "MAU" })).toHaveAttribute("aria-pressed", "true");
+    expect(card("Yangi foydalanuvchilar")).toBeInTheDocument();
+    // DAU/MAU kunlik qatori yo'q (B-20) — almashtirgich ham yo'q, faqat joriy ko'rsatkich
+    expect(screen.queryByRole("button", { name: "MAU" })).not.toBeInTheDocument();
+    expect(within(card("Faollik")).getByText("Kunlik / oylik aktiv (DAU ÷ MAU)")).toBeInTheDocument();
   });
 
   it("lists operators by people brought into the app, filterable by filial", async () => {

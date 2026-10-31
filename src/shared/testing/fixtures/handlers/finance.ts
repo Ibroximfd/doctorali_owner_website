@@ -35,9 +35,9 @@ const handovers = (ctx: MockContext, filialIds: readonly number[]) => {
           chief_name: sklad.chief.full_name,
           filial_id: filialId,
           filial_code: filials.find((filial) => filial.id === filialId)?.code ?? "",
-          addresses: isLate ? addresses * 3 : addresses,
           amount: (isLate ? addresses * 3 : addresses) * AVG_CHECK,
-          on_time: !isLate,
+          // eng yangisi filialda hali tasdiqlanmagan; kechikkan juftlik — bahsli
+          status: isLate ? "disputed" : day === 0 ? "pending" : "confirmed",
         });
       }
     }
@@ -70,8 +70,11 @@ const finance = (ctx: MockContext) => {
     }
   }
 
+  // haq «to'landi» deb yopish backendda yo'q (B-18) — namuna ham shunday: to'langani `null`
   return envelope(ctx, {
     address_rate: ADDRESS_RATE,
+    fee_paid: null,
+    fee_paid_tracked: false,
     totals: {
       revenue: totals.revenue,
       at_couriers: totals.atCouriers,
@@ -79,7 +82,7 @@ const finance = (ctx: MockContext) => {
       handed: totals.handed,
       addresses: totals.addresses,
       chief_fee: totals.fee,
-      chief_fee_paid: totals.feePaid,
+      chief_fee_paid: null,
     },
     filials: perFilial.map(({ filial, money }) => ({
       id: filial.id,
@@ -93,7 +96,7 @@ const finance = (ctx: MockContext) => {
       handed: money.handed,
       addresses: money.addresses,
       chief_fee: money.fee,
-      chief_fee_paid: money.feePaid,
+      chief_fee_paid: null,
     })),
     chiefs: SKLADS.map((sklad) => ({
       sklad_id: sklad.id,
@@ -107,7 +110,7 @@ const finance = (ctx: MockContext) => {
           filial_code: codeOf(filial),
           addresses: row?.addresses ?? 0,
           fee: row?.fee ?? 0,
-          fee_paid: row?.feePaid ?? 0,
+          fee_paid: null,
           collected: row?.revenue ?? 0,
           handed: row?.handed ?? 0,
           pending: (row?.atChief ?? 0) + (row?.atCouriers ?? 0),

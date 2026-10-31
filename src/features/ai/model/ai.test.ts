@@ -70,3 +70,29 @@ describe("ai rules", () => {
     expect(summaryLines(null)).toEqual([]);
   });
 });
+
+describe("finding text by language (N-10)", () => {
+  const finding = {
+    severity: "urgent",
+    title: "Skladda 31 ta shoshilinch topilma",
+    title_ru: "На складе 31 срочная находка",
+    detail: "Kuryer 8 kun harakatsiz",
+    detail_ru: null,
+  };
+
+  it("uses title_ru / detail_ru in Russian and falls back to the Uzbek text", () => {
+    expect(findingTitle(finding, "ru")).toBe("На складе 31 срочная находка");
+    expect(findingTitle(finding, "uz")).toBe("Skladda 31 ta shoshilinch topilma");
+    expect(findingDetail(finding, "ru")).toBe("Kuryer 8 kun harakatsiz");
+    expect(findingTitle({ severity: "good", title: "Sklad", title_ru: "" }, "ru")).toBe("Sklad");
+  });
+
+  it("reads the analysis period with both name pairs (B-24)", () => {
+    const parsed = analysisSchema.parse({
+      generated_at: "x",
+      period: { from: "2026-10-02", to: "2026-10-31", date_from: "2026-10-02", date_to: "2026-10-31" },
+    });
+    expect(parsed.period).toEqual({ date_from: "2026-10-02", date_to: "2026-10-31" });
+    expect(analysisSchema.parse({ generated_at: "x", period: null }).period).toBeNull();
+  });
+});

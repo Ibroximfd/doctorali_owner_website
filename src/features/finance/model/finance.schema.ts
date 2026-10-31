@@ -15,11 +15,14 @@ import {
 } from "@/shared/lib/lenient";
 
 /**
- * «Moliya» — `GET /api/owner/finance/v2/` (B-12). Jonli javob (2026-10-31): `totals`
+ * «Moliya» — `GET /api/owner/finance/v2/` (B-12, B-18 / N-7). Jonli javob (2026-10-31): `totals`
  * (`with_couriers`, `with_chiefs`, `handed_over`), `by_filial[{filial:{id,name}, …}]`,
  * `chiefs[{seat_id, full_name, by_filial}]`, `handovers[{chief, filial, status, …}]`,
- * `regions[{region, otkaz, revenue}]`. Manzil narxi, manzillar soni va bosh kuryer haqi
- * javobda yo'q — 0 bo'lib turadi. `?source=` pul zanjiriga qo'llanmaydi (backend qoidasi).
+ * `regions[{region, otkaz, revenue}]`, `address_rate` (bir manzil narxi). `with_chiefs` — qoldiq
+ * (butun tarix bo'yicha qabul − topshirilgan), manfiy bo'lmaydi. Manzil soni va haq — faqat
+ * `chiefs[].by_filial[]` da (filial va jami shulardan yig'iladi). Haq «to'landi» tizimda
+ * kuzatilmaydi (`fee_paid: null`, `fee_paid_tracked: false`). `?source=` pul zanjiriga
+ * qo'llanmaydi (backend qoidasi).
  */
 const MONEY_ALIASES = {
   at_couriers: ["with_couriers"],
@@ -98,9 +101,13 @@ const chiefSchema = aliases(
   }),
 );
 
+/** Topshiriq holati (B-18): kutilmoqda · tasdiqlandi · bahsli. */
+export const HANDOVER_STATUSES = ["pending", "confirmed", "disputed"] as const;
+export type HandoverStatus = (typeof HANDOVER_STATUSES)[number];
+
 /**
- * Topshiriq. Jonli javobda `status` (`pending | confirmed | disputed …`) bor, `on_time` yo'q —
- * `disputed` va `pending` «vaqtida emas» deb o'qiladi.
+ * Topshiriq — pul hodisasi: manzil soni unda yo'q (B-18, taxmin yozilmaydi). Notanish holat
+ * «kutilmoqda» deb o'qiladi — tasdiqlanmagan pul tasdiqlangan bo'lib ko'rinmasin.
  */
 const handoverSchema = flattenRef(
   "chief",
@@ -108,11 +115,7 @@ const handoverSchema = flattenRef(
     "filial",
     withFilialCode(
       withDefaults(
-        (raw) => ({
-          on_time: typeof raw.status === "string" ? !["pending", "disputed"].includes(raw.status) : true,
-          sklad_id: raw.chief_seat_id,
-          chief_name: raw.chief_full_name,
-        }),
+        (raw) => ({ sklad_id: raw.chief_seat_id, chief_name: raw.chief_full_name }),
         z.object({
           id: num,
           date: str,
@@ -120,9 +123,8 @@ const handoverSchema = flattenRef(
           chief_name: str,
           filial_id: num,
           filial_code: str,
-          addresses: num,
           amount: num,
-          on_time: z.boolean().default(true),
+          status: z.enum(HANDOVER_STATUSES).catch("pending"),
         }),
       ),
       "filial_code",
@@ -137,8 +139,8 @@ const regionSchema = aliases(
 );
 
 /**
- * Jonli javobda filial va jami darajasida manzil soni, haq va manzil narxi yo'q — ular
- * `chiefs[].by_filial[]` (bosh kuryer × filial) dan yig'iladi; narx = haq ÷ manzil.
+ * Jonli javobda filial va jami darajasida manzil soni va haq yo'q — ular `chiefs[].by_filial[]`
+ * (bosh kuryer × filial) dan yig'iladi. Manzil narxi esa faqat backenddan (`address_rate`).
  */
 const deriveFromChiefs = (raw: unknown): unknown => {
   if (typeof raw !== "object" || raw === null || Array.isArray(raw)) return raw;
@@ -170,11 +172,9 @@ const deriveFromChiefs = (raw: unknown): unknown => {
     string,
     unknown
   >;
-  const addresses = sum("addresses");
   return {
     ...body,
-    address_rate: body.address_rate ?? (addresses > 0 ? Math.round(sum("fee") / addresses) : null),
-    totals: { addresses, chief_fee: sum("fee"), ...totals },
+    totals: { addresses: sum("addresses"), chief_fee: sum("fee"), ...totals },
     [body.by_filial ? "by_filial" : "filials"]: filialRows.map((row) => {
       const id = cellFilial({
         filial: (row as { filial?: unknown }).filial,
@@ -192,8 +192,13 @@ export const financeSchema = z.preprocess(
   aliases(
     { filials: ["by_filial"] },
     z.object({
-      /** Bir manzil narxi — hamma filial uchun bitta (jonli javobda yo'q). */
-      address_rate: num,
+      /** Bir manzil narxi — hamma filial uchun bitta (B-18); kelmasa `null` — blok «kutilmoqda». */
+      address_rate: optNum,
+      /**
+       * Haq «to'landi» deb yopiladimi (B-18). `false` — to'langani tizimda yo'q: ekranda
+       * «to'landi / qarz» o'rniga halol izoh. Maydon kelmasa ham `false` (taxmin qilinmaydi).
+       */
+      fee_paid_tracked: z.boolean().default(false),
       totals: z.preprocess((raw) => raw ?? {}, totalsSchema),
       filials: list(filialSchema),
       chiefs: list(chiefSchema),

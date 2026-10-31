@@ -16,10 +16,11 @@ import {
 } from "@/shared/lib/lenient";
 
 /**
- * «Analitika» — `GET /api/owner/analytics/v2/` (B-13). Jonli javob (2026-10-31): `totals`
- * (`otkaz`), `by_filial[]`, `products[{item:{id,name}, sold_qty, delivered_qty, otkaz_qty}]`,
- * `operators[{filial:{id,name}, sold, delivered, otkaz}]`. Kunlik trend, operator lidlari va
- * atkaz foizi javobda yo'q — foiz hisoblanadi, trend bo'sh.
+ * «Analitika» — `GET /api/owner/analytics/v2/` (B-13, B-19). Jonli javob (2026-10-31): `totals`
+ * (`otkaz`), kunlik `trend {labels, sold, delivered, otkaz}`, `by_filial[]`,
+ * `products[{item:{id,name}, sold_qty, delivered_qty, otkaz_qty}]`,
+ * `operators[{filial:{id,name}, leads, sold, delivered, otkaz, conversion_pct}]` (lidsiz
+ * operatorda `conversion_pct: null` → «—»). Atkaz foizi javobda yo'q — hisoblanadi.
  */
 const cancelRate = <Shape extends z.ZodTypeAny>(schema: Shape) =>
   withDefaults(
@@ -33,7 +34,10 @@ const rates = { conversion_pct: optNum, cancel_rate_pct: optNum };
 
 const trendSchema = z.preprocess(
   (raw) => raw ?? {},
-  z.object({ labels: list(z.string()), sold: numbers(), cancelled: numbers() }),
+  aliases(
+    { cancelled: ["otkaz"] },
+    z.object({ labels: list(z.string()), sold: numbers(), delivered: numbers(), cancelled: numbers() }),
+  ),
 );
 
 export const analyticsSchema = aliases(
@@ -45,7 +49,7 @@ export const analyticsSchema = aliases(
         aliases(RATE_ALIASES, z.object({ leads: num, sold: num, delivered: num, cancelled: num, ...rates })),
       ),
     ),
-    /** Kunlik (soatlik/haftalik) sotuv va atkaz — `labels` o'qida. Jonli javobda yo'q. */
+    /** Kunlik (soatlik/haftalik) sotuv, yetkazish va atkaz — `labels` o'qida (B-19). */
     trend: trendSchema,
     filials: list(
       withFilialCode(

@@ -1,7 +1,7 @@
 "use client";
 
 import { RefreshCw, ShieldCheck, Sparkles } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import { cn } from "@/shared/lib/cn";
 import { Button } from "@/shared/ui/button";
@@ -127,11 +127,12 @@ const FindingGroups = ({ findings }: { findings: readonly Finding[] }) => {
 
 const FindingItem = ({ finding }: { finding: Finding }) => {
   const t = useTranslations("ai.findings");
-  const detail = findingDetail(finding);
+  const locale = useLocale();
+  const detail = findingDetail(finding, locale);
   const advice = findingAdvice(finding);
   return (
     <li className="bg-surface rounded-2xl border px-4 py-3">
-      <div className="text-sm font-semibold">{findingTitle(finding)}</div>
+      <div className="text-sm font-semibold">{findingTitle(finding, locale)}</div>
       {detail ? <p className="text-ink-2 mt-1 text-sm">{detail}</p> : null}
       {advice ? (
         <p className="text-ink-2 mt-1.5 text-xs">

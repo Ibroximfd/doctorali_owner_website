@@ -15,7 +15,7 @@ import { Pill } from "@/shared/ui/pill";
 import { Sparkline } from "@/shared/ui/sparkline";
 
 import { useFilialDialogs } from "../hooks/use-filials";
-import { leaderOf } from "../model/filials.rules";
+import { filialRegionLabel, leaderOf } from "../model/filials.rules";
 import {
   LEADER_ROLES,
   type FilialItem,
@@ -38,6 +38,7 @@ type FilialCardProps = {
 export const FilialCard = ({ filial, performance, onMakeMain, index }: FilialCardProps) => {
   const t = useTranslations("filials");
   const regionName = useRegionName();
+  const regionLabel = filialRegionLabel(filial, regionName);
   const reduce = useReducedMotion();
   const canAct = useCanAct();
   const { openEdit } = useFilialDialogs();
@@ -62,7 +63,7 @@ export const FilialCard = ({ filial, performance, onMakeMain, index }: FilialCar
             {filial.name}
           </h2>
           <p className="text-ink-3 mt-0.5 text-xs">
-            {filial.region ? `${regionName(filial.region)} · ` : ""}
+            {regionLabel ? `${regionLabel} · ` : ""}
             {t("card.counts", {
               departments: filial.departmentsCount,
               operators: filial.operatorsCount,

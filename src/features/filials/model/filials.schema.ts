@@ -20,8 +20,8 @@ const headSchema = z.object({
   /** Qo'shimcha dopusklar — `PATCH roles/{id}` shuni to'liq almashtiradi. */
   permissions: z.array(z.string()).default([]),
   /**
-   * Rol bilan birga keladigan + qo'shimcha (B-26: structure/ da hali yo'q — kelmasa `null`,
-   * panel sukut huquqlarni alohida ko'rsatmaydi).
+   * Rol sukutlari ∪ qo'shimchalar (B-26) — dopusk oynasidagi «Rol bilan keladi» bo'limi shundan
+   * (o'chirib bo'lmaydi). Kelmasa `null`: sukut huquqlar alohida ko'rsatilmaydi.
    */
   effective_permissions: z.array(z.string()).nullable().default(null),
 });
@@ -29,7 +29,9 @@ const headSchema = z.object({
 const filialSchema = z.object({
   id: z.number(),
   name: z.string(),
+  /** Hudud KODI (B-16: `toshkent_shahar`); nomi — `region_name`. Eski javobda nom bo'lishi mumkin. */
   region: z.string().nullable().default(null),
+  region_name: z.string().nullable().default(null),
   is_main: z.boolean(),
   is_active: z.boolean().default(true),
   zone_id: z.number().nullable().default(null),

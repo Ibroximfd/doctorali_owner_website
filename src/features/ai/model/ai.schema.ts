@@ -4,11 +4,11 @@ import type { Camelized } from "@/shared/lib/camelize";
 
 /**
  * Owner AI — backend v2 §8: `status/`, `analysis/`, `chat/`. Topilma (B-9, jonli javob
- * 2026-10-31): `{kind, title, detail, severity}`; sklad topilmasi qo'shimcha `id`, `area`, `fix`,
- * `link` beradi — `passthrough` bilan saqlanadi.
+ * 2026-10-31): `{kind, title, detail, severity}` + rus matni `title_ru`, `detail_ru` (N-10); sklad
+ * topilmasi qo'shimcha `id`, `area`, `fix`, `link` beradi — `passthrough` bilan saqlanadi.
  */
 
-/** Davr: jonli javobda `{from, to}`, hujjatda `{date_from, date_to}` — ikkalasi ham. */
+/** Davr: `{from, to}` yoki `{date_from, date_to}` — B-24 dan keyin ikkalasi birga keladi. */
 const periodSchema = z.preprocess(
   (raw) =>
     typeof raw === "object" && raw !== null && "from" in raw && !("date_from" in raw)
@@ -30,6 +30,8 @@ export const findingSchema = z
     kind: z.string().optional(),
     title: z.string().optional(),
     detail: z.string().nullable().optional(),
+    title_ru: z.string().nullable().optional(),
+    detail_ru: z.string().nullable().optional(),
     severity: z.string(),
   })
   .passthrough();

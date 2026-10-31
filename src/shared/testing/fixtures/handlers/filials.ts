@@ -5,6 +5,7 @@ import {
   PERMISSION_CATALOG,
   ROLE_DEFAULTS,
   PRODUCTS,
+  REGION_NAMES,
   auditState,
   filialsState,
   productGrant,
@@ -66,10 +67,12 @@ const filialDto = (filial: FilialState) => ({
   zone_id: filial.zone_id,
 });
 
+/** `structure/` qatori (B-16): `region` — kod, nomi `region_name` da. */
 const structure = () => ({
   count: filialsState().length,
   results: filialsState().map((filial) => ({
     ...filialDto(filial),
+    region_name: filial.region ? REGION_NAMES[filial.region] : null,
     chief_operator: headDto(filial.leaders.chief_operator, "chief_operator"),
     chief_logist: headDto(filial.leaders.chief_logist, "chief_logist"),
     departments_count: filial.counts.departments,

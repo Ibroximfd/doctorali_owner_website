@@ -165,3 +165,17 @@ export const withRolePermissions = (
     })),
   };
 };
+
+/**
+ * Filial hududi yorlig'i (B-16): `region` — kod. Lug'at (`meta.regions`, joriy tilda) kodni
+ * tanisa — undan; tanimasa — backend `region_name`; u ham bo'lmasa — qiymatning o'zi (eski
+ * javobda `region` nom edi). Hudud yo'q — `null`.
+ */
+export const filialRegionLabel = (
+  filial: Pick<FilialItem, "region" | "regionName">,
+  lookup: (code: string) => string,
+): string | null => {
+  if (!filial.region) return filial.regionName;
+  const known = lookup(filial.region);
+  return known !== filial.region ? known : (filial.regionName ?? filial.region);
+};

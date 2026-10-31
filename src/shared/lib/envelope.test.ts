@@ -41,3 +41,20 @@ describe("pointChange", () => {
     expect(pointChange({ value: 12, previous: null })).toBeNull();
   });
 });
+
+describe("period names (B-24)", () => {
+  const data = z.object({ total_orders: metricSchema });
+
+  it("accepts both from/to and date_from/date_to", () => {
+    const both = { ...valid.period, date_from: "2026-09-03", date_to: "2026-10-02" };
+    expect(parseEnvelope(data, { ...valid, period: both }).period).toMatchObject({
+      from: "2026-09-03",
+      to: "2026-10-02",
+    });
+    const onlyDate = { date_from: "2026-09-03", date_to: "2026-10-02", granularity: "day", label: "30d" };
+    expect(parseEnvelope(data, { ...valid, period: onlyDate }).period).toMatchObject({
+      from: "2026-09-03",
+      to: "2026-10-02",
+    });
+  });
+});

@@ -221,7 +221,7 @@ const LedgerTable = ({ rows }: { rows: readonly LedgerEntry[] }) => {
       primary: true,
       cell: (row) => (
         <span className="flex items-center gap-2">
-          <ProductThumb name={row.item.name} src={imageOf(row.item.id)} />
+          <ProductThumb name={row.item.name} src={row.item.image ?? imageOf(row.item.id)} />
           <span>
             <span className="font-semibold">{labels.type(row.movementType)}</span>
             <span className="text-ink-2"> · {row.item.name}</span>

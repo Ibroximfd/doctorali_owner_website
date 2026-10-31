@@ -22,7 +22,7 @@ import {
   useSkladsQuery,
   useStockQuery,
 } from "../hooks/use-warehouse";
-import { stockRows, type StockRow } from "../model/warehouse.rules";
+import { lowCount, stockRows, type StockRow } from "../model/warehouse.rules";
 import type { Sklad, StockCell } from "../model/warehouse.schema";
 import { GrantsCard } from "./grants-card";
 import { HistoryCard } from "./history-card";
@@ -57,9 +57,10 @@ export const WarehouseScreen = () => {
               value={formatNumber(data.totals.withCouriers)}
               unit={t("kpis.pcs")}
             />
+            {/* qoldiq jadvali bilan bir qoida (`lowCount`) — `totals.low_items` emas */}
             <StatTile
               label={t("kpis.low")}
-              value={formatNumber(data.totals.lowItems)}
+              value={formatNumber(stock.data ? lowCount(stockRows(stock.data, null)) : null)}
               note={t("kpis.lowNote")}
             />
           </StatRow>
@@ -107,7 +108,7 @@ const StockBlock = ({ cells, sklads }: { cells: readonly StockCell[]; sklads: re
       primary: true,
       cell: (row) => (
         <span className="flex items-center gap-2">
-          <ProductThumb name={row.name} src={imageOf(row.itemId)} />
+          <ProductThumb name={row.name} src={row.image ?? imageOf(row.itemId)} />
           <span className="font-semibold">{row.name}</span>
         </span>
       ),

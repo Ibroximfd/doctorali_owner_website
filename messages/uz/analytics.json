@@ -12,10 +12,11 @@
     "cancelRateNote": "sotilgandan"
   },
   "trend": {
-    "title": "Sotuv va atkaz",
+    "title": "Sotuv, yetkazish va atkaz",
     "description": "Davr ichida, kunlar bo'yicha",
     "period": "Davr",
     "sold": "Sotildi",
+    "delivered": "Yetkazildi",
     "cancelled": "Atkaz"
   },
   "filials": {

@@ -108,3 +108,25 @@ describe("staff board rules", () => {
     expect(leaderInsight([row("A", 1, 90, 0), row("B", 2, 70, 40)], "conversion_pct")).toBeNull();
   });
 });
+
+describe("sales/operators v2 rows (B-22 / N-9)", () => {
+  it("reads filial as an object, keeps the old name string, and leaves conversion empty without leads", () => {
+    const rows = salesOperatorsSchema.parse([
+      {
+        id: 1,
+        full_name: "A",
+        filial: { id: 3, name: "Mehrigiyo Toshkent 2" },
+        filial_name: "x",
+        leads: 0,
+        conversion_pct: null,
+      },
+      { id: 2, full_name: "B", filial: null, filial_name: "Mehrigiyo Qo'qon", leads: 10, conversion_pct: 20 },
+      { id: 3, full_name: "C", filial: "Mehrigiyo Toshkent", leads: 5, conversion_pct: "40.0" },
+    ]);
+    expect(rows.map((row) => [row.filial, row.filial_id, row.conversion_pct])).toEqual([
+      ["Mehrigiyo Toshkent 2", 3, null],
+      ["Mehrigiyo Qo'qon", null, 20],
+      ["Mehrigiyo Toshkent", null, 40],
+    ]);
+  });
+});

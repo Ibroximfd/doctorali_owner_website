@@ -7,35 +7,52 @@ import type { Leaderboard, StaffProfile, Team } from "./staff.schema";
 
 /**
  * Xodimlar — `GET /api/owner/sales/operators/` (B-15: `/api/owner/staff/*` backendda yo'q).
- * Jonli javob (2026-10-31): konvert, `data: [{id, full_name, filial (nom), is_online, leads,
+ * Jonli javob (2026-10-31, B-22 / N-9): konvert, `data: [{id, full_name, filial {id, name}
+ * (eski satr — `filial_name`), is_online, leads,
  * conversion_pct, orders_created, orders_delivered, sales_amount, commission_earned, calls,
- * missed_unhandled, activities_overdue, rating_avg, rating_count}]`. Logistlar uchun manba yo'q.
+ * missed_unhandled, activities_overdue, rating_avg, rating_count}]`. `conversion_pct` — lidlardan
+ * sotuvga o'tganlar ulushi; lidsiz operatorda `null` (ekranda «—»). Logistlar uchun manba yo'q.
  *
  * Reyting shu ro'yxatdan quriladi: o'rin — sotuv summasi bo'yicha; «ball» — eng yaxshi sotuvchiga
  * nisbatan ulush (0–100), backend ballari yo'q. Jamoa = filial (nomi bo'yicha).
  */
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === "object" && value !== null && !Array.isArray(value);
+
+/** Filial: `{id, name}` obyekt (B-22) yoki eski satr — `filial` (nom) va `filial_id` ga yoyiladi. */
+const withFilialRef = <Shape extends z.ZodTypeAny>(schema: Shape) =>
+  z.preprocess((raw) => {
+    if (!isRecord(raw)) return raw;
+    const ref = isRecord(raw.filial) ? raw.filial : null;
+    const name = ref ? ref.name : (raw.filial ?? raw.filial_name);
+    return {
+      ...raw,
+      filial: typeof name === "string" && name !== "" ? name : (raw.filial_name ?? null),
+      filial_id: ref ? ref.id : (raw.filial_id ?? null),
+    };
+  }, schema);
+
 export const salesOperatorsSchema = z.array(
-  z.object({
-    id: num,
-    full_name: str,
-    filial: z.preprocess(
-      (raw) =>
-        typeof raw === "object" && raw !== null && "name" in raw ? (raw as { name: unknown }).name : raw,
-      z.string().nullable().default(null),
-    ),
-    is_online: z.boolean().default(false),
-    leads: num,
-    conversion_pct: optNum,
-    orders_created: num,
-    orders_delivered: num,
-    sales_amount: num,
-    commission_earned: num,
-    calls: num,
-    missed_unhandled: num,
-    activities_overdue: num,
-    rating_avg: optNum,
-    rating_count: num,
-  }),
+  withFilialRef(
+    z.object({
+      id: num,
+      full_name: str,
+      filial: z.string().nullable().default(null),
+      filial_id: optNum,
+      is_online: z.boolean().default(false),
+      leads: num,
+      conversion_pct: optNum,
+      orders_created: num,
+      orders_delivered: num,
+      sales_amount: num,
+      commission_earned: num,
+      calls: num,
+      missed_unhandled: num,
+      activities_overdue: num,
+      rating_avg: optNum,
+      rating_count: num,
+    }),
+  ),
 );
 export type SalesOperator = Camelized<z.infer<typeof salesOperatorsSchema>>[number];
 

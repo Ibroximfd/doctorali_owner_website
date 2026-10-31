@@ -18,7 +18,6 @@ import { ProductThumb } from "@/shared/ui/product-thumb";
 import { Segmented } from "@/shared/ui/segmented";
 import { StatRow, StatTile } from "@/shared/ui/stat-tile";
 import { ChartSkeleton, EmptyState, QueryState, StatRowSkeleton, TableSkeleton } from "@/shared/ui/states";
-import { SourcePendingState } from "@/shared/ui/states/states";
 
 import { useAnalyticsQuery, useOperatorsFilial } from "../hooks/use-analytics";
 import { operatorsOf, rankProducts, versusAverage } from "../model/analytics.rules";
@@ -40,12 +39,11 @@ export const AnalyticsScreen = () => {
 
       <Grid>
         <div className={span.c7}>
-          {/* trend jonli javobda yo'q (analytics/v2) — blok «backend kutilmoqda» */}
+          {/* kunlik trend — analytics/v2 `trend` (B-19); davrda kun yo'q bo'lsa — bo'sh holat */}
           <QueryState
             query={query}
             skeleton={<ChartSkeleton />}
             isEmpty={({ data }) => data.trend.labels.length === 0}
-            empty={<SourcePendingState />}
           >
             {({ data, period }) => <SalesTrend analytics={data} granularity={period.granularity} />}
           </QueryState>
@@ -129,7 +127,13 @@ const SalesTrend = ({
       data={{
         labels: analytics.trend.labels.map((label) => format.bucket(label, granularity)),
         series: [
-          { key: "sold", name: t("sold"), color: STATUS_COLORS.delivered, values: analytics.trend.sold },
+          { key: "sold", name: t("sold"), color: STATUS_COLORS.confirmed, values: analytics.trend.sold },
+          {
+            key: "delivered",
+            name: t("delivered"),
+            color: STATUS_COLORS.delivered,
+            values: analytics.trend.delivered,
+          },
           {
             key: "cancelled",
             name: t("cancelled"),

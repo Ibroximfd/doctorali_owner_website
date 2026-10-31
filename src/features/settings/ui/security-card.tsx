@@ -13,7 +13,14 @@ import { SessionsList } from "./sessions-list";
 import { SettingRow } from "./setting-row";
 
 /** Xavfsizlik va ko'rinish: ikki bosqichli kirish, faol qurilmalar, til va mavzu. */
-export const SecurityCard = ({ className }: { className?: string }) => {
+export const SecurityCard = ({
+  className,
+  twoFactor = null,
+}: {
+  className?: string;
+  /** 2-bosqich usuli — kirishda backend aytgan (`sms | totp`); noma'lum — umumiy matn. */
+  twoFactor?: "sms" | "totp" | null;
+}) => {
   const t = useTranslations("settings.security");
   const { resolvedTheme, setTheme } = useTheme();
 
@@ -23,7 +30,10 @@ export const SecurityCard = ({ className }: { className?: string }) => {
       <CardBody>
         <div className="flex flex-col divide-y">
           {/* Ikki bosqichli kirish panelda majburiy — o'chirib bo'lmaydi, shuning uchun faqat holat. */}
-          <SettingRow title={t("twoFactor.title")} description={t("twoFactor.description")}>
+          <SettingRow
+            title={t("twoFactor.title")}
+            description={t(`twoFactor.description.${twoFactor ?? "unknown"}`)}
+          >
             <Pill intent="good" icon={ShieldCheck}>
               {t("twoFactor.enabled")}
             </Pill>

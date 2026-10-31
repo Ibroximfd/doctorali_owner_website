@@ -2,7 +2,7 @@
 
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import { routes } from "@/shared/config/routes";
 import { cn } from "@/shared/lib/cn";
@@ -21,6 +21,7 @@ const SEVERITY_DOT: Record<string, string> = { urgent: "bg-crit", attention: "bg
 export const AiHighlights = () => {
   const t = useTranslations("ai.highlights");
   const tSeverity = useTranslations("ai.severity");
+  const locale = useLocale();
   const query = useAnalysisQuery();
 
   return (
@@ -53,7 +54,7 @@ export const AiHighlights = () => {
                           {tSeverity.has(finding.severity) ? tSeverity(finding.severity) : finding.severity}
                           :{" "}
                         </span>
-                        {findingTitle(finding)}
+                        {findingTitle(finding, locale)}
                       </span>
                     </li>
                   ))}

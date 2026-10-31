@@ -7,6 +7,7 @@ import { SCOPE_CASES, mockGet, mockSend } from "@/shared/testing/mock-api";
 
 import {
   auditFor,
+  filialRegionLabel,
   leaderOf,
   grantableKeys,
   groupKey,
@@ -279,5 +280,52 @@ describe("filials rules", () => {
     expect(
       accountFormSchema.safeParse({ fullName: "Ali Valiyev", username: "a b", password: "parolsiz" }).success,
     ).toBe(false);
+  });
+});
+
+describe("structure v2 filial row (B-16, B-26)", () => {
+  const row = (extra: Record<string, unknown>) =>
+    structureSchema.parse({
+      count: 1,
+      results: [{ id: 1, name: "Mehrigiyo Toshkent", is_main: false, ...extra }],
+    }).results[0];
+
+  it("reads the region code with its name, the filial code and effective permissions", () => {
+    const filial = row({
+      region: "toshkent",
+      region_name: "Toshkent viloyati",
+      code: "T1",
+      chief_logist: {
+        seat_id: 46,
+        full_name: "B.L",
+        username: "bl",
+        role_id: 65,
+        permissions: ["cash.accept"],
+        effective_permissions: ["addresses.adjust", "cash.accept"],
+      },
+    });
+    expect(filial).toMatchObject({ region: "toshkent", region_name: "Toshkent viloyati", code: "T1" });
+    expect(filial?.chief_logist?.effective_permissions).toEqual(["addresses.adjust", "cash.accept"]);
+  });
+
+  it("keeps missing name, code and effective permissions as null", () => {
+    const filial = row({
+      region: null,
+      chief_operator: { seat_id: 1, full_name: "B.O", username: "bo", role_id: 2 },
+    });
+    expect(filial).toMatchObject({ region: null, region_name: null, code: null });
+    expect(filial?.chief_operator?.effective_permissions).toBeNull();
+  });
+
+  it("labels the region from the dictionary first, then region_name, then the raw value", () => {
+    const lookup = (code: string) => (code === "toshkent_shahar" ? "Ташкент" : code);
+    expect(filialRegionLabel({ region: "toshkent_shahar", regionName: "Toshkent shahri" }, lookup)).toBe(
+      "Ташкент",
+    );
+    expect(filialRegionLabel({ region: "toshkent", regionName: "Toshkent viloyati" }, lookup)).toBe(
+      "Toshkent viloyati",
+    );
+    expect(filialRegionLabel({ region: "Toshkent", regionName: null }, lookup)).toBe("Toshkent");
+    expect(filialRegionLabel({ region: null, regionName: null }, lookup)).toBeNull();
   });
 });

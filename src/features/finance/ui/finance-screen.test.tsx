@@ -25,7 +25,18 @@ describe("FinanceScreen", () => {
     expect(await fee.findByText(/25 000/)).toBeInTheDocument();
     const chiefs = within(card("Bosh kuryerlar bilan hisob"));
     expect((await chiefs.findAllByText("Farhod Normatov")).length).toBeGreaterThan(0);
-    expect(within(card("Filiallarga topshirilgan pul")).getAllByText("Kechikdi").length).toBeGreaterThan(0);
+    expect(within(card("Filiallarga topshirilgan pul")).getAllByText("Bahsli").length).toBeGreaterThan(0);
+  });
+
+  it("says the fee payment is not tracked instead of a fake paid / total", async () => {
+    await renderWithProviders(<FinanceScreen />, { searchParams: "?period=30d" });
+
+    const fee = within(card("Bosh kuryer haqi"));
+    expect((await fee.findAllByText("Tizimda kuzatilmaydi")).length).toBeGreaterThan(0);
+    expect(fee.queryByText("To'langan")).toBeNull();
+    const chiefs = within(card("Bosh kuryerlar bilan hisob"));
+    expect((await chiefs.findAllByText("Haq (hisoblangan)")).length).toBeGreaterThan(0);
+    expect(chiefs.queryByText(/\/ /)).toBeNull();
   });
 
   it("maps every region with a tooltip and shows the numbers of a picked region", async () => {

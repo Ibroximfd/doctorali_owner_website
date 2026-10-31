@@ -52,12 +52,23 @@ export const timeseriesSchema = z.object({
 });
 export type Timeseries = Camelized<z.infer<typeof timeseriesSchema>>;
 
-const periodSchema = z.object({
-  from: z.string(),
-  to: z.string(),
-  granularity: granularitySchema,
-  label: z.string(),
-});
+/**
+ * Davr (B-24): backend `{from, to, date_from, date_to}` beradi — ikkala juft ham qabul qilinadi;
+ * `from/to` bo'lmasa `date_from/date_to` dan olinadi.
+ */
+const periodSchema = z.preprocess(
+  (raw) => {
+    if (typeof raw !== "object" || raw === null || Array.isArray(raw)) return raw;
+    const period = raw as Record<string, unknown>;
+    return { ...period, from: period.from ?? period.date_from, to: period.to ?? period.date_to };
+  },
+  z.object({
+    from: z.string(),
+    to: z.string(),
+    granularity: granularitySchema,
+    label: z.string(),
+  }),
+);
 
 export const envelopeSchema = <Data extends z.ZodTypeAny>(data: Data) =>
   z.object({

@@ -18,7 +18,6 @@ import {
   ledgerSchema,
   overviewSchema as skladOverviewSchema,
   skladsSchema,
-  stockPageSchema,
   stockSchema,
 } from "@/features/warehouse/model/warehouse.schema";
 import { parseJson } from "@/shared/lib/envelope";
@@ -87,16 +86,18 @@ describe("live backend v2 answers (2026-10-31)", () => {
       handed: 55_000,
       pending: 0,
     });
-    // manzil soni, haq va narx bosh kuryer × filial qatorlaridan
+    // manzil soni va haq bosh kuryer × filial qatorlaridan; narx faqat `address_rate` dan (B-18) —
+    // namuna B-18 dan oldin olingan, unda maydon yo'q → `null` («kutilmoqda»), taxmin qilinmaydi
     expect(data.totals).toMatchObject({ addresses: 14, chiefFee: 140_000, chiefFeePaid: null });
-    expect(data.addressRate).toBe(10_000);
+    expect(data.addressRate).toBeNull();
+    expect(data.feePaidTracked).toBe(false);
     expect(data.filials.find((row) => row.id === 2)).toMatchObject({ addresses: 8, chiefFee: 80_000 });
     expect(data.handovers[0]).toMatchObject({
       id: 4,
       chiefName: "V2 Bosh kuryer (Vodiy)",
       filialId: 2,
       amount: 25_000,
-      onTime: false,
+      status: "pending",
     });
     expect(data.regions[0]).toMatchObject({ code: "toshkent_shahar", cancelled: 4, money: 24_904_680 });
   });
@@ -146,9 +147,9 @@ describe("live backend v2 answers (2026-10-31)", () => {
   it("sklad: sklads, overview, stock, ledger and grants", () => {
     expect(parseJson(skladsSchema, body("sklad/sklads/"))[0]).toMatchObject({ id: 2 });
     expect(() => parseJson(skladOverviewSchema, body("sklad/overview/"))).not.toThrow();
-    const page = stockPageSchema.parse(body("sklad/stock/"));
-    expect(page.next).not.toBeNull();
-    expect(parseJson(stockSchema, page.results)[0]?.item.id).toBe(14);
+    // namuna B-23 dan oldin olingan (sahifali) — sxema `results` ni ham o'qiydi
+    const stock = parseJson(stockSchema, body("sklad/stock/"));
+    expect(stock[0]?.item).toMatchObject({ id: 14, image: null });
     expect(parseJson(ledgerSchema, body("sklad/ledger/")).results[0]?.actor?.kind).toBe("system");
     expect(parseJson(grantsSchema, body("owner/structure/sklad-grants/1/")).items[0]).toMatchObject({
       productId: 9,

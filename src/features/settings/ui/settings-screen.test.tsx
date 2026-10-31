@@ -24,13 +24,25 @@ vi.mock("next/navigation", () => ({ useRouter: () => ({ refresh }) }));
 // Server action cookie yozadi (`next/headers`) — testda faqat chaqiruvning o'zi kerak.
 vi.mock("@/i18n/set-locale", () => ({ setLocaleAction }));
 
-const renderScreen = () => renderWithProviders(<SettingsScreen />);
+const renderScreen = (twoFactor: "sms" | "totp" | null = "totp") =>
+  renderWithProviders(<SettingsScreen twoFactor={twoFactor} />);
 
 describe("SettingsScreen", () => {
   useMockApi();
 
   afterEach(() => {
     vi.clearAllMocks();
+  });
+
+  it("names the second step by the login method — TOTP, SMS or neutral", async () => {
+    await renderScreen("totp");
+    expect(screen.getByText(/authenticator ilovasidagi kod \(TOTP\)/)).toBeInTheDocument();
+  });
+
+  it("does not claim SMS when the method is unknown", async () => {
+    await renderScreen(null);
+    expect(screen.getByText(/bir martalik kod/)).toBeInTheDocument();
+    expect(screen.queryByText(/SMS/)).toBeNull();
   });
 
   it("switches the interface language through the server action and re-renders the page", async () => {

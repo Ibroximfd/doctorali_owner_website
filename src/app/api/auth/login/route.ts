@@ -1,9 +1,11 @@
 import { z } from "zod";
 
 import { backendFetch, clientInfoOf, errorResponse, jsonResponse, relay } from "@/shared/lib/backend.server";
-import { writeSession } from "@/shared/lib/session.server";
+import { writeSession, writeTwoFactorMethod } from "@/shared/lib/session.server";
 
 const inputSchema = z.object({ username: z.string().trim().min(1), password: z.string().min(1) });
+
+const challengeSchema = z.object({ method: z.string() });
 
 const tokensSchema = z.object({ access: z.string().min(1), refresh: z.string().min(1), user: z.unknown() });
 
@@ -26,7 +28,11 @@ export async function POST(request: Request): Promise<Response> {
 
     const json: unknown = await response.json().catch(() => null);
     const tokens = tokensSchema.safeParse(json);
-    if (!tokens.success) return jsonResponse(json);
+    if (!tokens.success) {
+      const challenge = challengeSchema.safeParse(json);
+      if (challenge.success) await writeTwoFactorMethod(challenge.data.method);
+      return jsonResponse(json);
+    }
 
     await writeSession({ access: tokens.data.access, refresh: tokens.data.refresh });
     return jsonResponse({ user: tokens.data.user });

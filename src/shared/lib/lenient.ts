@@ -81,6 +81,10 @@ export const aliases = <Shape extends z.ZodTypeAny>(
     return next;
   }, schema);
 
+/** Birinchi satr qiymat — davrning ikki nomi uchun (`from` | `date_from`, B-24). */
+const firstString = (...values: unknown[]): string | null =>
+  values.find((value): value is string => typeof value === "string") ?? null;
+
 const EMPTY_PERIOD = { from: "", to: "", granularity: "day", label: "" } as const;
 
 /**
@@ -95,8 +99,8 @@ export const parseFlexible = <Data extends z.ZodTypeAny>(
   const period = isRecord(json) && isRecord(json.period) ? json.period : {};
   return parseEnvelope(schema, {
     period: {
-      from: typeof period.from === "string" ? period.from : EMPTY_PERIOD.from,
-      to: typeof period.to === "string" ? period.to : EMPTY_PERIOD.to,
+      from: firstString(period.from, period.date_from) ?? EMPTY_PERIOD.from,
+      to: firstString(period.to, period.date_to) ?? EMPTY_PERIOD.to,
       granularity: ["hour", "day", "week", "month"].includes(String(period.granularity))
         ? period.granularity
         : EMPTY_PERIOD.granularity,

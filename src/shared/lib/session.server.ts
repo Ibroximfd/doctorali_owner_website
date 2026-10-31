@@ -48,3 +48,19 @@ export const clearSession = async (): Promise<void> => {
   store.delete(REFRESH_COOKIE);
   store.delete(CHANNEL_COOKIE);
 };
+
+/** 2-bosqich usuli (`sms | totp`) — login javobidan; Sozlamalar to'g'ri matnni ko'rsatsin. */
+export const TWO_FACTOR_METHODS = ["sms", "totp"] as const;
+export type TwoFactorMethod = (typeof TWO_FACTOR_METHODS)[number];
+const TWO_FACTOR_COOKIE = "da_owner_2fa";
+
+export const writeTwoFactorMethod = async (method: string): Promise<void> => {
+  if (!TWO_FACTOR_METHODS.some((known) => known === method)) return;
+  const store = await cookies();
+  store.set(TWO_FACTOR_COOKIE, method, cookieOptions(REFRESH_MAX_AGE_SECONDS));
+};
+
+export const readTwoFactorMethod = async (): Promise<TwoFactorMethod | null> => {
+  const value = (await cookies()).get(TWO_FACTOR_COOKIE)?.value;
+  return TWO_FACTOR_METHODS.find((known) => known === value) ?? null;
+};

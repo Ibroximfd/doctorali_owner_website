@@ -6,7 +6,11 @@
     "description": "Sessiyalar, til, mavzu",
     "twoFactor": {
       "title": "Ikki bosqichli kirish",
-      "description": "Parol + SMS kod · har kirishda",
+      "description": {
+        "sms": "Parol + SMS kod · har kirishda",
+        "totp": "Parol + authenticator ilovasidagi kod (TOTP) · har kirishda",
+        "unknown": "Parol + bir martalik kod · har kirishda"
+      },
       "enabled": "Yoqilgan"
     },
     "sessions": {

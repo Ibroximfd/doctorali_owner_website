@@ -5,8 +5,10 @@ import { resetSklad } from "@/shared/testing/fixtures/sklad-state";
 import { resetStructure } from "@/shared/testing/fixtures/structure-v2";
 import { mockGet, mockSend } from "@/shared/testing/mock-api";
 
-import { grantOwners, pageRange, skladByRegion, stockRows } from "./warehouse.rules";
+import { grantOwners, lowCount, pageRange, skladByRegion, skladSummary, stockRows } from "./warehouse.rules";
 import {
+  ACTOR_KINDS,
+  actorKindParam,
   documentSchema,
   grantsSchema,
   ledgerSchema,
@@ -100,5 +102,85 @@ describe("warehouse rules", () => {
   it("computes the page range", () => {
     expect(pageRange(2, 20, 45)).toEqual({ from: 21, to: 40, pages: 3 });
     expect(pageRange(1, 20, 0)).toEqual({ from: 0, to: 0, pages: 1 });
+  });
+});
+
+describe("stock low flag (merged sklad)", () => {
+  const cell = (region: string, onHand: number, minQuantity: number, isLow: boolean) => ({
+    location: { id: region.length, name: region, kind: "region", region },
+    item: { id: 1, name: "Paratsetamol", image: null },
+    onHand,
+    minQuantity,
+    isLow,
+  });
+
+  it("is low only when the summed stock is below the largest minimum — row is_low is ignored", () => {
+    // sklad birlashtirilgan: bitta ombor to'la, bo'sh viloyat omborlari `is_low: true`
+    const merged = [
+      cell("namangan", 8704, 700, false),
+      cell("andijon", 0, 700, true),
+      cell("fargona", 0, 700, true),
+    ];
+    expect(stockRows(merged, null)[0]).toMatchObject({ qty: 8704, minQty: 700, isLow: false });
+    expect(stockRows([cell("namangan", 500, 700, false)], null)[0]?.isLow).toBe(true);
+    expect(stockRows([cell("namangan", 0, 0, true)], null)[0]?.isLow).toBe(false);
+  });
+});
+
+describe("ledger summary", () => {
+  it("keeps numeric entries only — strings become numbers, objects and nulls are dropped", () => {
+    expect(
+      ledgerSummarySchema.parse({ sale: "-790", receipt: 2400, period: { from: "x" }, gift: null }),
+    ).toEqual({ sale: -790, receipt: 2400 });
+    expect(ledgerSummarySchema.parse(null)).toEqual({});
+  });
+});
+
+describe("sklad v2 answers (B-23, item.image)", () => {
+  const row = {
+    location: { id: 3, name: "Andijon ombori", kind: "region", region: "andijon" },
+    item: { id: 14, name: "Alatoo bals", image: "https://imorganic.uz/media/items/a.webp" },
+    on_hand: 5,
+    min_quantity: 50,
+    is_low: true,
+  };
+
+  it("reads stock as a plain array (pagination=false) or a single page, with the item image", () => {
+    expect(stockSchema.parse([row])[0]?.item.image).toBe("https://imorganic.uz/media/items/a.webp");
+    expect(stockSchema.parse({ count: 1, next: null, results: [row] })).toHaveLength(1);
+    const noImage = stockSchema.parse([{ ...row, item: { id: 14, name: "Alatoo bals", image: null } }]);
+    expect(noImage[0]?.item.image).toBeNull();
+    expect(stockSchema.parse([{ ...row, item: { id: 14, name: "Alatoo bals" } }])[0]?.item.image).toBeNull();
+  });
+
+  it("keeps the first image on the stock row", () => {
+    const cells = parseJson(stockSchema, [row, { ...row, item: { ...row.item, image: null } }]);
+    expect(stockRows(cells, null)[0]?.image).toBe("https://imorganic.uz/media/items/a.webp");
+  });
+
+  it("filters ledger by the three known actor kinds only", () => {
+    expect(ACTOR_KINDS).toEqual(["logist", "courier", "system"]);
+    expect(actorKindParam("courier,logist")).toBe("logist,courier");
+    expect(actorKindParam("chief_courier,system,system")).toBe("system");
+    expect(actorKindParam("chief_courier")).toBeNull();
+    expect(actorKindParam(null)).toBeNull();
+  });
+
+  it("counts low items with the same rule as the stock table (card = list)", () => {
+    const cells = parseJson(stockSchema, [
+      { ...row, on_hand: 8000, min_quantity: 50, is_low: false },
+      { ...row, location: { ...row.location, id: 4, region: "fargona" }, on_hand: 0, is_low: true },
+      {
+        ...row,
+        location: { id: 9, name: "Kuryer", kind: "courier", region: "andijon" },
+        on_hand: 0,
+        is_low: true,
+      },
+    ]);
+    const rows = stockRows(cells, null);
+    expect(rows[0]?.isLow).toBe(false);
+    expect(lowCount(rows)).toBe(0);
+    expect(skladSummary({ regions: ["fargona"] }, undefined, cells).lowItems).toBe(1);
+    expect(skladSummary({ regions: ["andijon"] }, undefined, undefined).lowItems).toBeNull();
   });
 });

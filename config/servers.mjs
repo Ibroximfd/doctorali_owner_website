@@ -44,7 +44,7 @@ export const DEFAULT_SERVER = "prod";
  * namuna (mock) bazadan javob beradi, kirish istalgan login/parol bilan ochiladi.
  * Backend tayyor bo'lgach `false` qiling (yoki vaqtincha: `APP_DEMO=0 npm run dev`).
  */
-export const DEFAULT_DEMO = true;
+export const DEFAULT_DEMO = false;
 
 /**
  * Demo rejimdagi alohida kirish (taqdimot uchun). Faqat namuna bazani ochadi —

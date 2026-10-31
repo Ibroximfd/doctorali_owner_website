@@ -50,11 +50,11 @@ export const FinanceScreen = () => {
         <Card className={span.c5}>
           <CardHeader title={t("fee.title")} description={t("fee.description")} />
           <CardBody>
-            {/* manzil narxi va haq finance/v2 jonli javobida yo'q */}
+            {/* manzil narxi kelmasa (`address_rate: null`) — blok «backend kutilmoqda» */}
             <QueryState
               query={query}
               skeleton={<ListSkeleton rows={4} />}
-              isEmpty={({ data }) => data.addressRate === 0}
+              isEmpty={({ data }) => data.addressRate === null}
               empty={<SourcePendingState />}
             >
               {({ data }) => <ChiefFee finance={data} />}
@@ -81,7 +81,9 @@ export const FinanceScreen = () => {
           <CardHeader title={t("chiefs.title")} description={t("chiefs.description")} />
           <CardBody flush>
             <QueryState query={query} skeleton={<TableSkeleton rows={6} className="px-5" />}>
-              {({ data }) => <ChiefsTable rows={chiefRows(data.chiefs)} />}
+              {({ data }) => (
+                <ChiefsTable rows={chiefRows(data.chiefs)} feePaidTracked={data.feePaidTracked} />
+              )}
             </QueryState>
           </CardBody>
         </Card>
@@ -185,26 +187,31 @@ const FilialsMoneyTable = ({ rows }: { rows: readonly FinanceFilial[] }) => {
   return <DataTable columns={columns} rows={rows} rowKey={(row) => String(row.id)} />;
 };
 
-/** Bosh kuryer haqi: bitta narx, har filial — manzil soni × narx, to'langan va qarz. */
+/**
+ * Bosh kuryer haqi: bitta narx, har filial — manzil soni × narx. To'langan va qarz faqat tizim
+ * to'lovni kuzatsa (`fee_paid_tracked`); aks holda halol izoh — «—/80 000» kabi shakl emas.
+ */
 const ChiefFee = ({ finance }: { finance: Finance }) => {
   const t = useTranslations("finance.fee");
   const format = useFormat();
+  const tracked = finance.feePaidTracked;
 
   return (
     <div className="flex flex-col gap-4">
       <div className="bg-accent-soft rounded-2xl px-4 py-3">
         <div className="text-ink-2 text-xs">{t("rate")}</div>
-        <div className="num font-display text-2xl">{format.money(finance.addressRate)}</div>
+        <div className="num font-display text-2xl">{format.money(finance.addressRate ?? 0)}</div>
         <div className="text-ink-3 text-2xs mt-0.5">{t("rateNote")}</div>
       </div>
+      {tracked ? null : <p className="text-ink-3 text-xs">{t("notTrackedNote")}</p>}
       <ul className="flex flex-col divide-y">
         {finance.filials.map((row) => {
-          const due = feeDue(row);
+          const due = tracked ? feeDue(row) : null;
           return (
             <li key={row.id} className="py-2.5">
               <div className="flex items-center gap-2">
                 <FilialName code={row.code} name={row.name} />
-                {/* to'langani noma'lum (backend bermaydi) — holat belgisi yo'q */}
+                {/* to'langani kuzatilmaydi yoki noma'lum — holat belgisi yo'q */}
                 {due === null ? null : due > 0 ? (
                   <Pill intent="warn" className="ml-auto">
                     {t("due", { value: format.moneyCompact(due) })}
@@ -226,7 +233,11 @@ const ChiefFee = ({ finance }: { finance: Finance }) => {
                   {
                     key: "paid",
                     label: t("paidLabel"),
-                    value: row.chiefFeePaid === null ? "—" : format.money(row.chiefFeePaid),
+                    value: !tracked
+                      ? t("notTracked")
+                      : row.chiefFeePaid === null
+                        ? "—"
+                        : format.money(row.chiefFeePaid),
                   },
                 ]}
               />
@@ -250,11 +261,13 @@ const HandoversList = ({ rows }: { rows: readonly Handover[] }) => {
             {t("route", { chief: row.chiefName, filial: row.filialCode })}
           </span>
           <span className="num shrink-0 font-semibold">{format.moneyCompact(row.amount)}</span>
-          {row.onTime ? (
-            <span className="sr-only">{t("onTime")}</span>
+          {row.status === "confirmed" ? (
+            <Pill intent="good" icon={CheckCircle2}>
+              {t("status.confirmed")}
+            </Pill>
           ) : (
-            <Pill intent="warn" icon={AlertTriangle}>
-              {t("late")}
+            <Pill intent={row.status === "disputed" ? "crit" : "warn"} icon={AlertTriangle}>
+              {t(`status.${row.status}`)}
             </Pill>
           )}
         </li>
@@ -264,7 +277,7 @@ const HandoversList = ({ rows }: { rows: readonly Handover[] }) => {
 };
 
 /** Har bosh kuryer × har filial: yig'ilgan, topshirilgan, kutilayotgan pul, manzil va haq. */
-const ChiefsTable = ({ rows }: { rows: readonly ChiefRow[] }) => {
+const ChiefsTable = ({ rows, feePaidTracked }: { rows: readonly ChiefRow[]; feePaidTracked: boolean }) => {
   const t = useTranslations("finance.chiefs");
   const format = useFormat();
 
@@ -326,14 +339,17 @@ const ChiefsTable = ({ rows }: { rows: readonly ChiefRow[] }) => {
     },
     {
       id: "fee",
-      header: t("fee"),
+      header: feePaidTracked ? t("fee") : t("feeTotal"),
       numeric: true,
       align: "right",
-      cell: (row) => (
-        <span className="text-ink-2">
-          {row.feePaid === null ? "—" : format.moneyCompact(row.feePaid)} / {format.moneyCompact(row.fee)}
-        </span>
-      ),
+      cell: (row) =>
+        feePaidTracked ? (
+          <span className="text-ink-2">
+            {row.feePaid === null ? "—" : format.moneyCompact(row.feePaid)} / {format.moneyCompact(row.fee)}
+          </span>
+        ) : (
+          format.moneyCompact(row.fee)
+        ),
     },
   ];
 

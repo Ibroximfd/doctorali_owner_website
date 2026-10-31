@@ -11,9 +11,9 @@ import { KvList } from "@/shared/ui/kv-list";
 import { RegionMap } from "@/shared/ui/region-map";
 import { ChartSkeleton, QueryState } from "@/shared/ui/states";
 
-import { useOverviewQuery, useSelectedSklad, useSkladsQuery } from "../hooks/use-warehouse";
+import { useOverviewQuery, useSelectedSklad, useSkladsQuery, useStockQuery } from "../hooks/use-warehouse";
 import { skladByRegion, skladColorIndex, skladSummary } from "../model/warehouse.rules";
-import type { Sklad, SkladOverview } from "../model/warehouse.schema";
+import type { Sklad, SkladOverview, StockCell } from "../model/warehouse.schema";
 
 /**
  * Skladlar xaritasi (`GET sklads/` + `overview/`): bitta skladning viloyatlari — bitta rang.
@@ -24,6 +24,7 @@ export const SkladMapCard = ({ className }: { className?: string }) => {
   const t = useTranslations("warehouse.map");
   const sklads = useSkladsQuery();
   const overview = useOverviewQuery();
+  const stock = useStockQuery();
   return (
     <Card className={className}>
       <CardHeader title={t("title")} description={t("description")} />
@@ -33,20 +34,16 @@ export const SkladMapCard = ({ className }: { className?: string }) => {
           skeleton={<ChartSkeleton className="h-80" />}
           isEmpty={(data) => data.length === 0}
         >
-          {(data) => <SkladMap sklads={data} overview={overview.data} />}
+          {(data) => <SkladMap sklads={data} overview={overview.data} cells={stock.data} />}
         </QueryState>
       </CardBody>
     </Card>
   );
 };
 
-const SkladMap = ({
-  sklads,
-  overview,
-}: {
-  sklads: readonly Sklad[];
-  overview: SkladOverview | undefined;
-}) => {
+type SummarySource = { overview: SkladOverview | undefined; cells: readonly StockCell[] | undefined };
+
+const SkladMap = ({ sklads, overview, cells }: SummarySource & { sklads: readonly Sklad[] }) => {
   const t = useTranslations("warehouse.map");
   const regionName = useRegionName();
   const [selectedSklad, setSelectedSklad] = useSelectedSklad();
@@ -84,7 +81,7 @@ const SkladMap = ({
           hoverDetails={(code) => {
             const sklad = byRegion.get(code);
             return sklad ? (
-              <SkladDetails sklad={sklad} overview={overview} />
+              <SkladDetails sklad={sklad} overview={overview} cells={cells} />
             ) : (
               <p className="text-ink-3 text-sm">{t("noSklad")}</p>
             );
@@ -113,7 +110,7 @@ const SkladMap = ({
                   />
                   <span className="font-semibold">{sklad.name}</span>
                   <span className="num text-ink-3 ml-auto text-xs">
-                    {t("pcs", { count: formatNumber(skladSummary(sklad, overview).onHand) })}
+                    {t("pcs", { count: formatNumber(skladSummary(sklad, overview, cells).onHand) })}
                   </span>
                 </span>
                 <span className="text-ink-3 mt-0.5 block truncate pl-5 text-xs">
@@ -128,10 +125,10 @@ const SkladMap = ({
   );
 };
 
-const SkladDetails = ({ sklad, overview }: { sklad: Sklad; overview: SkladOverview | undefined }) => {
+const SkladDetails = ({ sklad, overview, cells }: SummarySource & { sklad: Sklad }) => {
   const t = useTranslations("warehouse.map");
   const regionName = useRegionName();
-  const summary = skladSummary(sklad, overview);
+  const summary = skladSummary(sklad, overview, cells);
   return (
     <div className="flex flex-col gap-1.5">
       <p className="text-ink-2 text-xs">{sklad.regions.map(regionName).join(", ")}</p>

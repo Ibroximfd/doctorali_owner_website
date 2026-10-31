@@ -1,7 +1,6 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useState } from "react";
 
 import { STATUS_COLORS } from "@/shared/config/chart-palette";
 import { useFormat } from "@/shared/hooks/use-format";
@@ -23,7 +22,6 @@ import {
   StatRowSkeleton,
   TableSkeleton,
 } from "@/shared/ui/states";
-import { SourcePendingState } from "@/shared/ui/states/states";
 
 import {
   useAppOperatorsQuery,
@@ -88,7 +86,6 @@ export const MobileAppScreen = () => {
               query={orders}
               skeleton={<ChartSkeleton />}
               isEmpty={({ data }) => data.trend.labels.length === 0}
-              empty={<SourcePendingState />}
             >
               {({ data, period }) => <OrdersTrend orders={data} granularity={period.granularity} />}
             </QueryState>
@@ -111,15 +108,19 @@ export const MobileAppScreen = () => {
         <QueryState query={users} skeleton={<StatRowSkeleton count={4} />}>
           {({ data }) => <UserTotals users={data} />}
         </QueryState>
-        {/* dinamika `app/v2/` da yo'q — o'rnida shu davr faolligi ulushlari (`users` dan) */}
+        {/* yangi foydalanuvchilar dinamikasi (`users.trend`, B-20) + faollik ulushlari; DAU/MAU
+            kunlik qatori backendda yo'q — ular faqat joriy ko'rsatkich */}
         <QueryState query={users} skeleton={<ChartSkeleton />}>
-          {({ data, period }) =>
-            data.trend.labels.length === 0 ? (
-              <ActivityCard users={data} />
-            ) : (
-              <ActiveUsersChart users={data} granularity={period.granularity} />
-            )
-          }
+          {({ data, period }) => (
+            <Grid className="mt-4">
+              {data.trend.labels.length === 0 ? null : (
+                <div className={span.c7}>
+                  <NewUsersChart users={data} granularity={period.granularity} />
+                </div>
+              )}
+              <ActivityCard users={data} className={data.trend.labels.length === 0 ? span.full : span.c5} />
+            </Grid>
+          )}
         </QueryState>
       </section>
 
@@ -185,7 +186,7 @@ const OrdersTrend = ({ orders, granularity }: { orders: AppOrders; granularity: 
       data={{
         labels: orders.trend.labels.map((label) => format.bucket(label, granularity)),
         series: [
-          { key: "total", name: t("total"), color: STATUS_COLORS.confirmed, values: orders.trend.total },
+          { key: "total", name: t("total"), color: STATUS_COLORS.confirmed, values: orders.trend.orders },
           {
             key: "delivered",
             name: t("delivered"),
@@ -251,11 +252,11 @@ const UserTotals = ({ users }: { users: AppUsers }) => {
 };
 
 /** Faollik ulushlari: oylik aktivlar jami ichida, kunlik aktivlar oylik ichida, yangilar ulushi. */
-const ActivityCard = ({ users }: { users: AppUsers }) => {
+const ActivityCard = ({ users, className }: { users: AppUsers; className?: string }) => {
   const t = useTranslations("app.users.activity");
   const share = (part: number, whole: number) => (whole > 0 ? formatPercent((part / whole) * 100) : "—");
   return (
-    <Card className="mt-4">
+    <Card className={className}>
       <CardHeader title={t("title")} description={t("description")} />
       <CardBody>
         <KvList
@@ -270,37 +271,25 @@ const ActivityCard = ({ users }: { users: AppUsers }) => {
   );
 };
 
-/** DAU va MAU shkalasi har xil — bitta o'qda emas, almashtirgich bilan. */
-const ActiveUsersChart = ({ users, granularity }: { users: AppUsers; granularity: Granularity }) => {
+/** Yangi foydalanuvchilar — davr bo'yicha (`users.trend`). */
+const NewUsersChart = ({ users, granularity }: { users: AppUsers; granularity: Granularity }) => {
   const t = useTranslations("app.users");
   const format = useFormat();
-  const [metric, setMetric] = useState<"dau" | "mau">("dau");
   return (
     <ChartCard
       title={t("chartTitle")}
-      description={t(metric === "dau" ? "dauNote" : "mauNote")}
+      description={t("chartDescription")}
       kind="trend"
       columnLabel={t("period")}
       formatValue={formatNumber}
-      action={
-        <Segmented
-          ariaLabel={t("metric")}
-          value={metric}
-          onChange={setMetric}
-          options={[
-            { value: "dau", label: t("dau") },
-            { value: "mau", label: t("mau") },
-          ]}
-        />
-      }
       data={{
         labels: users.trend.labels.map((label) => format.bucket(label, granularity)),
         series: [
           {
-            key: metric,
-            name: t(metric),
+            key: "new",
+            name: t("new"),
             color: "var(--series-1)",
-            values: metric === "dau" ? users.trend.dau : users.trend.mau,
+            values: users.trend.new,
             area: true,
           },
         ],

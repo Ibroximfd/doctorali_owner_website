@@ -36,12 +36,12 @@
     "dauNote": "kunlik aktiv — o'rtacha",
     "mau": "MAU",
     "mauNote": "oylik aktiv — oxirgi 30 kun",
-    "chartTitle": "Aktiv foydalanuvchilar",
-    "metric": "Ko'rsatkich",
+    "chartTitle": "Yangi foydalanuvchilar",
+    "chartDescription": "Ilovada ro'yxatdan o'tganlar, davr bo'yicha",
     "period": "Davr",
     "activity": {
       "title": "Faollik",
-      "description": "Shu davr ulushlari — kunlik dinamika hali backendda yo'q",
+      "description": "Shu davr ulushlari — DAU/MAU kunlik qatori tizimda yo'q, joriy ko'rsatkich",
       "mauShare": "Oylik aktivlar (MAU) jami ichida",
       "stickiness": "Kunlik / oylik aktiv (DAU ÷ MAU)",
       "newShare": "Yangi foydalanuvchilar ulushi"

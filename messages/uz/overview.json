@@ -7,7 +7,8 @@
       "atCouriers": "Kuryerlarda",
       "atChiefs": "Bosh kuryerlarda",
       "handed": "Filiallarga topshirildi"
-    }
+    },
+    "previous": "Oldingi davrda {value}"
   },
   "orders": {
     "leads": "Lidlar",

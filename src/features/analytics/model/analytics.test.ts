@@ -53,3 +53,50 @@ describe("analytics rules", () => {
     expect(rankProducts(analytics({ period: "30d" }).products).worstId).toBe(16);
   });
 });
+
+describe("analytics v2 answer (B-19)", () => {
+  it("reads the daily trend with otkaz and the operator leads and conversion", () => {
+    const data = analyticsSchema.parse({
+      trend: { labels: ["2026-10-30", "2026-10-31"], sold: [3, "4"], delivered: [2, 3], otkaz: [0, 1] },
+      operators: [
+        {
+          id: 25,
+          full_name: "A",
+          filial: { id: 1, name: "T" },
+          leads: 40,
+          sold: 10,
+          otkaz: 1,
+          conversion_pct: 25,
+        },
+        {
+          id: 26,
+          full_name: "B",
+          filial: { id: 1, name: "T" },
+          leads: 0,
+          sold: 2,
+          otkaz: 0,
+          conversion_pct: null,
+        },
+      ],
+    });
+    expect(data.trend).toEqual({
+      labels: ["2026-10-30", "2026-10-31"],
+      sold: [3, 4],
+      delivered: [2, 3],
+      cancelled: [0, 1],
+    });
+    expect(data.operators.map((row) => [row.leads, row.conversion_pct, row.filial_id])).toEqual([
+      [40, 25, 1],
+      [0, null, 1],
+    ]);
+  });
+
+  it("gives an empty trend when the block is missing or null", () => {
+    expect(analyticsSchema.parse({ trend: null }).trend).toEqual({
+      labels: [],
+      sold: [],
+      delivered: [],
+      cancelled: [],
+    });
+  });
+});

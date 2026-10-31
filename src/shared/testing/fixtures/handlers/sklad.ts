@@ -116,7 +116,8 @@ const ledgerMatches = (ctx: MockContext) => {
   const types = (query.get("movement_type") ?? "").split(",").filter(Boolean);
   const from = query.get("date_from");
   const to = query.get("date_to");
-  const actorKind = query.get("actor_kind");
+  // vergul bilan bir nechta (B-23)
+  const actorKinds = (query.get("actor_kind") ?? "").split(",").filter(Boolean);
   const skladId = Number(query.get("sklad"));
   const skladRegions = skladId
     ? (skladState(ctx.now).sklads.find((sklad) => sklad.id === skladId)?.regions ?? [])
@@ -126,7 +127,7 @@ const ledgerMatches = (ctx: MockContext) => {
     return (
       (!region || row.region === region) &&
       (skladRegions === null || skladRegions.some((code) => code === row.region)) &&
-      (!actorKind || row.actor.kind === actorKind) &&
+      (actorKinds.length === 0 || actorKinds.includes(row.actor.kind)) &&
       (!item || row.item.id === item) &&
       (types.length === 0 || types.includes(row.movement_type)) &&
       (!from || date >= from) &&

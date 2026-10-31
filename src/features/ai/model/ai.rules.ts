@@ -29,11 +29,23 @@ const text = (finding: Finding, keys: readonly string[]): string | null => {
   return null;
 };
 
+/**
+ * Rus tilida avval `<kalit>_ru` (N-10: `title_ru`, `detail_ru`); bo'sh yoki yo'q bo'lsa —
+ * asl (o'zbekcha) matn. Sklad topilmalarida tarjima manbasi yo'q — o'zbekcha qoladi.
+ */
+const localized = (finding: Finding, locale: string, keys: readonly string[]): string | null =>
+  (locale === "ru"
+    ? text(
+        finding,
+        keys.map((key) => `${key}_ru`),
+      )
+    : null) ?? text(finding, keys);
+
 /** Topilma sarlavhasi, izohi va maslahati (`title`, `detail`; sklad topilmasida `fix`). */
-export const findingTitle = (finding: Finding): string =>
-  text(finding, ["title", "message", "summary", "text", "kind", "code"]) ?? finding.severity;
-export const findingDetail = (finding: Finding): string | null =>
-  text(finding, ["detail", "description", "details", "explanation"]);
+export const findingTitle = (finding: Finding, locale = "uz"): string =>
+  localized(finding, locale, ["title", "message", "summary", "text", "kind", "code"]) ?? finding.severity;
+export const findingDetail = (finding: Finding, locale = "uz"): string | null =>
+  localized(finding, locale, ["detail", "description", "details", "explanation"]);
 export const findingAdvice = (finding: Finding): string | null =>
   text(finding, ["recommendation", "fix", "advice", "action"]);
 

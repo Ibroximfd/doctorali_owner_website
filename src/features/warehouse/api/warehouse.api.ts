@@ -10,7 +10,7 @@ import {
   ledgerSummarySchema,
   overviewSchema,
   skladsSchema,
-  stockPageSchema,
+  actorKindParam,
   stockSchema,
   type FilialGrants,
   type Ledger,
@@ -21,25 +21,8 @@ import {
 
 export const loadSklads = async () => parseJson(skladsSchema, await skladGet("sklads/"));
 export const loadItems = async () => parseJson(itemsSchema, await skladGet("items/", { pagination: false }));
-/** Juda katta bo'lsa ham oxirigacha: sahifalar soni cheklangan (cheksiz sikl bo'lmasin). */
-const STOCK_MAX_PAGES = 20;
-const STOCK_PAGE_SIZE = 200;
-
-/**
- * Qoldiq to'liq kerak (xarita, yig'indi). `pagination=false` massiv qaytaradi; jonli javob
- * sahifali (`{count, next, results}`) bo'lsa — `next` tugaguncha yig'iladi.
- */
-export const loadStock = async () => {
-  const first = await skladGet("stock/", { pagination: false, page_size: STOCK_PAGE_SIZE });
-  if (Array.isArray(first)) return parseJson(stockSchema, first);
-  let page = stockPageSchema.parse(first);
-  const rows = [...page.results];
-  for (let index = 2; page.next !== null && index <= STOCK_MAX_PAGES; index += 1) {
-    page = stockPageSchema.parse(await skladGet("stock/", { page: index, page_size: STOCK_PAGE_SIZE }));
-    rows.push(...page.results);
-  }
-  return parseJson(stockSchema, rows);
-};
+/** Qoldiq to'liq kerak (xarita, yig'indi): `pagination=false` butun ro'yxatni massiv qaytaradi (B-23). */
+export const loadStock = async () => parseJson(stockSchema, await skladGet("stock/", { pagination: false }));
 export const loadOverview = async () => parseJson(overviewSchema, await skladGet("overview/"));
 
 export type Range = { dateFrom: string; dateTo: string };
@@ -57,7 +40,7 @@ export type LedgerFilters = {
   /** Sklad (B-8b `?sklad=`) — uning viloyatlaridagi harakatlar. */
   sklad: number | null;
   item: number | null;
-  /** Kim (B-8b `?actor_kind=`): `logist | chief_courier | courier | system`. */
+  /** Kim (B-23 `?actor_kind=`): `logist | courier | system`, vergul bilan bir nechtasi. */
   actor: string | null;
   type: string | null;
   page: number;
@@ -74,7 +57,7 @@ export const loadLedger = async (filters: LedgerFilters): Promise<Ledger> =>
       region: filters.region ?? undefined,
       sklad: filters.sklad ?? undefined,
       item: filters.item ?? undefined,
-      actor_kind: filters.actor ?? undefined,
+      actor_kind: actorKindParam(filters.actor) ?? undefined,
       movement_type: filters.type ?? undefined,
       page: filters.page,
       page_size: LEDGER_PAGE_SIZE,

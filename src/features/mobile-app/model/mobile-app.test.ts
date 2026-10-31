@@ -36,7 +36,7 @@ describe("app contract", () => {
     if (!users) throw new Error("users missing");
     expect(users.mau).toBeGreaterThan(users.dau);
     expect(users.usersTotal).toBeGreaterThan(users.mau);
-    expect(users.trend.dau).toHaveLength(users.trend.labels.length);
+    expect(users.trend.new).toHaveLength(users.trend.labels.length);
   });
 });
 
@@ -57,5 +57,48 @@ describe("app rules", () => {
   it("computes the share who ordered", () => {
     expect(orderedRate({ invited: 10, ordered: 5 })).toBe(50);
     expect(orderedRate({ invited: 0, ordered: 0 })).toBeNull();
+  });
+});
+
+describe("app v2 answer (B-20 / N-8)", () => {
+  it("reads revenue, both trends and the referral rows with a filial object or name", () => {
+    const data = appV2Schema.parse({
+      orders: {
+        totals: { pending: 1, confirmed: 1, shipping: 1, delivered: 2, cancelled: 0 },
+        revenue: "32506916",
+        trend: { labels: ["2026-10-30", "2026-10-31"], orders: [2, "3"], delivered: [1, 1] },
+      },
+      users: { total: 54, new_in_period: 26, dau: 0, mau: 9, trend: { labels: ["2026-10-31"], new: [4] } },
+      referrals: {
+        tracked: true,
+        operators: [
+          { id: 7, full_name: "Aziza", filial: { id: 2, name: "Mehrigiyo Qo'qon" }, invited: 5, ordered: 2 },
+          { id: 8, full_name: "Feruza", filial: "Mehrigiyo Toshkent", invited: "3", ordered: 0 },
+        ],
+      },
+    });
+    expect(data.orders?.revenue).toBe(32_506_916);
+    expect(data.orders?.trend).toEqual({
+      labels: ["2026-10-30", "2026-10-31"],
+      orders: [2, 3],
+      delivered: [1, 1],
+    });
+    expect(data.users?.trend).toEqual({ labels: ["2026-10-31"], new: [4] });
+    expect(data.operators?.map((row) => [row.filial_id, row.filial_name, row.invited])).toEqual([
+      [2, "Mehrigiyo Qo'qon", 5],
+      [0, "Mehrigiyo Toshkent", 3],
+    ]);
+  });
+
+  it("keeps missing money and trends empty, and untracked referrals as null", () => {
+    const data = appV2Schema.parse({
+      orders: { totals: {}, revenue: null, trend: null },
+      users: { total: 1 },
+      referrals: { tracked: false, operators: [] },
+    });
+    expect(data.orders?.revenue).toBeNull();
+    expect(data.orders?.trend.labels).toEqual([]);
+    expect(data.users?.trend).toEqual({ labels: [], new: [] });
+    expect(data.operators).toBeNull();
   });
 });
