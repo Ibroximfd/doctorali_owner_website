@@ -1,0 +1,171 @@
+{
+  "as_of": "2026-10-05T09:00:00.000Z",
+  "totals": {
+    "on_hand": 6668,
+    "locations": 14,
+    "with_couriers": 1303,
+    "couriers": 5,
+    "low_items": 4,
+    "low_regions": 2,
+    "delivered_today": 0,
+    "sold_today_qty": 0,
+    "receipt_today_qty": 0,
+    "receipt_today_docs": 0
+  },
+  "regions": [
+    {
+      "code": "toshkent_shahar",
+      "name": "Toshkent shahri",
+      "on_hand": 1245,
+      "with_couriers": 515,
+      "couriers": 1,
+      "locations": 1,
+      "low_items": 0,
+      "delivered_today": 0,
+      "status": "ok"
+    },
+    {
+      "code": "toshkent",
+      "name": "Toshkent viloyati",
+      "on_hand": 1245,
+      "with_couriers": 0,
+      "couriers": 0,
+      "locations": 1,
+      "low_items": 0,
+      "delivered_today": 0,
+      "status": "ok"
+    },
+    {
+      "code": "samarqand",
+      "name": "Samarqand",
+      "on_hand": 319,
+      "with_couriers": 174,
+      "couriers": 1,
+      "locations": 1,
+      "low_items": 0,
+      "delivered_today": 0,
+      "status": "ok"
+    },
+    {
+      "code": "fargona",
+      "name": "Farg'ona",
+      "on_hand": 687,
+      "with_couriers": 401,
+      "couriers": 1,
+      "locations": 1,
+      "low_items": 0,
+      "delivered_today": 0,
+      "status": "ok"
+    },
+    {
+      "code": "andijon",
+      "name": "Andijon",
+      "on_hand": 683,
+      "with_couriers": 0,
+      "couriers": 0,
+      "locations": 1,
+      "low_items": 0,
+      "delivered_today": 0,
+      "status": "ok"
+    },
+    {
+      "code": "namangan",
+      "name": "Namangan",
+      "on_hand": 685,
+      "with_couriers": 0,
+      "couriers": 0,
+      "locations": 1,
+      "low_items": 0,
+      "delivered_today": 0,
+      "status": "ok"
+    },
+    {
+      "code": "qashqadaryo",
+      "name": "Qashqadaryo",
+      "on_hand": 239,
+      "with_couriers": 92,
+      "couriers": 1,
+      "locations": 1,
+      "low_items": 2,
+      "delivered_today": 0,
+      "status": "low"
+    },
+    {
+      "code": "buxoro",
+      "name": "Buxoro",
+      "on_hand": 177,
+      "with_couriers": 121,
+      "couriers": 1,
+      "locations": 1,
+      "low_items": 0,
+      "delivered_today": 0,
+      "status": "ok"
+    },
+    {
+      "code": "surxondaryo",
+      "name": "Surxondaryo",
+      "on_hand": 238,
+      "with_couriers": 0,
+      "couriers": 0,
+      "locations": 1,
+      "low_items": 2,
+      "delivered_today": 0,
+      "status": "low"
+    },
+    {
+      "code": "xorazm",
+      "name": "Xorazm",
+      "on_hand": 172,
+      "with_couriers": 0,
+      "couriers": 0,
+      "locations": 1,
+      "low_items": 0,
+      "delivered_today": 0,
+      "status": "ok"
+    },
+    {
+      "code": "jizzax",
+      "name": "Jizzax",
+      "on_hand": 317,
+      "with_couriers": 0,
+      "couriers": 0,
+      "locations": 1,
+      "low_items": 0,
+      "delivered_today": 0,
+      "status": "ok"
+    },
+    {
+      "code": "navoiy",
+      "name": "Navoiy",
+      "on_hand": 175,
+      "with_couriers": 0,
+      "couriers": 0,
+      "locations": 1,
+      "low_items": 0,
+      "delivered_today": 0,
+      "status": "ok"
+    },
+    {
+      "code": "sirdaryo",
+      "name": "Sirdaryo",
+      "on_hand": 314,
+      "with_couriers": 0,
+      "couriers": 0,
+      "locations": 1,
+      "low_items": 0,
+      "delivered_today": 0,
+      "status": "ok"
+    },
+    {
+      "code": "qoraqalpogiston",
+      "name": "Qoraqalpog'iston",
+      "on_hand": 172,
+      "with_couriers": 0,
+      "couriers": 0,
+      "locations": 1,
+      "low_items": 0,
+      "delivered_today": 0,
+      "status": "ok"
+    }
+  ]
+}

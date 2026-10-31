@@ -1,29 +1,14 @@
 import { buildContext } from "./engine";
-import { accessHandlers } from "./handlers/access";
 import { aiHandlers } from "./handlers/ai";
-import { alertsHandlers } from "./handlers/alerts";
-import { clinicHandlers } from "./handlers/clinic";
-import { customersHandlers } from "./handlers/customers";
-import { doctorsHandlers } from "./handlers/doctors";
+import { analyticsHandlers } from "./handlers/analytics";
+import { appHandlers } from "./handlers/app";
+import { filialsHandlers } from "./handlers/filials";
 import { financeHandlers } from "./handlers/finance";
-import { forecastHandlers } from "./handlers/forecast";
-import { iamHandlers } from "./handlers/iam";
-import { issuesHandlers } from "./handlers/issues";
-import { logisticsHandlers } from "./handlers/logistics";
 import { metaHandlers } from "./handlers/meta";
-import { mobileAppHandlers } from "./handlers/mobile-app";
-import { ordersHandlers } from "./handlers/orders";
 import { overviewHandlers } from "./handlers/overview";
-import { productsHandlers } from "./handlers/products";
-import { regionsHandlers } from "./handlers/regions";
-import { reportsHandlers } from "./handlers/reports";
-import { salesHandlers } from "./handlers/sales";
 import { settingsHandlers } from "./handlers/settings";
-import { settlementsHandlers } from "./handlers/settlements";
 import { staffHandlers } from "./handlers/staff";
-import { systemHandlers } from "./handlers/system";
-import { telegramHandlers } from "./handlers/telegram";
-import { warehouseHandlers } from "./handlers/warehouse";
+import { skladHandlers } from "./handlers/sklad";
 import { mockError, type MockHandler, type MockResponse } from "./types";
 
 const isMockResponse = (value: unknown): value is MockResponse =>
@@ -36,29 +21,14 @@ const isMockResponse = (value: unknown): value is MockResponse =>
 const HANDLERS: readonly MockHandler[] = [
   ...metaHandlers,
   ...overviewHandlers,
-  ...ordersHandlers,
+  ...filialsHandlers,
   ...financeHandlers,
-  ...clinicHandlers,
-  ...logisticsHandlers,
-  ...salesHandlers,
-  ...mobileAppHandlers,
-  ...productsHandlers,
-  ...customersHandlers,
-  ...doctorsHandlers,
-  ...alertsHandlers,
-  ...reportsHandlers,
-  ...settingsHandlers,
-  ...telegramHandlers,
-  ...warehouseHandlers,
-  ...settlementsHandlers,
-  ...issuesHandlers,
-  ...aiHandlers,
-  ...forecastHandlers,
-  ...accessHandlers,
-  ...systemHandlers,
-  ...regionsHandlers,
+  ...analyticsHandlers,
+  ...appHandlers,
   ...staffHandlers,
-  ...iamHandlers,
+  ...skladHandlers,
+  ...aiHandlers,
+  ...settingsHandlers,
 ];
 
 const segmentsOf = (path: string): string[] => path.split("/").filter((segment) => segment !== "");
@@ -92,7 +62,7 @@ const paramCount = (pattern: string): number =>
 
 /**
  * `/api/owner/<path>` so'roviga namuna javob. Bir nechta namuna mos kelsa eng
- * aniq yo'l yutadi (`orders/app-funnels/` → `orders/:id/` dan ustun), ro'yxatdagi
+ * aniq yo'l yutadi (`filials/performance/` → `filials/:id/` dan ustun), ro'yxatdagi
  * tartib ahamiyatsiz. Mos handler bo'lmasa — 404.
  */
 export const resolveMock = ({ method, path, searchParams, body, now }: MockRequest): MockResponse => {

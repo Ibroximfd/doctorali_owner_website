@@ -1,37 +1,80 @@
-/** Qoldiq holati (backend hisoblaydi): yomonidan yaxshisiga. */
-export const STOCK_STATUSES = ["out", "critical", "low", "ok", "empty"] as const;
-export type StockStatus = (typeof STOCK_STATUSES)[number];
+import type { FilialGrants, Sklad, SkladOverview, StockCell } from "./warehouse.schema";
 
-export const isStockStatus = (value: string): value is StockStatus =>
-  STOCK_STATUSES.some((known) => known === value);
+/** Sklad rangi tartibi qat'iy — sklad id siga bog'langan (ro'yxat tartibiga emas). */
+export const skladColorIndex = (sklads: readonly Pick<Sklad, "id">[], id: number): number =>
+  Math.max(
+    0,
+    [...sklads].sort((a, b) => a.id - b.id).findIndex((sklad) => sklad.id === id),
+  );
 
-/** Muammoli qoldiq: tugagan yoki kritik. */
-export const isProblemStock = (status: string): boolean => status === "out" || status === "critical";
+/** Viloyat → uni qamragan sklad. */
+export const skladByRegion = (sklads: readonly Sklad[]): Map<string, Sklad> =>
+  new Map(sklads.flatMap((sklad) => sklad.regions.map((code) => [code, sklad] as const)));
 
-/** Saralash og'irligi: noma'lum holat oxirida. */
-export const stockRank = (status: string): number => {
-  const index = STOCK_STATUSES.findIndex((known) => known === status);
-  return index === -1 ? STOCK_STATUSES.length : index;
+/** Sklad xulosasi (xarita kartasi): viloyatlari bo'yicha `overview` yig'indisi. */
+export const skladSummary = (sklad: Pick<Sklad, "regions">, overview: SkladOverview | undefined) => {
+  const rows = overview?.regions.filter((row) => sklad.regions.includes(row.code)) ?? [];
+  return {
+    onHand: rows.reduce((sum, row) => sum + row.onHand, 0),
+    withCouriers: rows.reduce((sum, row) => sum + row.withCouriers, 0),
+    lowItems: rows.reduce((sum, row) => sum + row.lowItems, 0),
+  };
 };
 
-/** Ombor kartasidagi «to'lish» chizig'i: 30 kun — to'liq (100%). */
-export const COVER_FULL_DAYS = 30;
-
-export const coverPercent = (days: number | null): number =>
-  days === null ? 0 : Math.max(0, Math.min(100, Math.round((days / COVER_FULL_DAYS) * 100)));
-
-/** Marketplace (ERP) dan kelgan ombor — alohida belgi bilan ko'rsatiladi. */
-export const isMarketplace = (source: string): boolean => source === "marketplace";
-
-type RunwayCandidate = { status: string; daysOfCover: number | null };
+export type StockRow = {
+  itemId: number;
+  name: string;
+  qty: number;
+  courierQty: number;
+  minQty: number;
+  isLow: boolean;
+};
 
 /**
- * «Tugash vaqti» shkalasi qatorlari: tugagan yoki chiqimi bor (kunlari o'lchanadigan) mahsulotlar,
- * eng tez tugaydigani birinchi. Chiqimsiz (`daysOfCover = null`) qoldiq shkalaga tushmaydi.
+ * Qoldiq mahsulot bo'yicha: viloyat omborlari (`kind=region`) — skladda, kuryer omborlari — kuryerlarda.
+ * `regions` berilsa — faqat shu sklad viloyatlari, aks holda hammasi.
  */
-export const runwayRows = <T extends RunwayCandidate>(rows: readonly T[]): T[] =>
-  rows
-    .filter((row) => row.status === "out" || row.daysOfCover !== null)
-    .map((row) => ({ row, days: row.status === "out" ? 0 : (row.daysOfCover ?? 0) }))
-    .sort((a, b) => a.days - b.days)
-    .map(({ row }) => row);
+export const stockRows = (cells: readonly StockCell[], regions: readonly string[] | null): StockRow[] => {
+  const byItem = new Map<number, StockRow>();
+  for (const cell of cells) {
+    if (regions && (cell.location.region === null || !regions.includes(cell.location.region))) continue;
+    const row = byItem.get(cell.item.id) ?? {
+      itemId: cell.item.id,
+      name: cell.item.name,
+      qty: 0,
+      courierQty: 0,
+      minQty: 0,
+      isLow: false,
+    };
+    if (cell.location.kind === "courier") row.courierQty += cell.onHand;
+    else {
+      row.qty += cell.onHand;
+      row.minQty += cell.minQuantity;
+      row.isLow ||= cell.isLow;
+    }
+    byItem.set(cell.item.id, row);
+  }
+  return [...byItem.values()].sort(
+    (a, b) => Number(b.isLow) - Number(a.isLow) || a.name.localeCompare(b.name),
+  );
+};
+
+/** Mahsulot → dopusk berilgan filial (bitta mahsulot — bitta filial). */
+export const grantOwners = (grants: readonly FilialGrants[]): Map<number, number> =>
+  new Map(grants.flatMap((grant) => grant.items.map((item) => [item.productId, grant.filialId] as const)));
+
+/** Sahifalash yorlig'i uchun: «21–40 / 134». */
+export const pageRange = (page: number, pageSize: number, count: number) => ({
+  from: count === 0 ? 0 : (page - 1) * pageSize + 1,
+  to: Math.min(count, page * pageSize),
+  pages: Math.max(1, Math.ceil(count / pageSize)),
+});
+
+/** Dopusk ro'yxati: hech bir filialga berilmaganlar alohida (egasi birinchi ko'rsin), qolgani. */
+export const splitByGrant = <Item extends { id: number }>(
+  items: readonly Item[],
+  owners: ReadonlyMap<number, number>,
+): { unassigned: Item[]; assigned: Item[] } => ({
+  unassigned: items.filter((item) => !owners.has(item.id)),
+  assigned: items.filter((item) => owners.has(item.id)),
+});

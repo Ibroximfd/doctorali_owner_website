@@ -4,10 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, type ReactNode } from "react";
 
-import { useOpenAlertsCount } from "@/features/alerts/hooks/use-alerts-query";
 import { useLogout, useMeQuery } from "@/features/auth/hooks/use-auth";
-import { OrderDrawer } from "@/features/orders/ui/order-drawer";
-import { TelegramRuntime } from "@/features/telegram/ui/telegram-runtime";
 import { isRouteAllowed, visibleNavItems } from "@/shared/config/nav";
 import { routeKeyOf, routes } from "@/shared/config/routes";
 import { useLiveChannel } from "@/shared/hooks/use-live-channel";
@@ -15,12 +12,11 @@ import { useSessionStore } from "@/shared/stores/session-store";
 import { AppShell } from "@/shared/ui/shell/app-shell";
 
 /**
- * Kompozitsiya nuqtasi: qobiq (`shared`) signal soni va foydalanuvchini o'zi
- * yuklamaydi — ular shu yerda, featurelardan olinib beriladi.
+ * Kompozitsiya nuqtasi: qobiq (`shared`) foydalanuvchini o'zi yuklamaydi —
+ * u shu yerda, `auth` featuresidan olinib beriladi.
  */
 export const PanelShell = ({ children }: { children: ReactNode }) => {
   const t = useTranslations("nav");
-  const alertsCount = useOpenAlertsCount();
   const me = useMeQuery().data;
   const logout = useLogout();
   const allowedSections = me?.sections ?? [];
@@ -31,21 +27,16 @@ export const PanelShell = ({ children }: { children: ReactNode }) => {
 
   useLiveChannel();
   // Saytda harakatsizlik uchun chiqarilmaydi: boshliq qarori — bir marta kirgach sessiya eslab
-  // qolinadi (refresh 14 kun, har kirishda yangilanadi). Telegramda qulf alohida (`TelegramRuntime`).
+  // qolinadi (refresh 14 kun, har kirishda yangilanadi).
 
   return (
     <AppShell
-      alertsCount={alertsCount}
       userName={me?.fullName ?? t("userFallback")}
       userRole={t(me?.role === "owner_viewer" ? "roles.viewer" : "roles.owner")}
       onLogout={() => logout.mutate()}
       allowedSections={allowedSections}
     >
       {children}
-      {/* Buyurtma kartasi istalgan bo'limdan `?order=<id>` orqali ochiladi. */}
-      <OrderDrawer />
-      {/* Telegram mini app ichida: mavzu, «orqaga» tugmasi, fonda qolsa — PIN qayta. */}
-      <TelegramRuntime onLock={() => logout.mutate()} />
     </AppShell>
   );
 };

@@ -1,0 +1,33 @@
+{
+  "filial_id": 1,
+  "items": [
+    {
+      "id": 1011,
+      "product_id": 11,
+      "product_name": "Gepatofit",
+      "granted_at": "2026-10-30T05:00:00Z",
+      "note": "owner panel"
+    },
+    {
+      "id": 1012,
+      "product_id": 12,
+      "product_name": "Kardiomed",
+      "granted_at": "2026-10-30T05:00:00Z",
+      "note": "owner panel"
+    },
+    {
+      "id": 1013,
+      "product_id": 13,
+      "product_name": "Artroflex",
+      "granted_at": "2026-10-30T05:00:00Z",
+      "note": "owner panel"
+    },
+    {
+      "id": 1014,
+      "product_id": 14,
+      "product_name": "Gastrofit",
+      "granted_at": "2026-10-30T05:00:00Z",
+      "note": "owner panel"
+    }
+  ]
+}

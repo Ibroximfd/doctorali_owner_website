@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import type { CSSProperties } from "react";
 
 import { cn } from "@/shared/lib/cn";
-import { formatDecimal, initialsOf } from "@/shared/lib/format";
+import { formatPercent, initialsOf } from "@/shared/lib/format";
 import { Card, CardBody, CardHeader } from "@/shared/ui/card";
 import { EASE_OUT } from "@/shared/ui/motion/reveal";
 import { NoResults, QueryState, TableSkeleton } from "@/shared/ui/states";
@@ -19,7 +19,6 @@ import {
   leadColumn,
   metricValue,
   relativeTone,
-  scoreTone,
   sortByRank,
   type RelativeTone,
   type StaffBadge,
@@ -304,15 +303,10 @@ const LeadBar = ({
 const ScoreValue = ({ row }: { row: StaffRow }) => {
   const t = useTranslations("staff.board");
   if (row.score === null) return <span className="text-ink-3 text-xs">{t("notEnough")}</span>;
-  const tone = scoreTone(row.score);
+  // ulush (yetakchi = 100%) — qizil bilan «yomon» deb belgilanmaydi, faqat yetakchi ajraladi
   return (
-    <span
-      className={cn(
-        "num text-base font-semibold",
-        row.rank === 1 ? "text-gold" : tone === "crit" ? "text-crit" : "text-ink",
-      )}
-    >
-      {formatDecimal(row.score)}
+    <span className={cn("num text-base font-semibold", row.rank === 1 ? "text-gold" : "text-ink")}>
+      {formatPercent(row.score)}
     </span>
   );
 };

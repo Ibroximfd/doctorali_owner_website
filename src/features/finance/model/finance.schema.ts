@@ -1,117 +1,210 @@
 import { z } from "zod";
 
 import type { Camelized } from "@/shared/lib/camelize";
-import { metricSchema } from "@/shared/lib/envelope";
+import {
+  aliases,
+  balance,
+  flattenRef,
+  list,
+  num,
+  optNum,
+  str,
+  toNumber,
+  withDefaults,
+  withFilialCode,
+} from "@/shared/lib/lenient";
 
 /**
- * Moliya endpointlari (`02_BACKEND_TZ` §4.4). Sxema faqat ekran o'qiydigan
- * maydonlarni tekshiradi — shartnomadagi qolgan maydonlar (`by_channel`,
- * `by_filial`, `by_reason` …) kelsa ham e'tiborsiz qoladi.
+ * «Moliya» — `GET /api/owner/finance/v2/` (B-12). Jonli javob (2026-10-31): `totals`
+ * (`with_couriers`, `with_chiefs`, `handed_over`), `by_filial[{filial:{id,name}, …}]`,
+ * `chiefs[{seat_id, full_name, by_filial}]`, `handovers[{chief, filial, status, …}]`,
+ * `regions[{region, otkaz, revenue}]`. Manzil narxi, manzillar soni va bosh kuryer haqi
+ * javobda yo'q — 0 bo'lib turadi. `?source=` pul zanjiriga qo'llanmaydi (backend qoidasi).
  */
+const MONEY_ALIASES = {
+  at_couriers: ["with_couriers"],
+  at_chiefs: ["with_chiefs"],
+  handed: ["handed_over", "handed_to_filials"],
+} as const;
 
-/** `GET /finance/summary/` — sahifaning to'rtta asosiy raqami. */
-export const financeSummarySchema = z.object({
-  revenue: metricSchema,
-  collected: metricSchema,
-  expenses: metricSchema,
-  net_cash: metricSchema,
-  refunds: metricSchema,
-  /** KPI kataklaridagi mini trend (shartnomaga qo'shimcha; bo'lmasa chizilmaydi). */
-  sparklines: z.record(z.array(z.number())).default({}),
-});
-export type FinanceSummary = Camelized<z.infer<typeof financeSummarySchema>>;
+const moneySplit = { at_couriers: balance, at_chiefs: balance, handed: balance };
 
-/** `GET /finance/cash-position/` — pul hozir qayerda (davrga bog'liq emas). */
-export const cashPositionSchema = z.object({
-  clinic_tills: z.array(
-    z.object({
-      filial: z.string(),
-      cash: z.number(),
-      card: z.number(),
-      terminal: z.number(),
-      closed_today: z.boolean(),
-    }),
-  ),
-  courier_cod: z.array(
-    z.object({
-      courier: z.string(),
-      filial: z.string().nullable(),
-      amount: z.number(),
-      oldest_at: z.string().nullable(),
-      orders: z.number(),
-    }),
-  ),
-  online: z.object({ click: z.number(), payme: z.number(), pending: z.number() }),
-  debts: z.object({ open: z.number(), overdue: z.number(), due_week: z.number() }),
-});
-export type CashPosition = Camelized<z.infer<typeof cashPositionSchema>>;
-
-/** `GET /finance/payment-mix/`. To'lov usuli — ochiq ro'yxat (yangi usul yiqitmaydi). */
-export const paymentMixSchema = z.array(
-  z.object({ method: z.string(), amount: z.number(), count: z.number(), share_pct: z.number() }),
+const totalsSchema = aliases(
+  MONEY_ALIASES,
+  z.object({ revenue: num, ...moneySplit, addresses: num, chief_fee: num, chief_fee_paid: optNum }),
 );
-export type PaymentMixRow = Camelized<z.infer<typeof paymentMixSchema>>[number];
 
-/** `GET /finance/expenses/`. */
-export const expensesSchema = z.object({
-  total: metricSchema,
-  by_category: z.array(
-    z.object({
-      category: z.string(),
-      amount: z.number(),
-      share_pct: z.number(),
-      previous: z.number().nullable(),
-    }),
+const filialSchema = flattenRef(
+  "filial",
+  withFilialCode(
+    aliases(
+      { ...MONEY_ALIASES, id: ["filial_id"], name: ["filial_name"], orders_delivered: ["delivered"] },
+      z.object({
+        id: num,
+        code: str,
+        name: str,
+        is_main: z.boolean().default(false),
+        orders_delivered: num,
+        revenue: num,
+        ...moneySplit,
+        addresses: num,
+        chief_fee: num,
+        /** To'langan haq — jonli javobda yo'q (`null` → «—»). */
+        chief_fee_paid: optNum,
+      }),
+    ),
   ),
-});
-export type Expenses = Camelized<z.infer<typeof expensesSchema>>;
+);
 
-/** `GET /finance/liabilities/` — hali to'lanmagan majburiyatlar (hozirgi holat). */
-export const liabilitiesSchema = z.object({
-  operator_commission_pending: z.number(),
-  doctor_payouts_outstanding: z.number(),
-  /** To'lov kutayotgan shifokorlar soni (shartnomaga qo'shimcha; bo'lmasa izoh chiqmaydi). */
-  doctors_waiting: z.number().nullable().default(null),
-  cashback_points: z.object({
-    points: z.number(),
-    uzs_equivalent: z.number(),
-    expiring_this_month: z.number(),
-  }),
-  gifts: z.object({ count: z.number(), cost_estimate: z.number() }),
-});
-export type Liabilities = Camelized<z.infer<typeof liabilitiesSchema>>;
-
-/** `GET /finance/returns/` — bu sahifaga faqat yig'ma raqamlar kerak. */
-export const returnsSchema = z.object({ count: z.number(), refund_amount: z.number() });
-export type Returns = Camelized<z.infer<typeof returnsSchema>>;
-
-/** `GET /finance/debts/` — qarz muddatlari va eng katta qarzdorlar. */
-export const debtsSchema = z.object({
-  aging: z.array(z.object({ bucket: z.string(), amount: z.number(), count: z.number() })),
-  top_debtors: z.array(
-    z.object({
-      client: z.string(),
-      phone: z.string().nullable(),
-      filial: z.string().nullable(),
-      remaining: z.number(),
-      overdue_days: z.number(),
-    }),
+const chiefFilialSchema = flattenRef(
+  "filial",
+  withFilialCode(
+    aliases(
+      {
+        fee: ["chief_fee"],
+        fee_paid: ["chief_fee_paid"],
+        collected: ["cash_accepted", "revenue"],
+        handed: ["handed_over"],
+        pending: ["outstanding"],
+      },
+      z.object({
+        filial_id: num,
+        filial_code: str,
+        addresses: num,
+        fee: num,
+        /** To'langan haq — jonli javobda yo'q. */
+        fee_paid: optNum,
+        /** Bosh kuryer kuryerlardan qabul qilgan pul (`cash_accepted`). */
+        collected: num,
+        handed: num,
+        /** Hali filialga yetmagan pul (kuryerda + bosh kuryerda). */
+        pending: num,
+      }),
+    ),
+    "filial_code",
+    "filial_name",
   ),
-});
-export type Debts = Camelized<z.infer<typeof debtsSchema>>;
-export type Debtor = Debts["topDebtors"][number];
+);
 
-/** `GET /finance/daily-closings/`. Ochiq (hali yopilmagan) kunda sanalgan naqd va farq bo'lmaydi. */
-export const dailyClosingsSchema = z.array(
+/** Jonli javobda bosh kuryer `seat_id` bilan keladi — u kalit sifatida `sklad_id` o'rnida. */
+const chiefSchema = aliases(
+  { sklad_id: ["seat_id"], chief_name: ["full_name"] },
   z.object({
-    date: z.string(),
-    filial: z.string(),
-    status: z.string(),
-    expected_cash: z.number(),
-    counted_cash: z.number().nullable(),
-    difference: z.number().nullable(),
-    closed_by: z.string().nullable(),
-    closed_at: z.string().nullable(),
+    sklad_id: num,
+    sklad_name: str,
+    chief_name: str,
+    regions: list(z.string()),
+    by_filial: list(chiefFilialSchema),
   }),
 );
-export type DailyClosing = Camelized<z.infer<typeof dailyClosingsSchema>>[number];
+
+/**
+ * Topshiriq. Jonli javobda `status` (`pending | confirmed | disputed …`) bor, `on_time` yo'q —
+ * `disputed` va `pending` «vaqtida emas» deb o'qiladi.
+ */
+const handoverSchema = flattenRef(
+  "chief",
+  flattenRef(
+    "filial",
+    withFilialCode(
+      withDefaults(
+        (raw) => ({
+          on_time: typeof raw.status === "string" ? !["pending", "disputed"].includes(raw.status) : true,
+          sklad_id: raw.chief_seat_id,
+          chief_name: raw.chief_full_name,
+        }),
+        z.object({
+          id: num,
+          date: str,
+          sklad_id: num,
+          chief_name: str,
+          filial_id: num,
+          filial_code: str,
+          addresses: num,
+          amount: num,
+          on_time: z.boolean().default(true),
+        }),
+      ),
+      "filial_code",
+      "filial_name",
+    ),
+  ),
+);
+
+const regionSchema = aliases(
+  { code: ["region"], money: ["revenue"], cancelled: ["otkaz"] },
+  z.object({ code: str, sold: num, delivered: num, cancelled: num, money: num }),
+);
+
+/**
+ * Jonli javobda filial va jami darajasida manzil soni, haq va manzil narxi yo'q — ular
+ * `chiefs[].by_filial[]` (bosh kuryer × filial) dan yig'iladi; narx = haq ÷ manzil.
+ */
+const deriveFromChiefs = (raw: unknown): unknown => {
+  if (typeof raw !== "object" || raw === null || Array.isArray(raw)) return raw;
+  const body = raw as Record<string, unknown>;
+  const cells = (Array.isArray(body.chiefs) ? body.chiefs : []).flatMap((chief: unknown) => {
+    const rows =
+      typeof chief === "object" && chief !== null ? (chief as { by_filial?: unknown }).by_filial : [];
+    return Array.isArray(rows) ? (rows as unknown[]) : [];
+  });
+  if (cells.length === 0) return raw;
+  const cellFilial = (cell: unknown): number | null => {
+    if (typeof cell !== "object" || cell === null) return null;
+    const row = cell as { filial?: unknown; filial_id?: unknown };
+    const ref =
+      typeof row.filial === "object" && row.filial !== null
+        ? (row.filial as { id?: unknown }).id
+        : row.filial_id;
+    return toNumber(ref);
+  };
+  const sum = (key: "addresses" | "fee", filialId?: number) =>
+    cells.reduce<number>((total, cell) => {
+      if (filialId !== undefined && cellFilial(cell) !== filialId) return total;
+      return total + (toNumber((cell as Record<string, unknown>)[key]) ?? 0);
+    }, 0);
+  const filialRows = Array.isArray(body.by_filial ?? body.filials)
+    ? ((body.by_filial ?? body.filials) as unknown[])
+    : [];
+  const totals = (typeof body.totals === "object" && body.totals !== null ? body.totals : {}) as Record<
+    string,
+    unknown
+  >;
+  const addresses = sum("addresses");
+  return {
+    ...body,
+    address_rate: body.address_rate ?? (addresses > 0 ? Math.round(sum("fee") / addresses) : null),
+    totals: { addresses, chief_fee: sum("fee"), ...totals },
+    [body.by_filial ? "by_filial" : "filials"]: filialRows.map((row) => {
+      const id = cellFilial({
+        filial: (row as { filial?: unknown }).filial,
+        filial_id: (row as { id?: unknown }).id,
+      });
+      return id === null
+        ? row
+        : { addresses: sum("addresses", id), chief_fee: sum("fee", id), ...(row as object) };
+    }),
+  };
+};
+
+export const financeSchema = z.preprocess(
+  deriveFromChiefs,
+  aliases(
+    { filials: ["by_filial"] },
+    z.object({
+      /** Bir manzil narxi — hamma filial uchun bitta (jonli javobda yo'q). */
+      address_rate: num,
+      totals: z.preprocess((raw) => raw ?? {}, totalsSchema),
+      filials: list(filialSchema),
+      chiefs: list(chiefSchema),
+      handovers: list(handoverSchema),
+      regions: list(regionSchema),
+    }),
+  ),
+);
+
+export type Finance = Camelized<z.infer<typeof financeSchema>>;
+export type FinanceFilial = Finance["filials"][number];
+export type ChiefAccount = Finance["chiefs"][number];
+export type Handover = Finance["handovers"][number];
+export type RegionMoney = Finance["regions"][number];

@@ -1,0 +1,101 @@
+{
+  "count": 6,
+  "results": [
+    {
+      "at": "2026-04-15T05:00:00Z",
+      "action": "structure.head.appoint",
+      "endpoint": "/api/owner/structure/filials/3/heads/",
+      "method": "POST",
+      "status": 201,
+      "params": {
+        "filial_id": 3,
+        "kind": "chief_logist",
+        "seat_id": 205,
+        "role_id": 95,
+        "created": true
+      },
+      "user_id": 1,
+      "ip": "127.0.0.1"
+    },
+    {
+      "at": "2026-04-15T05:00:00Z",
+      "action": "structure.head.appoint",
+      "endpoint": "/api/owner/structure/filials/3/heads/",
+      "method": "POST",
+      "status": 201,
+      "params": {
+        "filial_id": 3,
+        "kind": "chief_operator",
+        "seat_id": 206,
+        "role_id": 96,
+        "created": true
+      },
+      "user_id": 1,
+      "ip": "127.0.0.1"
+    },
+    {
+      "at": "2025-02-10T05:00:00Z",
+      "action": "structure.head.appoint",
+      "endpoint": "/api/owner/structure/filials/2/heads/",
+      "method": "POST",
+      "status": 201,
+      "params": {
+        "filial_id": 2,
+        "kind": "chief_logist",
+        "seat_id": 203,
+        "role_id": 93,
+        "created": true
+      },
+      "user_id": 1,
+      "ip": "127.0.0.1"
+    },
+    {
+      "at": "2025-02-10T05:00:00Z",
+      "action": "structure.head.appoint",
+      "endpoint": "/api/owner/structure/filials/2/heads/",
+      "method": "POST",
+      "status": 201,
+      "params": {
+        "filial_id": 2,
+        "kind": "chief_operator",
+        "seat_id": 204,
+        "role_id": 94,
+        "created": true
+      },
+      "user_id": 1,
+      "ip": "127.0.0.1"
+    },
+    {
+      "at": "2024-03-01T05:00:00Z",
+      "action": "structure.head.appoint",
+      "endpoint": "/api/owner/structure/filials/1/heads/",
+      "method": "POST",
+      "status": 201,
+      "params": {
+        "filial_id": 1,
+        "kind": "chief_logist",
+        "seat_id": 201,
+        "role_id": 91,
+        "created": true
+      },
+      "user_id": 1,
+      "ip": "127.0.0.1"
+    },
+    {
+      "at": "2024-03-01T05:00:00Z",
+      "action": "structure.head.appoint",
+      "endpoint": "/api/owner/structure/filials/1/heads/",
+      "method": "POST",
+      "status": 201,
+      "params": {
+        "filial_id": 1,
+        "kind": "chief_operator",
+        "seat_id": 202,
+        "role_id": 92,
+        "created": true
+      },
+      "user_id": 1,
+      "ip": "127.0.0.1"
+    }
+  ]
+}

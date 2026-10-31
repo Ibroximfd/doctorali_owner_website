@@ -8,7 +8,7 @@ import { seriesBg } from "@/shared/config/chart-palette";
 import { useFormat } from "@/shared/hooks/use-format";
 import { toAppError } from "@/shared/lib/app-error";
 import { cn } from "@/shared/lib/cn";
-import { formatDecimal, formatNumber } from "@/shared/lib/format";
+import { formatNumber, formatPercent } from "@/shared/lib/format";
 import { Drawer, DrawerSection } from "@/shared/ui/drawer";
 import { Funnel } from "@/shared/ui/funnel";
 import { MetricDelta } from "@/shared/ui/metric-delta";
@@ -83,7 +83,7 @@ const ProfileBody = ({ profile }: { profile: StaffProfile }) => {
         <div>
           <div className="text-2xs text-hero-ink-2">{t("score")}</div>
           <div className={cn("num text-3xl font-semibold", profile.score === null ? "" : "text-gilded")}>
-            {profile.score === null ? "—" : formatDecimal(profile.score)}
+            {profile.score === null ? "—" : formatPercent(profile.score)}
           </div>
         </div>
         <div className="text-hero-ink-2 text-xs">

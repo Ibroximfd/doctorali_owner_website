@@ -1,21 +1,18 @@
 {
-  "title": "Xodimlar reytingi",
-  "description": "Har bir xodim va jamoa: kimga qancha ish berildi, qanchasi natija bo'ldi, qanday baholanyapti.",
+  "title": "Xodimlar nazorati",
+  "description": "Operatorlar va logistlar natijasi, filiallar kesimida.",
   "hero": {
     "eyebrow": "Reyting · {role}",
     "lead": "Bu davrda <gold>{name}</gold> — {metric}: {value}, jamoa o'rtachasidan <mint>{ratio} barobar</mint> yuqori."
   },
   "roles": {
     "operator": "Operatorlar",
-    "admin": "Call-center adminlari",
-    "courier": "Kuryerlar",
-    "warehouse": "Skladchilar",
     "logist": "Logistlar"
   },
   "metrics": {
     "leads": "Lid berildi",
     "contacted": "Bog'lanildi",
-    "orders": "Buyurtma",
+    "orders": "Sotildi",
     "conversion_pct": "Konversiya",
     "delivered": "Yetkazildi",
     "cancel_rate_pct": "Atkaz",
@@ -46,7 +43,11 @@
     "avg_pick_min": "Yig'ish vaqti",
     "avg_assign_min": "Biriktirish vaqti",
     "late_pct": "Kechikkan",
-    "reassign_pct": "Qayta biriktirish"
+    "reassign_pct": "Qayta biriktirish",
+    "sales_amount": "Sotuv summasi",
+    "orders_delivered": "Yetkazildi",
+    "missed_unhandled": "O'tkazib yuborilgan",
+    "rating_avg": "Baho"
   },
   "badges": {
     "top_conversion": "Eng yuqori konversiya",
@@ -57,19 +58,19 @@
   },
   "board": {
     "title": "Reyting",
-    "description": "{role} · ball 0–100 rolning asosiy ko'rsatkichlari jamlanmasi. Qatorni bosing — xodim profili",
+    "description": "{role} · o'rin — sotuv summasi bo'yicha. «Yetakchiga nisbatan» — eng ko'p sotgan xodim 100% deb olinganda. Qatorni bosing — profil",
     "roles": "Rollar",
-    "teams": "Jamoalar",
-    "allTeams": "Barcha jamoalar",
+    "teams": "Filiallar",
+    "allTeams": "Barcha filiallar",
     "rank": "O'rin",
     "name": "Xodim",
-    "score": "Ball",
+    "score": "Yetakchiga nisbatan",
     "notEnough": "ma'lumot kam",
     "rankDelta": "O'rni {count} pog'onaga o'zgardi",
     "open": "{name} profilini ochish"
   },
   "teams": {
-    "title": "Jamoalar",
+    "title": "Filiallar",
     "members": "{count} kishi"
   },
   "funnel": {
@@ -80,13 +81,15 @@
     "cancelled": "Atkaz",
     "assigned": "Biriktirildi",
     "picked": "Olib ketildi",
-    "returned": "Qaytarildi"
+    "returned": "Qaytarildi",
+    "orders_created": "Zakaz yaratildi",
+    "orders_delivered": "Yetkazildi"
   },
   "profile": {
     "title": "Xodim",
     "notFoundTitle": "Xodim topilmadi",
     "notFoundDescription": "Havola eskirgan yoki xodim boshqa jamoaga o'tgan.",
-    "score": "Ball",
+    "score": "Yetakchiga nisbatan",
     "rank": "{of} kishi ichida {rank}-o'rin",
     "since": "{date} dan beri ishlaydi",
     "ai": "AI xulosasi",
@@ -98,7 +101,7 @@
   },
   "podium": {
     "label": "Eng yaxshi uchlik",
-    "caption": "{metric} · ball {score}",
-    "score": "ball"
+    "caption": "{metric} · yetakchiga nisbatan {score}%",
+    "score": "yetakchiga nisbatan"
   }
 }

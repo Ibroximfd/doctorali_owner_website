@@ -1,92 +1,80 @@
 import { z } from "zod";
 
-import { alertSchema } from "@/shared/domain/alert";
 import type { Camelized } from "@/shared/lib/camelize";
-import { metricSchema } from "@/shared/lib/envelope";
+import {
+  aliases,
+  balance,
+  list,
+  metric,
+  num,
+  optNum,
+  percentOf,
+  str,
+  sumOf,
+  withDefaults,
+  withFilialCode,
+} from "@/shared/lib/lenient";
 
-/** `GET /overview/` (`02_BACKEND_TZ` §4.2). */
-export const overviewSchema = z.object({
-  revenue: z.object({
-    total: metricSchema,
-    delivery: metricSchema,
-    clinic: metricSchema,
-    consultation: metricSchema,
-  }),
-  /** Filtrdan mustaqil tezkor ko'rsatkichlar (hero ostidagi 4 katak). */
-  revenue_quick: z.object({
-    today: z.number(),
-    today_same_time_yesterday: z.number(),
-    yesterday: z.number(),
-    week: z.number(),
-    month: z.number(),
-  }),
-  plan: z
-    .object({
-      month: z.string(),
-      target: z.number(),
-      actual: z.number(),
-      pct: z.number(),
-      expected_pct: z.number(),
-      previous: z
-        .object({ month: z.string(), target: z.number(), actual: z.number(), pct: z.number() })
-        .nullable(),
-    })
-    .nullable(),
-  kpis: z.object({
-    orders: metricSchema,
-    delivered: metricSchema,
-    delivery_rate: metricSchema,
-    avg_check: metricSchema,
-    clinic_visits: metricSchema,
-    new_customers: metricSchema,
-    app_active_users: metricSchema,
-  }),
-  sparklines: z.record(z.array(z.number())).default({}),
-  pipeline_now: z.array(
-    z.object({ status: z.string(), count: z.number(), amount: z.number(), stale_count: z.number() }),
-  ),
-  cash_position: z.object({
-    clinic_tills: z.number(),
-    courier_cod: z.number(),
-    online_received: z.number(),
-    open_debt: z.number(),
-    overdue_debt: z.number(),
-  }),
-  alerts: z.object({
-    open_total: z.number(),
-    critical: z.number(),
-    serious: z.number(),
-    top: z.array(alertSchema),
-  }),
-  filials: z.array(
+/**
+ * «Umumiy» — `GET /api/owner/overview/v2/` (B-11). Jonli javob (2026-10-31): `money_chain`
+ * (`with_couriers`, `with_chiefs`, `handed_to_filials`), `orders` (`lead`, `otkaz`),
+ * `conversion_pct`, `filials[]` (`otkaz`, `otkaz_pct`). Tushum va atkaz foizi javobda yo'q —
+ * filiallar yig'indisidan hisoblanadi; o'tgan davr bilan solishtirish (`delta`) kelmaydi.
+ */
+const moneySchema = aliases(
+  {
+    at_couriers: ["with_couriers"],
+    at_chiefs: ["with_chiefs"],
+    handed: ["handed_to_filials", "handed_over"],
+  },
+  z.object({ at_couriers: balance, at_chiefs: balance, handed: balance }),
+);
+
+const filialSchema = withFilialCode(
+  aliases(
+    { cancelled: ["otkaz"], cancel_rate_pct: ["otkaz_pct"] },
     z.object({
-      id: z.number(),
-      name: z.string(),
-      revenue: metricSchema,
-      orders: z.number(),
-      /** Davrda yakunlangan buyurtma bo'lmasa `null`. */
-      delivery_rate: z.number().nullable(),
-      clinic_revenue: z.number().nullable(),
-      open_debt: z.number().nullable(),
-      courier_cod: z.number(),
+      id: num,
+      code: str,
+      name: str,
+      is_main: z.boolean().default(false),
+      sold: num,
+      delivered: num,
+      cancelled: num,
+      revenue: num,
+      conversion_pct: optNum,
+      cancel_rate_pct: optNum,
     }),
   ),
-});
+);
+
+const ordersSchema = aliases(
+  { leads: ["lead"], cancelled: ["otkaz"] },
+  z.object({ leads: metric, sold: metric, in_transit: metric, delivered: metric, cancelled: metric }),
+);
+
+export const overviewSchema = withDefaults(
+  (raw) => {
+    const orders = (raw.orders ?? {}) as Record<string, unknown>;
+    return {
+      revenue: sumOf(raw.filials, "revenue"),
+      cancel_rate: percentOf(orders.otkaz ?? orders.cancelled, orders.sold),
+    };
+  },
+  aliases(
+    { money: ["money_chain"], conversion: ["conversion_pct"], cancel_rate: ["cancel_rate_pct"] },
+    z.object({
+      /** Yetkazilgan zakazlar puli (davr). */
+      revenue: metric,
+      /** Pul hozir qayerda: kuryerda → bosh kuryerda → filialga topshirildi. */
+      money: z.preprocess((raw) => raw ?? {}, moneySchema),
+      orders: z.preprocess((raw) => raw ?? {}, ordersSchema),
+      conversion: metric,
+      cancel_rate: metric,
+      filials: list(filialSchema),
+    }),
+  ),
+);
+
 export type Overview = Camelized<z.infer<typeof overviewSchema>>;
-
-/** `GET /feed/` — muhim hodisalar lentasi. */
-export const feedSchema = z.object({
-  results: z.array(
-    z.object({
-      id: z.number(),
-      at: z.string(),
-      kind: z.string(),
-      filial: z.string().nullable(),
-      title: z.string(),
-      amount: z.number().nullable(),
-      actor: z.string().nullable(),
-      ref: z.object({ type: z.string(), id: z.string() }).nullable(),
-    }),
-  ),
-});
-export type FeedEvent = Camelized<z.infer<typeof feedSchema>>["results"][number];
+export type OverviewFilial = Overview["filials"][number];

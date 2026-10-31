@@ -1,21 +1,18 @@
 {
-  "title": "Рейтинг сотрудников",
-  "description": "Каждый сотрудник и команда: сколько работы дали, сколько стало результатом, как оценивают.",
+  "title": "Контроль сотрудников",
+  "description": "Результаты операторов и логистов в разрезе филиалов.",
   "hero": {
     "eyebrow": "Рейтинг · {role}",
     "lead": "В этом периоде у <gold>{name}</gold> — {metric}: {value}, в <mint>{ratio} раза</mint> выше среднего по команде."
   },
   "roles": {
     "operator": "Операторы",
-    "admin": "Админы колл-центра",
-    "courier": "Курьеры",
-    "warehouse": "Кладовщики",
     "logist": "Логисты"
   },
   "metrics": {
     "leads": "Выдано лидов",
     "contacted": "Связались",
-    "orders": "Заказы",
+    "orders": "Продано",
     "conversion_pct": "Конверсия",
     "delivered": "Доставлено",
     "cancel_rate_pct": "Отказ",
@@ -46,7 +43,11 @@
     "avg_pick_min": "Время сборки",
     "avg_assign_min": "Время назначения",
     "late_pct": "Опоздания",
-    "reassign_pct": "Переназначения"
+    "reassign_pct": "Переназначения",
+    "sales_amount": "Сумма продаж",
+    "orders_delivered": "Доставлено",
+    "missed_unhandled": "Пропущенные",
+    "rating_avg": "Оценка"
   },
   "badges": {
     "top_conversion": "Лучшая конверсия",
@@ -57,19 +58,19 @@
   },
   "board": {
     "title": "Рейтинг",
-    "description": "{role} · балл 0–100 — сводка ключевых показателей роли. Нажмите строку — профиль сотрудника",
+    "description": "{role} · место — по сумме продаж. «От лидера» — лучший продавец принят за 100%. Нажмите строку — профиль",
     "roles": "Роли",
-    "teams": "Команды",
-    "allTeams": "Все команды",
+    "teams": "Филиалы",
+    "allTeams": "Все филиалы",
     "rank": "Место",
     "name": "Сотрудник",
-    "score": "Балл",
+    "score": "От лидера",
     "notEnough": "мало данных",
     "rankDelta": "Место изменилось на {count}",
     "open": "Открыть профиль: {name}"
   },
   "teams": {
-    "title": "Команды",
+    "title": "Филиалы",
     "members": "{count} чел."
   },
   "funnel": {
@@ -80,13 +81,15 @@
     "cancelled": "Отказ",
     "assigned": "Назначено",
     "picked": "Забрано",
-    "returned": "Возврат"
+    "returned": "Возврат",
+    "orders_created": "Заказ создан",
+    "orders_delivered": "Доставлено"
   },
   "profile": {
     "title": "Сотрудник",
     "notFoundTitle": "Сотрудник не найден",
     "notFoundDescription": "Ссылка устарела или сотрудник перешёл в другую команду.",
-    "score": "Балл",
+    "score": "От лидера",
     "rank": "{rank}-е место из {of}",
     "since": "работает с {date}",
     "ai": "Вывод AI",
@@ -98,7 +101,7 @@
   },
   "podium": {
     "label": "Лучшая тройка",
-    "caption": "{metric} · балл {score}",
-    "score": "балл"
+    "caption": "{metric} · от лидера {score}%",
+    "score": "от лидера"
   }
 }

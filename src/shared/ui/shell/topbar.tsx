@@ -1,6 +1,6 @@
 "use client";
 
-import { Bell, LogOut, Moon, PanelLeft, Search, Sun } from "lucide-react";
+import { LogOut, Moon, PanelLeft, Search, Sun } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 
@@ -11,7 +11,6 @@ import { BrandMark } from "./brand";
 
 type TopbarProps = {
   activeRoute: PanelRouteKey;
-  alertsCount: number;
   onToggleSidebar: () => void;
   onOpenSearch: () => void;
   onLogout: () => void;
@@ -20,13 +19,7 @@ type TopbarProps = {
 const iconButton =
   "relative grid size-9 shrink-0 place-items-center rounded-xl text-ink-2 transition-colors hover:bg-surface-3 hover:text-ink";
 
-export const Topbar = ({
-  activeRoute,
-  alertsCount,
-  onToggleSidebar,
-  onOpenSearch,
-  onLogout,
-}: TopbarProps) => {
+export const Topbar = ({ activeRoute, onToggleSidebar, onOpenSearch, onLogout }: TopbarProps) => {
   const t = useTranslations("nav");
   const { resolvedTheme, setTheme } = useTheme();
 
@@ -65,11 +58,6 @@ export const Topbar = ({
         <Search aria-hidden className="size-4.5" strokeWidth={1.75} />
       </button>
 
-      <span className="text-ink-2 inline-flex items-center gap-1.5 text-xs whitespace-nowrap max-md:hidden">
-        <span aria-hidden className="animate-live bg-good size-2 rounded-full" />
-        {t("live")}
-      </span>
-
       <button
         type="button"
         aria-label={t("toggleTheme")}
@@ -80,19 +68,6 @@ export const Topbar = ({
         <Moon aria-hidden className="size-4.5 dark:hidden" strokeWidth={1.75} />
         <Sun aria-hidden className="hidden size-4.5 dark:block" strokeWidth={1.75} />
       </button>
-
-      <ScopeLink
-        href={routes.alerts}
-        aria-label={t("alertsCount", { count: alertsCount })}
-        className={iconButton}
-      >
-        <Bell aria-hidden className="size-4.5" strokeWidth={1.75} />
-        {alertsCount > 0 ? (
-          <span className="num bg-crit text-2xs text-accent-ink ring-bg absolute top-1 right-1 min-w-3.5 rounded-full px-1 text-center leading-tight font-semibold ring-2">
-            {alertsCount}
-          </span>
-        ) : null}
-      </ScopeLink>
 
       <button type="button" aria-label={t("logout")} onClick={onLogout} className={iconButton}>
         <LogOut aria-hidden className="size-4.5" strokeWidth={1.75} />

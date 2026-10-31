@@ -1,105 +1,56 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
+import { parseAsInteger, parseAsStringLiteral, useQueryStates } from "nuqs";
 
-import { useScopeQuery } from "@/shared/hooks/use-scope";
+import { useAllFilialsQuery } from "@/shared/hooks/use-scope";
 
-import {
-  loadAppConsultations,
-  loadAppDevices,
-  loadAppEngagement,
-  loadAppFunnels,
-  loadAppLoyalty,
-  loadAppSummary,
-  loadAppTimeseries,
-  loadDoctorApp,
-} from "../api/mobile-app.api";
-import type { AppTimeseriesMetric } from "../model/mobile-app.schema";
+import { AppError, ENDPOINT_MISSING } from "@/shared/lib/app-error";
+import type { Envelope } from "@/shared/lib/envelope";
 
-type ScopeKey = readonly string[];
+import { loadAppV2 } from "../api/mobile-app.api";
+import type { AppV2 } from "../model/mobile-app.schema";
+import { OPERATOR_SORTS } from "../model/mobile-app.rules";
 
-export const mobileAppKeys = {
-  all: ["mobile-app"] as const,
-  summary: (scope: ScopeKey) => [...mobileAppKeys.all, "summary", ...scope] as const,
-  timeseries: (metric: AppTimeseriesMetric, scope: ScopeKey) =>
-    [...mobileAppKeys.all, "timeseries", metric, ...scope] as const,
-  devices: (scope: ScopeKey) => [...mobileAppKeys.all, "devices", ...scope] as const,
-  consultations: (scope: ScopeKey) => [...mobileAppKeys.all, "consultations", ...scope] as const,
-  engagement: (scope: ScopeKey) => [...mobileAppKeys.all, "engagement", ...scope] as const,
-  loyalty: (scope: ScopeKey) => [...mobileAppKeys.all, "loyalty", ...scope] as const,
-  doctorApp: (scope: ScopeKey) => [...mobileAppKeys.all, "doctor-app", ...scope] as const,
-  funnels: (scope: ScopeKey) => [...mobileAppKeys.all, "funnels", ...scope] as const,
+export const appKeys = {
+  all: ["app"] as const,
+  v2: (scope: readonly string[]) => [...appKeys.all, "v2", ...scope] as const,
 };
 
-export const useAppSummaryQuery = () => {
-  const { params, key, options } = useScopeQuery();
+/**
+ * Hamma blok bitta `app/v2/` so'rovidan (kesh bitta); har blok o'z bo'limini oladi. Javobda bo'lim
+ * yo'q bo'lsa — blok «backend kutilmoqda» holatida, qolganlari chiziladi.
+ */
+const useAppSection = <Key extends keyof AppV2>(section: Key) => {
+  const { params, key, options } = useAllFilialsQuery();
   return useQuery({
-    queryKey: mobileAppKeys.summary(key),
-    queryFn: () => loadAppSummary(params),
+    queryKey: appKeys.v2(key),
+    queryFn: () => loadAppV2(params),
+    select: (envelope): Envelope<NonNullable<AppV2[Key]>> => {
+      const data = envelope.data[section];
+      if (data === null) throw new AppError("not-found", `app/v2/ ${section}`, ENDPOINT_MISSING);
+      return { ...envelope, data };
+    },
     ...options,
   });
 };
 
-export const useAppTimeseriesQuery = (metric: AppTimeseriesMetric) => {
-  const { params, key, options } = useScopeQuery();
-  return useQuery({
-    queryKey: mobileAppKeys.timeseries(metric, key),
-    queryFn: () => loadAppTimeseries(metric, params),
-    ...options,
-  });
-};
+/** Hamma blok faqat davrga bog'liq: filiallar kesimi sahifaning o'zida (filial filtri yo'q). */
+export const useAppOrdersQuery = () => useAppSection("orders");
+export const useAppUsersQuery = () => useAppSection("users");
+export const useAppOperatorsQuery = () => useAppSection("operators");
 
-export const useAppDevicesQuery = () => {
-  const { params, key, options } = useScopeQuery();
-  return useQuery({
-    queryKey: mobileAppKeys.devices(key),
-    queryFn: () => loadAppDevices(params),
-    ...options,
+/** Operatorlar jadvali: filial va tartib URL da (`?opFilial=2&opSort=ordered`). */
+export const useOperatorView = () => {
+  const [state, setState] = useQueryStates({
+    opFilial: parseAsInteger,
+    opSort: parseAsStringLiteral(OPERATOR_SORTS).withDefault("invited"),
   });
-};
-
-export const useAppConsultationsQuery = () => {
-  const { params, key, options } = useScopeQuery();
-  return useQuery({
-    queryKey: mobileAppKeys.consultations(key),
-    queryFn: () => loadAppConsultations(params),
-    ...options,
-  });
-};
-
-export const useAppEngagementQuery = () => {
-  const { params, key, options } = useScopeQuery();
-  return useQuery({
-    queryKey: mobileAppKeys.engagement(key),
-    queryFn: () => loadAppEngagement(params),
-    ...options,
-  });
-};
-
-export const useAppLoyaltyQuery = () => {
-  const { params, key, options } = useScopeQuery();
-  return useQuery({
-    queryKey: mobileAppKeys.loyalty(key),
-    queryFn: () => loadAppLoyalty(params),
-    ...options,
-  });
-};
-
-export const useDoctorAppQuery = () => {
-  const { params, key, options } = useScopeQuery();
-  return useQuery({
-    queryKey: mobileAppKeys.doctorApp(key),
-    queryFn: () => loadDoctorApp(params),
-    ...options,
-  });
-};
-
-/** Tasdiqlash va bekor qilish voronkalari bitta javobda — ikkala karta shu so'rovni bo'lishadi. */
-export const useAppFunnelsQuery = () => {
-  const { params, key, options } = useScopeQuery();
-  return useQuery({
-    queryKey: mobileAppKeys.funnels(key),
-    queryFn: () => loadAppFunnels(params),
-    ...options,
-  });
+  return {
+    filialId: state.opFilial,
+    sort: state.opSort,
+    setFilial: (id: number | null) => void setState({ opFilial: id }),
+    setSort: (sort: (typeof OPERATOR_SORTS)[number]) =>
+      void setState({ opSort: sort === "invited" ? null : sort }),
+  };
 };

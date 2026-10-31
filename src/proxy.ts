@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 
-import { TELEGRAM_ENTRY, routes } from "@/shared/config/routes";
+import { routes } from "@/shared/config/routes";
 import { ACCESS_COOKIE, REFRESH_COOKIE } from "@/shared/config/session";
 
 /**
@@ -11,9 +11,6 @@ import { ACCESS_COOKIE, REFRESH_COOKIE } from "@/shared/config/session";
 export function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
   const hasSession = request.cookies.has(ACCESS_COOKIE) || request.cookies.has(REFRESH_COOKIE);
-
-  // Telegram kirish nuqtasi o'zi sessiyani yopadi va PIN so'raydi — yo'naltirilmaydi.
-  if (pathname === TELEGRAM_ENTRY) return NextResponse.next();
 
   if (pathname === routes.login) {
     return hasSession ? NextResponse.redirect(new URL(routes.overview, request.url)) : NextResponse.next();

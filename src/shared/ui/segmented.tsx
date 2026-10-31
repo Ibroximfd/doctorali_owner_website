@@ -8,6 +8,8 @@ type SegmentedProps<Value extends string> = {
   ariaLabel: string;
   /** `hero` — to'q yashil bo'lim boshi ustida. */
   tone?: "default" | "hero";
+  /** So'rov ketayotganda yoki ko'ruvchi uchun — tanlov ko'rinadi, o'zgartirib bo'lmaydi. */
+  disabled?: boolean;
   className?: string;
 };
 
@@ -18,6 +20,7 @@ export const Segmented = <Value extends string>({
   onChange,
   ariaLabel,
   tone = "default",
+  disabled = false,
   className,
 }: SegmentedProps<Value>) => (
   <div
@@ -34,9 +37,10 @@ export const Segmented = <Value extends string>({
         key={option.value}
         type="button"
         aria-pressed={option.value === value}
+        disabled={disabled}
         onClick={() => onChange(option.value)}
         className={cn(
-          "h-7.5 rounded-lg px-3 text-xs font-semibold whitespace-nowrap transition-colors",
+          "h-7.5 rounded-lg px-3 text-xs font-semibold whitespace-nowrap transition-colors disabled:cursor-not-allowed",
           option.value === value
             ? "bg-accent-soft text-accent"
             : tone === "hero"

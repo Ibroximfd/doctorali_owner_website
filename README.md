@@ -1,6 +1,8 @@
 # doctor_ali_owner_next — «Doctor Ali Nazorat» (boshliq paneli)
 
-Biznes egasi uchun yagona nazorat paneli: yetkazib berish savdosi, klinika filiallari, mobil ilovalar va pul oqimi — bitta joyda, **faqat ko'rish uchun**.
+Owner uchun boshqaruv va nazorat paneli (tuzilma v2): call-center filiallari va ularning rahbarlari, pul zanjiri (kuryer → bosh kuryer → filial), analitika, xodimlar, umumiy sklad, AI tahlil va AI chat.
+
+Bo'limlar: **Umumiy · Filiallar · Moliya · Analitika · Ilova · Xodimlar · Sklad · AI tahlil · Sozlamalar**.
 Mavjud loyihalar (`mehrigiyo_*`, `doctor_ali_clinic_next`, `mehrigiyo_platform_tz`) bu loyiha uchun **faqat o'qiladi**.
 
 ## Ishga tushirish
@@ -49,7 +51,8 @@ npm run test:e2e
 ## Tarkib
 | Yo'l | Nima |
 |---|---|
-| `docs/01_CONCEPT.md` | Konsepsiya: bo'limlar, signallar, metrikalar lug'ati, ochiq savollar |
+| `../mehrigiyo_platform_tz/21_TUZILMA_V2_OWNER_FILIAL_DOSTAVKA_REJA.md` | **Amaldagi reja** (tuzilma v2, §12 — Owner sayti) |
+| `docs/01_CONCEPT.md` | Eski konsepsiya (v1): metrikalar lug'ati |
 | `docs/02_BACKEND_TZ.md` | Backend jamoasi uchun: `owner` roli, `/api/owner/*`, agregat jadvallar, WS |
 | `docs/03_FRONTEND_TZ.md` | Web app: stack, tuzilma, tokenlar, moslashuvchanlik, holatlar |
 | `docs/04_IMPLEMENTATION_PLAN.md` | Bosqichlar, bog'liqliklar, xavflar |

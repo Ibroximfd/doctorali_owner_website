@@ -41,7 +41,7 @@ const errorKey = (error: AppError, step: "credentials" | "code"): string => {
 
 type LoginFormProps = {
   next?: string;
-  /** Berilsa kirgandan keyin sahifa almashmaydi — chaqiruvchi o'zi davom ettiradi (Telegram bog'lash). */
+  /** Berilsa kirgandan keyin sahifa almashmaydi — chaqiruvchi o'zi davom ettiradi (masalan, qayta tasdiqlash). */
   onSignedIn?: () => void;
 };
 

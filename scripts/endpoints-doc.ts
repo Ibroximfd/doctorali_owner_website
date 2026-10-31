@@ -7,7 +7,7 @@
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { CONTRACT_ENDPOINTS } from "./contract/endpoints";
+import { CONTRACT_ENDPOINTS, apiUrlOf } from "./contract/endpoints";
 
 const fileNameOf = (method: string, path: string): string =>
   `${method}_${path.replace(/\/$/, "").replaceAll("/", "__").replaceAll(":", "")}.json`;

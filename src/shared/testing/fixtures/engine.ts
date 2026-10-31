@@ -1,6 +1,8 @@
 import { TIME_ZONE, type Granularity } from "@/shared/lib/format";
 import { addDays, tashkentDate } from "@/shared/lib/scope";
 
+import { codeOf, filialsState } from "./structure-v2";
+
 /**
  * Namuna (mock) ma'lumot dvigateli: so'rov parametrlaridan davr va filialni
  * chiqaradi, asosiy (30 kunlik) raqamlarni shunga masshtablaydi. Natija
@@ -8,37 +10,20 @@ import { addDays, tashkentDate } from "@/shared/lib/scope";
  * Javob shakllari `docs/02_BACKEND_TZ.md` dagi shartnomaga aynan mos.
  */
 
-export const MOCK_FILIALS = [
-  {
-    id: 1,
-    name: "Toshkent",
-    region: "toshkent_shahar",
-    is_main: true,
-    has_clinic: true,
-    has_sales: true,
-    share: 0.56,
-  },
-  {
-    id: 2,
-    name: "Qo'qon",
-    region: "fargona",
-    is_main: false,
-    has_clinic: true,
-    has_sales: true,
-    share: 0.26,
-  },
-  {
-    id: 3,
-    name: "Samarqand",
-    region: "samarqand",
-    is_main: false,
-    has_clinic: false,
-    has_sales: true,
-    share: 0.18,
-  },
-] as const;
+/** Filialning umumiy hajmdagi ulushi (tuzilma v2: Q · T1 · T2). Yangi yaratilgan filialda — 0. */
+const FILIAL_SHARE: Record<number, number> = { 1: 0.42, 2: 0.34, 3: 0.24 };
 
-export type MockFilial = (typeof MOCK_FILIALS)[number];
+export type MockFilial = { id: number; code: string; name: string; share: number };
+
+/** Hozirgi filiallar (Owner yangisini yaratsa — shu ro'yxatda paydo bo'ladi). */
+export const mockFilials = (): MockFilial[] =>
+  filialsState().map((filial) => ({
+    id: filial.id,
+    code: codeOf(filial),
+    name: filial.name,
+    share: FILIAL_SHARE[filial.id] ?? 0,
+  }));
+
 export type CompareMode = "previous" | "yoy" | "none";
 export type MetricUnit = "uzs" | "count" | "pct" | "min";
 export type MetricDto = {
@@ -198,8 +183,9 @@ const resolveFilials = (searchParams: URLSearchParams): readonly MockFilial[] =>
     .split(",")
     .map((value) => Number(value))
     .filter((value) => Number.isInteger(value) && value > 0);
-  const selected = MOCK_FILIALS.filter((filial) => ids.includes(filial.id));
-  return selected.length > 0 ? selected : MOCK_FILIALS;
+  const all = mockFilials();
+  const selected = all.filter((filial) => ids.includes(filial.id));
+  return selected.length > 0 ? selected : all;
 };
 
 const resolveCompare = (searchParams: URLSearchParams): CompareMode => {
@@ -251,7 +237,7 @@ export const buildContext = (input: {
     period,
     filials,
     filialShare,
-    isAllFilials: filials.length === MOCK_FILIALS.length,
+    isAllFilials: filials.length === mockFilials().length,
     compare,
     searchParams: input.searchParams,
     params: input.params ?? {},
@@ -277,11 +263,7 @@ export const envelope = (ctx: MockContext, data: unknown) => {
       compare === "none" ? null : { from: addDays(period.from, -shift), to: addDays(period.to, -shift) },
     filials: ctx.filials.map((filial) => filial.id),
     generated_at: ctx.now.toISOString(),
-    freshness: {
-      orders: ctx.now.toISOString(),
-      clinic: new Date(ctx.now.getTime() - 90_000).toISOString(),
-      app: `${ctx.today}T03:00:00+05:00`,
-    },
+    freshness: { orders: ctx.now.toISOString() },
     data,
   };
 };

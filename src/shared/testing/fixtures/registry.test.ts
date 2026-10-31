@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import { parseJson } from "@/shared/lib/envelope";
 import { metaSchema } from "@/shared/meta/meta.schema";
 import { TEST_NOW, mockGet } from "@/shared/testing/mock-api";
 
@@ -25,28 +26,15 @@ describe("resolveMock", () => {
     ).toBe(404);
   });
 
-  it("prefers a static path over a parametrised one, whatever the registration order", () => {
-    // `orders/:id/` va `orders/summary/` ikkalasi ham mos keladi — aniq yo'l yutishi kerak.
-    const summary = resolveMock({
-      method: "GET",
-      path: "orders/summary/",
-      searchParams: new URLSearchParams(),
-      now: TEST_NOW,
-    });
-
-    expect(summary.status).toBe(200);
-    expect(summary.json).toHaveProperty("data");
-  });
-
-  it("answers an unknown order id with the order's own 404 code", () => {
+  it("answers an unknown filial with the section's own 404 code", () => {
     const missing = resolveMock({
       method: "GET",
-      path: "orders/no-such-order/",
+      path: "structure/filials/999/seats/",
       searchParams: new URLSearchParams(),
       now: TEST_NOW,
     });
 
-    expect(missing).toMatchObject({ status: 404, json: { code: "order_not_found" } });
+    expect(missing).toMatchObject({ status: 404, json: { code: "filial_not_found" } });
   });
 
   it("has no two handlers claiming the same method and path", () => {
@@ -58,9 +46,10 @@ describe("resolveMock", () => {
 
 describe("meta mock", () => {
   it("matches the meta contract", () => {
-    const meta = metaSchema.parse(mockGet("meta/"));
+    const meta = parseJson(metaSchema, mockGet("meta/"));
 
-    expect(meta.filials.map((filial) => filial.name)).toEqual(["Toshkent", "Qo'qon", "Samarqand"]);
+    expect(meta.filials.map((filial) => filial.code)).toEqual(["Q", "T1", "T2"]);
+    expect(meta.filials.filter((filial) => filial.isMain).map((filial) => filial.code)).toEqual(["Q"]);
     expect(meta.regions).toHaveLength(14);
   });
 });

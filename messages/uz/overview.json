@@ -1,136 +1,38 @@
 {
-  "title": "Bugungi holat",
-  "hero": {
-    "label": "Jami tushum",
-    "previous": "oldingi davr: {value}",
-    "composition": "yetkazilgan buyurtmalar + klinika + konsultatsiya",
-    "channelsLabel": "Tushum kanallar bo'yicha"
-  },
-  "plan": {
-    "title": "{month} rejasi",
-    "done": "bajarildi",
-    "ahead": "sur'atdan {gap} f.p. oldinda",
-    "behind": "sur'atdan {gap} f.p. orqada",
-    "previous": "{month} yakuni",
-    "meterLabel": "Reja {pct} bajarildi, bugungi kunga kutilgan daraja {expected}"
-  },
-  "channels": {
-    "delivery": "Yetkazib berish",
-    "clinic": "Klinika",
-    "consultation": "Onlayn konsultatsiya"
-  },
-  "quick": {
-    "today": "Bugun",
-    "todayNote": "kecha shu vaqtda {value}",
-    "yesterday": "Kecha",
-    "week": "Shu hafta",
-    "weekNote": "dushanbadan beri",
-    "month": "Shu oy",
-    "monthNote": "oy boshidan"
-  },
-  "attention": {
-    "title": "Diqqat talab qiladi",
-    "summary": "{total} ta ochiq signal · {critical} tasi kritik",
-    "all": "Barchasi",
-    "emptyTitle": "Hammasi joyida",
-    "emptyDescription": "Hozircha e'tibor talab qiladigan signal yo'q."
-  },
-  "kpi": {
-    "orders": "Buyurtmalar",
-    "deliveryRate": "Yetkazish ulushi",
-    "avgCheck": "O'rtacha chek",
-    "clinicVisits": "Klinika tashriflari",
-    "newCustomers": "Yangi mijozlar",
-    "appActive": "Ilova faol foydalanuvchilari"
-  },
-  "trend": {
-    "title": "Tushum trendi",
-    "description": "Kanallar bo'yicha, so'm"
-  },
-  "feed": {
-    "title": "Hozir",
-    "description": "Muhim hodisalar real vaqtda",
-    "live": "Jonli"
-  },
-  "pipeline": {
-    "title": "Buyurtma oqimi — hozir",
-    "description": "Har bosqichda nechta buyurtma va qancha summa turibdi",
-    "link": "Buyurtmalar",
-    "today": "bugun",
-    "onTrack": "kechikish yo'q",
-    "stale": {
-      "pending": "{count} tasi 24 soatdan ortiq",
-      "confirmed": "{count} tasi kuryersiz (3 s+)",
-      "shipping": "{count} tasi kechikkan (48 s+)"
+  "title": "Umumiy holat",
+  "money": {
+    "revenue": "Tushum — yetkazilgan zakazlar puli",
+    "whereTitle": "Pul hozir qayerda",
+    "steps": {
+      "atCouriers": "Kuryerlarda",
+      "atChiefs": "Bosh kuryerlarda",
+      "handed": "Filiallarga topshirildi"
     }
+  },
+  "orders": {
+    "leads": "Lidlar",
+    "sold": "Sotildi",
+    "inTransit": "Yo'lda",
+    "delivered": "Yetkazildi",
+    "cancelled": "Atkaz",
+    "cancelRate": "sotilganning {value} i",
+    "conversion": "Konversiya",
+    "conversionNote": "liddan sotuvga"
   },
   "filials": {
-    "title": "Filiallar taqqoslash",
-    "total": "Jami",
-    "columns": {
-      "name": "Filial",
-      "revenue": "Tushum",
-      "orders": "Buyurtma",
-      "deliveryRate": "Yetkazish",
-      "clinic": "Klinika",
-      "openDebt": "Ochiq qarz",
-      "courierCod": "Kuryerda naqd"
-    }
+    "title": "Filiallar taqqoslanishi",
+    "description": "Tushum bo'yicha · ★ — asosiy filial",
+    "filial": "Filial",
+    "main": "Asosiy filial",
+    "lowest": "Konversiya eng past",
+    "sold": "Sotildi",
+    "delivered": "Yetkazildi",
+    "conversion": "Konversiya",
+    "cancelRate": "Atkaz",
+    "revenue": "Tushum"
   },
-  "cash": {
-    "title": "Pul qayerda turibdi",
-    "description": "Hozirgi holat · davrga bog'liq emas",
-    "link": "Moliya",
-    "overdue": "Qarzning <b>{value}</b> qismi muddati o'tgan",
-    "items": {
-      "tills": "Klinika kassalarida",
-      "cod": "Kuryerlarda (topshirilmagan)",
-      "online": "Onlayn hisobda (Click / Payme)",
-      "debt": "Mijozlar qarzida"
-    }
-  },
-  "welcome": {
-    "greeting": {
-      "morning": "Xayrli tong!",
-      "day": "Xayrli kun!",
-      "evening": "Xayrli kech!",
-      "night": "Xayrli tun!"
-    }
-  },
-  "brief": {
-    "label": "Asosiy xulosa",
-    "lead": "Bugun biznes <money>{today}</money> ishladi",
-    "trend": {
-      "up": " — kecha shu vaqtdagidan <good>{pct} ko'p</good>.",
-      "down": " — kecha shu vaqtdagidan <bad>{pct} kam</bad>.",
-      "flat": " — kechagi sur'atda.",
-      "none": "."
-    },
-    "alerts": {
-      "critical": " <bad>{count} ta kritik signal</bad> ochiq: {title}.",
-      "open": " {count} ta ochiq signal bor, kritiklari yo'q.",
-      "none": " Signal yo'q — hammasi joyida."
-    },
-    "period": "Davr tushumi <money>{revenue}</money>",
-    "plan": "oylik reja <gold>{pct}</gold> bajarildi",
-    "openAlert": "Signalni ochish",
-    "askAi": "AI bilan gaplashish",
-    "ai": {
-      "title": "AI brifingi · {when}",
-      "titleNever": "AI brifingi",
-      "findings": "{open} ta ochiq topilma · {critical} tasi kritik",
-      "risk": "xavf ostida {value}",
-      "noHeadline": "Bugungi tekshiruvlar hali yakunlanmagan."
-    }
-  },
-  "river": {
-    "title": "Pul oqimi",
-    "description": "Kanallar bo'yicha, ustma-ust · so'm",
-    "today": "Bugun",
-    "chartLabel": "Tushum kanallar bo'yicha: {first} dan {last} gacha, jami {total}",
-    "total": "Jami"
-  },
-  "ticker": {
-    "label": "Oxirgi hodisalar"
+  "ai": {
+    "title": "AI nima deydi",
+    "description": "Eng muhim uchta topilma"
   }
 }

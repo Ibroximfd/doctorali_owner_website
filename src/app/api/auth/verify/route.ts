@@ -26,7 +26,7 @@ export async function POST(request: Request): Promise<Response> {
     const tokens = tokensSchema.safeParse(await response.json());
     if (!tokens.success) return errorResponse(502, "backend_contract");
 
-    await writeSession({ access: tokens.data.access, refresh: tokens.data.refresh }, "web");
+    await writeSession({ access: tokens.data.access, refresh: tokens.data.refresh });
     return jsonResponse({ user: tokens.data.user });
   } catch {
     return errorResponse(502, "backend_unreachable");

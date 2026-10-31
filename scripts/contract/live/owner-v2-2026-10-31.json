@@ -1,0 +1,1258 @@
+{
+  "owner/me/": {
+    "id": 139,
+    "full_name": "V2 Test Owner",
+    "role": "owner",
+    "sections": [],
+    "filials": [],
+    "mask_pii": false
+  },
+  "owner/structure/": {
+    "count": 3,
+    "results": [
+      {
+        "id": 1,
+        "name": "Mehrigiyo Toshkent",
+        "code": "",
+        "region": "Toshkent",
+        "is_main": false,
+        "is_active": true,
+        "zone_id": 2,
+        "chief_operator": {
+          "seat_id": 45,
+          "full_name": "V2 Bosh operator (Toshkent)",
+          "username": "v2_bo_toshkent",
+          "role_id": 63,
+          "permissions": []
+        },
+        "chief_logist": {
+          "seat_id": 46,
+          "full_name": "V2 Bosh logist (Toshkent)",
+          "username": "v2_bl_toshkent",
+          "role_id": 65,
+          "permissions": []
+        },
+        "departments_count": 2,
+        "operators_count": 24,
+        "logists_count": 5
+      },
+      {
+        "id": 2,
+        "name": "Mehrigiyo Qo'qon",
+        "code": "",
+        "region": "Farg'ona viloyati , Qo'qon",
+        "is_main": true,
+        "is_active": true,
+        "zone_id": 1,
+        "chief_operator": {
+          "seat_id": 44,
+          "full_name": "Test Bosh Operator",
+          "username": "998907701008",
+          "role_id": 61,
+          "permissions": []
+        },
+        "chief_logist": {
+          "seat_id": 47,
+          "full_name": "V2 Bosh logist (Qo'qon)",
+          "username": "v2_bl_qoqon",
+          "role_id": 67,
+          "permissions": []
+        },
+        "departments_count": 2,
+        "operators_count": 13,
+        "logists_count": 6
+      },
+      {
+        "id": 3,
+        "name": "Samarqand filiali",
+        "code": "",
+        "region": "Samarqand",
+        "is_main": false,
+        "is_active": true,
+        "zone_id": 3,
+        "chief_operator": null,
+        "chief_logist": null,
+        "departments_count": 2,
+        "operators_count": 0,
+        "logists_count": 0
+      }
+    ]
+  },
+  "owner/structure/permissions/": {
+    "count": 28,
+    "results": [
+      {
+        "key": "view.sibling_departments",
+        "label": "Qo'shni bo'limlarni ko'rish",
+        "label_ru": "Видеть соседние отделы",
+        "role": "chief_operator",
+        "group": "ko'radi",
+        "main_only": false
+      },
+      {
+        "key": "view.other_filials",
+        "label": "Boshqa filiallarni ko'rish",
+        "label_ru": "Видеть другие филиалы",
+        "role": "chief_logist",
+        "group": "ko'radi",
+        "main_only": false
+      },
+      {
+        "key": "view.finance",
+        "label": "Moliya",
+        "label_ru": "Финансы",
+        "role": "both",
+        "group": "ko'radi",
+        "main_only": false
+      }
+    ]
+  },
+  "owner/structure/audit/": {
+    "count": 0,
+    "results": []
+  },
+  "owner/filials/performance/": {
+    "period": {
+      "from": "2026-10-02",
+      "to": "2026-10-31",
+      "granularity": "day",
+      "label": "30d"
+    },
+    "compare": {
+      "from": "2026-09-02",
+      "to": "2026-10-01"
+    },
+    "filials": [1, 2, 3],
+    "generated_at": "2026-10-30T22:56:17Z",
+    "freshness": {
+      "orders": "2026-10-30T22:56:17Z",
+      "clinic": "2026-10-30T22:56:17Z"
+    },
+    "data": {
+      "source": null,
+      "filials": [
+        {
+          "id": 1,
+          "name": "Mehrigiyo Toshkent",
+          "is_main": false,
+          "leads": 10100,
+          "sold": 295,
+          "in_transit": 3,
+          "delivered": 261,
+          "otkaz": 4,
+          "revenue": "59993941",
+          "conversion_pct": 0.0,
+          "otkaz_pct": 1.5,
+          "trend": {
+            "labels": ["2026-10-02", "2026-10-03", "2026-10-04"],
+            "sold": [26, 11, 6],
+            "delivered": [12, 6, 9]
+          }
+        },
+        {
+          "id": 2,
+          "name": "Mehrigiyo Qo'qon",
+          "is_main": true,
+          "leads": 65,
+          "sold": 98,
+          "in_transit": 3,
+          "delivered": 90,
+          "otkaz": 2,
+          "revenue": "17328873",
+          "conversion_pct": 4.6,
+          "otkaz_pct": 2.2,
+          "trend": {
+            "labels": ["2026-10-02", "2026-10-03", "2026-10-04"],
+            "sold": [2, 3, 1],
+            "delivered": [2, 5, 1]
+          }
+        },
+        {
+          "id": 3,
+          "name": "Samarqand filiali",
+          "is_main": false,
+          "leads": 59,
+          "sold": 23,
+          "in_transit": 0,
+          "delivered": 23,
+          "otkaz": 0,
+          "revenue": "5076935",
+          "conversion_pct": 0.0,
+          "otkaz_pct": 0.0,
+          "trend": {
+            "labels": ["2026-10-02", "2026-10-03", "2026-10-04"],
+            "sold": [0, 1, 0],
+            "delivered": [0, 1, 0]
+          }
+        }
+      ]
+    }
+  },
+  "owner/overview/v2/": {
+    "period": {
+      "from": "2026-10-02",
+      "to": "2026-10-31",
+      "granularity": "day",
+      "label": "30d"
+    },
+    "compare": {
+      "from": "2026-09-02",
+      "to": "2026-10-01"
+    },
+    "filials": [1, 2, 3],
+    "generated_at": "2026-10-30T22:56:17Z",
+    "freshness": {
+      "orders": "2026-10-30T22:56:17Z",
+      "clinic": "2026-10-30T22:56:17Z"
+    },
+    "data": {
+      "money_chain": {
+        "with_couriers": "4654910",
+        "with_chiefs": "-44000",
+        "handed_to_filials": "2539944"
+      },
+      "orders": {
+        "lead": 10224,
+        "sold": 416,
+        "in_transit": 6,
+        "delivered": 374,
+        "otkaz": 6
+      },
+      "conversion_pct": 0.1,
+      "filials": [
+        {
+          "id": 1,
+          "name": "Mehrigiyo Toshkent",
+          "is_main": false,
+          "leads": 10100,
+          "sold": 295,
+          "in_transit": 3,
+          "delivered": 261,
+          "otkaz": 4,
+          "revenue": "59993941",
+          "conversion_pct": 0.0,
+          "otkaz_pct": 1.5
+        },
+        {
+          "id": 2,
+          "name": "Mehrigiyo Qo'qon",
+          "is_main": true,
+          "leads": 65,
+          "sold": 98,
+          "in_transit": 3,
+          "delivered": 90,
+          "otkaz": 2,
+          "revenue": "17328873",
+          "conversion_pct": 4.6,
+          "otkaz_pct": 2.2
+        },
+        {
+          "id": 3,
+          "name": "Samarqand filiali",
+          "is_main": false,
+          "leads": 59,
+          "sold": 23,
+          "in_transit": 0,
+          "delivered": 23,
+          "otkaz": 0,
+          "revenue": "5076935",
+          "conversion_pct": 0.0,
+          "otkaz_pct": 0.0
+        }
+      ]
+    }
+  },
+  "owner/finance/v2/": {
+    "period": {
+      "from": "2026-10-02",
+      "to": "2026-10-31",
+      "granularity": "day",
+      "label": "30d"
+    },
+    "compare": {
+      "from": "2026-09-02",
+      "to": "2026-10-01"
+    },
+    "filials": [1, 2, 3],
+    "generated_at": "2026-10-30T22:56:17Z",
+    "freshness": {
+      "orders": "2026-10-30T22:56:17Z",
+      "clinic": "2026-10-30T22:56:17Z"
+    },
+    "data": {
+      "source": null,
+      "totals": {
+        "revenue": "82399749",
+        "with_couriers": "4654910",
+        "with_chiefs": "-44000",
+        "handed_over": "2539944"
+      },
+      "by_filial": [
+        {
+          "filial": {
+            "id": 1,
+            "name": "Mehrigiyo Toshkent"
+          },
+          "revenue": "59993941",
+          "with_couriers": "3852244",
+          "with_chiefs": "-15000",
+          "handed_over": "1759944"
+        },
+        {
+          "filial": {
+            "id": 2,
+            "name": "Mehrigiyo Qo'qon"
+          },
+          "revenue": "17328873",
+          "with_couriers": "802666",
+          "with_chiefs": "-29000",
+          "handed_over": "780000"
+        },
+        {
+          "filial": {
+            "id": 3,
+            "name": "Samarqand filiali"
+          },
+          "revenue": "5076935",
+          "with_couriers": "0",
+          "with_chiefs": "0",
+          "handed_over": "0"
+        }
+      ],
+      "chiefs": [
+        {
+          "seat_id": 43,
+          "full_name": "Test Bosh Kuryer",
+          "by_filial": []
+        },
+        {
+          "seat_id": 61,
+          "full_name": "V2 Bosh kuryer (Vodiy)",
+          "by_filial": [
+            {
+              "filial": {
+                "id": 2,
+                "name": "Mehrigiyo Qo'qon"
+              },
+              "addresses": 8,
+              "fee": "80000",
+              "cash_accepted": "1000",
+              "handed_over": "55000",
+              "outstanding": "0",
+              "delivered": 7
+            },
+            {
+              "filial": {
+                "id": 1,
+                "name": "Mehrigiyo Toshkent"
+              },
+              "addresses": 6,
+              "fee": "60000",
+              "cash_accepted": "0",
+              "handed_over": "45000",
+              "outstanding": "0",
+              "delivered": 5
+            }
+          ]
+        }
+      ],
+      "chiefs_capped": false,
+      "handovers": [
+        {
+          "id": 4,
+          "date": "2026-10-31",
+          "period_from": "2026-10-31",
+          "period_to": "2026-10-31",
+          "amount": "25000",
+          "expected_amount": "0",
+          "confirmed_amount": null,
+          "status": "pending",
+          "chief": {
+            "seat_id": 61,
+            "full_name": "V2 Bosh kuryer (Vodiy)"
+          },
+          "filial": {
+            "id": 2,
+            "name": "Mehrigiyo Qo'qon"
+          },
+          "note": "v2-seed-20261031 pending_other",
+          "created_at": "2026-10-30T22:15:54Z"
+        },
+        {
+          "id": 3,
+          "date": "2026-10-31",
+          "period_from": "2026-10-31",
+          "period_to": "2026-10-31",
+          "amount": "30000",
+          "expected_amount": "0",
+          "confirmed_amount": null,
+          "status": "pending",
+          "chief": {
+            "seat_id": 61,
+            "full_name": "V2 Bosh kuryer (Vodiy)"
+          },
+          "filial": {
+            "id": 1,
+            "name": "Mehrigiyo Toshkent"
+          },
+          "note": "v2-seed-20261031 pending",
+          "created_at": "2026-10-30T22:15:54Z"
+        },
+        {
+          "id": 2,
+          "date": "2026-10-31",
+          "period_from": "2026-10-31",
+          "period_to": "2026-10-31",
+          "amount": "30000",
+          "expected_amount": "0",
+          "confirmed_amount": "15000",
+          "status": "disputed",
+          "chief": {
+            "seat_id": 61,
+            "full_name": "V2 Bosh kuryer (Vodiy)"
+          },
+          "filial": {
+            "id": 1,
+            "name": "Mehrigiyo Toshkent"
+          },
+          "note": "v2-seed-20261031 disputed",
+          "created_at": "2026-10-30T22:15:54Z"
+        }
+      ],
+      "regions": [
+        {
+          "region": "toshkent_shahar",
+          "name": "Toshkent shahri",
+          "sold": 113,
+          "delivered": 106,
+          "otkaz": 4,
+          "revenue": "24904680"
+        },
+        {
+          "region": "fargona",
+          "name": "Farg'ona",
+          "sold": 111,
+          "delivered": 107,
+          "otkaz": 1,
+          "revenue": "22002934"
+        },
+        {
+          "region": "andijon",
+          "name": "Andijon",
+          "sold": 72,
+          "delivered": 67,
+          "otkaz": 1,
+          "revenue": "15408669"
+        }
+      ]
+    }
+  },
+  "owner/analytics/v2/": {
+    "period": {
+      "from": "2026-10-02",
+      "to": "2026-10-31",
+      "granularity": "day",
+      "label": "30d"
+    },
+    "compare": {
+      "from": "2026-09-02",
+      "to": "2026-10-01"
+    },
+    "filials": [1, 2, 3],
+    "generated_at": "2026-10-30T22:56:17Z",
+    "freshness": {
+      "orders": "2026-10-30T22:56:17Z",
+      "clinic": "2026-10-30T22:56:17Z"
+    },
+    "data": {
+      "source": null,
+      "totals": {
+        "leads": 10224,
+        "sold": 416,
+        "delivered": 374,
+        "otkaz": 6,
+        "conversion_pct": 0.1
+      },
+      "by_filial": [
+        {
+          "id": 1,
+          "name": "Mehrigiyo Toshkent",
+          "is_main": false,
+          "leads": 10100,
+          "sold": 295,
+          "in_transit": 3,
+          "delivered": 261,
+          "otkaz": 4,
+          "revenue": "59993941",
+          "conversion_pct": 0.0,
+          "otkaz_pct": 1.5
+        },
+        {
+          "id": 2,
+          "name": "Mehrigiyo Qo'qon",
+          "is_main": true,
+          "leads": 65,
+          "sold": 98,
+          "in_transit": 3,
+          "delivered": 90,
+          "otkaz": 2,
+          "revenue": "17328873",
+          "conversion_pct": 4.6,
+          "otkaz_pct": 2.2
+        },
+        {
+          "id": 3,
+          "name": "Samarqand filiali",
+          "is_main": false,
+          "leads": 59,
+          "sold": 23,
+          "in_transit": 0,
+          "delivered": 23,
+          "otkaz": 0,
+          "revenue": "5076935",
+          "conversion_pct": 0.0,
+          "otkaz_pct": 0.0
+        }
+      ],
+      "products": [
+        {
+          "item": {
+            "id": 6,
+            "name": "Hapwell-3 (Majun Al-shifo)"
+          },
+          "sold_qty": 121,
+          "delivered_qty": 96,
+          "otkaz_qty": 0,
+          "revenue": "23875000"
+        },
+        {
+          "item": {
+            "id": 14,
+            "name": "Alatoo bals, 1 shisha"
+          },
+          "sold_qty": 114,
+          "delivered_qty": 112,
+          "otkaz_qty": 1,
+          "revenue": "13440000"
+        },
+        {
+          "item": {
+            "id": 13,
+            "name": "Zaytun yog'i, 250 ml"
+          },
+          "sold_qty": 111,
+          "delivered_qty": 115,
+          "otkaz_qty": 0,
+          "revenue": "10350000"
+        }
+      ],
+      "operators": [
+        {
+          "id": 25,
+          "full_name": "CRM sotuvchi",
+          "filial": {
+            "id": 1,
+            "name": "Mehrigiyo Toshkent"
+          },
+          "sold": 212,
+          "delivered": 213,
+          "otkaz": 3,
+          "revenue": "50992089"
+        },
+        {
+          "id": 56,
+          "full_name": "V2 operator tosh-perv-1",
+          "filial": {
+            "id": 1,
+            "name": "Mehrigiyo Toshkent"
+          },
+          "sold": 2,
+          "delivered": 2,
+          "otkaz": 0,
+          "revenue": "258000"
+        },
+        {
+          "id": 14,
+          "full_name": "ibroxim_test",
+          "filial": {
+            "id": 1,
+            "name": "Mehrigiyo Toshkent"
+          },
+          "sold": 24,
+          "delivered": 1,
+          "otkaz": 0,
+          "revenue": "250000"
+        }
+      ]
+    }
+  },
+  "owner/app/v2/": {
+    "period": {
+      "from": "2026-10-02",
+      "to": "2026-10-31",
+      "granularity": "day",
+      "label": "30d"
+    },
+    "compare": {
+      "from": "2026-09-02",
+      "to": "2026-10-01"
+    },
+    "filials": [1, 2, 3],
+    "generated_at": "2026-10-30T22:56:17Z",
+    "freshness": {
+      "orders": "2026-10-30T22:56:17Z",
+      "clinic": "2026-10-30T22:56:17Z"
+    },
+    "data": {
+      "orders": {
+        "totals": {
+          "pending": 1,
+          "confirmed": 1,
+          "shipping": 1,
+          "delivered": 162,
+          "cancelled": 3
+        },
+        "by_filial": [
+          {
+            "id": 1,
+            "name": "Mehrigiyo Toshkent",
+            "statuses": {
+              "pending": 1,
+              "confirmed": 0,
+              "shipping": 1,
+              "delivered": 56,
+              "cancelled": 2
+            }
+          },
+          {
+            "id": 2,
+            "name": "Mehrigiyo Qo'qon",
+            "statuses": {
+              "pending": 0,
+              "confirmed": 1,
+              "shipping": 0,
+              "delivered": 83,
+              "cancelled": 1
+            }
+          },
+          {
+            "id": 3,
+            "name": "Samarqand filiali",
+            "statuses": {
+              "pending": 0,
+              "confirmed": 0,
+              "shipping": 0,
+              "delivered": 23,
+              "cancelled": 0
+            }
+          }
+        ]
+      },
+      "users": {
+        "total": 54,
+        "new_in_period": 26,
+        "dau": 0,
+        "mau": 9,
+        "activity_source": "daily_activity"
+      },
+      "referrals": {
+        "tracked": true,
+        "operators": []
+      }
+    }
+  },
+  "owner/ai/status/": {
+    "enabled": false,
+    "model": "claude-opus-5",
+    "cached_analysis_at": null
+  },
+  "owner/ai/analysis/": {
+    "generated_at": "2026-10-30T22:56:17.932963Z",
+    "period": {
+      "from": "2026-10-02",
+      "to": "2026-10-31"
+    },
+    "findings": [
+      {
+        "kind": "warehouse_urgent",
+        "title": "Skladda 31 ta shoshilinch topilma",
+        "detail": "Kuryer Nodir Saidov 8 kun harakatsiz, qo'lida 52 dona; Kuryer Rustam Xolmatov 8 kun harakatsiz, qo'lida 84 dona; Kuryer · Alisher: «Hapwell-3 (Majun Al-shifo)» qoldig'i -1 (manfiy)",
+        "severity": "urgent"
+      },
+      {
+        "kind": "worst_filial",
+        "title": "Eng past tushum: Samarqand filiali",
+        "detail": "Tushum 5076935.00 so'm, 23 ta buyurtma.",
+        "severity": "attention"
+      },
+      {
+        "kind": "cash_pending",
+        "title": "Yo'ldagi pul: 205 000 so'm",
+        "detail": "Kuryer/bosh kuryer e'lon qilgan, hali qabul qilinmagan naqd.",
+        "severity": "attention"
+      }
+    ],
+    "ai_summary": null,
+    "model": null,
+    "warehouse_findings": [
+      {
+        "id": 70,
+        "severity": "urgent",
+        "area": "couriers",
+        "title": "Kuryer Nodir Saidov 8 kun harakatsiz, qo'lida 52 dona",
+        "detail": "Buxoro: oxirgi sotuv/olish 22.10.2026.",
+        "fix": "Kuryer bilan bog'laning yoki molni omborga qabul qiling (KQB-)",
+        "link": {
+          "region": "buxoro",
+          "screen": "sklad_courier",
+          "courier_id": 24
+        }
+      },
+      {
+        "id": 71,
+        "severity": "urgent",
+        "area": "couriers",
+        "title": "Kuryer Rustam Xolmatov 8 kun harakatsiz, qo'lida 84 dona",
+        "detail": "Andijon: oxirgi sotuv/olish 22.10.2026.",
+        "fix": "Kuryer bilan bog'laning yoki molni omborga qabul qiling (KQB-)",
+        "link": {
+          "region": "andijon",
+          "screen": "sklad_courier",
+          "courier_id": 23
+        }
+      },
+      {
+        "id": 72,
+        "severity": "urgent",
+        "area": "stock",
+        "title": "Kuryer · Alisher: «Hapwell-3 (Majun Al-shifo)» qoldig'i -1 (manfiy)",
+        "detail": "Yetkazilgan buyurtmalar kuryer/ombordagidan ko'p chiqdi — daftar haqiqatga mos emas.",
+        "fix": "Tuzatish (TZ-) hujjati bilan haqiqiy sonni yozing yoki kuryerga berishni rasmiylashtiring",
+        "link": {
+          "region": "toshkent_shahar",
+          "screen": "sklad_region",
+          "item_id": 6,
+          "location_id": 29
+        }
+      }
+    ]
+  },
+  "owner/sales/operators/": {
+    "period": {
+      "from": "2026-10-31",
+      "to": "2026-10-31",
+      "granularity": "hour",
+      "label": "today"
+    },
+    "compare": {
+      "from": "2026-10-30",
+      "to": "2026-10-30"
+    },
+    "filials": [1, 2, 3],
+    "generated_at": "2026-10-30T22:56:18Z",
+    "freshness": {
+      "orders": "2026-10-30T22:56:18Z",
+      "clinic": "2026-10-30T22:56:18Z"
+    },
+    "data": [
+      {
+        "id": 56,
+        "full_name": "V2 operator tosh-perv-1",
+        "filial": "Mehrigiyo Toshkent",
+        "is_online": false,
+        "leads": 0,
+        "conversion_pct": 0.0,
+        "orders_created": 1,
+        "orders_delivered": 1,
+        "sales_amount": 48000,
+        "commission_earned": 12900,
+        "commission_pending": 0,
+        "calls": 0,
+        "missed_unhandled": 0,
+        "activities_overdue": 0,
+        "rating_avg": null,
+        "rating_count": 0
+      },
+      {
+        "id": 57,
+        "full_name": "V2 operator tosh-perv-2",
+        "filial": "Mehrigiyo Toshkent",
+        "is_online": false,
+        "leads": 1,
+        "conversion_pct": 0.0,
+        "orders_created": 1,
+        "orders_delivered": 1,
+        "sales_amount": 1000,
+        "commission_earned": 2300,
+        "commission_pending": 0,
+        "calls": 0,
+        "missed_unhandled": 0,
+        "activities_overdue": 0,
+        "rating_avg": null,
+        "rating_count": 0
+      },
+      {
+        "id": 9,
+        "full_name": "API Operator",
+        "filial": "Mehrigiyo Toshkent",
+        "is_online": false,
+        "leads": 0,
+        "conversion_pct": 0.0,
+        "orders_created": 0,
+        "orders_delivered": 0,
+        "sales_amount": 0,
+        "commission_earned": 0,
+        "commission_pending": 0,
+        "calls": 0,
+        "missed_unhandled": 0,
+        "activities_overdue": 0,
+        "rating_avg": null,
+        "rating_count": 0
+      },
+      {
+        "id": 4,
+        "full_name": "Aziz Karimov",
+        "filial": "Mehrigiyo Toshkent",
+        "is_online": false,
+        "leads": 0,
+        "conversion_pct": 0.0,
+        "orders_created": 0,
+        "orders_delivered": 0,
+        "sales_amount": 0,
+        "commission_earned": 0,
+        "commission_pending": 0,
+        "calls": 0,
+        "missed_unhandled": 0,
+        "activities_overdue": 0,
+        "rating_avg": null,
+        "rating_count": 0
+      },
+      {
+        "id": 5,
+        "full_name": "Bobur Aliyev",
+        "filial": "Mehrigiyo Toshkent",
+        "is_online": false,
+        "leads": 0,
+        "conversion_pct": 0.0,
+        "orders_created": 0,
+        "orders_delivered": 0,
+        "sales_amount": 0,
+        "commission_earned": 0,
+        "commission_pending": 0,
+        "calls": 0,
+        "missed_unhandled": 0,
+        "activities_overdue": 0,
+        "rating_avg": null,
+        "rating_count": 0
+      },
+      {
+        "id": 25,
+        "full_name": "CRM sotuvchi",
+        "filial": "Mehrigiyo Toshkent",
+        "is_online": false,
+        "leads": 0,
+        "conversion_pct": 0.0,
+        "orders_created": 0,
+        "orders_delivered": 0,
+        "sales_amount": 0,
+        "commission_earned": 0,
+        "commission_pending": 0,
+        "calls": 0,
+        "missed_unhandled": 0,
+        "activities_overdue": 0,
+        "rating_avg": null,
+        "rating_count": 0
+      },
+      {
+        "id": 6,
+        "full_name": "Dilshod Tursunov",
+        "filial": "Mehrigiyo Toshkent",
+        "is_online": false,
+        "leads": 0,
+        "conversion_pct": 0.0,
+        "orders_created": 0,
+        "orders_delivered": 0,
+        "sales_amount": 0,
+        "commission_earned": 0,
+        "commission_pending": 0,
+        "calls": 0,
+        "missed_unhandled": 0,
+        "activities_overdue": 0,
+        "rating_avg": null,
+        "rating_count": 0
+      },
+      {
+        "id": 7,
+        "full_name": "Eldor Rashidov",
+        "filial": "Mehrigiyo Toshkent",
+        "is_online": false,
+        "leads": 0,
+        "conversion_pct": 0.0,
+        "orders_created": 0,
+        "orders_delivered": 0,
+        "sales_amount": 0,
+        "commission_earned": 0,
+        "commission_pending": 0,
+        "calls": 0,
+        "missed_unhandled": 0,
+        "activities_overdue": 0,
+        "rating_avg": null,
+        "rating_count": 0
+      },
+      {
+        "id": 8,
+        "full_name": "Farrux Yusupov",
+        "filial": "Mehrigiyo Toshkent",
+        "is_online": false,
+        "leads": 0,
+        "conversion_pct": 0.0,
+        "orders_created": 0,
+        "orders_delivered": 0,
+        "sales_amount": 0,
+        "commission_earned": 0,
+        "commission_pending": 0,
+        "calls": 0,
+        "missed_unhandled": 0,
+        "activities_overdue": 0,
+        "rating_avg": null,
+        "rating_count": 0
+      },
+      {
+        "id": 3,
+        "full_name": "Ibroxim Umaraliyev",
+        "filial": "Mehrigiyo Toshkent",
+        "is_online": false,
+        "leads": 0,
+        "conversion_pct": 0.0,
+        "orders_created": 0,
+        "orders_delivered": 0,
+        "sales_amount": 0,
+        "commission_earned": 0,
+        "commission_pending": 0,
+        "calls": 0,
+        "missed_unhandled": 0,
+        "activities_overdue": 0,
+        "rating_avg": null,
+        "rating_count": 0
+      },
+      {
+        "id": 21,
+        "full_name": "Ibroxim test",
+        "filial": "Mehrigiyo Toshkent",
+        "is_online": false,
+        "leads": 0,
+        "conversion_pct": 0.0,
+        "orders_created": 0,
+        "orders_delivered": 0,
+        "sales_amount": 0,
+        "commission_earned": 0,
+        "commission_pending": 0,
+        "calls": 0,
+        "missed_unhandled": 0,
+        "activities_overdue": 0,
+        "rating_avg": null,
+        "rating_count": 0
+      },
+      {
+        "id": 10,
+        "full_name": "Ibroxim_change_name",
+        "filial": "Mehrigiyo Toshkent",
+        "is_online": false,
+        "leads": 0,
+        "conversion_pct": 0.0,
+        "orders_created": 0,
+        "orders_delivered": 0,
+        "sales_amount": 0,
+        "commission_earned": 0,
+        "commission_pending": 0,
+        "calls": 0,
+        "missed_unhandled": 0,
+        "activities_overdue": 0,
+        "rating_avg": null,
+        "rating_count": 0
+      }
+    ]
+  },
+  "sklad/me/": {
+    "role": "owner",
+    "filial_id": null,
+    "region": null,
+    "regions": [],
+    "sklad_id": null,
+    "can_write": false,
+    "granted_item_ids": [],
+    "user": {
+      "id": 139,
+      "full_name": "Owner"
+    }
+  },
+  "sklad/sklads/": [
+    {
+      "id": 2,
+      "name": "Test Bosh Kuryer skladi",
+      "regions": ["toshkent_shahar"],
+      "is_active": true,
+      "chief": {
+        "id": 43,
+        "full_name": "Test Bosh Kuryer"
+      },
+      "locations": 1,
+      "created_at": "2026-10-30T22:21:08.037735+00:00"
+    },
+    {
+      "id": 1,
+      "name": "V2 Bosh kuryer (Vodiy) skladi",
+      "regions": ["fargona", "namangan", "andijon"],
+      "is_active": true,
+      "chief": {
+        "id": 61,
+        "full_name": "V2 Bosh kuryer (Vodiy)"
+      },
+      "locations": 3,
+      "created_at": "2026-10-30T22:15:50.431075+00:00"
+    }
+  ],
+  "sklad/overview/": {
+    "as_of": "2026-10-31T03:56:18.255860+05:00",
+    "totals": {
+      "on_hand": 120555,
+      "locations": 16,
+      "with_couriers": 2220,
+      "couriers": 21,
+      "low_items": 11,
+      "low_regions": 4,
+      "alert_regions": 1,
+      "negative_rows": 1,
+      "delivered_today": 2,
+      "sold_today_qty": 2,
+      "receipt_today_qty": 0,
+      "receipt_today_docs": 0,
+      "tracked_items": 11
+    },
+    "regions": [
+      {
+        "code": "toshkent_shahar",
+        "name": "Toshkent shahri",
+        "on_hand": 11873,
+        "with_couriers": 634,
+        "couriers": 7,
+        "locations": 3,
+        "low_items": 0,
+        "negative": 0,
+        "delivered_today": 0,
+        "status": "ok"
+      },
+      {
+        "code": "toshkent",
+        "name": "Toshkent viloyati",
+        "on_hand": 6900,
+        "with_couriers": 0,
+        "couriers": 0,
+        "locations": 1,
+        "low_items": 0,
+        "negative": 0,
+        "delivered_today": 0,
+        "status": "ok"
+      },
+      {
+        "code": "andijon",
+        "name": "Andijon",
+        "on_hand": 0,
+        "with_couriers": 360,
+        "couriers": 3,
+        "locations": 1,
+        "low_items": 11,
+        "negative": 0,
+        "delivered_today": 0,
+        "status": "low"
+      }
+    ]
+  },
+  "sklad/stock/": {
+    "count": 309,
+    "next": "/api/sklad/stock/?page=2",
+    "previous": null,
+    "results": [
+      {
+        "location": {
+          "id": 3,
+          "name": "Andijon ombori",
+          "kind": "region",
+          "region": "andijon"
+        },
+        "item": {
+          "id": 14,
+          "name": "Alatoo bals, 1 shisha",
+          "sku": "M-14",
+          "package_size": 9
+        },
+        "on_hand": 0,
+        "min_quantity": 50,
+        "is_low": true,
+        "sold_7d": 0,
+        "days_left": null,
+        "pinned": false,
+        "updated_at": "2026-10-31T03:15:52.261083+05:00"
+      },
+      {
+        "location": {
+          "id": 26,
+          "name": "Kuryer · Javlon Abdullayev",
+          "kind": "courier",
+          "region": "andijon"
+        },
+        "item": {
+          "id": 14,
+          "name": "Alatoo bals, 1 shisha",
+          "sku": "M-14",
+          "package_size": 9
+        },
+        "on_hand": 0,
+        "min_quantity": 50,
+        "is_low": true,
+        "sold_7d": 0,
+        "days_left": null,
+        "pinned": false,
+        "updated_at": "2026-10-31T03:15:55.025277+05:00"
+      },
+      {
+        "location": {
+          "id": 27,
+          "name": "Kuryer · Rustam Xolmatov",
+          "kind": "courier",
+          "region": "andijon"
+        },
+        "item": {
+          "id": 14,
+          "name": "Alatoo bals, 1 shisha",
+          "sku": "M-14",
+          "package_size": 9
+        },
+        "on_hand": 11,
+        "min_quantity": 50,
+        "is_low": true,
+        "sold_7d": 0,
+        "days_left": null,
+        "pinned": false,
+        "updated_at": "2026-10-29T08:04:24.118575+05:00"
+      }
+    ]
+  },
+  "sklad/ledger/": {
+    "count": 76,
+    "next": "/api/sklad/ledger/?page=2",
+    "previous": null,
+    "results": [
+      {
+        "id": 1773,
+        "created_at": "2026-10-31T03:32:11.936346+05:00",
+        "region": "namangan",
+        "location": {
+          "id": 8,
+          "name": "Namangan ombori",
+          "kind": "region"
+        },
+        "item": {
+          "id": 2,
+          "name": "Paratsetamol 500 mg"
+        },
+        "movement_type": "sale",
+        "quantity": -1,
+        "balance_after": -1,
+        "source": {
+          "type": "order",
+          "id": "c8d4877b-5653-4b72-8403-0ee38d271215",
+          "number": "ORD-20261030222510-9BCADF36"
+        },
+        "actor": {
+          "id": null,
+          "full_name": "tizim",
+          "kind": "system"
+        },
+        "note": "kuryersiz"
+      },
+      {
+        "id": 1772,
+        "created_at": "2026-10-31T03:25:18.861323+05:00",
+        "region": "andijon",
+        "location": {
+          "id": 36,
+          "name": "Kuryer · V2 kuryer 4",
+          "kind": "courier"
+        },
+        "item": {
+          "id": 14,
+          "name": "Alatoo bals, 1 shisha"
+        },
+        "movement_type": "adjustment",
+        "quantity": 1,
+        "balance_after": 0,
+        "source": {
+          "type": "document",
+          "id": 134,
+          "number": "TZ-20261031-014"
+        },
+        "actor": {
+          "id": 142,
+          "full_name": "V2 Bosh logist (Qo'qon)",
+          "kind": "logist"
+        },
+        "note": "count_diff"
+      },
+      {
+        "id": 1771,
+        "created_at": "2026-10-31T03:25:18.859945+05:00",
+        "region": "andijon",
+        "location": {
+          "id": 36,
+          "name": "Kuryer · V2 kuryer 4",
+          "kind": "courier"
+        },
+        "item": {
+          "id": 10,
+          "name": "Asal-zanjabil siropi, 250 ml"
+        },
+        "movement_type": "adjustment",
+        "quantity": 1,
+        "balance_after": 0,
+        "source": {
+          "type": "document",
+          "id": 134,
+          "number": "TZ-20261031-014"
+        },
+        "actor": {
+          "id": 142,
+          "full_name": "V2 Bosh logist (Qo'qon)",
+          "kind": "logist"
+        },
+        "note": "count_diff"
+      }
+    ]
+  },
+  "owner/structure/sklad-grants/1/": {
+    "filial_id": 1,
+    "items": [
+      {
+        "id": 5,
+        "product_id": 9,
+        "product_name": "uzz",
+        "granted_at": "2026-10-30T22:21:08.792134Z",
+        "note": "v2 seed dopusk"
+      },
+      {
+        "id": 4,
+        "product_id": 6,
+        "product_name": "Hapwell-3 (Majun Al-shifo)",
+        "granted_at": "2026-10-30T22:21:08.790062Z",
+        "note": "v2 seed dopusk"
+      },
+      {
+        "id": 3,
+        "product_id": 4,
+        "product_name": "Amoksitsillin 500 mg",
+        "granted_at": "2026-10-29T03:04:28.396407Z",
+        "note": "seed dopusk"
+      }
+    ]
+  }
+}

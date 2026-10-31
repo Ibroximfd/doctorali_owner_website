@@ -6,20 +6,8 @@ import { listMockHandlers } from "@/shared/testing/fixtures/registry";
 
 import { demoFetch } from "./demo-backend.server";
 
-/** AI javobi asinxron: birinchi o'qishda "kutilmoqda", keyingisida tayyor. */
-const readReply = async (chatId: number) => {
-  await send(`/api/owner/ai/chats/${chatId}/`);
-  return (await (await send(`/api/owner/ai/chats/${chatId}/`)).json()) as {
-    messages: { role: string; text: string; attachments: { id: number }[] }[];
-  };
-};
-
 const send = (path: string, method = "GET", body?: unknown, search = "") =>
   demoFetch(path, { method, body, search });
-
-const bytesOf = async (response: Response): Promise<Uint8Array> =>
-  new Uint8Array(await response.arrayBuffer());
-const ascii = (bytes: Uint8Array, length: number): string => String.fromCharCode(...bytes.slice(0, length));
 
 describe("demo backend", () => {
   it("opens only with the demo login and password", async () => {
@@ -44,9 +32,7 @@ describe("demo backend", () => {
 
     const statuses = await Promise.all(
       paths.map(async (path) => {
-        // Kesim turi majburiy bo'lgan yagona endpoint — frontend uni doim yuboradi.
-        const search = path === "orders/breakdown/" ? "?period=30d&by=source" : "?period=30d";
-        return [path, (await send(`/api/owner/${path}`, "GET", undefined, search)).status];
+        return [path, (await send(`/api/owner/${path}`, "GET", undefined, "?period=30d")).status];
       }),
     );
 
@@ -55,24 +41,15 @@ describe("demo backend", () => {
 
   it("has a handler for every action the panel can send", async () => {
     const actions: [string, string][] = [
-      ["PUT", "targets/"],
       ["DELETE", "sessions/s-2/"],
-      ["POST", "iam/accounts/"],
-      ["PATCH", "iam/accounts/1/"],
-      ["POST", "iam/accounts/1/block/"],
-      ["POST", "access/members/"],
-      ["PATCH", "access/members/1/"],
-      ["POST", "access/members/1/revoke/"],
-      ["POST", "alerts/1/ack/"],
-      ["PATCH", "alerts/rules/sales.filial_lagging/"],
-      ["POST", "ai/findings/88/feedback/"],
-      ["POST", "ai/findings/88/escalate/"],
-      ["POST", "ai/chats/"],
-      ["POST", "ai/actions/301/approve/"],
-      ["PUT", "ai/autopilot/"],
-      ["POST", "issues/1/notify/"],
-      ["POST", "reports/export/"],
-      ["PUT", "reports/digest/"],
+      ["POST", "structure/filials/"],
+      ["PATCH", "structure/filials/1/"],
+      ["POST", "structure/filials/1/set-main/"],
+      ["POST", "structure/filials/1/heads/"],
+      ["DELETE", "structure/filials/1/heads/chief_logist/"],
+      ["PATCH", "structure/roles/91/"],
+      ["PUT", "structure/sklad-grants/1/"],
+      ["POST", "ai/chat/"],
     ];
 
     for (const [method, path] of actions) {
@@ -83,41 +60,17 @@ describe("demo backend", () => {
     }
   });
 
-  it("answers an AI question by its topic and attaches a real Excel file", async () => {
-    const chat = (await (await send("/api/owner/ai/chats/", "POST", {})).json()) as { id: number };
-    await send(`/api/owner/ai/chats/${chat.id}/messages/`, "POST", { text: "Omborda nima tugayapti?" });
-    const loaded = await readReply(chat.id);
-    const reply = loaded.messages.at(-1);
+  it("answers an AI question from the data, with its sources", async () => {
+    const response = await send("/api/owner/ai/chat/", "POST", { question: "Skladda nima tugayapti?" });
+    const answer = (await response.json()) as { answer: string; tools_used: string[] };
 
-    expect(reply?.role).toBe("assistant");
-    expect(reply?.text).toContain("Rayhon krem");
-
-    const file = await send(`/api/owner/ai/attachments/${reply?.attachments[0]?.id ?? 0}/file/`);
-    expect(file.headers.get("content-type")).toContain("spreadsheetml");
-    expect(ascii(await bytesOf(file), 2)).toBe("PK");
+    expect(answer.answer).toContain("Janub sklad: Kardiomed");
+    expect(answer.tools_used).toContain("sklad_stock");
   });
 
-  it("falls back to the daily report for a question it does not recognise", async () => {
-    const chat = (await (await send("/api/owner/ai/chats/", "POST", {})).json()) as { id: number };
-    await send(`/api/owner/ai/chats/${chat.id}/messages/`, "POST", { text: "Salom" });
-    const loaded = await readReply(chat.id);
-
-    expect(loaded.messages.at(-1)?.text).toContain("312 mln");
-  });
-
-  it("serves exported reports as XLSX and PDF", async () => {
-    const history = (await (await send("/api/owner/reports/exports/")).json()) as {
-      results: { job_id: string; format: string; status: string; url: string | null }[];
-    };
-    const ready = history.results.filter((job) => job.status === "ready");
-    expect(ready.map((job) => job.format).sort()).toEqual(["pdf", "xlsx"]);
-
-    for (const job of ready) {
-      const file = await send(job.url ?? "");
-      expect(file.status).toBe(200);
-      const bytes = await bytesOf(file);
-      expect(ascii(bytes, job.format === "pdf" ? 5 : 2)).toBe(job.format === "pdf" ? "%PDF-" : "PK");
-      expect(file.headers.get("content-disposition")).toContain(`.${job.format}`);
-    }
+  it("serves the sklad API under /api/sklad/ like the logist site", async () => {
+    const sklads = (await (await send("/api/sklad/sklads/")).json()) as { name: string }[];
+    expect(sklads).toHaveLength(5);
+    expect((await send("/api/sklad/ledger/", "GET", undefined, "?page=1")).status).toBe(200);
   });
 });

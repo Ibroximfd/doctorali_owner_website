@@ -4,29 +4,26 @@ import { motion, useReducedMotion } from "motion/react";
 import { useTranslations } from "next-intl";
 
 import { useFormat } from "@/shared/hooks/use-format";
-import { useRelativeTime } from "@/shared/hooks/use-relative-time";
 import { formatNumber } from "@/shared/lib/format";
-import { AnimatedNumber } from "@/shared/ui/motion/animated-number";
 
-import { useAiSummaryQuery } from "../hooks/use-ai";
+import { useAiStatusQuery, useAnalysisQuery } from "../hooks/use-ai";
+import { countBySeverity } from "../model/ai.rules";
 import { AiOrb } from "./ai-orb";
-import { ScoreRing } from "./score-ring";
 
-/** Bo'lim boshi: tirik AI shari + sog'liq halqasi, Fraunces sarlavhada ball va xavf ostidagi pul. */
+/** Bo'lim boshi: tirik AI shari, sarlavha va holat qatori (model, oxirgi tahlil, topilmalar soni). */
 export const AiHero = () => {
   const t = useTranslations("ai.hero");
   const tAi = useTranslations("ai");
   const format = useFormat();
-  const relative = useRelativeTime();
   const reduce = useReducedMotion();
-  const summary = useAiSummaryQuery().data;
-  const score = summary?.healthScore ?? null;
+  const status = useAiStatusQuery();
+  const analysis = useAnalysisQuery().data;
+  const model = status.data?.model ?? analysis?.model ?? null;
 
   return (
-    <header className="flex flex-col items-start gap-6 py-2 sm:flex-row sm:items-center sm:gap-7">
-      <div className="relative size-32 shrink-0 sm:size-36">
-        <AiOrb thinking={summary?.status === "running"} className="absolute inset-0" />
-        <ScoreRing score={score} label={t("score")} className="absolute inset-0" />
+    <header className="flex flex-col items-start gap-5 py-2 sm:flex-row sm:items-center sm:gap-7">
+      <div className="relative size-24 shrink-0 sm:size-28">
+        <AiOrb thinking={false} className="absolute inset-0" />
       </div>
       <motion.div
         initial={reduce ? false : { opacity: 0, y: 14, filter: "blur(10px)" }}
@@ -34,41 +31,25 @@ export const AiHero = () => {
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
         className="min-w-0"
       >
-        <p className="text-ink-3 text-sm font-medium">
-          {tAi("title")} · {t("eyebrow")}
-        </p>
-        <h1 className="font-display text-hero mt-1">
-          {t("health")}{" "}
-          <span className="num">
-            {score === null ? "—" : <AnimatedNumber value={score} format={formatNumber} />}
-          </span>
-          {score === null ? null : <span className="text-ink-3 text-2xl">/100</span>}
-        </h1>
-        {score === null ? null : <span className="sr-only">{t("scoreSr", { value: score })}</span>}
-        <p className="text-ink-2 text-md mt-2 max-w-2xl">{summary?.headline ?? tAi("description")}</p>
-        {summary ? (
-          <p className="text-ink-2 mt-2 flex flex-wrap gap-x-3 gap-y-1 text-sm">
+        <h1 className="font-display text-hero">{tAi("title")}</h1>
+        <p className="text-ink-2 text-md mt-2 max-w-2xl">{tAi("description")}</p>
+        <p className="text-ink-2 mt-2 flex flex-wrap gap-x-3 gap-y-1 text-sm">
+          {analysis ? (
             <span>
-              {t("checksLine", {
-                total: formatNumber(summary.checksTotal),
-                passed: formatNumber(summary.checksTotal - summary.checksFailed - summary.checksWarn),
+              {t("findingsLine", {
+                urgent: formatNumber(countBySeverity(analysis.findings, "urgent")),
+                attention: formatNumber(countBySeverity(analysis.findings, "attention")),
               })}
             </span>
-            {summary.moneyAtRisk > 0 ? (
-              <span>
-                {t.rich("atRiskLine", {
-                  amount: format.moneyCompact(summary.moneyAtRisk),
-                  strong: (chunk) => <strong className="text-crit font-bold">{chunk}</strong>,
-                })}
-              </span>
-            ) : null}
-            {summary.status === "running" ? (
-              <span className="text-accent">{t("running")}</span>
-            ) : summary.lastRunAt ? (
-              <span className="text-ink-3">{t("lastRunLine", { time: relative(summary.lastRunAt) })}</span>
-            ) : null}
-          </p>
-        ) : null}
+          ) : null}
+          {analysis ? (
+            <span className="text-ink-3">
+              {t("generated", { time: format.dateTime(analysis.generatedAt) })}
+            </span>
+          ) : null}
+          {model ? <span className="text-ink-3">{t("model", { model })}</span> : null}
+          {status.data && !status.data.enabled ? <span className="text-warn">{t("disabled")}</span> : null}
+        </p>
       </motion.div>
     </header>
   );

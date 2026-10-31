@@ -6,6 +6,7 @@ import {
   includesToday,
   paramsKey,
   scopeKey,
+  scopeRange,
   scopeToParams,
   tashkentDate,
   toggleFilialFocus,
@@ -118,5 +119,21 @@ describe("includesToday", () => {
   it("is true for periods that reach today", () => {
     expect(includesToday(scope({ period: "30d" }), TODAY)).toBe(true);
     expect(includesToday(scope({ period: "custom", from: "2026-09-20", to: TODAY }), TODAY)).toBe(true);
+  });
+});
+
+describe("scopeRange", () => {
+  const range = (period: Scope["period"], from: string | null = null, to: string | null = null) =>
+    scopeRange({ ...DEFAULT_SCOPE, period, from, to }, "2026-10-31");
+
+  it("turns presets into exact dates for date-based APIs", () => {
+    expect(range("today")).toEqual({ dateFrom: "2026-10-31", dateTo: "2026-10-31" });
+    expect(range("7d")).toEqual({ dateFrom: "2026-10-25", dateTo: "2026-10-31" });
+    expect(range("30d")).toEqual({ dateFrom: "2026-10-02", dateTo: "2026-10-31" });
+    expect(range("prev_month")).toEqual({ dateFrom: "2026-09-01", dateTo: "2026-09-30" });
+    expect(range("custom", "2026-08-01", "2026-08-10")).toEqual({
+      dateFrom: "2026-08-01",
+      dateTo: "2026-08-10",
+    });
   });
 });

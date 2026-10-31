@@ -112,3 +112,38 @@ export const includesToday = (scope: Scope, today: string): boolean => {
 
 export const isPeriodKey = (value: string): value is PeriodKey =>
   (PERIOD_KEYS as readonly string[]).includes(value);
+
+const monthStart = (isoDate: string, offsetMonths = 0): string => {
+  const date = new Date(`${isoDate.slice(0, 7)}-01T00:00:00Z`);
+  date.setUTCMonth(date.getUTCMonth() + offsetMonths);
+  return date.toISOString().slice(0, 10);
+};
+
+/**
+ * Davr → aniq sana oralig'i (`date_from`, `date_to`) — preset bilmaydigan API lar uchun
+ * (sklad API: `?date_from=&date_to=`, TZ 18 §2).
+ */
+export const scopeRange = (scope: Scope, today: string): { dateFrom: string; dateTo: string } => {
+  switch (scope.period) {
+    case "today":
+      return { dateFrom: today, dateTo: today };
+    case "yesterday":
+      return { dateFrom: addDays(today, -1), dateTo: addDays(today, -1) };
+    case "7d":
+      return { dateFrom: addDays(today, -6), dateTo: today };
+    case "90d":
+      return { dateFrom: addDays(today, -89), dateTo: today };
+    case "month":
+      return { dateFrom: monthStart(today), dateTo: today };
+    case "prev_month":
+      return { dateFrom: monthStart(today, -1), dateTo: addDays(monthStart(today), -1) };
+    case "year":
+      return { dateFrom: monthStart(today, -11), dateTo: today };
+    case "custom":
+      return hasValidRange(scope)
+        ? { dateFrom: scope.from, dateTo: scope.to }
+        : { dateFrom: addDays(today, -29), dateTo: today };
+    default:
+      return { dateFrom: addDays(today, -29), dateTo: today };
+  }
+};

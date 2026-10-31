@@ -59,8 +59,25 @@ type RegionMapProps = {
   regions: readonly MapRegion[];
   selected: string | null;
   onSelect: (code: string | null) => void;
-  /** Legenda yorliqlari tartib bilan: good · fair · watch · bad. */
-  legend: Record<"good" | "fair" | "watch" | "bad", string>;
+  /** Holat legendasi yorliqlari tartib bilan: good · fair · watch · bad. */
+  legend?: Record<"good" | "fair" | "watch" | "bad", string>;
+  /**
+   * O'z legendasi (ketma-ket shkala, sklad ranglari) — berilsa holat legendasi o'rniga chiziladi.
+   * Rang hech qachon yolg'iz signal emas: legenda doim bor.
+   */
+  legendItems?: ReactNode;
+  /**
+   * Viloyat maydoni rangi (token utility, masalan `fill-seq-4` yoki `fill-series-2/60`) —
+   * berilsa `tone` rangi o'rniga. Ketma-ket (miqdor) va guruh (sklad) xaritalari uchun.
+   */
+  fillOf?: (code: string) => string | undefined;
+  /**
+   * Viloyat qaysi guruhga tegishli (masalan sklad id). Sichqoncha bitta viloyat ustida
+   * bo'lsa — butun guruh birga ajraladi, qolganlari xiralashadi.
+   */
+  groupOf?: (code: string) => string | null;
+  /** Suzuvchi karta sarlavhasi (sukut — viloyat nomi; guruh xaritasida — guruh nomi). */
+  hoverTitle?: (code: string) => string;
   label: string;
   /** Tanlangan viloyatga yaqinlashish (drill-down). */
   zoomed?: boolean;
@@ -112,6 +129,10 @@ export const RegionMap = ({
   hoverCard = true,
   showNames = false,
   hoverDetails,
+  legendItems,
+  fillOf,
+  groupOf,
+  hoverTitle,
 }: RegionMapProps) => {
   const reduce = useReducedMotion();
   const [stage, animateStage] = useAnimate<HTMLDivElement>();
@@ -126,6 +147,7 @@ export const RegionMap = ({
   // Sichqoncha harakatida faqat karta yangilanadi — og'ir SVG qatlam qayta chizilmaydi.
   const overlayLayer = useMemo(() => overlay?.(scale), [overlay, scale]);
   const hoveredShape = !zoomCode && hovered && isRegionCode(hovered) ? hovered : null;
+  const hoveredGroup = hoveredShape && groupOf ? groupOf(hoveredShape) : null;
 
   // yaqinlashish/uzoqlashish paytida xarita qisqa xiralashadi — «kamera fokusi» hissi
   useEffect(() => {
@@ -168,7 +190,8 @@ export const RegionMap = ({
               const region = byCode.get(shape.code);
               const tone = region?.tone ?? "none";
               const isSelected = selected === shape.code;
-              const isDimmed = selected !== null && !isSelected;
+              const inHoveredGroup = hoveredGroup !== null && groupOf?.(shape.code) === hoveredGroup;
+              const isDimmed = hoveredGroup !== null ? !inHoveredGroup : selected !== null && !isSelected;
               return (
                 <motion.path
                   key={shape.code}
@@ -186,7 +209,8 @@ export const RegionMap = ({
                   onPointerLeave={() => setHovered(null)}
                   className={cn(
                     "art-self stroke-surface focus-visible:stroke-ink hover:stroke-ink/70 cursor-pointer transition-[stroke,opacity] outline-none",
-                    TONE_FILL[tone],
+                    fillOf?.(shape.code) ?? TONE_FILL[tone],
+                    inHoveredGroup && "stroke-ink",
                     isSelected && "stroke-gold",
                   )}
                   strokeWidth={isSelected ? 3 : 1.2}
@@ -244,7 +268,7 @@ export const RegionMap = ({
         {hoveredShape && hoverDetails ? (
           <HoverCard
             point={pointToPercent(regionLabelPoint(hoveredShape))}
-            title={byCode.get(hoveredShape)?.name ?? hoveredShape}
+            title={hoverTitle?.(hoveredShape) ?? byCode.get(hoveredShape)?.name ?? hoveredShape}
           >
             {hoverDetails(hoveredShape)}
           </HoverCard>
@@ -256,15 +280,19 @@ export const RegionMap = ({
         ) : null}
       </div>
 
-      <ul className="text-2xs text-ink-2 mt-2 flex flex-wrap gap-x-3 gap-y-1">
-        {(["good", "fair", "watch", "bad"] as const).map((tone) => (
-          <li key={tone} className="flex items-center gap-1.5">
-            <span aria-hidden className={cn("size-2.5 rounded-sm", TONE_CLASS[tone].bg)} />
-            {legend[tone]}
-          </li>
-        ))}
-        {legendExtra}
-      </ul>
+      {legendItems ?? (
+        <ul className="text-2xs text-ink-2 mt-2 flex flex-wrap gap-x-3 gap-y-1">
+          {legend
+            ? (["good", "fair", "watch", "bad"] as const).map((tone) => (
+                <li key={tone} className="flex items-center gap-1.5">
+                  <span aria-hidden className={cn("size-2.5 rounded-sm", TONE_CLASS[tone].bg)} />
+                  {legend[tone]}
+                </li>
+              ))
+            : null}
+          {legendExtra}
+        </ul>
+      )}
     </div>
   );
 };

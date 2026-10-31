@@ -16,11 +16,12 @@ const readJson = async (request: Request): Promise<unknown> => {
   }
 };
 
-/** Testlarda `/api/owner/*` — ilovadagi namuna rejimi bilan bir xil javob beradi. */
-export const server = setupServer(
-  http.all("*/api/owner/*", async ({ request }) => {
+/** Bitta prefiks uchun javob beruvchi: yo'l namuna bazadagi nomga aylanadi. */
+const answer =
+  (prefix: string, mockPrefix: string) =>
+  async ({ request }: { request: Request }) => {
     const url = new URL(request.url);
-    const path = url.pathname.slice(url.pathname.indexOf("/api/owner/") + "/api/owner/".length);
+    const path = `${mockPrefix}${url.pathname.slice(url.pathname.indexOf(prefix) + prefix.length)}`;
     const body = request.method === "GET" ? undefined : await readJson(request);
     const response = resolveMock({
       method: request.method,
@@ -30,7 +31,13 @@ export const server = setupServer(
       now: TEST_NOW,
     });
     return HttpResponse.json(response.json as Record<string, unknown>, { status: response.status });
-  }),
+  };
+
+/** Testlarda `/api/owner/*` va `/api/sklad/*` — ilovadagi namuna rejimi bilan bir xil javob beradi. */
+export const server = setupServer(
+  http.all("*/api/owner/*", answer("/api/owner/", "")),
+  // sklad API namunalari `sklad-api/` nomi ostida (`demo-backend.server.ts` bilan bir xil)
+  http.all("*/api/sklad/*", answer("/api/sklad/", "sklad-api/")),
 );
 
 /** Ekran testlari boshida chaqiriladi: serverni yoqadi va har testdan keyin tozalaydi. */

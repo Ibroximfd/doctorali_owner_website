@@ -14,22 +14,17 @@ export const signIn = async (page: Page): Promise<void> => {
   await page.getByLabel("Login").fill(username);
   await page.getByLabel("Parol").fill(password);
   await page.getByRole("button", { name: "Davom etish" }).click();
-  await expect(page.getByRole("heading", { level: 1, name: /Bugungi holat/ })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: /Umumiy holat/ })).toBeVisible();
 };
 
 export const PANEL_PATHS = [
   "/",
-  "/orders",
+  "/filials",
   "/finance",
-  "/clinic",
-  "/logistics",
-  "/sales",
-  "/app",
-  "/products",
-  "/customers",
-  "/doctors",
-  "/alerts",
-  "/reports",
+  "/analytics",
+  "/staff",
+  "/warehouse",
+  "/ai",
   "/settings",
 ] as const;
 

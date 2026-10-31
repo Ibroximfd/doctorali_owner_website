@@ -15,7 +15,6 @@ type SidebarProps = {
   /** `me.sections`: bo\'sh — barcha bo\'limlar. */
   allowedSections: readonly string[];
   activeRoute: PanelRouteKey;
-  alertsCount: number;
   isCollapsed: boolean;
   userName: string;
   userRole: string;
@@ -25,14 +24,7 @@ type SidebarProps = {
  * Yon panel: ≥1280px da to'liq (yig'ish mumkin), 768–1279px da ikon-rels,
  * telefonda yashirin (o'rniga pastki tab-bar).
  */
-export const Sidebar = ({
-  activeRoute,
-  alertsCount,
-  isCollapsed,
-  userName,
-  userRole,
-  allowedSections,
-}: SidebarProps) => {
+export const Sidebar = ({ activeRoute, isCollapsed, userName, userRole, allowedSections }: SidebarProps) => {
   const t = useTranslations("nav");
   // Yorliqlar faqat to'liq holatda ko'rinadi.
   const labelClass = isCollapsed ? "hidden" : "max-xl:hidden";
@@ -76,7 +68,6 @@ export const Sidebar = ({
               )}
               {groupItems.map((item) => {
                 const isActive = item.route === activeRoute;
-                const showCount = item.showsAlerts && alertsCount > 0;
                 return (
                   <ScopeLink
                     key={item.route}
@@ -100,18 +91,6 @@ export const Sidebar = ({
                     ) : null}
                     <item.icon aria-hidden className="relative size-4.5 shrink-0" strokeWidth={1.75} />
                     <span className={cn("relative", labelClass)}>{t(`items.${item.route}`)}</span>
-                    {showCount ? (
-                      <span
-                        className={cn(
-                          "num bg-crit text-2xs text-accent-ink relative rounded-full text-center font-semibold",
-                          isCollapsed
-                            ? "absolute top-0.5 right-1 min-w-4 px-1"
-                            : "max-xl:absolute max-xl:top-0.5 max-xl:right-1 max-xl:min-w-4 max-xl:px-1 xl:ml-auto xl:min-w-5 xl:px-1.5 xl:py-0.5",
-                        )}
-                      >
-                        {alertsCount}
-                      </span>
-                    ) : null}
                   </ScopeLink>
                 );
               })}

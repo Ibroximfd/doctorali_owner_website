@@ -1,0 +1,98 @@
+[
+  {
+    "id": 11,
+    "name": "Gepatofit",
+    "sku": "MG-11",
+    "barcode": "4780011",
+    "package_size": 12,
+    "package_label": "karobka",
+    "unit_label": "dona",
+    "price": "420000.00",
+    "is_active": true,
+    "image": null
+  },
+  {
+    "id": 12,
+    "name": "Kardiomed",
+    "sku": "MG-12",
+    "barcode": "4780012",
+    "package_size": 12,
+    "package_label": "karobka",
+    "unit_label": "dona",
+    "price": "460000.00",
+    "is_active": true,
+    "image": null
+  },
+  {
+    "id": 13,
+    "name": "Artroflex",
+    "sku": "MG-13",
+    "barcode": "4780013",
+    "package_size": 12,
+    "package_label": "karobka",
+    "unit_label": "dona",
+    "price": "390000.00",
+    "is_active": true,
+    "image": null
+  },
+  {
+    "id": 14,
+    "name": "Gastrofit",
+    "sku": "MG-14",
+    "barcode": "4780014",
+    "package_size": 12,
+    "package_label": "karobka",
+    "unit_label": "dona",
+    "price": "380000.00",
+    "is_active": true,
+    "image": null
+  },
+  {
+    "id": 15,
+    "name": "Immunoxit",
+    "sku": "MG-15",
+    "barcode": "4780015",
+    "package_size": 12,
+    "package_label": "karobka",
+    "unit_label": "dona",
+    "price": "450000.00",
+    "is_active": true,
+    "image": null
+  },
+  {
+    "id": 16,
+    "name": "Diabefit",
+    "sku": "MG-16",
+    "barcode": "4780016",
+    "package_size": 12,
+    "package_label": "karobka",
+    "unit_label": "dona",
+    "price": "520000.00",
+    "is_active": true,
+    "image": null
+  },
+  {
+    "id": 17,
+    "name": "Neyrovit",
+    "sku": "MG-17",
+    "barcode": "4780017",
+    "package_size": 12,
+    "package_label": "karobka",
+    "unit_label": "dona",
+    "price": "410000.00",
+    "is_active": true,
+    "image": null
+  },
+  {
+    "id": 18,
+    "name": "Prostavit",
+    "sku": "MG-18",
+    "barcode": "4780018",
+    "package_size": 12,
+    "package_label": "karobka",
+    "unit_label": "dona",
+    "price": "480000.00",
+    "is_active": true,
+    "image": null
+  }
+]

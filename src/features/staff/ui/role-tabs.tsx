@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Boxes, Headset, Route, Truck, UsersRound, type LucideIcon } from "lucide-react";
+import { Headset, Route, type LucideIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { cn } from "@/shared/lib/cn";
@@ -11,9 +11,6 @@ import { STAFF_ROLES, type StaffRole } from "../model/staff.rules";
 
 const ROLE_ICON: Record<StaffRole, LucideIcon> = {
   operator: Headset,
-  admin: UsersRound,
-  courier: Truck,
-  warehouse: Boxes,
   logist: Route,
 };
 

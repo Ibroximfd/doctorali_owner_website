@@ -4,11 +4,11 @@ import { MobileAppScreen } from "@/features/mobile-app/ui/mobile-app-screen";
 import { PageHeader } from "@/shared/ui/page-header";
 
 export default async function AppPage() {
-  const t = await getTranslations("mobileApp");
+  const t = await getTranslations("app");
 
   return (
     <>
-      <PageHeader title={t("title")} description={t("subtitle")} />
+      <PageHeader title={t("title")} description={t("description")} />
       <MobileAppScreen />
     </>
   );

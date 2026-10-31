@@ -6,9 +6,8 @@ import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { useState, type ReactNode } from "react";
 import { Toaster } from "sonner";
 
-import { TELEGRAM_ENTRY, routes } from "@/shared/config/routes";
+import { routes, signInHref } from "@/shared/config/routes";
 import { isAppError } from "@/shared/lib/app-error";
-import { signInHref } from "@/shared/lib/channel";
 import { TipProvider } from "@/shared/ui/tip";
 
 /** Qayta urinish foyda bermaydigan xatolar: ruxsat, shartnoma, noto'g'ri so'rov. */
@@ -25,10 +24,10 @@ const GC_MS = 10 * 60_000;
 const MAX_RETRIES = 1;
 const RETRY_DELAY_MS = 1000;
 
-/** Sessiya tugagan bo'lsa — kirish sahifasiga (Telegramda — PIN ga), qaytib kelish manzili bilan. */
+/** Sessiya tugagan bo'lsa — kirish sahifasiga, qaytib kelish manzili bilan. */
 const redirectToLogin = () => {
   const { pathname, search } = window.location;
-  if (pathname === routes.login || pathname === TELEGRAM_ENTRY) return;
+  if (pathname === routes.login) return;
   // To'liq o'tish ataylab: xotiradagi moliyaviy ma'lumot (so'rov keshi) butunlay tashlanadi.
   window.location.assign(signInHref(`${pathname}${search}`));
 };

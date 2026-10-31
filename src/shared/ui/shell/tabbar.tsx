@@ -11,10 +11,10 @@ import { cn } from "@/shared/lib/cn";
 import { ScopeLink } from "../scope-link";
 import { Sheet } from "../sheet";
 
-type TabbarProps = { activeRoute: PanelRouteKey; alertsCount: number; allowedSections: readonly string[] };
+type TabbarProps = { activeRoute: PanelRouteKey; allowedSections: readonly string[] };
 
 /** Telefon: 4 ta asosiy bo'lim + "Yana" (qolgan bo'limlar varag'i). Teginish nishoni ≥ 44px. */
-export const Tabbar = ({ activeRoute, alertsCount, allowedSections }: TabbarProps) => {
+export const Tabbar = ({ activeRoute, allowedSections }: TabbarProps) => {
   const t = useTranslations("nav");
   const [isMoreOpen, setMoreOpen] = useState(false);
 
@@ -41,11 +41,6 @@ export const Tabbar = ({ activeRoute, alertsCount, allowedSections }: TabbarProp
               className={cn(tabClass, isActive ? "text-accent" : "text-ink-3")}
             >
               <item.icon aria-hidden className="size-5" strokeWidth={1.75} />
-              {item.showsAlerts && alertsCount > 0 ? (
-                <span className="num bg-crit text-2xs text-accent-ink absolute top-0 left-1/2 ml-1 min-w-4 rounded-full px-1 text-center leading-tight font-semibold">
-                  {alertsCount}
-                </span>
-              ) : null}
               <span className="max-w-full truncate">{t(`items.${item.route}`)}</span>
             </ScopeLink>
           );

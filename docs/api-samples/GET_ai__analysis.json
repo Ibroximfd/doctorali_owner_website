@@ -1,0 +1,69 @@
+{
+  "generated_at": "2026-10-05T08:48:00.000Z",
+  "period": {
+    "date_from": "2026-10-01",
+    "date_to": "2026-10-31"
+  },
+  "findings": [
+    {
+      "severity": "urgent",
+      "code": "finance.reconciliation",
+      "area": "finance",
+      "title": "Janub bosh kuryeri T2 ga pulni 3 kunda bir topshirmoqda",
+      "detail": "Farhod Normatov (Janub) T2 zakazlari pulining 38% ini o'zida ushlab turibdi. Boshqa bosh kuryerlar har kuni topshiradi.",
+      "recommendation": "T2 B.L i Otabek Qodirov bugun Janub bosh kuryeridan to'liq summani qabul qilsin."
+    },
+    {
+      "severity": "urgent",
+      "code": "analytics.anomaly",
+      "area": "analytics",
+      "title": "T2 konversiyasi boshqa filiallardan 6 f.p. past",
+      "detail": "T2 da konversiya 27,2%, Q da 33,8%, T1 da 32,8%. Atkaz ham T2 da eng yuqori — 14,3%.",
+      "recommendation": "B.O Nigora Saidova Feruza Olimovaning qo'ng'iroqlarini tinglab, skriptni Q dagi bilan solishtirsin."
+    },
+    {
+      "severity": "attention",
+      "code": "filials.process_delay",
+      "area": "filials",
+      "title": "T2 B.L ida sklad dopuski yo'q, lekin T2 ga 2 ta mahsulot berilgan",
+      "detail": "Diabefit va Neyrovit T2 ga berilgan, ammo Otabek Qodirov «Dopuskli mahsulotlar qoldig'i» huquqisiz.",
+      "recommendation": "Filiallar bo'limida T2 B.L iga sklad dopuskini bering."
+    },
+    {
+      "severity": "attention",
+      "code": "staff.process_delay",
+      "area": "staff",
+      "title": "T2 logisti zakazni bosh kuryerga 31 daqiqada biriktirmoqda",
+      "detail": "Q va T1 da o'rtacha 14–22 daqiqa. Kechikkan topshiriqlar 12%.",
+      "recommendation": "Avto-taqsimlashni T2 da yoqishni ko'rib chiqing."
+    },
+    {
+      "severity": "good",
+      "code": "finance.handover_on_time",
+      "area": "finance",
+      "title": "Q va T1 bosh kuryerlardan pulni har kuni oladi",
+      "detail": "Oxirgi 7 kunda Q va T1 topshiriqlarining hammasi o'z vaqtida.",
+      "recommendation": ""
+    }
+  ],
+  "ai_summary": "1. Pul va sotuv joyida, lekin T2 orqada.\n2. Janub bosh kuryeri T2 pulini 3 kunda bir topshirmoqda.\n3. T2 konversiyasi boshqalardan 6 f.p. past.\n4. Janub skladida Kardiomed 3 kunga yetadi.\n5. Prostavit hech bir filialga berilmagan.",
+  "model": "claude-opus-5",
+  "warehouse_findings": [
+    {
+      "severity": "urgent",
+      "code": "warehouse.shortage",
+      "area": "warehouse",
+      "title": "Janub skladida Kardiomed 24 dona qoldi (minimal 60)",
+      "detail": "Kunlik chiqim ~8 dona — 3 kunga yetadi. Kardiomed dopuski Q filialida.",
+      "recommendation": "Q B.L i Sardor Aliyev Janub skladiga kirim rejalashtirsin."
+    },
+    {
+      "severity": "attention",
+      "code": "warehouse.data_error",
+      "area": "warehouse",
+      "title": "Prostavit hech bir filialga berilmagan",
+      "detail": "Mahsulot hamma skladda bor, lekin uning qoldig'ini hech qaysi filial logisti boshqarmaydi.",
+      "recommendation": "Sklad bo'limida Prostavitni bitta filialga bering."
+    }
+  ]
+}

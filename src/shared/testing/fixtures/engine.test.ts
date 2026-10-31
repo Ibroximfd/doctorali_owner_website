@@ -58,7 +58,7 @@ describe("resolvePeriod", () => {
 describe("buildContext", () => {
   it("defaults to all filials and scales flows by the selected share", () => {
     expect(context({ period: "30d" }).flow(1000)).toBe(1000);
-    expect(context({ period: "30d", filial: "3" }).flow(1000)).toBe(180);
+    expect(context({ period: "30d", filial: "3" }).flow(1000)).toBe(240);
     expect(context({ period: "30d", filial: "1,2" }).isAllFilials).toBe(false);
   });
 

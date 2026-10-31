@@ -135,7 +135,7 @@ const PodiumStage = ({ top, lead }: { top: readonly StaffRow[]; lead: StaffColum
                 </span>
                 <span className="text-ink-2 text-2xs line-clamp-2 md:text-xs">
                   {lead && value !== null
-                    ? t("caption", { metric: metricLabel(lead.key), score: formatDecimal(row.score) })
+                    ? t("caption", { metric: metricLabel(lead.key), score: formatDecimal(row.score ?? 0) })
                     : t("score")}
                 </span>
               </motion.span>

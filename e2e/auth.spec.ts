@@ -23,6 +23,6 @@ test("chiqishdan keyin panel yopiladi", async ({ page }) => {
   await page.getByRole("button", { name: "Chiqish" }).click();
   await expect(page).toHaveURL(/\/login/);
 
-  await page.goto("/orders");
+  await page.goto("/finance");
   await expect(page).toHaveURL(/\/login/);
 });

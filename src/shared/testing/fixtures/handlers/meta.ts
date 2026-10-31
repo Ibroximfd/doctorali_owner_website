@@ -1,5 +1,4 @@
-import { MOCK_FILIALS } from "../engine";
-import { sample } from "../sample";
+import { REGION_NAMES, codeOf, filialsState } from "../structure-v2";
 import type { MockHandler } from "../types";
 
 /** `meta/` va `me/` — lug'atlar va joriy foydalanuvchi. */
@@ -8,8 +7,14 @@ export const metaHandlers: MockHandler[] = [
     method: "GET",
     path: "meta/",
     resolve: () => ({
-      filials: MOCK_FILIALS.map(({ share: _share, ...filial }) => filial),
-      regions: sample.regions.map((region) => ({ code: region.code, name: region.name })),
+      filials: filialsState().map((filial) => ({
+        id: filial.id,
+        code: codeOf(filial),
+        name: filial.name,
+        region: filial.region,
+        is_main: filial.is_main,
+      })),
+      regions: Object.entries(REGION_NAMES).map(([code, name]) => ({ code, name })),
       first_data_date: "2024-03-01",
       currency: "UZS",
     }),

@@ -1,7 +1,15 @@
-import { RegionExplorer } from "@/features/regions/ui/region-explorer";
-import { WarehouseScreen } from "@/features/warehouse/ui/warehouse-screen";
+import { getTranslations } from "next-intl/server";
 
-/** Sarlavha (`h1`) bo'lim boshida — `WarehouseHero` ichida. Xarita viloyatlar qoldig'ini ko'rsatadi. */
-export default function WarehousePage() {
-  return <WarehouseScreen regionSlot={<RegionExplorer initialMetric="stock" />} />;
+import { WarehouseScreen } from "@/features/warehouse/ui/warehouse-screen";
+import { PageHeader } from "@/shared/ui/page-header";
+
+export default async function WarehousePage() {
+  const t = await getTranslations("warehouse");
+
+  return (
+    <>
+      <PageHeader title={t("title")} description={t("description")} />
+      <WarehouseScreen />
+    </>
+  );
 }

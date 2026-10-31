@@ -38,26 +38,23 @@ describe("backend contract registry", () => {
   });
 
   it("names the exact field that does not match", async () => {
-    const endpoint = CONTRACT_ENDPOINTS.find((item) => item.path === "sales/filials/");
-    if (!endpoint) throw new Error("sales/filials/ yo'q");
+    const endpoint = CONTRACT_ENDPOINTS.find((item) => item.path === "structure/");
+    if (!endpoint) throw new Error("structure/ yo'q");
     const broken: FetchJson = async (path, query) => {
       const response = await mockFetcher(path, query);
-      const json = response.json as { data: Record<string, unknown>[] };
-      return {
-        status: 200,
-        json: { ...json, data: json.data.map((row) => ({ ...row, sales_per_operator: "122 mln" })) },
-      };
+      const json = response.json as Record<string, unknown>;
+      return { status: 200, json: { ...json, count: "3" } };
     };
 
     const [result] = await checkEndpoint(endpoint, broken);
 
     expect(result?.outcome).toBe("schema");
-    expect(result?.problems[0]).toMatch(/^data\.0\.sales_per_operator — Expected number, received string$/);
+    expect(result?.problems[0]).toMatch(/^count — Expected number, received string$/);
   });
 
   it("reports HTTP errors and skips id-based checks when there is no id", async () => {
-    const endpoint = CONTRACT_ENDPOINTS.find((item) => item.path === "orders/:id/");
-    if (!endpoint) throw new Error("orders/:id/ yo'q");
+    const endpoint = CONTRACT_ENDPOINTS.find((item) => item.path === "structure/sklad-grants/:id/");
+    if (!endpoint) throw new Error("structure/sklad-grants/:id/ yo'q");
 
     const [down] = await checkEndpoint(endpoint, async () => ({
       status: 500,

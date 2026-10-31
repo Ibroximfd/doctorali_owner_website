@@ -1,0 +1,69 @@
+{
+  "title": "Ilova",
+  "description": "Mobil ilova: zakazlar va ularning holati, foydalanuvchilar, operatorlar olib kirgan odamlar. Zakaz va pul — Moliya va Analitikadagi «Ilovadan» bilan bir xil.",
+  "orders": {
+    "title": "Ilovadan tushgan zakazlar",
+    "total": "Tushgan zakazlar",
+    "delivered": "Yetkazildi",
+    "revenue": "Puli",
+    "cancelled": "Atkaz",
+    "share": "tushganning {value} i",
+    "statusesTitle": "Holatlar",
+    "statusesDescription": "Har zakaz hozir qaysi holatda",
+    "statuses": {
+      "label": "Ilova zakazlari holati",
+      "pending": "Kutilmoqda",
+      "confirmed": "Tasdiqlandi",
+      "in_transit": "Yo'lda",
+      "delivered": "Yetkazildi",
+      "cancelled": "Atkaz"
+    },
+    "trendTitle": "Dinamika",
+    "trendDescription": "Tushgan va yetkazilgan, davr bo'yicha",
+    "period": "Davr",
+    "filialsTitle": "Filiallar kesimida",
+    "filialsDescription": "Har filialga ilovadan tushgani, o'tgani va puli",
+    "filial": "Filial",
+    "received": "Tushdi"
+  },
+  "users": {
+    "title": "Foydalanuvchilar",
+    "total": "Jami foydalanuvchi",
+    "totalNote": "ilovada ro'yxatdan o'tgan",
+    "new": "Yangi",
+    "newNote": "shu davrda qo'shilgan",
+    "dau": "DAU",
+    "dauNote": "kunlik aktiv — o'rtacha",
+    "mau": "MAU",
+    "mauNote": "oylik aktiv — oxirgi 30 kun",
+    "chartTitle": "Aktiv foydalanuvchilar",
+    "metric": "Ko'rsatkich",
+    "period": "Davr",
+    "activity": {
+      "title": "Faollik",
+      "description": "Shu davr ulushlari — kunlik dinamika hali backendda yo'q",
+      "mauShare": "Oylik aktivlar (MAU) jami ichida",
+      "stickiness": "Kunlik / oylik aktiv (DAU ÷ MAU)",
+      "newShare": "Yangi foydalanuvchilar ulushi"
+    }
+  },
+  "operators": {
+    "title": "Operatorlar ilovaga olib kirganlar",
+    "description": "Har operator nechta odamni ilovaga olib kirdi va ulardan nechtasi zakaz berdi",
+    "filial": "Filial",
+    "all": "Hammasi",
+    "sort": "Tartib",
+    "sorts": {
+      "invited": "Olib kirgan",
+      "ordered": "Zakaz bergan",
+      "rate": "Ulush",
+      "name": "Ism"
+    },
+    "name": "Operator",
+    "invited": "Olib kirdi",
+    "ordered": "Zakaz berdi",
+    "rate": "Ulush",
+    "emptyTitle": "Hali hech kim olib kirilmagan",
+    "emptyDescription": "Operator havola yoki promokod bilan odam qo'shsa — shu yerda ko'rinadi."
+  }
+}

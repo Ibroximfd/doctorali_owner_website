@@ -20,13 +20,12 @@ type CommandPaletteProps = {
 const itemClass =
   "flex h-10 cursor-pointer items-center gap-2.5 rounded-xl px-3 text-sm text-ink-2 data-[selected=true]:bg-surface-3 data-[selected=true]:text-ink";
 
-/** ⌘K: bo'limga o'tish yoki buyurtmalardan qidirish (raqam, telefon, ism). */
+/** ⌘K: bo'limga tez o'tish. */
 export const CommandPalette = ({ open, onOpenChange, allowedSections }: CommandPaletteProps) => {
   const t = useTranslations("nav");
   const router = useRouter();
   const scopedHref = useScopedHref();
   const [query, setQuery] = useState("");
-  const trimmed = query.trim();
 
   const go = (href: string) => {
     onOpenChange(false);
@@ -71,23 +70,6 @@ export const CommandPalette = ({ open, onOpenChange, allowedSections }: CommandP
                   </Command.Item>
                 ))}
               </Command.Group>
-              {/*
-                Qidiruv amali ro'yxat oxirida va `value` so'rovga mos kelmaydi: bo'lim nomi
-                yozilsa Enter o'sha bo'limga olib boradi, mos bo'lim bo'lmasa — buyurtmalar qidiruviga.
-              */}
-              {trimmed === "" ? null : (
-                <Command.Group forceMount>
-                  <Command.Item
-                    value="orders-search-action"
-                    forceMount
-                    onSelect={() => go(`${routes.orders}?q=${encodeURIComponent(trimmed)}`)}
-                    className={itemClass}
-                  >
-                    <Search aria-hidden className="size-4" />
-                    {t("searchOrders", { query: trimmed })}
-                  </Command.Item>
-                </Command.Group>
-              )}
             </Command.List>
           </Command>
         </Dialog.Content>

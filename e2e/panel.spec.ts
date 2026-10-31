@@ -26,7 +26,7 @@ test("har bo'lim ochiladi, xatosiz chiziladi va gorizontal toshmaydi", async ({ 
 test("qorong'i mavzuda ham toshmaydi", async ({ page }) => {
   await page.emulateMedia({ colorScheme: "dark" });
 
-  for (const path of ["/", "/orders", "/finance"]) {
+  for (const path of ["/", "/finance", "/warehouse"]) {
     await page.goto(path);
     await page.waitForLoadState("networkidle");
     await expectNoHorizontalScroll(page);
@@ -41,31 +41,21 @@ test("tanlangan davr bo'limdan bo'limga o'tganda saqlanadi", async ({ page, isMo
 
   await page
     .getByRole("navigation", { name: "Bo'limlar" })
-    .getByRole("link", { name: /Buyurtmalar/ })
+    .getByRole("link", { name: /Analitika/ })
     .click();
-  await expect(page).toHaveURL(/\/orders\?period=7d/);
+  await expect(page).toHaveURL(/\/analytics\?period=7d/);
   await expect(page.getByRole("button", { name: "7 kun", exact: true })).toHaveAttribute(
     "aria-pressed",
     "true",
   );
 });
 
-test("buyurtma qatori bosilsa karta ochiladi va Escape bilan yopiladi", async ({ page, isMobile }) => {
-  test.skip(isMobile, "telefonda ro'yxat kartalar ko'rinishida — alohida ssenariy");
+test("Moliya xaritasida viloyat ustiga kelinsa raqamlari chiqadi", async ({ page, isMobile }) => {
+  test.skip(isMobile, "telefonda hover yo'q — viloyat bosiladi");
 
-  await page.goto("/orders");
-  await page
-    .getByRole("button", { name: /DA-184011/ })
-    .first()
-    .click();
-
-  const drawer = page.getByRole("dialog");
-  await expect(drawer).toBeVisible();
-  await expect(drawer).toContainText("DA-184011");
-  await expect(page).toHaveURL(/order=/);
-
-  await page.keyboard.press("Escape");
-  await expect(drawer).toBeHidden();
+  await page.goto("/finance");
+  await page.getByRole("button", { name: /^Farg'ona:/ }).hover();
+  await expect(page.getByText("Sotildi").first()).toBeVisible();
 });
 
 test("telefonda pastki tab-bar va 'Yana' varag'i ishlaydi", async ({ page, isMobile }) => {
@@ -76,6 +66,6 @@ test("telefonda pastki tab-bar va 'Yana' varag'i ishlaydi", async ({ page, isMob
   await expect(page.getByRole("heading", { level: 1, name: "Moliya" })).toBeVisible();
 
   await tabs.getByRole("button", { name: "Yana" }).click();
-  await page.getByRole("dialog").getByRole("link", { name: "Klinika" }).click();
-  await expect(page.getByRole("heading", { level: 1, name: "Klinika" })).toBeVisible();
+  await page.getByRole("dialog").getByRole("link", { name: "Analitika" }).click();
+  await expect(page.getByRole("heading", { level: 1, name: "Analitika" })).toBeVisible();
 });

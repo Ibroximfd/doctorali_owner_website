@@ -1,0 +1,55 @@
+{
+  "title": "Analitika",
+  "description": "Sotuv, atkaz va konversiya: filiallar bo'yicha, filial ichida — operatorlar bo'yicha.",
+  "kpis": {
+    "leads": "Lidlar",
+    "sold": "Sotildi",
+    "delivered": "Yetkazildi",
+    "cancelled": "Atkaz",
+    "conversion": "Konversiya",
+    "conversionNote": "liddan sotuvga",
+    "cancelRate": "Atkaz ulushi",
+    "cancelRateNote": "sotilgandan"
+  },
+  "trend": {
+    "title": "Sotuv va atkaz",
+    "description": "Davr ichida, kunlar bo'yicha",
+    "period": "Davr",
+    "sold": "Sotildi",
+    "cancelled": "Atkaz"
+  },
+  "filials": {
+    "title": "Filiallar",
+    "description": "Konversiya chizig'i — eng yaxshi filialga nisbatan",
+    "filial": "Filial",
+    "sold": "Sotildi",
+    "conversion": "Konversiya",
+    "conversionLabel": "{name}: konversiya {value}",
+    "cancelRate": "Atkaz"
+  },
+  "operators": {
+    "title": "Operatorlar",
+    "description": "Filialni tanlang · strelka — filial o'rtachasidan farq",
+    "filialPicker": "Filial",
+    "emptyTitle": "Bu filialda operator yo'q",
+    "emptyDescription": "B.O operatorlarni CRM da qo'shadi.",
+    "name": "Operator",
+    "leads": "Lid",
+    "sold": "Sotildi",
+    "conversion": "Konversiya",
+    "cancelRate": "Atkaz",
+    "appOnlyTitle": "Ilova zakazlarida operator yo'q",
+    "appOnlyDescription": "Mijoz zakazni ilovada o'zi beradi. Operatorlar natijasini ko'rish uchun «Operatordan» yoki «Hammasi» ni tanlang."
+  },
+  "products": {
+    "title": "Mahsulotlar",
+    "description": "Qancha sotildi, yetkazildi va qaytdi",
+    "name": "Mahsulot",
+    "mostCancelled": "Atkazi eng ko'p",
+    "sold": "Sotildi",
+    "delivered": "Yetkazildi",
+    "cancelled": "Atkaz",
+    "cancelRate": "Atkaz ulushi",
+    "revenue": "Tushum"
+  }
+}

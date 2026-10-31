@@ -1,0 +1,116 @@
+{
+  "period": {
+    "from": "2026-09-06",
+    "to": "2026-10-05",
+    "granularity": "day",
+    "label": "30d"
+  },
+  "compare": {
+    "from": "2026-08-07",
+    "to": "2026-09-05"
+  },
+  "filials": [
+    1,
+    2,
+    3
+  ],
+  "generated_at": "2026-10-05T09:00:00.000Z",
+  "freshness": {
+    "orders": "2026-10-05T09:00:00.000Z"
+  },
+  "data": {
+    "revenue": {
+      "value": 1666980000,
+      "previous": 1552122905.03,
+      "delta_pct": 7.4,
+      "unit": "uzs"
+    },
+    "money": {
+      "at_couriers": 83806800,
+      "at_chiefs": 147092400,
+      "handed": 1436080800
+    },
+    "orders": {
+      "leads": {
+        "value": 13100,
+        "previous": 12452.47,
+        "delta_pct": 5.2,
+        "unit": "count"
+      },
+      "sold": {
+        "value": 5136,
+        "previous": 4840.72,
+        "delta_pct": 6.1,
+        "unit": "count"
+      },
+      "in_transit": {
+        "value": 629,
+        "previous": 651.81,
+        "delta_pct": -3.5,
+        "unit": "count"
+      },
+      "delivered": {
+        "value": 3969,
+        "previous": 3664.82,
+        "delta_pct": 8.3,
+        "unit": "count"
+      },
+      "cancelled": {
+        "value": 489,
+        "previous": 467.5,
+        "delta_pct": 4.6,
+        "unit": "count"
+      }
+    },
+    "conversion": {
+      "value": 31.7,
+      "previous": 31.14,
+      "delta_pct": 1.8,
+      "unit": "pct"
+    },
+    "cancel_rate": {
+      "value": 9.5,
+      "previous": 9.7,
+      "delta_pct": -2.1,
+      "unit": "pct"
+    },
+    "filials": [
+      {
+        "id": 1,
+        "code": "Q",
+        "name": "Qo'qon",
+        "is_main": true,
+        "sold": 2147,
+        "delivered": 1696,
+        "cancelled": 183,
+        "revenue": 712320000,
+        "conversion_pct": 33.8,
+        "cancel_rate_pct": 8.5
+      },
+      {
+        "id": 2,
+        "code": "T1",
+        "name": "Toshkent 1",
+        "is_main": false,
+        "sold": 1833,
+        "delivered": 1435,
+        "cancelled": 155,
+        "revenue": 602700000,
+        "conversion_pct": 32.8,
+        "cancel_rate_pct": 8.5
+      },
+      {
+        "id": 3,
+        "code": "T2",
+        "name": "Toshkent 2",
+        "is_main": false,
+        "sold": 1156,
+        "delivered": 838,
+        "cancelled": 151,
+        "revenue": 351960000,
+        "conversion_pct": 27.2,
+        "cancel_rate_pct": 13.1
+      }
+    ]
+  }
+}

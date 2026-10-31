@@ -1,0 +1,109 @@
+{
+  "count": 13,
+  "results": [
+    {
+      "key": "orders.assign_chief",
+      "label": "Zakazni bosh kuryerga biriktirish",
+      "label_ru": "Назначать заказ главному курьеру",
+      "role": "chief_logist",
+      "group": "orders",
+      "main_only": false
+    },
+    {
+      "key": "cash.accept",
+      "label": "Bosh kuryerdan pul qabul qilish",
+      "label_ru": "Принимать деньги от главного курьера",
+      "role": "chief_logist",
+      "group": "cash",
+      "main_only": false
+    },
+    {
+      "key": "export.stats",
+      "label": "Hisobot va eksport",
+      "label_ru": "Отчёты и экспорт",
+      "role": "both",
+      "group": "reports",
+      "main_only": false
+    },
+    {
+      "key": "warehouse.granted",
+      "label": "Dopuskli mahsulotlar qoldig'i va kirim-chiqimi",
+      "label_ru": "Остатки и движение разрешённых товаров",
+      "role": "chief_logist",
+      "group": "warehouse",
+      "main_only": false
+    },
+    {
+      "key": "logists.manage",
+      "label": "Logist yaratish va dopusk berish",
+      "label_ru": "Создавать логистов и давать доступы",
+      "role": "chief_logist",
+      "group": "staff",
+      "main_only": false
+    },
+    {
+      "key": "chiefs.manage",
+      "label": "Bosh kuryer yaratish va viloyat biriktirish",
+      "label_ru": "Создавать главных курьеров и закреплять области",
+      "role": "chief_logist",
+      "group": "staff",
+      "main_only": true
+    },
+    {
+      "key": "sklad.regions",
+      "label": "Sklad viloyatlarini o'zgartirish",
+      "label_ru": "Менять области склада",
+      "role": "chief_logist",
+      "group": "warehouse",
+      "main_only": true
+    },
+    {
+      "key": "rate.set",
+      "label": "Bir manzil narxini belgilash",
+      "label_ru": "Устанавливать цену адреса",
+      "role": "chief_logist",
+      "group": "cash",
+      "main_only": true
+    },
+    {
+      "key": "leads.distribute",
+      "label": "Lidlarni taqsimlash",
+      "label_ru": "Распределять лиды",
+      "role": "chief_operator",
+      "group": "orders",
+      "main_only": false
+    },
+    {
+      "key": "view.finance",
+      "label": "Moliyani ko'rish",
+      "label_ru": "Видеть финансы",
+      "role": "chief_operator",
+      "group": "reports",
+      "main_only": false
+    },
+    {
+      "key": "admins.manage",
+      "label": "Bo'lim adminlarini yaratish",
+      "label_ru": "Создавать админов отделов",
+      "role": "chief_operator",
+      "group": "staff",
+      "main_only": false
+    },
+    {
+      "key": "operators.permissions",
+      "label": "Operatorlarga dopusk berish",
+      "label_ru": "Давать доступы операторам",
+      "role": "chief_operator",
+      "group": "staff",
+      "main_only": false
+    },
+    {
+      "key": "view.sibling_departments",
+      "label": "Boshqa bo'limlarni ko'rish",
+      "label_ru": "Видеть другие отделы",
+      "role": "chief_operator",
+      "group": "reports",
+      "main_only": false
+    }
+  ]
+}

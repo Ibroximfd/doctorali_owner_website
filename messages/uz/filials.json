@@ -1,0 +1,208 @@
+{
+  "title": "Filiallar",
+  "description": "Call-center filiallari, ularning rahbarlari (B.L, B.O) va dopusklari.",
+  "create": "Yangi filial",
+  "emptyTitle": "Hali filial yo'q",
+  "emptyDescription": "Birinchi call-center filialini yarating va unga rahbarlarni tayinlang.",
+  "makeMain": {
+    "title": "{name} asosiy filial bo'lsinmi?",
+    "description": "Asosiy filial bitta. Yangi asosiy filial B.L i bosh kuryer yaratish va bir manzil narxini belgilash huquqini oladi, eskisi yo'qotadi. Rollar o'zgarmaydi.",
+    "confirm": "Asosiy qilish",
+    "pending": "Saqlanmoqda…",
+    "failed": "Saqlab bo'lmadi. Qayta urinib ko'ring.",
+    "inactive": "Nofaol filial asosiy bo'lolmaydi — avval uni faollashtiring.",
+    "done": "{name} endi asosiy filial"
+  },
+  "trend": {
+    "title": "Sotuv dinamikasi",
+    "description": "Har filial — alohida chiziq",
+    "period": "Davr"
+  },
+  "card": {
+    "main": "Asosiy",
+    "inactive": "Nofaol",
+    "counts": "{departments} bo'lim · {operators} operator · {logists} logist",
+    "edit": "Tahrirlash",
+    "makeMain": "Asosiy qilish",
+    "noData": "Bu davrda hali sotuv yo'q.",
+    "perfPending": "Filial natijasi backendda kutilmoqda.",
+    "sold": "Sotildi",
+    "conversion": "Konversiya",
+    "cancelRate": "Atkaz",
+    "revenue": "Tushum",
+    "permissions": "{count} ta qo'shimcha dopusk",
+    "noLeader": "{role} tayinlanmagan",
+    "assignLeader": "Tayinlash",
+    "assignLeaderLabel": "{filial} filialiga {role} tayinlash",
+    "openSeatLabel": "{name}, {role} — tafsilot",
+    "noCode": "Belgi berilmagan — tahrirlashda kiriting",
+    "noCodeView": "Belgi berilmagan — harflar nomdan olingan"
+  },
+  "roles": {
+    "short": {
+      "chief_logist": "B.L",
+      "chief_operator": "B.O"
+    },
+    "long": {
+      "chief_logist": "Bosh logist",
+      "chief_operator": "Bosh operator"
+    }
+  },
+  "form": {
+    "createTitle": "Yangi filial",
+    "editTitle": "{name} — tahrirlash",
+    "hint": "Zona va sukut bo'limlar (Baza-1, Pervichka-1) avtomatik ochiladi.",
+    "name": "Nomi",
+    "namePlaceholder": "Masalan, Toshkent 3",
+    "region": "Viloyat (ixtiyoriy)",
+    "regionPlaceholder": "Tanlanmagan",
+    "create": "Yaratish",
+    "saving": "Saqlanmoqda…",
+    "active": "Faol",
+    "activeNote": "Nofaol filial ishlamaydi va asosiy bo'lolmaydi.",
+    "activeMainNote": "Asosiy filial — o'chirishdan oldin boshqa filialni asosiy qiling.",
+    "errors": {
+      "nameShort": "Nomni to'liq yozing",
+      "nameTaken": "Bu nomli filial bor",
+      "codeLong": "8 belgidan oshmasin",
+      "codeTaken": "Bu belgi boshqa faol filialda bor"
+    },
+    "code": "Qisqa belgi (ixtiyoriy)",
+    "codePlaceholder": "Masalan, T3",
+    "codeHint": "8 belgigacha. Jadval va xaritalarda shu belgi ko'rinadi."
+  },
+  "password": {
+    "title": "Yangi akkaunt paroli",
+    "login": "Login: {username}",
+    "copy": "Nusxa olish",
+    "copied": "Nusxa olindi",
+    "copyFailed": "Nusxa olib bo'lmadi — qo'lda ko'chiring.",
+    "once": "Parol faqat hozir ko'rinadi — backend uni qayta bermaydi. Rahbarga yetkazing."
+  },
+  "leader": {
+    "permissionsTitle": "{filial} — {role}: dopusklar",
+    "appointTitle": "{filial} — {role} tayinlash",
+    "fallbackTitle": "Filial rahbari",
+    "done": "Tayyor",
+    "permissions": "Dopusklar",
+    "catalogPending": "Dopusk katalogi kelmadi — hozircha dopusklar faqat ko'rinadi.",
+    "mainOnly": "Faqat asosiy filialda",
+    "permissionsNote": "Rol bilan keladigan huquqlar doim qoladi. Pastdagi qo'shimchalar saqlanganda to'liq almashadi.",
+    "saving": "Saqlanmoqda…",
+    "appointed": "{name} tayinlandi",
+    "modeLabel": "Kimni tayinlash",
+    "modes": {
+      "account": "Yangi akkaunt",
+      "seat": "Filialdagi o'rin"
+    },
+    "account": "Yangi akkaunt",
+    "fields": {
+      "fullName": "F.I.Sh.",
+      "username": "Login",
+      "password": "Parol"
+    },
+    "passwordNote": "Parol saqlangach bir marta ko'rsatiladi.",
+    "seat": "Mavjud o'rin",
+    "seatNote": "Faqat shu filialdagi o'rinlar ko'rinadi.",
+    "failures": {
+      "role_exists": "Bu filialda bunday rahbar bor — avval eskisini oling.",
+      "seat_wrong_filial": "O'rin boshqa filialda — rahbar o'z filialidagi o'rindan bo'lsin.",
+      "seat_not_found": "Bunday o'rin topilmadi.",
+      "filial_not_found": "Filial topilmadi.",
+      "failed": "Tayinlab bo'lmadi. Qayta urinib ko'ring."
+    },
+    "appoint": "Tayinlash",
+    "errors": {
+      "nameShort": "Ism va familiyani yozing",
+      "usernameInvalid": "Login: 3–150 belgi, harf, raqam va . @ + - _",
+      "usernameTaken": "Bu login band",
+      "passwordWeak": "Kamida 8 belgi, harf va raqam bilan",
+      "seatRequired": "Ro'yxatdan o'rinni tanlang"
+    },
+    "groups": {
+      "do": "Nima qila oladi",
+      "see": "Nimani ko'radi",
+      "manage": "Nimani boshqaradi",
+      "other": "Boshqa"
+    },
+    "seatSearch": "Ism yoki login bo'yicha qidirish",
+    "seatEmpty": "Bu filialda bo'sh o'rin yo'q.",
+    "defaultsTitle": "Rol bilan birga keladi",
+    "defaultsNote": "Bu huquqlar rolning o'zida bor — o'chirib bo'lmaydi.",
+    "chosen": "Qo'shimcha: {count} / {total}",
+    "selectAll": "Hammasini berish",
+    "clearAll": "Hammasini olib tashlash",
+    "withRole": "Rol bilan keladi",
+    "permissionsSaved": "Saqlandi: +{added} berildi, −{removed} olindi",
+    "diff": "+{added} beriladi · −{removed} olinadi",
+    "noChanges": "O'zgarish yo'q",
+    "saveErrors": {
+      "role_not_found": "Bu rol endi yo'q — oynani yopib, sahifani yangilang.",
+      "validation_error": "Katalogda yo'q dopusk bor — sahifani yangilab, qayta tanlang.",
+      "forbidden": "Bu amalga ruxsat yo'q.",
+      "failed": "Saqlab bo'lmadi. Qayta urinib ko'ring."
+    }
+  },
+  "seat": {
+    "emptyTitle": "O'rin bo'sh",
+    "emptyText": "Bu o'rinda hozir rahbar yo'q. Kartadagi «Tayinlash» bilan odam qo'ying.",
+    "subtitle": "{filial} · {role}",
+    "person": "Rahbar",
+    "username": "Login",
+    "seatId": "O'rin",
+    "permissions": "Qo'shimcha dopusklar",
+    "actions": "Amallar",
+    "permissionsAction": "Dopusklar",
+    "replace": "Almashtirish",
+    "edit": "Ism va login",
+    "resetPassword": "Parolni tiklash",
+    "remove": "Olib tashlash",
+    "removeTitle": "{name} rahbarlikdan olinsinmi?",
+    "removeDescription": "{filial} filialida {role} roli olinadi va o'rin bo'sh qoladi. Akkaunt va o'rin o'chmaydi — odam oddiy xodim bo'lib qoladi. Yangi rahbar «Tayinlash» bilan qo'yiladi.",
+    "removeConfirm": "Olib tashlash",
+    "pending": "Bajarilmoqda…",
+    "failed": "Bajarilmadi. Qayta urinib ko'ring.",
+    "removed": "{name} rahbarlikdan olindi",
+    "replaceTitle": "Boshqa odamni qo'yish",
+    "replaceNote": "{name} ning {count} ta dopuski yangi odamga o'tadi. {name} ning akkaunti o'chmaydi — oddiy xodim bo'lib qoladi.",
+    "replaceConfirm": "Almashtirish",
+    "replaceFailed": "Almashtirib bo'lmadi. Qayta urinib ko'ring.",
+    "history": "O'rin tarixi",
+    "historyEmpty": "Tarixda yozuv yo'q.",
+    "seatRef": "o'rin #{id}",
+    "editTitle": "Ism va login",
+    "phoneNote": "Telefon bu yerda tahrirlanmaydi.",
+    "resetTitle": "{name} paroli tiklansinmi?",
+    "resetDescription": "Eski parol darhol ishlamay qoladi. Yangi parol faqat bir marta ko'rsatiladi — uni rahbarga yetkazing.",
+    "resetConfirm": "Parolni tiklash",
+    "replacePasswordNote": "Parolni bo'sh qoldirsangiz, tizim o'zi yaratadi va bir marta ko'rsatadi."
+  },
+  "audit": {
+    "title": "Tuzilma tarixi",
+    "description": "Filial, rahbar va dopusk o'zgarishlari",
+    "emptyTitle": "Hali o'zgarish yo'q",
+    "emptyDescription": "Filial yaratilsa yoki rahbar tayinlansa — shu yerda ko'rinadi.",
+    "actions": {
+      "structure": {
+        "head": {
+          "appoint": "Rahbar tayinlandi",
+          "revoke": "Rahbar olindi",
+          "update": "Rahbar ma'lumoti o'zgardi",
+          "reset_password": "Parol tiklandi",
+          "replace": "Rahbar almashtirildi"
+        },
+        "role": {
+          "permissions": "Dopusklar o'zgardi"
+        },
+        "filial": {
+          "create": "Filial yaratildi",
+          "update": "Filial tahrirlandi",
+          "set_main": "Asosiy filial o'zgardi"
+        },
+        "sklad_grants": {
+          "set": "Sklad dopuski o'zgardi"
+        }
+      }
+    }
+  }
+}

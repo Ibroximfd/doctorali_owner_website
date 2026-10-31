@@ -49,9 +49,10 @@ export const StackedBar = ({
                 <span className="truncate">{item.label}</span>
               </dt>
               <dd className="font-strong mt-0.5 text-lg tracking-tight whitespace-nowrap">
-                {format(item.value)}
-                <span className="num text-2xs text-ink-3 ml-1.5 font-medium tracking-normal">
-                  {share(item.value)}
+                {format(item.value)}{" "}
+                {/* son va ulush matnda ham ajralib tursin (o'qish, nusxa, ekran o'quvchi) */}
+                <span className="num text-2xs text-ink-3 ml-1 font-medium tracking-normal">
+                  ({share(item.value)})
                 </span>
               </dd>
             </div>

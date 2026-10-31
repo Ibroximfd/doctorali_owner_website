@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { parseEnvelope } from "@/shared/lib/envelope";
+import { parseFlexible } from "@/shared/lib/lenient";
 import { SCOPE_CASES, mockGet } from "@/shared/testing/mock-api";
 
 import {
@@ -12,25 +12,33 @@ import {
   sortByRank,
   versusTeam,
 } from "./staff.rules";
-import { leaderboardSchema, profileSchema, teamsSchema } from "./staff.schema";
+import { salesOperatorsSchema, toLeaderboard, toProfile, toTeams } from "./sales-operators";
 
-describe("staff contract", () => {
-  it.each(SCOPE_CASES)("leaderboard, teams and profile match their schemas for %o", (query) => {
-    expect(() => {
-      parseEnvelope(leaderboardSchema, mockGet("staff/leaderboard/", { ...query, role: "operator" }));
-      parseEnvelope(leaderboardSchema, mockGet("staff/leaderboard/", { ...query, role: "courier" }));
-      parseEnvelope(teamsSchema, mockGet("staff/teams/", { ...query, role: "operator" }));
-      parseEnvelope(profileSchema, mockGet("staff/10/", query));
-    }).not.toThrow();
+const operators = (query: Record<string, string>) =>
+  parseFlexible(salesOperatorsSchema, mockGet("sales/operators/", query)).data;
+
+describe("staff contract (sales/operators, B-15)", () => {
+  it.each(SCOPE_CASES)("sales/operators matches its schema for %o", (query) => {
+    expect(() => operators(query)).not.toThrow();
   });
 
-  it("reads metrics by the snake_case column key", () => {
-    const board = parseEnvelope(
-      leaderboardSchema,
-      mockGet("staff/leaderboard/", { period: "30d", role: "operator" }),
-    ).data;
-    const first = board.rows[0];
-    expect(first && metricValue(first.metrics, "conversion_pct")).toBeGreaterThan(0);
+  it("ranks by sales; the best seller scores 100 and metrics read by the snake_case key", () => {
+    const board = toLeaderboard(operators({ period: "30d" }), null);
+    const [first, second] = board.rows;
+    expect(first?.score).toBe(100);
+    expect(Number(first && metricValue(first.metrics, "sales_amount"))).toBeGreaterThanOrEqual(
+      Number(second && metricValue(second.metrics, "sales_amount")),
+    );
+    expect(toProfile(operators({ period: "30d" }), -1)).toBeNull();
+  });
+});
+
+describe("staff and filials", () => {
+  it("teams are the filials, and operators add up to the same totals as analytics", () => {
+    const rows = operators({ period: "30d" });
+    expect(toTeams(rows).map((team) => team.name)).toEqual(["Qo'qon", "Toshkent 1", "Toshkent 2"]);
+    const board = toLeaderboard(rows, 1);
+    expect(board.rows.reduce((sum, row) => sum + Number(metricValue(row.metrics, "leads")), 0)).toBe(5200);
   });
 });
 
@@ -60,6 +68,12 @@ describe("staff board rules", () => {
       ])?.key,
     ).toBe("conversion_pct");
     expect(leadColumn([{ key: "leads", unit: "count", better: "higher" as const }])).toBeNull();
+    expect(
+      leadColumn([
+        { key: "conversion_pct", unit: "pct", better: "higher" as const },
+        { key: "sales_amount", unit: "uzs", better: "higher" as const },
+      ])?.key,
+    ).toBe("sales_amount");
   });
 
   it("tones a value against the column average", () => {
@@ -71,9 +85,9 @@ describe("staff board rules", () => {
   });
 
   it("flags lagging rows by score or by the backend badge", () => {
-    expect(isLagging({ score: 41, badges: [] })).toBe(true);
-    expect(isLagging({ score: 90, badges: ["needs_attention"] })).toBe(true);
-    expect(isLagging({ score: null, badges: [] })).toBe(false);
+    expect(isLagging({ badges: [] })).toBe(false);
+    expect(isLagging({ badges: ["needs_attention"] })).toBe(true);
+    expect(isLagging({ badges: [] })).toBe(false);
   });
 
   it("compares the leader with the team average", () => {
@@ -90,5 +104,7 @@ describe("staff board rules", () => {
     expect(insight?.leader.fullName).toBe("A");
     expect(insight?.ratio).toBe(1.3);
     expect(leaderInsight([row("A", 1, 90, 60)], "conversion_pct")).toBeNull();
+    // yetakchining qiymati 0 — «0,0 marta yuqori» jumlasi chiqmaydi
+    expect(leaderInsight([row("A", 1, 90, 0), row("B", 2, 70, 40)], "conversion_pct")).toBeNull();
   });
 });

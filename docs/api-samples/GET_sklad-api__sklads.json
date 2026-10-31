@@ -1,0 +1,81 @@
+[
+  {
+    "id": 1,
+    "name": "Vodiy sklad",
+    "regions": [
+      "fargona",
+      "namangan",
+      "andijon"
+    ],
+    "is_active": true,
+    "chief": {
+      "id": 301,
+      "full_name": "Akmal Tursunov"
+    },
+    "created_at": "2026-10-30T10:00:00+05:00",
+    "locations": 3
+  },
+  {
+    "id": 2,
+    "name": "Toshkent sklad",
+    "regions": [
+      "toshkent_shahar",
+      "toshkent"
+    ],
+    "is_active": true,
+    "chief": {
+      "id": 302,
+      "full_name": "Bobur Xolmatov"
+    },
+    "created_at": "2026-10-30T10:00:00+05:00",
+    "locations": 2
+  },
+  {
+    "id": 3,
+    "name": "Markaz sklad",
+    "regions": [
+      "samarqand",
+      "jizzax",
+      "sirdaryo"
+    ],
+    "is_active": true,
+    "chief": {
+      "id": 303,
+      "full_name": "Rustam Ergashev"
+    },
+    "created_at": "2026-10-30T10:00:00+05:00",
+    "locations": 3
+  },
+  {
+    "id": 4,
+    "name": "Janub sklad",
+    "regions": [
+      "qashqadaryo",
+      "surxondaryo"
+    ],
+    "is_active": true,
+    "chief": {
+      "id": 304,
+      "full_name": "Farhod Normatov"
+    },
+    "created_at": "2026-10-30T10:00:00+05:00",
+    "locations": 2
+  },
+  {
+    "id": 5,
+    "name": "G'arb sklad",
+    "regions": [
+      "buxoro",
+      "navoiy",
+      "xorazm",
+      "qoraqalpogiston"
+    ],
+    "is_active": true,
+    "chief": {
+      "id": 305,
+      "full_name": "Sherzod Yo'ldoshev"
+    },
+    "created_at": "2026-10-30T10:00:00+05:00",
+    "locations": 4
+  }
+]

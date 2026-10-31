@@ -1,0 +1,1017 @@
+{
+  "period": {
+    "from": "2026-09-06",
+    "to": "2026-10-05",
+    "granularity": "day",
+    "label": "30d"
+  },
+  "compare": {
+    "from": "2026-08-07",
+    "to": "2026-09-05"
+  },
+  "filials": [
+    1,
+    2,
+    3
+  ],
+  "generated_at": "2026-10-05T09:00:00.000Z",
+  "freshness": {
+    "orders": "2026-10-05T09:00:00.000Z"
+  },
+  "data": {
+    "address_rate": 25000,
+    "totals": {
+      "revenue": 1666980000,
+      "at_couriers": 83806800,
+      "at_chiefs": 147092400,
+      "handed": 1436080800,
+      "addresses": 3969,
+      "chief_fee": 99225000,
+      "chief_fee_paid": 75125000
+    },
+    "filials": [
+      {
+        "id": 1,
+        "code": "Q",
+        "name": "Qo'qon",
+        "is_main": true,
+        "orders_delivered": 1696,
+        "revenue": 712320000,
+        "at_couriers": 35616000,
+        "at_chiefs": 56985600,
+        "handed": 619718400,
+        "addresses": 1696,
+        "chief_fee": 42400000,
+        "chief_fee_paid": 33900000
+      },
+      {
+        "id": 2,
+        "code": "T1",
+        "name": "Toshkent 1",
+        "is_main": false,
+        "orders_delivered": 1435,
+        "revenue": 602700000,
+        "at_couriers": 30135000,
+        "at_chiefs": 48216000,
+        "handed": 524349000,
+        "addresses": 1435,
+        "chief_fee": 35875000,
+        "chief_fee_paid": 28675000
+      },
+      {
+        "id": 3,
+        "code": "T2",
+        "name": "Toshkent 2",
+        "is_main": false,
+        "orders_delivered": 838,
+        "revenue": 351960000,
+        "at_couriers": 18055800,
+        "at_chiefs": 41890800,
+        "handed": 292013400,
+        "addresses": 838,
+        "chief_fee": 20950000,
+        "chief_fee_paid": 12550000
+      }
+    ],
+    "chiefs": [
+      {
+        "sklad_id": 1,
+        "sklad_name": "Vodiy",
+        "chief_name": "Akmal Tursunov",
+        "regions": [
+          "fargona",
+          "namangan",
+          "andijon"
+        ],
+        "by_filial": [
+          {
+            "filial_id": 1,
+            "filial_code": "Q",
+            "addresses": 1085,
+            "fee": 27125000,
+            "fee_paid": 21700000,
+            "collected": 455700000,
+            "handed": 396459000,
+            "pending": 59241000
+          },
+          {
+            "filial_id": 2,
+            "filial_code": "T1",
+            "addresses": 143,
+            "fee": 3575000,
+            "fee_paid": 2850000,
+            "collected": 60060000,
+            "handed": 52252200,
+            "pending": 7807800
+          },
+          {
+            "filial_id": 3,
+            "filial_code": "T2",
+            "addresses": 16,
+            "fee": 400000,
+            "fee_paid": 225000,
+            "collected": 6720000,
+            "handed": 5846400,
+            "pending": 873600
+          }
+        ]
+      },
+      {
+        "sklad_id": 2,
+        "sklad_name": "Toshkent",
+        "chief_name": "Bobur Xolmatov",
+        "regions": [
+          "toshkent_shahar",
+          "toshkent"
+        ],
+        "by_filial": [
+          {
+            "filial_id": 1,
+            "filial_code": "Q",
+            "addresses": 170,
+            "fee": 4250000,
+            "fee_paid": 3400000,
+            "collected": 71400000,
+            "handed": 62118000,
+            "pending": 9282000
+          },
+          {
+            "filial_id": 2,
+            "filial_code": "T1",
+            "addresses": 775,
+            "fee": 19375000,
+            "fee_paid": 15500000,
+            "collected": 325500000,
+            "handed": 283185000,
+            "pending": 42315000
+          },
+          {
+            "filial_id": 3,
+            "filial_code": "T2",
+            "addresses": 435,
+            "fee": 10875000,
+            "fee_paid": 6525000,
+            "collected": 182700000,
+            "handed": 158949000,
+            "pending": 23751000
+          }
+        ]
+      },
+      {
+        "sklad_id": 3,
+        "sklad_name": "Markaz",
+        "chief_name": "Rustam Ergashev",
+        "regions": [
+          "samarqand",
+          "jizzax",
+          "sirdaryo"
+        ],
+        "by_filial": [
+          {
+            "filial_id": 1,
+            "filial_code": "Q",
+            "addresses": 187,
+            "fee": 4675000,
+            "fee_paid": 3725000,
+            "collected": 78540000,
+            "handed": 68329800,
+            "pending": 10210200
+          },
+          {
+            "filial_id": 2,
+            "filial_code": "T1",
+            "addresses": 288,
+            "fee": 7200000,
+            "fee_paid": 5750000,
+            "collected": 120960000,
+            "handed": 105235200,
+            "pending": 15724800
+          },
+          {
+            "filial_id": 3,
+            "filial_code": "T2",
+            "addresses": 135,
+            "fee": 3375000,
+            "fee_paid": 2025000,
+            "collected": 56700000,
+            "handed": 49329000,
+            "pending": 7371000
+          }
+        ]
+      },
+      {
+        "sklad_id": 4,
+        "sklad_name": "Janub",
+        "chief_name": "Farhod Normatov",
+        "regions": [
+          "qashqadaryo",
+          "surxondaryo"
+        ],
+        "by_filial": [
+          {
+            "filial_id": 1,
+            "filial_code": "Q",
+            "addresses": 152,
+            "fee": 3800000,
+            "fee_paid": 3050000,
+            "collected": 63840000,
+            "handed": 55540800,
+            "pending": 8299200
+          },
+          {
+            "filial_id": 2,
+            "filial_code": "T1",
+            "addresses": 115,
+            "fee": 2875000,
+            "fee_paid": 2300000,
+            "collected": 48300000,
+            "handed": 42021000,
+            "pending": 6279000
+          },
+          {
+            "filial_id": 3,
+            "filial_code": "T2",
+            "addresses": 109,
+            "fee": 2725000,
+            "fee_paid": 1650000,
+            "collected": 45780000,
+            "handed": 25636800,
+            "pending": 20143200
+          }
+        ]
+      },
+      {
+        "sklad_id": 5,
+        "sklad_name": "G'arb",
+        "chief_name": "Sherzod Yo'ldoshev",
+        "regions": [
+          "buxoro",
+          "navoiy",
+          "xorazm",
+          "qoraqalpogiston"
+        ],
+        "by_filial": [
+          {
+            "filial_id": 1,
+            "filial_code": "Q",
+            "addresses": 102,
+            "fee": 2550000,
+            "fee_paid": 2025000,
+            "collected": 42840000,
+            "handed": 37270800,
+            "pending": 5569200
+          },
+          {
+            "filial_id": 2,
+            "filial_code": "T1",
+            "addresses": 114,
+            "fee": 2850000,
+            "fee_paid": 2275000,
+            "collected": 47880000,
+            "handed": 41655600,
+            "pending": 6224400
+          },
+          {
+            "filial_id": 3,
+            "filial_code": "T2",
+            "addresses": 143,
+            "fee": 3575000,
+            "fee_paid": 2125000,
+            "collected": 60060000,
+            "handed": 52252200,
+            "pending": 7807800
+          }
+        ]
+      }
+    ],
+    "handovers": [
+      {
+        "id": 901,
+        "date": "2026-10-05",
+        "sklad_id": 1,
+        "chief_name": "Akmal Tursunov",
+        "filial_id": 1,
+        "filial_code": "Q",
+        "addresses": 36,
+        "amount": 15120000,
+        "on_time": true
+      },
+      {
+        "id": 902,
+        "date": "2026-10-05",
+        "sklad_id": 1,
+        "chief_name": "Akmal Tursunov",
+        "filial_id": 2,
+        "filial_code": "T1",
+        "addresses": 5,
+        "amount": 2100000,
+        "on_time": true
+      },
+      {
+        "id": 903,
+        "date": "2026-10-05",
+        "sklad_id": 1,
+        "chief_name": "Akmal Tursunov",
+        "filial_id": 3,
+        "filial_code": "T2",
+        "addresses": 1,
+        "amount": 420000,
+        "on_time": true
+      },
+      {
+        "id": 904,
+        "date": "2026-10-05",
+        "sklad_id": 2,
+        "chief_name": "Bobur Xolmatov",
+        "filial_id": 1,
+        "filial_code": "Q",
+        "addresses": 6,
+        "amount": 2520000,
+        "on_time": true
+      },
+      {
+        "id": 905,
+        "date": "2026-10-05",
+        "sklad_id": 2,
+        "chief_name": "Bobur Xolmatov",
+        "filial_id": 2,
+        "filial_code": "T1",
+        "addresses": 26,
+        "amount": 10920000,
+        "on_time": true
+      },
+      {
+        "id": 906,
+        "date": "2026-10-05",
+        "sklad_id": 2,
+        "chief_name": "Bobur Xolmatov",
+        "filial_id": 3,
+        "filial_code": "T2",
+        "addresses": 15,
+        "amount": 6300000,
+        "on_time": true
+      },
+      {
+        "id": 907,
+        "date": "2026-10-05",
+        "sklad_id": 3,
+        "chief_name": "Rustam Ergashev",
+        "filial_id": 1,
+        "filial_code": "Q",
+        "addresses": 6,
+        "amount": 2520000,
+        "on_time": true
+      },
+      {
+        "id": 908,
+        "date": "2026-10-05",
+        "sklad_id": 3,
+        "chief_name": "Rustam Ergashev",
+        "filial_id": 2,
+        "filial_code": "T1",
+        "addresses": 10,
+        "amount": 4200000,
+        "on_time": true
+      },
+      {
+        "id": 909,
+        "date": "2026-10-05",
+        "sklad_id": 3,
+        "chief_name": "Rustam Ergashev",
+        "filial_id": 3,
+        "filial_code": "T2",
+        "addresses": 5,
+        "amount": 2100000,
+        "on_time": true
+      },
+      {
+        "id": 910,
+        "date": "2026-10-05",
+        "sklad_id": 4,
+        "chief_name": "Farhod Normatov",
+        "filial_id": 1,
+        "filial_code": "Q",
+        "addresses": 5,
+        "amount": 2100000,
+        "on_time": true
+      },
+      {
+        "id": 911,
+        "date": "2026-10-05",
+        "sklad_id": 4,
+        "chief_name": "Farhod Normatov",
+        "filial_id": 2,
+        "filial_code": "T1",
+        "addresses": 4,
+        "amount": 1680000,
+        "on_time": true
+      },
+      {
+        "id": 912,
+        "date": "2026-10-05",
+        "sklad_id": 5,
+        "chief_name": "Sherzod Yo'ldoshev",
+        "filial_id": 1,
+        "filial_code": "Q",
+        "addresses": 3,
+        "amount": 1260000,
+        "on_time": true
+      },
+      {
+        "id": 913,
+        "date": "2026-10-05",
+        "sklad_id": 5,
+        "chief_name": "Sherzod Yo'ldoshev",
+        "filial_id": 2,
+        "filial_code": "T1",
+        "addresses": 4,
+        "amount": 1680000,
+        "on_time": true
+      },
+      {
+        "id": 914,
+        "date": "2026-10-05",
+        "sklad_id": 5,
+        "chief_name": "Sherzod Yo'ldoshev",
+        "filial_id": 3,
+        "filial_code": "T2",
+        "addresses": 5,
+        "amount": 2100000,
+        "on_time": true
+      },
+      {
+        "id": 915,
+        "date": "2026-10-04",
+        "sklad_id": 1,
+        "chief_name": "Akmal Tursunov",
+        "filial_id": 1,
+        "filial_code": "Q",
+        "addresses": 36,
+        "amount": 15120000,
+        "on_time": true
+      },
+      {
+        "id": 916,
+        "date": "2026-10-04",
+        "sklad_id": 1,
+        "chief_name": "Akmal Tursunov",
+        "filial_id": 2,
+        "filial_code": "T1",
+        "addresses": 5,
+        "amount": 2100000,
+        "on_time": true
+      },
+      {
+        "id": 917,
+        "date": "2026-10-04",
+        "sklad_id": 1,
+        "chief_name": "Akmal Tursunov",
+        "filial_id": 3,
+        "filial_code": "T2",
+        "addresses": 1,
+        "amount": 420000,
+        "on_time": true
+      },
+      {
+        "id": 918,
+        "date": "2026-10-04",
+        "sklad_id": 2,
+        "chief_name": "Bobur Xolmatov",
+        "filial_id": 1,
+        "filial_code": "Q",
+        "addresses": 6,
+        "amount": 2520000,
+        "on_time": true
+      },
+      {
+        "id": 919,
+        "date": "2026-10-04",
+        "sklad_id": 2,
+        "chief_name": "Bobur Xolmatov",
+        "filial_id": 2,
+        "filial_code": "T1",
+        "addresses": 26,
+        "amount": 10920000,
+        "on_time": true
+      },
+      {
+        "id": 920,
+        "date": "2026-10-04",
+        "sklad_id": 2,
+        "chief_name": "Bobur Xolmatov",
+        "filial_id": 3,
+        "filial_code": "T2",
+        "addresses": 15,
+        "amount": 6300000,
+        "on_time": true
+      },
+      {
+        "id": 921,
+        "date": "2026-10-04",
+        "sklad_id": 3,
+        "chief_name": "Rustam Ergashev",
+        "filial_id": 1,
+        "filial_code": "Q",
+        "addresses": 6,
+        "amount": 2520000,
+        "on_time": true
+      },
+      {
+        "id": 922,
+        "date": "2026-10-04",
+        "sklad_id": 3,
+        "chief_name": "Rustam Ergashev",
+        "filial_id": 2,
+        "filial_code": "T1",
+        "addresses": 10,
+        "amount": 4200000,
+        "on_time": true
+      },
+      {
+        "id": 923,
+        "date": "2026-10-04",
+        "sklad_id": 3,
+        "chief_name": "Rustam Ergashev",
+        "filial_id": 3,
+        "filial_code": "T2",
+        "addresses": 5,
+        "amount": 2100000,
+        "on_time": true
+      },
+      {
+        "id": 924,
+        "date": "2026-10-04",
+        "sklad_id": 4,
+        "chief_name": "Farhod Normatov",
+        "filial_id": 1,
+        "filial_code": "Q",
+        "addresses": 5,
+        "amount": 2100000,
+        "on_time": true
+      },
+      {
+        "id": 925,
+        "date": "2026-10-04",
+        "sklad_id": 4,
+        "chief_name": "Farhod Normatov",
+        "filial_id": 2,
+        "filial_code": "T1",
+        "addresses": 4,
+        "amount": 1680000,
+        "on_time": true
+      },
+      {
+        "id": 926,
+        "date": "2026-10-04",
+        "sklad_id": 5,
+        "chief_name": "Sherzod Yo'ldoshev",
+        "filial_id": 1,
+        "filial_code": "Q",
+        "addresses": 3,
+        "amount": 1260000,
+        "on_time": true
+      },
+      {
+        "id": 927,
+        "date": "2026-10-04",
+        "sklad_id": 5,
+        "chief_name": "Sherzod Yo'ldoshev",
+        "filial_id": 2,
+        "filial_code": "T1",
+        "addresses": 4,
+        "amount": 1680000,
+        "on_time": true
+      },
+      {
+        "id": 928,
+        "date": "2026-10-04",
+        "sklad_id": 5,
+        "chief_name": "Sherzod Yo'ldoshev",
+        "filial_id": 3,
+        "filial_code": "T2",
+        "addresses": 5,
+        "amount": 2100000,
+        "on_time": true
+      },
+      {
+        "id": 929,
+        "date": "2026-10-03",
+        "sklad_id": 1,
+        "chief_name": "Akmal Tursunov",
+        "filial_id": 1,
+        "filial_code": "Q",
+        "addresses": 36,
+        "amount": 15120000,
+        "on_time": true
+      },
+      {
+        "id": 930,
+        "date": "2026-10-03",
+        "sklad_id": 1,
+        "chief_name": "Akmal Tursunov",
+        "filial_id": 2,
+        "filial_code": "T1",
+        "addresses": 5,
+        "amount": 2100000,
+        "on_time": true
+      },
+      {
+        "id": 931,
+        "date": "2026-10-03",
+        "sklad_id": 1,
+        "chief_name": "Akmal Tursunov",
+        "filial_id": 3,
+        "filial_code": "T2",
+        "addresses": 1,
+        "amount": 420000,
+        "on_time": true
+      },
+      {
+        "id": 932,
+        "date": "2026-10-03",
+        "sklad_id": 2,
+        "chief_name": "Bobur Xolmatov",
+        "filial_id": 1,
+        "filial_code": "Q",
+        "addresses": 6,
+        "amount": 2520000,
+        "on_time": true
+      },
+      {
+        "id": 933,
+        "date": "2026-10-03",
+        "sklad_id": 2,
+        "chief_name": "Bobur Xolmatov",
+        "filial_id": 2,
+        "filial_code": "T1",
+        "addresses": 26,
+        "amount": 10920000,
+        "on_time": true
+      },
+      {
+        "id": 934,
+        "date": "2026-10-03",
+        "sklad_id": 2,
+        "chief_name": "Bobur Xolmatov",
+        "filial_id": 3,
+        "filial_code": "T2",
+        "addresses": 15,
+        "amount": 6300000,
+        "on_time": true
+      },
+      {
+        "id": 935,
+        "date": "2026-10-03",
+        "sklad_id": 3,
+        "chief_name": "Rustam Ergashev",
+        "filial_id": 1,
+        "filial_code": "Q",
+        "addresses": 6,
+        "amount": 2520000,
+        "on_time": true
+      },
+      {
+        "id": 936,
+        "date": "2026-10-03",
+        "sklad_id": 3,
+        "chief_name": "Rustam Ergashev",
+        "filial_id": 2,
+        "filial_code": "T1",
+        "addresses": 10,
+        "amount": 4200000,
+        "on_time": true
+      },
+      {
+        "id": 937,
+        "date": "2026-10-03",
+        "sklad_id": 3,
+        "chief_name": "Rustam Ergashev",
+        "filial_id": 3,
+        "filial_code": "T2",
+        "addresses": 5,
+        "amount": 2100000,
+        "on_time": true
+      },
+      {
+        "id": 938,
+        "date": "2026-10-03",
+        "sklad_id": 4,
+        "chief_name": "Farhod Normatov",
+        "filial_id": 1,
+        "filial_code": "Q",
+        "addresses": 5,
+        "amount": 2100000,
+        "on_time": true
+      },
+      {
+        "id": 939,
+        "date": "2026-10-03",
+        "sklad_id": 4,
+        "chief_name": "Farhod Normatov",
+        "filial_id": 2,
+        "filial_code": "T1",
+        "addresses": 4,
+        "amount": 1680000,
+        "on_time": true
+      },
+      {
+        "id": 940,
+        "date": "2026-10-03",
+        "sklad_id": 4,
+        "chief_name": "Farhod Normatov",
+        "filial_id": 3,
+        "filial_code": "T2",
+        "addresses": 12,
+        "amount": 5040000,
+        "on_time": false
+      },
+      {
+        "id": 941,
+        "date": "2026-10-03",
+        "sklad_id": 5,
+        "chief_name": "Sherzod Yo'ldoshev",
+        "filial_id": 1,
+        "filial_code": "Q",
+        "addresses": 3,
+        "amount": 1260000,
+        "on_time": true
+      },
+      {
+        "id": 942,
+        "date": "2026-10-03",
+        "sklad_id": 5,
+        "chief_name": "Sherzod Yo'ldoshev",
+        "filial_id": 2,
+        "filial_code": "T1",
+        "addresses": 4,
+        "amount": 1680000,
+        "on_time": true
+      },
+      {
+        "id": 943,
+        "date": "2026-10-03",
+        "sklad_id": 5,
+        "chief_name": "Sherzod Yo'ldoshev",
+        "filial_id": 3,
+        "filial_code": "T2",
+        "addresses": 5,
+        "amount": 2100000,
+        "on_time": true
+      },
+      {
+        "id": 944,
+        "date": "2026-10-02",
+        "sklad_id": 1,
+        "chief_name": "Akmal Tursunov",
+        "filial_id": 1,
+        "filial_code": "Q",
+        "addresses": 36,
+        "amount": 15120000,
+        "on_time": true
+      },
+      {
+        "id": 945,
+        "date": "2026-10-02",
+        "sklad_id": 1,
+        "chief_name": "Akmal Tursunov",
+        "filial_id": 2,
+        "filial_code": "T1",
+        "addresses": 5,
+        "amount": 2100000,
+        "on_time": true
+      },
+      {
+        "id": 946,
+        "date": "2026-10-02",
+        "sklad_id": 1,
+        "chief_name": "Akmal Tursunov",
+        "filial_id": 3,
+        "filial_code": "T2",
+        "addresses": 1,
+        "amount": 420000,
+        "on_time": true
+      },
+      {
+        "id": 947,
+        "date": "2026-10-02",
+        "sklad_id": 2,
+        "chief_name": "Bobur Xolmatov",
+        "filial_id": 1,
+        "filial_code": "Q",
+        "addresses": 6,
+        "amount": 2520000,
+        "on_time": true
+      },
+      {
+        "id": 948,
+        "date": "2026-10-02",
+        "sklad_id": 2,
+        "chief_name": "Bobur Xolmatov",
+        "filial_id": 2,
+        "filial_code": "T1",
+        "addresses": 26,
+        "amount": 10920000,
+        "on_time": true
+      },
+      {
+        "id": 949,
+        "date": "2026-10-02",
+        "sklad_id": 2,
+        "chief_name": "Bobur Xolmatov",
+        "filial_id": 3,
+        "filial_code": "T2",
+        "addresses": 15,
+        "amount": 6300000,
+        "on_time": true
+      },
+      {
+        "id": 950,
+        "date": "2026-10-02",
+        "sklad_id": 3,
+        "chief_name": "Rustam Ergashev",
+        "filial_id": 1,
+        "filial_code": "Q",
+        "addresses": 6,
+        "amount": 2520000,
+        "on_time": true
+      },
+      {
+        "id": 951,
+        "date": "2026-10-02",
+        "sklad_id": 3,
+        "chief_name": "Rustam Ergashev",
+        "filial_id": 2,
+        "filial_code": "T1",
+        "addresses": 10,
+        "amount": 4200000,
+        "on_time": true
+      },
+      {
+        "id": 952,
+        "date": "2026-10-02",
+        "sklad_id": 3,
+        "chief_name": "Rustam Ergashev",
+        "filial_id": 3,
+        "filial_code": "T2",
+        "addresses": 5,
+        "amount": 2100000,
+        "on_time": true
+      },
+      {
+        "id": 953,
+        "date": "2026-10-02",
+        "sklad_id": 4,
+        "chief_name": "Farhod Normatov",
+        "filial_id": 1,
+        "filial_code": "Q",
+        "addresses": 5,
+        "amount": 2100000,
+        "on_time": true
+      },
+      {
+        "id": 954,
+        "date": "2026-10-02",
+        "sklad_id": 4,
+        "chief_name": "Farhod Normatov",
+        "filial_id": 2,
+        "filial_code": "T1",
+        "addresses": 4,
+        "amount": 1680000,
+        "on_time": true
+      },
+      {
+        "id": 955,
+        "date": "2026-10-02",
+        "sklad_id": 5,
+        "chief_name": "Sherzod Yo'ldoshev",
+        "filial_id": 1,
+        "filial_code": "Q",
+        "addresses": 3,
+        "amount": 1260000,
+        "on_time": true
+      },
+      {
+        "id": 956,
+        "date": "2026-10-02",
+        "sklad_id": 5,
+        "chief_name": "Sherzod Yo'ldoshev",
+        "filial_id": 2,
+        "filial_code": "T1",
+        "addresses": 4,
+        "amount": 1680000,
+        "on_time": true
+      },
+      {
+        "id": 957,
+        "date": "2026-10-02",
+        "sklad_id": 5,
+        "chief_name": "Sherzod Yo'ldoshev",
+        "filial_id": 3,
+        "filial_code": "T2",
+        "addresses": 5,
+        "amount": 2100000,
+        "on_time": true
+      }
+    ],
+    "regions": [
+      {
+        "code": "fargona",
+        "sold": 730,
+        "delivered": 574,
+        "cancelled": 62,
+        "money": 241080000
+      },
+      {
+        "code": "namangan",
+        "sold": 442,
+        "delivered": 348,
+        "cancelled": 38,
+        "money": 146160000
+      },
+      {
+        "code": "andijon",
+        "sold": 411,
+        "delivered": 322,
+        "cancelled": 36,
+        "money": 135240000
+      },
+      {
+        "code": "toshkent_shahar",
+        "sold": 1098,
+        "delivered": 841,
+        "cancelled": 108,
+        "money": 353220000
+      },
+      {
+        "code": "toshkent",
+        "sold": 707,
+        "delivered": 539,
+        "cancelled": 71,
+        "money": 226380000
+      },
+      {
+        "code": "samarqand",
+        "sold": 403,
+        "delivered": 313,
+        "cancelled": 38,
+        "money": 131460000
+      },
+      {
+        "code": "qashqadaryo",
+        "sold": 280,
+        "delivered": 215,
+        "cancelled": 28,
+        "money": 90300000
+      },
+      {
+        "code": "surxondaryo",
+        "sold": 210,
+        "delivered": 161,
+        "cancelled": 21,
+        "money": 67620000
+      },
+      {
+        "code": "jizzax",
+        "sold": 203,
+        "delivered": 157,
+        "cancelled": 21,
+        "money": 65940000
+      },
+      {
+        "code": "sirdaryo",
+        "sold": 181,
+        "delivered": 140,
+        "cancelled": 18,
+        "money": 58800000
+      },
+      {
+        "code": "buxoro",
+        "sold": 207,
+        "delivered": 158,
+        "cancelled": 21,
+        "money": 66360000
+      },
+      {
+        "code": "navoiy",
+        "sold": 104,
+        "delivered": 80,
+        "cancelled": 11,
+        "money": 33600000
+      },
+      {
+        "code": "xorazm",
+        "sold": 86,
+        "delivered": 65,
+        "cancelled": 9,
+        "money": 27300000
+      },
+      {
+        "code": "qoraqalpogiston",
+        "sold": 74,
+        "delivered": 56,
+        "cancelled": 7,
+        "money": 23520000
+      }
+    ]
+  }
+}

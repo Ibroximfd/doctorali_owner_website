@@ -1,6 +1,7 @@
 import { camelKey } from "@/shared/lib/camelize";
 
-export const STAFF_ROLES = ["operator", "admin", "courier", "warehouse", "logist"] as const;
+/** Tuzilma v2: filiallardagi operatorlar va logistlar (kuryerlar — umumiy dostavkada, bosh kuryer saytida). */
+export const STAFF_ROLES = ["operator", "logist"] as const;
 export type StaffRole = (typeof STAFF_ROLES)[number];
 export const isStaffRole = (value: string): value is StaffRole =>
   STAFF_ROLES.some((known) => known === value);
@@ -42,10 +43,16 @@ export const versusTeam = (
 export const sortByRank = <Row extends { rank: number; score: number | null }>(rows: readonly Row[]): Row[] =>
   [...rows].sort((a, b) => Number(a.score === null) - Number(b.score === null) || a.rank - b.rank);
 
-/** Asosiy ko'rsatkich (chiziq bilan chiziladigan): «ko'proq — yaxshi» bo'lgan birinchi foiz ustuni. */
+/**
+ * Asosiy ko'rsatkich (chiziq bilan chiziladigan): reyting tartibi qaysi ustun bo'yicha bo'lsa
+ * (sotuv summasi — `uzs`), o'sha; bo'lmasa «ko'proq — yaxshi» bo'lgan birinchi foiz ustuni.
+ */
 export const leadColumn = <Column extends { unit: string; better: "higher" | "lower" }>(
   columns: readonly Column[],
-): Column | null => columns.find((column) => column.unit === "pct" && column.better === "higher") ?? null;
+): Column | null =>
+  columns.find((column) => column.unit === "uzs" && column.better === "higher") ??
+  columns.find((column) => column.unit === "pct" && column.better === "higher") ??
+  null;
 
 /** Ko'rsatkich ustun o'rtachasiga nisbatan: yaxshi · oddiy · e'tibor · yomon. */
 export type RelativeTone = "good" | "neutral" | "warn" | "crit";
@@ -68,12 +75,17 @@ export const columnAverage = (rows: readonly { metrics: Record<string, number | 
 };
 
 /** Orqada qolayotgan xodim: ball «e'tibor» zonasida yoki backend shunday belgilagan. */
-export const isLagging = (row: { score: number | null; badges: readonly string[] }): boolean =>
-  row.badges.includes("needs_attention") || (row.score !== null && scoreTone(row.score) === "crit");
+/**
+ * «E'tibor kerak» — faqat backend belgisi (`needs_attention`). «Yetakchiga nisbatan» ulush past
+ * bo'lishi o'zi muammo emas (kichik filialda sotuv kam bo'ladi) — qizil bilan belgilanmaydi.
+ */
+export const isLagging = (row: { badges: readonly string[] }): boolean =>
+  row.badges.includes("needs_attention");
 
 /**
  * Bo'lim boshidagi jumla uchun: yetakchi va uning asosiy ko'rsatkichi jamoa o'rtachasidan necha barobar.
- * Kamida 2 ta qiymatli qator va musbat o'rtacha bo'lmasa — `null` (jumla chiqmaydi).
+ * Kamida 2 ta qiymatli qator va musbat o'rtacha bo'lmasa, yoki yetakchi o'rtachadan yuqori
+ * bo'lmasa (masalan uning qiymati 0) — `null`: «0,0 marta yuqori» kabi ma'nosiz jumla chiqmaydi.
  */
 export const leaderInsight = <
   Row extends {
@@ -93,5 +105,6 @@ export const leaderInsight = <
   const value = leader ? metricValue(leader.metrics, key) : null;
   const average = columnAverage(ranked, key);
   if (!leader || value === null || ranked.length < 2 || average === null || average <= 0) return null;
-  return { leader, value, ratio: Math.round((value / average) * 10) / 10 };
+  const ratio = Math.round((value / average) * 10) / 10;
+  return value > 0 && ratio > 1 ? { leader, value, ratio } : null;
 };

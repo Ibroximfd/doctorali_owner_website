@@ -36,7 +36,7 @@ describe("ScopeBar", () => {
     await userEvent.click(await screen.findByRole("menuitemcheckbox", { name: "Qo'qon" }));
     expect(screen.getByRole("button", { name: /Qo'qon/ })).toBeInTheDocument();
 
-    await userEvent.click(screen.getByRole("menuitemcheckbox", { name: "Toshkent" }));
+    await userEvent.click(screen.getByRole("menuitemcheckbox", { name: "Toshkent 1" }));
     expect(screen.getByRole("button", { name: /2 ta filial/ })).toBeInTheDocument();
   });
 
@@ -86,5 +86,13 @@ describe("MobileScope", () => {
     await userEvent.click(within(sheet).getByRole("button", { name: "Tayyor" }));
 
     expect(await screen.findByRole("button", { name: /Bugun · Barcha filiallar/ })).toBeInTheDocument();
+  });
+
+  it("shows only the period where filial and comparison make no sense", async () => {
+    await renderWithProviders(<ScopeBar periodOnly />);
+
+    expect(screen.getByRole("button", { name: "7 kun" })).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /Barcha filiallar/ })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /Oldingi davr/ })).not.toBeInTheDocument();
   });
 });

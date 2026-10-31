@@ -12,13 +12,20 @@ export const AI_PANEL_ID = "ai-panel";
 export const aiTabId = (key: AiTab) => `ai-tab-${key}`;
 
 /** Pill varaqlar: faol fon bir varaqdan ikkinchisiga «oqib» o'tadi; telefonda qatorga o'raladi. */
-export const AiTabs = ({ counts }: { counts: Partial<Record<AiTab, number>> }) => {
+export const AiTabs = ({
+  counts,
+  tabs = AI_TABS,
+}: {
+  counts: Partial<Record<AiTab, number>>;
+  /** Ko'rinadigan varaqlar — `status.enabled` bo'lmasa chat yo'q. */
+  tabs?: readonly AiTab[];
+}) => {
   const t = useTranslations("ai.tabs");
   const { tab, setTab } = useAiTab();
 
   return (
     <div role="tablist" aria-label={t("label")} className="flex flex-wrap gap-1.5">
-      {AI_TABS.map((key) => {
+      {tabs.map((key) => {
         const isActive = key === tab;
         const count = counts[key];
         return (

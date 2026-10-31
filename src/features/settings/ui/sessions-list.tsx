@@ -13,7 +13,7 @@ import { EmptyState, ListSkeleton, QueryState } from "@/shared/ui/states";
 import { useRevokeSession, useSessionsQuery } from "../hooks/use-settings";
 import { sessionLabel } from "../model/settings.rules";
 import type { Session } from "../model/settings.schema";
-import { ConfirmDialog } from "./confirm-dialog";
+import { ConfirmDialog } from "@/shared/ui/confirm-dialog";
 import { SettingRow } from "./setting-row";
 
 /** Panelga kirgan qurilmalar. Boshqa qurilmani tasdiqlashdan keyin uzish mumkin; joriy qurilma uzilmaydi. */

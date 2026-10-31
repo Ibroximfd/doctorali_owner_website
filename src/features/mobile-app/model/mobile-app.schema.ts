@@ -1,107 +1,161 @@
 import { z } from "zod";
 
 import type { Camelized } from "@/shared/lib/camelize";
-import { metricSchema } from "@/shared/lib/envelope";
-
-/** `GET /app/summary/` (`02_BACKEND_TZ` §4.8). */
-export const appSummarySchema = z.object({
-  users_total: metricSchema,
-  new_users: metricSchema,
-  active_users: metricSchema,
-  app_order_share: metricSchema,
-  consultations: metricSchema,
-  push_enabled_rate: metricSchema,
-  /** Shartnomaga qo'shimcha: "kunlik o'rtacha" izohi uchun. Kelmasa izoh chizilmaydi. */
-  avg_daily_active_users: z.number().nullable().default(null),
-  /** Shartnomaga qo'shimcha (ixtiyoriy): KPI kataklaridagi mini trendlar. */
-  sparklines: z.record(z.array(z.number())).default({}),
-});
-export type AppSummary = Camelized<z.infer<typeof appSummarySchema>>;
-
-/** `GET /app/timeseries/?metric=` — har o'lchov alohida so'raladi (shkalalari har xil). */
-export const APP_TIMESERIES_METRICS = ["active_users", "new_users"] as const;
-export type AppTimeseriesMetric = (typeof APP_TIMESERIES_METRICS)[number];
-
-const shareRowSchema = z.object({ key: z.string(), users: z.number(), share_pct: z.number() });
-
-/** `GET /app/devices/` — foydalanuvchilar platforma, versiya, til va bozor bo'yicha. */
-export const appDevicesSchema = z.object({
-  platform: z.array(shareRowSchema),
-  versions: z.array(
-    z.object({ version: z.string(), users: z.number(), share_pct: z.number(), is_latest: z.boolean() }),
-  ),
-  langs: z.array(shareRowSchema),
-  markets: z.array(shareRowSchema),
-});
-export type AppDevices = Camelized<z.infer<typeof appDevicesSchema>>;
+import {
+  aliases,
+  flattenRef,
+  list,
+  num,
+  numbers,
+  optNum,
+  str,
+  withDefaults,
+  withFilialCode,
+} from "@/shared/lib/lenient";
 
 /**
- * `GET /app/consultations/`. Shartnomadagi `cancel_reasons` va `top_doctors`
- * prototipda ko'rsatilmaydi — shuning uchun bu yerda tekshirilmaydi ham.
+ * «Ilova» — `GET /api/owner/app/v2/` (javob B-14): ilova zakazlari, DAU/MAU, operator referali
+ * (`referred_by`, `tracked: true`). Ilova = mehrigiyo + sino_ai. Aniq shakl hujjatda yo'q — o'qish
+ * chidamli (`shared/lib/lenient`); javobda yo'q bo'lim — `null` (blok «backend kutilmoqda»).
  */
-export const appConsultationsSchema = z.object({
-  created: z.number(),
-  paid: z.number(),
-  completed: z.number(),
-  cancelled: z.number(),
-  revenue: z.number(),
-  avg_rating: z.number().nullable(),
-  /** Shartnomaga qo'shimcha: "N ta baho" izohi. Kelmasa izoh chizilmaydi. */
-  rating_count: z.number().nullable().default(null),
-});
-export type AppConsultations = Camelized<z.infer<typeof appConsultationsSchema>>;
 
-/** Hali yig'ilmayotgan ko'rsatkich `null` (yoki umuman yo'q) keladi — UI "ma'lumot yo'q" deydi. */
-const optionalMetricSchema = metricSchema.nullable().default(null);
+export const APP_ORDER_STATUSES = ["pending", "confirmed", "in_transit", "delivered", "cancelled"] as const;
+export type AppOrderStatus = (typeof APP_ORDER_STATUSES)[number];
 
-/** `GET /app/engagement/` — ilova imkoniyatlaridan foydalanish. */
-export const appEngagementSchema = z.object({
-  ai_doctor_conversations: optionalMetricSchema,
-  health_active_users: optionalMetricSchema,
-  stream_viewers: optionalMetricSchema,
-  food_scans: optionalMetricSchema,
-  med_reminders_active: optionalMetricSchema,
-  referrals: optionalMetricSchema,
-});
-export type AppEngagement = Camelized<z.infer<typeof appEngagementSchema>>;
+const statusesSchema = z.preprocess(
+  (raw) => raw ?? {},
+  aliases(
+    { cancelled: ["canceled", "otkaz"], in_transit: ["shipping"] },
+    z.object({ pending: num, confirmed: num, in_transit: num, delivered: num, cancelled: num }),
+  ),
+);
 
-/** `GET /app/loyalty/` — ball (keshbek) va sovg'alar. */
-export const appLoyaltySchema = z.object({
-  points_issued: z.number(),
-  points_spent: z.number(),
-  points_expired: z.number(),
-  wallet_balance_total: z.number(),
-  /** Shartnomaga qo'shimcha: qoldiqning so'mdagi ekvivalenti (`finance/liabilities` dagi `uzs_equivalent` kabi). */
-  wallet_balance_uzs: z.number().nullable().default(null),
-  gifts_earned: z.number(),
-  gifts_delivered: z.number(),
-});
-export type AppLoyalty = Camelized<z.infer<typeof appLoyaltySchema>>;
+/** Holatlar yig'indisi — jonli javobda `total` yo'q. */
+const statusTotal = (raw: unknown): number =>
+  typeof raw === "object" && raw !== null
+    ? Object.values(raw).reduce<number>((sum, value) => sum + (typeof value === "number" ? value : 0), 0)
+    : 0;
 
-/** `GET /app/doctor-app/` — «Doctor Ali Pro» (shifokorlar ilovasi). */
-export const doctorAppSchema = z.object({
-  active_doctors: z.number(),
-  orders_created: z.number(),
-  orders_amount: z.number(),
-  consultations_completed: z.number(),
-});
-export type DoctorApp = Camelized<z.infer<typeof doctorAppSchema>>;
+/** Filial qatori: jonli javobda `{id, name, statuses:{…}}` — tekis maydonlarga yoyiladi. */
+const appFilialSchema = withFilialCode(
+  z.preprocess(
+    (raw) => {
+      if (typeof raw !== "object" || raw === null || !("statuses" in raw)) return raw;
+      const row = raw as Record<string, unknown> & { statuses: Record<string, unknown> };
+      return {
+        ...row.statuses,
+        ...row,
+        cancelled: row.cancelled ?? row.statuses.cancelled,
+        delivered: row.delivered ?? row.statuses.delivered,
+        total: row.total ?? statusTotal(row.statuses),
+      };
+    },
+    aliases(
+      { total: ["orders"] },
+      z.object({
+        id: num,
+        code: str,
+        name: str,
+        total: num,
+        delivered: num,
+        cancelled: num,
+        revenue: optNum,
+      }),
+    ),
+  ),
+);
 
-/** `GET /orders/app-funnels/` (§4.3) — ilovadagi tasdiqlash va bekor qilish oqimlari. */
-export const appFunnelsSchema = z.object({
-  confirm: z.object({
-    push_sent: z.number(),
-    /** Ilova bu bosqichlarni hali yubormasa `null`. */
-    opened: z.number().nullable(),
-    slid: z.number().nullable(),
-    payment_selected: z.number(),
-    confirmed: z.number(),
+/**
+ * `total` = kutilmoqda + sotilgan (tasdiqlangandan boshlab). Jonli javob: `{totals:{…holatlar},
+ * by_filial}` — tushum va trend yo'q (0 va bo'sh).
+ */
+const appOrdersSchema = withDefaults(
+  (raw) => ({ total: statusTotal(raw.totals ?? raw.statuses) }),
+  aliases(
+    { statuses: ["totals", "by_status"], filials: ["by_filial"] },
+    z.object({
+      total: num,
+      /** Ilova zakazlari puli — `app/v2/` da yo'q (savol B-20): `null` → «—». */
+      revenue: optNum,
+      statuses: statusesSchema,
+      trend: z.preprocess(
+        (raw) => raw ?? {},
+        z.object({ labels: list(z.string()), total: numbers("total"), delivered: numbers("delivered") }),
+      ),
+      filials: list(appFilialSchema),
+    }),
+  ),
+);
+export type AppOrders = Camelized<z.infer<typeof appOrdersSchema>>;
+export type AppFilialOrders = AppOrders["filials"][number];
+
+/** Jami, davrda yangi, DAU (o'rtacha kunlik), MAU (30 kun). */
+const appUsersSchema = aliases(
+  { users_total: ["total"], new_users: ["new_in_period"] },
+  z.object({
+    users_total: num,
+    new_users: num,
+    dau: num,
+    mau: num,
+    trend: z.preprocess(
+      (raw) => raw ?? {},
+      z.object({ labels: list(z.string()), dau: numbers("dau"), mau: numbers("mau") }),
+    ),
   }),
-  cancel: z.object({
-    step1: z.number(),
-    step2_kept: z.number(),
-    step2_continued: z.number(),
-    step3_cancelled: z.number(),
-  }),
-});
-export type AppFunnels = Camelized<z.infer<typeof appFunnelsSchema>>;
+);
+export type AppUsers = Camelized<z.infer<typeof appUsersSchema>>;
+
+/** Operator ilovaga olib kirgan foydalanuvchilar (`referred_by`). */
+const appOperatorSchema = flattenRef(
+  "filial",
+  withFilialCode(
+    aliases(
+      {
+        invited: ["referred", "users", "invited_users"],
+        ordered: ["orders", "ordered_users"],
+        full_name: ["name"],
+      },
+      z.object({
+        id: num,
+        full_name: str,
+        filial_id: num,
+        filial_code: str,
+        filial_name: str,
+        invited: num,
+        ordered: num,
+      }),
+    ),
+    "filial_code",
+    "filial_name",
+  ),
+);
+export type AppOperator = Camelized<z.infer<typeof appOperatorSchema>>;
+
+/** Bo'lim javobda bo'lmasa — `null`. */
+const section = <Shape extends z.ZodTypeAny>(schema: Shape) =>
+  z.preprocess((raw) => (raw === undefined ? null : raw), schema.nullable());
+
+/** Jonli javob: `referrals: {tracked, operators: []}` — ro'yxat ichkarida. `tracked:false` — kuzatilmaydi. */
+const referralsToOperators = (raw: unknown): unknown => {
+  if (typeof raw !== "object" || raw === null || Array.isArray(raw) || !("referrals" in raw)) return raw;
+  const { referrals, ...rest } = raw as { referrals: unknown } & Record<string, unknown>;
+  if (rest.operators !== undefined) return raw;
+  if (typeof referrals === "object" && referrals !== null && !Array.isArray(referrals)) {
+    const box = referrals as { tracked?: unknown; operators?: unknown };
+    return { ...rest, operators: box.tracked === false ? null : (box.operators ?? null) };
+  }
+  return { ...rest, operators: referrals };
+};
+
+export const appV2Schema = z.preprocess(
+  referralsToOperators,
+  aliases(
+    { users: ["audience"] },
+    z.object({
+      orders: section(appOrdersSchema),
+      users: section(appUsersSchema),
+      operators: section(z.array(appOperatorSchema)),
+    }),
+  ),
+);
+export type AppV2 = Camelized<z.infer<typeof appV2Schema>>;

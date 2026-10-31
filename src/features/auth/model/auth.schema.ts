@@ -43,5 +43,5 @@ export type User = Camelized<z.infer<typeof userSchema>>;
 
 export const verifyResponseSchema = z.object({ user: userSchema });
 
-// Telegram kirish sahifasi ham ishlatadi — shuning uchun `shared` da.
+// Yo'l tekshiruvi umumiy — `shared` da.
 export { safeNextPath } from "@/shared/lib/safe-next-path";

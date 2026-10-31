@@ -15,7 +15,7 @@
 import { resolveBackend } from "../src/shared/config/backend-server";
 
 import { checkAll, type CheckResult, type FetchJson } from "./contract/check";
-import { DEFAULT_SCOPE, SCOPE_MATRIX } from "./contract/endpoints";
+import { DEFAULT_SCOPE, SCOPE_MATRIX, apiUrlOf } from "./contract/endpoints";
 import { readSession, refreshSession, type ContractSession } from "./contract/session";
 
 const args = process.argv.slice(2);
@@ -29,7 +29,7 @@ const backendFetcher = (initial: ContractSession): FetchJson => {
   let session = initial;
 
   const request = (path: string, query: Record<string, string>) => {
-    const url = new URL(`/api/owner/${path}`, session.origin);
+    const url = new URL(apiUrlOf(path), session.origin);
     for (const [key, value] of Object.entries(query)) url.searchParams.set(key, value);
     return fetch(url, {
       headers: { authorization: `Bearer ${session.access}`, accept: "application/json", "x-lang": "uz" },
@@ -52,7 +52,7 @@ const backendFetcher = (initial: ContractSession): FetchJson => {
 
 const label = (result: CheckResult): string => {
   const query = new URLSearchParams(result.query).toString();
-  return `GET /api/owner/${result.path}${query ? `?${query}` : ""}`;
+  return `GET ${apiUrlOf(result.path)}${query ? `?${query}` : ""}`;
 };
 
 const ICON: Record<CheckResult["outcome"], string> = {

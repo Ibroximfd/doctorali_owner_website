@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
 
-import { ROUTES_WITHOUT_SCOPE, routeKeyOf } from "@/shared/config/routes";
+import { ROUTES_PERIOD_ONLY, ROUTES_WITHOUT_SCOPE, routeKeyOf } from "@/shared/config/routes";
 import { useUiStore } from "@/shared/stores/ui-store";
 
 import { AmbientBackground } from "../ambient-background";
@@ -15,7 +15,6 @@ import { Tabbar } from "./tabbar";
 import { Topbar } from "./topbar";
 
 type AppShellProps = {
-  alertsCount: number;
   userName: string;
   userRole: string;
   onLogout: () => void;
@@ -26,22 +25,16 @@ type AppShellProps = {
 
 /**
  * Panel qobig'i: yon panel + yuqori panel + filtr qatori + kontent. Telefonda
- * yon panel o'rniga pastki tab-bar. Ma'lumotni o'zi yuklamaydi — signal soni va
+ * yon panel o'rniga pastki tab-bar. Ma'lumotni o'zi yuklamaydi —
  * foydalanuvchi `app` qatlamidan beriladi.
  */
-export const AppShell = ({
-  alertsCount,
-  userName,
-  userRole,
-  onLogout,
-  allowedSections = [],
-  children,
-}: AppShellProps) => {
+export const AppShell = ({ userName, userRole, onLogout, allowedSections = [], children }: AppShellProps) => {
   const activeRoute = routeKeyOf(usePathname());
   const isSidebarCollapsed = useUiStore((state) => state.isSidebarCollapsed);
   const toggleSidebar = useUiStore((state) => state.toggleSidebar);
   const [isSearchOpen, setSearchOpen] = useState(false);
   const hasScope = !ROUTES_WITHOUT_SCOPE.includes(activeRoute);
+  const periodOnly = ROUTES_PERIOD_ONLY.includes(activeRoute);
 
   useEffect(() => {
     void useUiStore.persist.rehydrate();
@@ -63,7 +56,6 @@ export const AppShell = ({
       <AmbientBackground />
       <Sidebar
         activeRoute={activeRoute}
-        alertsCount={alertsCount}
         isCollapsed={isSidebarCollapsed}
         userName={userName}
         userRole={userRole}
@@ -72,7 +64,6 @@ export const AppShell = ({
       <div className="flex min-w-0 flex-1 flex-col">
         <Topbar
           activeRoute={activeRoute}
-          alertsCount={alertsCount}
           onToggleSidebar={toggleSidebar}
           onOpenSearch={() => setSearchOpen(true)}
           onLogout={onLogout}
@@ -80,15 +71,15 @@ export const AppShell = ({
         <OfflineBanner className="px-4 pt-3 md:px-6" />
         {hasScope ? (
           <>
-            <ScopeBar />
-            <MobileScope />
+            <ScopeBar periodOnly={periodOnly} />
+            <MobileScope periodOnly={periodOnly} />
           </>
         ) : null}
         <main className="mx-auto w-full max-w-400 px-4 pt-3.5 pb-24 md:px-6 md:pt-4.5 md:pb-10">
           {children}
         </main>
       </div>
-      <Tabbar activeRoute={activeRoute} alertsCount={alertsCount} allowedSections={allowedSections} />
+      <Tabbar activeRoute={activeRoute} allowedSections={allowedSections} />
       <CommandPalette open={isSearchOpen} onOpenChange={setSearchOpen} allowedSections={allowedSections} />
     </div>
   );

@@ -2,27 +2,24 @@
   "filials": [
     {
       "id": 1,
-      "name": "Toshkent",
-      "region": "toshkent_shahar",
-      "is_main": true,
-      "has_clinic": true,
-      "has_sales": true
+      "code": "Q",
+      "name": "Qo'qon",
+      "region": "fargona",
+      "is_main": true
     },
     {
       "id": 2,
-      "name": "Qo'qon",
-      "region": "fargona",
-      "is_main": false,
-      "has_clinic": true,
-      "has_sales": true
+      "code": "T1",
+      "name": "Toshkent 1",
+      "region": "toshkent_shahar",
+      "is_main": false
     },
     {
       "id": 3,
-      "name": "Samarqand",
-      "region": "samarqand",
-      "is_main": false,
-      "has_clinic": false,
-      "has_sales": true
+      "code": "T2",
+      "name": "Toshkent 2",
+      "region": "toshkent_shahar",
+      "is_main": false
     }
   ],
   "regions": [

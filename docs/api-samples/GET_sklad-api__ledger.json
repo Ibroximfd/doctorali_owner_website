@@ -1,0 +1,1407 @@
+{
+  "count": 372,
+  "next": "?page=2",
+  "previous": null,
+  "results": [
+    {
+      "id": 77372,
+      "created_at": "2026-10-05T16:17:00+05:00",
+      "region": "toshkent_shahar",
+      "location": {
+        "id": 202,
+        "name": "Toshkent kuryerlari",
+        "kind": "courier"
+      },
+      "item": {
+        "id": 15,
+        "name": "Immunoxit"
+      },
+      "movement_type": "sale",
+      "quantity": -2,
+      "balance_after": 80,
+      "source": {
+        "type": "order",
+        "id": 165372,
+        "number": "ORD-88002"
+      },
+      "actor": {
+        "id": 0,
+        "full_name": "Tizim",
+        "kind": "system"
+      },
+      "note": ""
+    },
+    {
+      "id": 77371,
+      "created_at": "2026-10-05T16:14:00+05:00",
+      "region": "qashqadaryo",
+      "location": {
+        "id": 204,
+        "name": "Janub kuryerlari",
+        "kind": "courier"
+      },
+      "item": {
+        "id": 17,
+        "name": "Neyrovit"
+      },
+      "movement_type": "sale",
+      "quantity": -3,
+      "balance_after": 4,
+      "source": {
+        "type": "order",
+        "id": 165371,
+        "number": "ORD-88004"
+      },
+      "actor": {
+        "id": 0,
+        "full_name": "Tizim",
+        "kind": "system"
+      },
+      "note": ""
+    },
+    {
+      "id": 77370,
+      "created_at": "2026-10-05T15:39:00+05:00",
+      "region": "fargona",
+      "location": {
+        "id": 201,
+        "name": "Vodiy kuryerlari",
+        "kind": "courier"
+      },
+      "item": {
+        "id": 14,
+        "name": "Gastrofit"
+      },
+      "movement_type": "sale",
+      "quantity": -3,
+      "balance_after": 55,
+      "source": {
+        "type": "order",
+        "id": 165370,
+        "number": "ORD-88001"
+      },
+      "actor": {
+        "id": 0,
+        "full_name": "Tizim",
+        "kind": "system"
+      },
+      "note": ""
+    },
+    {
+      "id": 77369,
+      "created_at": "2026-10-05T15:27:00+05:00",
+      "region": "buxoro",
+      "location": {
+        "id": 205,
+        "name": "G'arb kuryerlari",
+        "kind": "courier"
+      },
+      "item": {
+        "id": 18,
+        "name": "Prostavit"
+      },
+      "movement_type": "sale",
+      "quantity": -2,
+      "balance_after": 4,
+      "source": {
+        "type": "order",
+        "id": 165369,
+        "number": "ORD-88005"
+      },
+      "actor": {
+        "id": 0,
+        "full_name": "Tizim",
+        "kind": "system"
+      },
+      "note": ""
+    },
+    {
+      "id": 77368,
+      "created_at": "2026-10-05T15:06:00+05:00",
+      "region": "samarqand",
+      "location": {
+        "id": 203,
+        "name": "Markaz kuryerlari",
+        "kind": "courier"
+      },
+      "item": {
+        "id": 16,
+        "name": "Diabefit"
+      },
+      "movement_type": "sale",
+      "quantity": -2,
+      "balance_after": 12,
+      "source": {
+        "type": "order",
+        "id": 165368,
+        "number": "ORD-88003"
+      },
+      "actor": {
+        "id": 0,
+        "full_name": "Tizim",
+        "kind": "system"
+      },
+      "note": ""
+    },
+    {
+      "id": 77367,
+      "created_at": "2026-10-05T10:25:00+05:00",
+      "region": "buxoro",
+      "location": {
+        "id": 205,
+        "name": "G'arb kuryerlari",
+        "kind": "courier"
+      },
+      "item": {
+        "id": 17,
+        "name": "Neyrovit"
+      },
+      "movement_type": "courier_load",
+      "quantity": 1,
+      "balance_after": 7,
+      "source": {
+        "type": "document",
+        "id": 647,
+        "number": "KYU-20261005-47"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77366,
+      "created_at": "2026-10-05T10:25:00+05:00",
+      "region": "buxoro",
+      "location": {
+        "id": 107,
+        "name": "Buxoro ombori",
+        "kind": "region"
+      },
+      "item": {
+        "id": 17,
+        "name": "Neyrovit"
+      },
+      "movement_type": "courier_load",
+      "quantity": -1,
+      "balance_after": 10,
+      "source": {
+        "type": "document",
+        "id": 647,
+        "number": "KYU-20261005-47"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77365,
+      "created_at": "2026-10-05T10:20:00+05:00",
+      "region": "qashqadaryo",
+      "location": {
+        "id": 204,
+        "name": "Janub kuryerlari",
+        "kind": "courier"
+      },
+      "item": {
+        "id": 16,
+        "name": "Diabefit"
+      },
+      "movement_type": "courier_load",
+      "quantity": 1,
+      "balance_after": 9,
+      "source": {
+        "type": "document",
+        "id": 646,
+        "number": "KYU-20261005-46"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77364,
+      "created_at": "2026-10-05T10:20:00+05:00",
+      "region": "qashqadaryo",
+      "location": {
+        "id": 106,
+        "name": "Qashqadaryo ombori",
+        "kind": "region"
+      },
+      "item": {
+        "id": 16,
+        "name": "Diabefit"
+      },
+      "movement_type": "courier_load",
+      "quantity": -1,
+      "balance_after": 23,
+      "source": {
+        "type": "document",
+        "id": 646,
+        "number": "KYU-20261005-46"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77363,
+      "created_at": "2026-10-05T10:15:00+05:00",
+      "region": "samarqand",
+      "location": {
+        "id": 203,
+        "name": "Markaz kuryerlari",
+        "kind": "courier"
+      },
+      "item": {
+        "id": 15,
+        "name": "Immunoxit"
+      },
+      "movement_type": "courier_load",
+      "quantity": 3,
+      "balance_after": 18,
+      "source": {
+        "type": "document",
+        "id": 645,
+        "number": "KYU-20261005-45"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77362,
+      "created_at": "2026-10-05T10:15:00+05:00",
+      "region": "samarqand",
+      "location": {
+        "id": 102,
+        "name": "Samarqand ombori",
+        "kind": "region"
+      },
+      "item": {
+        "id": 15,
+        "name": "Immunoxit"
+      },
+      "movement_type": "courier_load",
+      "quantity": -3,
+      "balance_after": 32,
+      "source": {
+        "type": "document",
+        "id": 645,
+        "number": "KYU-20261005-45"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77361,
+      "created_at": "2026-10-05T10:10:00+05:00",
+      "region": "toshkent_shahar",
+      "location": {
+        "id": 202,
+        "name": "Toshkent kuryerlari",
+        "kind": "courier"
+      },
+      "item": {
+        "id": 14,
+        "name": "Gastrofit"
+      },
+      "movement_type": "courier_load",
+      "quantity": 7,
+      "balance_after": 44,
+      "source": {
+        "type": "document",
+        "id": 644,
+        "number": "KYU-20261005-44"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77360,
+      "created_at": "2026-10-05T10:10:00+05:00",
+      "region": "toshkent_shahar",
+      "location": {
+        "id": 100,
+        "name": "Toshkent shahri ombori",
+        "kind": "region"
+      },
+      "item": {
+        "id": 14,
+        "name": "Gastrofit"
+      },
+      "movement_type": "courier_load",
+      "quantity": -7,
+      "balance_after": 105,
+      "source": {
+        "type": "document",
+        "id": 644,
+        "number": "KYU-20261005-44"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77359,
+      "created_at": "2026-10-05T10:05:00+05:00",
+      "region": "fargona",
+      "location": {
+        "id": 201,
+        "name": "Vodiy kuryerlari",
+        "kind": "courier"
+      },
+      "item": {
+        "id": 13,
+        "name": "Artroflex"
+      },
+      "movement_type": "courier_load",
+      "quantity": 11,
+      "balance_after": 70,
+      "source": {
+        "type": "document",
+        "id": 643,
+        "number": "KYU-20261005-43"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77358,
+      "created_at": "2026-10-05T10:05:00+05:00",
+      "region": "fargona",
+      "location": {
+        "id": 103,
+        "name": "Farg'ona ombori",
+        "kind": "region"
+      },
+      "item": {
+        "id": 13,
+        "name": "Artroflex"
+      },
+      "movement_type": "courier_load",
+      "quantity": -11,
+      "balance_after": 127,
+      "source": {
+        "type": "document",
+        "id": 643,
+        "number": "KYU-20261005-43"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77357,
+      "created_at": "2026-10-05T09:35:00+05:00",
+      "region": "buxoro",
+      "location": {
+        "id": 107,
+        "name": "Buxoro ombori",
+        "kind": "region"
+      },
+      "item": {
+        "id": 16,
+        "name": "Diabefit"
+      },
+      "movement_type": "receipt",
+      "quantity": 4,
+      "balance_after": 17,
+      "source": {
+        "type": "document",
+        "id": 642,
+        "number": "KIR-20261005-42"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77356,
+      "created_at": "2026-10-05T09:28:00+05:00",
+      "region": "qashqadaryo",
+      "location": {
+        "id": 106,
+        "name": "Qashqadaryo ombori",
+        "kind": "region"
+      },
+      "item": {
+        "id": 15,
+        "name": "Immunoxit"
+      },
+      "movement_type": "receipt",
+      "quantity": 7,
+      "balance_after": 30,
+      "source": {
+        "type": "document",
+        "id": 641,
+        "number": "KIR-20261005-41"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77355,
+      "created_at": "2026-10-05T09:21:00+05:00",
+      "region": "samarqand",
+      "location": {
+        "id": 102,
+        "name": "Samarqand ombori",
+        "kind": "region"
+      },
+      "item": {
+        "id": 14,
+        "name": "Gastrofit"
+      },
+      "movement_type": "receipt",
+      "quantity": 10,
+      "balance_after": 40,
+      "source": {
+        "type": "document",
+        "id": 640,
+        "number": "KIR-20261005-40"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77354,
+      "created_at": "2026-10-05T09:14:00+05:00",
+      "region": "toshkent_shahar",
+      "location": {
+        "id": 100,
+        "name": "Toshkent shahri ombori",
+        "kind": "region"
+      },
+      "item": {
+        "id": 13,
+        "name": "Artroflex"
+      },
+      "movement_type": "receipt",
+      "quantity": 32,
+      "balance_after": 130,
+      "source": {
+        "type": "document",
+        "id": 639,
+        "number": "KIR-20261005-39"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77353,
+      "created_at": "2026-10-05T09:07:00+05:00",
+      "region": "fargona",
+      "location": {
+        "id": 103,
+        "name": "Farg'ona ombori",
+        "kind": "region"
+      },
+      "item": {
+        "id": 12,
+        "name": "Kardiomed"
+      },
+      "movement_type": "receipt",
+      "quantity": 34,
+      "balance_after": 137,
+      "source": {
+        "type": "document",
+        "id": 638,
+        "number": "KIR-20261005-38"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77352,
+      "created_at": "2026-10-04T16:21:00+05:00",
+      "region": "qashqadaryo",
+      "location": {
+        "id": 204,
+        "name": "Janub kuryerlari",
+        "kind": "courier"
+      },
+      "item": {
+        "id": 18,
+        "name": "Prostavit"
+      },
+      "movement_type": "sale",
+      "quantity": -3,
+      "balance_after": 3,
+      "source": {
+        "type": "order",
+        "id": 165352,
+        "number": "ORD-88014"
+      },
+      "actor": {
+        "id": 0,
+        "full_name": "Tizim",
+        "kind": "system"
+      },
+      "note": ""
+    },
+    {
+      "id": 77351,
+      "created_at": "2026-10-04T16:08:00+05:00",
+      "region": "buxoro",
+      "location": {
+        "id": 205,
+        "name": "G'arb kuryerlari",
+        "kind": "courier"
+      },
+      "item": {
+        "id": 11,
+        "name": "Gepatofit"
+      },
+      "movement_type": "sale",
+      "quantity": -3,
+      "balance_after": 34,
+      "source": {
+        "type": "order",
+        "id": 165351,
+        "number": "ORD-88015"
+      },
+      "actor": {
+        "id": 0,
+        "full_name": "Tizim",
+        "kind": "system"
+      },
+      "note": ""
+    },
+    {
+      "id": 77350,
+      "created_at": "2026-10-04T15:45:00+05:00",
+      "region": "fargona",
+      "location": {
+        "id": 201,
+        "name": "Vodiy kuryerlari",
+        "kind": "courier"
+      },
+      "item": {
+        "id": 15,
+        "name": "Immunoxit"
+      },
+      "movement_type": "sale",
+      "quantity": -3,
+      "balance_after": 30,
+      "source": {
+        "type": "order",
+        "id": 165350,
+        "number": "ORD-88011"
+      },
+      "actor": {
+        "id": 0,
+        "full_name": "Tizim",
+        "kind": "system"
+      },
+      "note": ""
+    },
+    {
+      "id": 77349,
+      "created_at": "2026-10-04T15:37:00+05:00",
+      "region": "samarqand",
+      "location": {
+        "id": 203,
+        "name": "Markaz kuryerlari",
+        "kind": "courier"
+      },
+      "item": {
+        "id": 17,
+        "name": "Neyrovit"
+      },
+      "movement_type": "sale",
+      "quantity": -3,
+      "balance_after": 10,
+      "source": {
+        "type": "order",
+        "id": 165349,
+        "number": "ORD-88013"
+      },
+      "actor": {
+        "id": 0,
+        "full_name": "Tizim",
+        "kind": "system"
+      },
+      "note": ""
+    },
+    {
+      "id": 77348,
+      "created_at": "2026-10-04T15:31:00+05:00",
+      "region": "toshkent_shahar",
+      "location": {
+        "id": 202,
+        "name": "Toshkent kuryerlari",
+        "kind": "courier"
+      },
+      "item": {
+        "id": 16,
+        "name": "Diabefit"
+      },
+      "movement_type": "sale",
+      "quantity": -2,
+      "balance_after": 66,
+      "source": {
+        "type": "order",
+        "id": 165348,
+        "number": "ORD-88012"
+      },
+      "actor": {
+        "id": 0,
+        "full_name": "Tizim",
+        "kind": "system"
+      },
+      "note": ""
+    },
+    {
+      "id": 77347,
+      "created_at": "2026-10-04T10:25:00+05:00",
+      "region": "buxoro",
+      "location": {
+        "id": 205,
+        "name": "G'arb kuryerlari",
+        "kind": "courier"
+      },
+      "item": {
+        "id": 18,
+        "name": "Prostavit"
+      },
+      "movement_type": "courier_load",
+      "quantity": 1,
+      "balance_after": 6,
+      "source": {
+        "type": "document",
+        "id": 637,
+        "number": "KYU-20261004-37"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77346,
+      "created_at": "2026-10-04T10:25:00+05:00",
+      "region": "buxoro",
+      "location": {
+        "id": 107,
+        "name": "Buxoro ombori",
+        "kind": "region"
+      },
+      "item": {
+        "id": 18,
+        "name": "Prostavit"
+      },
+      "movement_type": "courier_load",
+      "quantity": -1,
+      "balance_after": 7,
+      "source": {
+        "type": "document",
+        "id": 637,
+        "number": "KYU-20261004-37"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77345,
+      "created_at": "2026-10-04T10:20:00+05:00",
+      "region": "qashqadaryo",
+      "location": {
+        "id": 204,
+        "name": "Janub kuryerlari",
+        "kind": "courier"
+      },
+      "item": {
+        "id": 17,
+        "name": "Neyrovit"
+      },
+      "movement_type": "courier_load",
+      "quantity": 1,
+      "balance_after": 7,
+      "source": {
+        "type": "document",
+        "id": 636,
+        "number": "KYU-20261004-36"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77344,
+      "created_at": "2026-10-04T10:20:00+05:00",
+      "region": "qashqadaryo",
+      "location": {
+        "id": 106,
+        "name": "Qashqadaryo ombori",
+        "kind": "region"
+      },
+      "item": {
+        "id": 17,
+        "name": "Neyrovit"
+      },
+      "movement_type": "courier_load",
+      "quantity": -1,
+      "balance_after": 9,
+      "source": {
+        "type": "document",
+        "id": 636,
+        "number": "KYU-20261004-36"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77343,
+      "created_at": "2026-10-04T10:15:00+05:00",
+      "region": "samarqand",
+      "location": {
+        "id": 203,
+        "name": "Markaz kuryerlari",
+        "kind": "courier"
+      },
+      "item": {
+        "id": 16,
+        "name": "Diabefit"
+      },
+      "movement_type": "courier_load",
+      "quantity": 2,
+      "balance_after": 14,
+      "source": {
+        "type": "document",
+        "id": 635,
+        "number": "KYU-20261004-35"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77342,
+      "created_at": "2026-10-04T10:15:00+05:00",
+      "region": "samarqand",
+      "location": {
+        "id": 102,
+        "name": "Samarqand ombori",
+        "kind": "region"
+      },
+      "item": {
+        "id": 16,
+        "name": "Diabefit"
+      },
+      "movement_type": "courier_load",
+      "quantity": -2,
+      "balance_after": 24,
+      "source": {
+        "type": "document",
+        "id": 635,
+        "number": "KYU-20261004-35"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77341,
+      "created_at": "2026-10-04T10:10:00+05:00",
+      "region": "toshkent_shahar",
+      "location": {
+        "id": 202,
+        "name": "Toshkent kuryerlari",
+        "kind": "courier"
+      },
+      "item": {
+        "id": 15,
+        "name": "Immunoxit"
+      },
+      "movement_type": "courier_load",
+      "quantity": 13,
+      "balance_after": 82,
+      "source": {
+        "type": "document",
+        "id": 634,
+        "number": "KYU-20261004-34"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77340,
+      "created_at": "2026-10-04T10:10:00+05:00",
+      "region": "toshkent_shahar",
+      "location": {
+        "id": 100,
+        "name": "Toshkent shahri ombori",
+        "kind": "region"
+      },
+      "item": {
+        "id": 15,
+        "name": "Immunoxit"
+      },
+      "movement_type": "courier_load",
+      "quantity": -13,
+      "balance_after": 190,
+      "source": {
+        "type": "document",
+        "id": 634,
+        "number": "KYU-20261004-34"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77339,
+      "created_at": "2026-10-04T10:05:00+05:00",
+      "region": "fargona",
+      "location": {
+        "id": 201,
+        "name": "Vodiy kuryerlari",
+        "kind": "courier"
+      },
+      "item": {
+        "id": 14,
+        "name": "Gastrofit"
+      },
+      "movement_type": "courier_load",
+      "quantity": 9,
+      "balance_after": 58,
+      "source": {
+        "type": "document",
+        "id": 633,
+        "number": "KYU-20261004-33"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77338,
+      "created_at": "2026-10-04T10:05:00+05:00",
+      "region": "fargona",
+      "location": {
+        "id": 103,
+        "name": "Farg'ona ombori",
+        "kind": "region"
+      },
+      "item": {
+        "id": 14,
+        "name": "Gastrofit"
+      },
+      "movement_type": "courier_load",
+      "quantity": -9,
+      "balance_after": 100,
+      "source": {
+        "type": "document",
+        "id": 633,
+        "number": "KYU-20261004-33"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77337,
+      "created_at": "2026-10-03T16:49:00+05:00",
+      "region": "samarqand",
+      "location": {
+        "id": 203,
+        "name": "Markaz kuryerlari",
+        "kind": "courier"
+      },
+      "item": {
+        "id": 18,
+        "name": "Prostavit"
+      },
+      "movement_type": "sale",
+      "quantity": -1,
+      "balance_after": 5,
+      "source": {
+        "type": "order",
+        "id": 165337,
+        "number": "ORD-88023"
+      },
+      "actor": {
+        "id": 0,
+        "full_name": "Tizim",
+        "kind": "system"
+      },
+      "note": ""
+    },
+    {
+      "id": 77336,
+      "created_at": "2026-10-03T16:42:00+05:00",
+      "region": "buxoro",
+      "location": {
+        "id": 205,
+        "name": "G'arb kuryerlari",
+        "kind": "courier"
+      },
+      "item": {
+        "id": 12,
+        "name": "Kardiomed"
+      },
+      "movement_type": "sale",
+      "quantity": -2,
+      "balance_after": 22,
+      "source": {
+        "type": "order",
+        "id": 165336,
+        "number": "ORD-88025"
+      },
+      "actor": {
+        "id": 0,
+        "full_name": "Tizim",
+        "kind": "system"
+      },
+      "note": ""
+    },
+    {
+      "id": 77335,
+      "created_at": "2026-10-03T16:35:00+05:00",
+      "region": "toshkent_shahar",
+      "location": {
+        "id": 202,
+        "name": "Toshkent kuryerlari",
+        "kind": "courier"
+      },
+      "item": {
+        "id": 17,
+        "name": "Neyrovit"
+      },
+      "movement_type": "sale",
+      "quantity": -2,
+      "balance_after": 40,
+      "source": {
+        "type": "order",
+        "id": 165335,
+        "number": "ORD-88022"
+      },
+      "actor": {
+        "id": 0,
+        "full_name": "Tizim",
+        "kind": "system"
+      },
+      "note": ""
+    },
+    {
+      "id": 77334,
+      "created_at": "2026-10-03T15:46:00+05:00",
+      "region": "fargona",
+      "location": {
+        "id": 201,
+        "name": "Vodiy kuryerlari",
+        "kind": "courier"
+      },
+      "item": {
+        "id": 16,
+        "name": "Diabefit"
+      },
+      "movement_type": "sale",
+      "quantity": -1,
+      "balance_after": 18,
+      "source": {
+        "type": "order",
+        "id": 165334,
+        "number": "ORD-88021"
+      },
+      "actor": {
+        "id": 0,
+        "full_name": "Tizim",
+        "kind": "system"
+      },
+      "note": ""
+    },
+    {
+      "id": 77333,
+      "created_at": "2026-10-03T15:18:00+05:00",
+      "region": "qashqadaryo",
+      "location": {
+        "id": 204,
+        "name": "Janub kuryerlari",
+        "kind": "courier"
+      },
+      "item": {
+        "id": 11,
+        "name": "Gepatofit"
+      },
+      "movement_type": "sale",
+      "quantity": -1,
+      "balance_after": 30,
+      "source": {
+        "type": "order",
+        "id": 165333,
+        "number": "ORD-88024"
+      },
+      "actor": {
+        "id": 0,
+        "full_name": "Tizim",
+        "kind": "system"
+      },
+      "note": ""
+    },
+    {
+      "id": 77332,
+      "created_at": "2026-10-03T10:25:00+05:00",
+      "region": "buxoro",
+      "location": {
+        "id": 205,
+        "name": "G'arb kuryerlari",
+        "kind": "courier"
+      },
+      "item": {
+        "id": 11,
+        "name": "Gepatofit"
+      },
+      "movement_type": "courier_load",
+      "quantity": 5,
+      "balance_after": 37,
+      "source": {
+        "type": "document",
+        "id": 632,
+        "number": "KYU-20261003-32"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77331,
+      "created_at": "2026-10-03T10:25:00+05:00",
+      "region": "buxoro",
+      "location": {
+        "id": 107,
+        "name": "Buxoro ombori",
+        "kind": "region"
+      },
+      "item": {
+        "id": 11,
+        "name": "Gepatofit"
+      },
+      "movement_type": "courier_load",
+      "quantity": -5,
+      "balance_after": 48,
+      "source": {
+        "type": "document",
+        "id": 632,
+        "number": "KYU-20261003-32"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77330,
+      "created_at": "2026-10-03T10:20:00+05:00",
+      "region": "qashqadaryo",
+      "location": {
+        "id": 204,
+        "name": "Janub kuryerlari",
+        "kind": "courier"
+      },
+      "item": {
+        "id": 18,
+        "name": "Prostavit"
+      },
+      "movement_type": "courier_load",
+      "quantity": 1,
+      "balance_after": 6,
+      "source": {
+        "type": "document",
+        "id": 631,
+        "number": "KYU-20261003-31"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77329,
+      "created_at": "2026-10-03T10:20:00+05:00",
+      "region": "qashqadaryo",
+      "location": {
+        "id": 106,
+        "name": "Qashqadaryo ombori",
+        "kind": "region"
+      },
+      "item": {
+        "id": 18,
+        "name": "Prostavit"
+      },
+      "movement_type": "courier_load",
+      "quantity": -1,
+      "balance_after": 10,
+      "source": {
+        "type": "document",
+        "id": 631,
+        "number": "KYU-20261003-31"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77328,
+      "created_at": "2026-10-03T10:15:00+05:00",
+      "region": "samarqand",
+      "location": {
+        "id": 203,
+        "name": "Markaz kuryerlari",
+        "kind": "courier"
+      },
+      "item": {
+        "id": 17,
+        "name": "Neyrovit"
+      },
+      "movement_type": "courier_load",
+      "quantity": 1,
+      "balance_after": 13,
+      "source": {
+        "type": "document",
+        "id": 630,
+        "number": "KYU-20261003-30"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77327,
+      "created_at": "2026-10-03T10:15:00+05:00",
+      "region": "samarqand",
+      "location": {
+        "id": 102,
+        "name": "Samarqand ombori",
+        "kind": "region"
+      },
+      "item": {
+        "id": 17,
+        "name": "Neyrovit"
+      },
+      "movement_type": "courier_load",
+      "quantity": -1,
+      "balance_after": 19,
+      "source": {
+        "type": "document",
+        "id": 630,
+        "number": "KYU-20261003-30"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77326,
+      "created_at": "2026-10-03T10:10:00+05:00",
+      "region": "toshkent_shahar",
+      "location": {
+        "id": 202,
+        "name": "Toshkent kuryerlari",
+        "kind": "courier"
+      },
+      "item": {
+        "id": 16,
+        "name": "Diabefit"
+      },
+      "movement_type": "courier_load",
+      "quantity": 11,
+      "balance_after": 68,
+      "source": {
+        "type": "document",
+        "id": 629,
+        "number": "KYU-20261003-29"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77325,
+      "created_at": "2026-10-03T10:10:00+05:00",
+      "region": "toshkent_shahar",
+      "location": {
+        "id": 100,
+        "name": "Toshkent shahri ombori",
+        "kind": "region"
+      },
+      "item": {
+        "id": 16,
+        "name": "Diabefit"
+      },
+      "movement_type": "courier_load",
+      "quantity": -11,
+      "balance_after": 155,
+      "source": {
+        "type": "document",
+        "id": 629,
+        "number": "KYU-20261003-29"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77324,
+      "created_at": "2026-10-03T10:05:00+05:00",
+      "region": "fargona",
+      "location": {
+        "id": 201,
+        "name": "Vodiy kuryerlari",
+        "kind": "courier"
+      },
+      "item": {
+        "id": 15,
+        "name": "Immunoxit"
+      },
+      "movement_type": "courier_load",
+      "quantity": 5,
+      "balance_after": 33,
+      "source": {
+        "type": "document",
+        "id": 628,
+        "number": "KYU-20261003-28"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    },
+    {
+      "id": 77323,
+      "created_at": "2026-10-03T10:05:00+05:00",
+      "region": "fargona",
+      "location": {
+        "id": 103,
+        "name": "Farg'ona ombori",
+        "kind": "region"
+      },
+      "item": {
+        "id": 15,
+        "name": "Immunoxit"
+      },
+      "movement_type": "courier_load",
+      "quantity": -5,
+      "balance_after": 40,
+      "source": {
+        "type": "document",
+        "id": 628,
+        "number": "KYU-20261003-28"
+      },
+      "actor": {
+        "id": 92,
+        "full_name": "Sardor Aliyev",
+        "kind": "logist"
+      },
+      "note": ""
+    }
+  ]
+}

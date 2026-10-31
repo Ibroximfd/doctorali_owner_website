@@ -1,49 +1,6 @@
 {
   "title": "Sozlamalar",
-  "subtitle": "Reja, signal chegaralari, kirish huquqlari va xavfsizlik",
-  "targets": {
-    "title": "Oylik reja — {month} {year}",
-    "description": "Tushum rejasi, mln so'm · «Umumiy» sahifadagi reja chizig'i shundan olinadi",
-    "columns": {
-      "filial": "Filial",
-      "delivery": "Yetkazib berish",
-      "clinic": "Klinika"
-    },
-    "inputLabel": {
-      "delivery": "{filial} — yetkazib berish rejasi, mln so'm",
-      "clinic": "{filial} — klinika rejasi, mln so'm"
-    },
-    "totalRow": "Jami",
-    "grandTotal": "Jami reja",
-    "grandTotalWithConsultation": "Jami reja (konsultatsiya {value} bilan)",
-    "saving": "Saqlanmoqda…",
-    "emptyTitle": "Filiallar topilmadi",
-    "emptyDescription": "Reja filiallar bo'yicha kiritiladi — avval filial qo'shilishi kerak.",
-    "errors": {
-      "amountInvalid": "Son kiriting",
-      "amountNegative": "Manfiy bo'lmasin"
-    }
-  },
-  "access": {
-    "title": "Kirish huquqlari",
-    "description": "Panelni kim ko'radi · hamma uchun faqat o'qish",
-    "columns": {
-      "user": "Foydalanuvchi",
-      "sections": "Bo'limlar",
-      "filials": "Filial",
-      "phones": "Telefonlar"
-    },
-    "allSections": "Hammasi",
-    "allFilials": "Barchasi",
-    "phonesFull": "To'liq",
-    "phonesMasked": "Maskalangan",
-    "roles": {
-      "owner": "Egasi",
-      "owner_viewer": "Kuzatuvchi"
-    },
-    "emptyTitle": "Hali hech kimga ruxsat berilmagan",
-    "emptyDescription": "Panelga kirish huquqi berilgan foydalanuvchilar shu yerda ko'rinadi."
-  },
+  "subtitle": "Hisobingiz: xavfsizlik, faol qurilmalar, til va mavzu.",
   "security": {
     "title": "Xavfsizlik va ko'rinish",
     "description": "Sessiyalar, til, mavzu",

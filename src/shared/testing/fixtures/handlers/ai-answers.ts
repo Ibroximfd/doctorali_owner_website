@@ -1,468 +1,344 @@
-import { addDays } from "@/shared/lib/scope";
+import { formatMoney, formatNumber, formatPercent } from "@/shared/lib/format";
 
-import type { MockContext } from "../engine";
+import { buildContext, type MockContext } from "../engine";
+import { cellOf, locations, skladState } from "../sklad-state";
+import {
+  ADDRESS_RATE,
+  PRODUCTS,
+  REGION_NAMES,
+  SKLADS,
+  filialsState,
+  productGrant,
+  codeOf,
+} from "../structure-v2";
+import { chiefMoney, filialFlow, operatorsOf, pct, totalsOf } from "../v2-metrics";
 
 /**
- * Namuna AI javoblari: savoldagi kalit so'zlarga qarab mavzu tanlanadi (savdo,
- * ombor, kuryer, klinika, ilova…). Mos mavzu topilmasa — kunlik umumiy hisobot.
- * Har javobda raqamli bloklar va Excel ilova bor — demo hech qachon bo'sh qolmaydi.
+ * Namuna AI chat javoblari — **namuna bazaning o'zidan hisoblanadi** (`v2-metrics`), shuning
+ * uchun javobdagi raqam ekrandagi raqam bilan bir xil. Savoldagi kalit so'zga qarab mavzu
+ * tanlanadi (moliya, konversiya, sklad, filial, xodim); mos mavzu topilmasa — umumiy holat.
+ * Davr — oxirgi 30 kun.
  */
 
-export type AnswerAttachment = { id: number; title: string; format: string; status: string };
-export type AnswerContent = {
-  text: string;
-  blocks: unknown[];
-  attachments: AnswerAttachment[];
-  suggestions: string[];
+/** Javob bo'laklari (namuna ichida) — chatga bitta matn bo'lib boradi (`toText`). */
+type Block = {
+  type: string;
+  title: string;
+  items?: readonly unknown[];
+  columns?: readonly string[];
+  rows?: readonly (readonly string[])[];
 };
 
-/** Ilova id → qaysi hisobot fayli yasaladi (demo fayl generatori uchun). */
-export const ATTACHMENT_REPORTS: Readonly<Record<number, string>> = {
-  33: "daily",
-  34: "operators",
-  35: "couriers_cod",
-  36: "products",
-  37: "debts",
-  38: "weekly",
-  39: "monthly_pl",
+type AnswerContent = { text: string; blocks: Block[]; suggestions: string[] };
+
+const money = (value: number): string => formatMoney(value);
+const count = (value: number): string => formatNumber(value);
+const share = (value: number | null): string => formatPercent(value);
+
+const flows = (ctx: MockContext) =>
+  filialsState().map((filial) => ({ filial, flow: filialFlow(ctx, filial.id) }));
+
+type Topic = {
+  keywords: readonly string[];
+  tools: readonly string[];
+  build: (ctx: MockContext) => AnswerContent;
 };
 
-const dateLabel = (iso: string): string => {
-  const [year, month, day] = iso.split("-");
-  return `${day}.${month}.${year}`;
+const overview = (ctx: MockContext): AnswerContent => {
+  const rows = flows(ctx);
+  const total = totalsOf(
+    rows.map((row) => row.flow),
+    ["leads", "leadSold", "sold", "inTransit", "delivered", "cancelled", "revenue"],
+  );
+  const weakest = [...rows].sort(
+    (a, b) => (pct(a.flow.leadSold, a.flow.leads) ?? 0) - (pct(b.flow.leadSold, b.flow.leads) ?? 0),
+  )[0];
+  return {
+    text: `Oxirgi 30 kunda ${count(total.sold)} ta zakaz sotildi, ${count(total.delivered)} tasi yetkazildi, tushum ${money(total.revenue)}. Konversiya ${share(pct(total.leadSold, total.leads))}, atkaz ${share(pct(total.cancelled, total.sold))}.`,
+    blocks: [
+      {
+        type: "kpis",
+        title: "30 kun",
+        items: [
+          { label: "Tushum", value: money(total.revenue), delta_pct: 7.4 },
+          { label: "Sotildi", value: `${count(total.sold)} ta`, delta_pct: 6.1 },
+          { label: "Yo'lda", value: `${count(total.inTransit)} ta`, delta_pct: -3.5 },
+          { label: "Atkaz", value: `${count(total.cancelled)} ta`, delta_pct: 4.6 },
+        ],
+      },
+      {
+        type: "table",
+        title: "Filiallar",
+        columns: ["Filial", "Sotildi", "Yetkazildi", "Konversiya", "Tushum"],
+        rows: rows.map(({ filial, flow }) => [
+          `${codeOf(filial)} · ${filial.name}`,
+          count(flow.sold),
+          count(flow.delivered),
+          share(pct(flow.leadSold, flow.leads)),
+          money(flow.revenue),
+        ]),
+      },
+      ...(weakest
+        ? [
+            {
+              type: "bullets",
+              title: "E'tibor bering",
+              items: [
+                `${codeOf(weakest.filial)} konversiyasi eng past — ${share(pct(weakest.flow.leadSold, weakest.flow.leads))}`,
+              ],
+            },
+          ]
+        : []),
+      { type: "links", title: "Ochish", items: [{ label: "Analitika", kind: "section", id: "analytics" }] },
+    ],
+    suggestions: ["Pul hozir qayerda?", "Qaysi skladda mahsulot kam?"],
+  };
 };
 
-const lastDays = (ctx: MockContext, count: number): string[] =>
-  Array.from({ length: count }, (_, index) => addDays(ctx.today, index - count + 1));
+const finance = (ctx: MockContext): AnswerContent => {
+  const rows = filialsState().flatMap((filial) =>
+    chiefMoney(ctx, filial.id).map((row) => ({ ...row, filial })),
+  );
+  const total = totalsOf(rows, ["revenue", "atCouriers", "atChief", "handed", "addresses", "fee", "feePaid"]);
+  const stuck = [...rows].sort((a, b) => b.atChief - a.atChief)[0];
+  const stuckSklad = SKLADS.find((sklad) => sklad.id === stuck?.skladId);
+  return {
+    text: `Yetkazilgan zakazlardan ${money(total.revenue)} tushdi: filiallarga ${money(total.handed)} topshirildi, bosh kuryerlarda ${money(total.atChief)}, kuryerlarda ${money(total.atCouriers)}.`,
+    blocks: [
+      {
+        type: "kpis",
+        title: "Pul qayerda",
+        items: [
+          { label: "Filiallarga topshirildi", value: money(total.handed), delta_pct: null },
+          { label: "Bosh kuryerlarda", value: money(total.atChief), delta_pct: null },
+          { label: "Kuryerlarda", value: money(total.atCouriers), delta_pct: null },
+          { label: "Bosh kuryer haqi qarzi", value: money(total.fee - total.feePaid), delta_pct: null },
+        ],
+      },
+      {
+        type: "table",
+        title: "Filiallar bo'yicha",
+        columns: ["Filial", "Manzil", "Topshirildi", "Bosh kuryerda", "Haq (to'langan / jami)"],
+        rows: filialsState().map((filial) => {
+          const own = totalsOf(
+            rows.filter((row) => row.filial.id === filial.id),
+            ["addresses", "handed", "atChief", "fee", "feePaid"],
+          );
+          return [
+            `${codeOf(filial)} · ${filial.name}`,
+            count(own.addresses),
+            money(own.handed),
+            money(own.atChief),
+            `${money(own.feePaid)} / ${money(own.fee)}`,
+          ];
+        }),
+      },
+      {
+        type: "bullets",
+        title: "Xulosa",
+        items: [
+          `Bir manzil narxi hamma filial uchun bitta — ${money(ADDRESS_RATE)}`,
+          ...(stuck && stuckSklad
+            ? [
+                `Eng ko'p pul ${stuckSklad.chief.full_name} (${stuckSklad.name}) da turibdi — ${codeOf(stuck.filial)} uchun ${money(stuck.atChief)}`,
+              ]
+            : []),
+        ],
+      },
+      { type: "links", title: "Ochish", items: [{ label: "Moliya", kind: "section", id: "finance" }] },
+    ],
+    suggestions: ["Qaysi filial konversiyasi past?", "Umumiy holat"],
+  };
+};
 
-const attachment = (id: number, title: string, ctx: MockContext): AnswerAttachment => ({
-  id,
-  title: `${title} — ${dateLabel(ctx.today)}`,
-  format: "xlsx",
-  status: "ready",
-});
+const conversion = (ctx: MockContext): AnswerContent => {
+  const operators = filialsState().flatMap((filial) =>
+    operatorsOf(ctx, filial.id).map((row) => ({
+      ...row,
+      code: codeOf(filial),
+      rate: pct(row.sold, row.leads) ?? 0,
+    })),
+  );
+  const ranked = [...operators].sort((a, b) => b.rate - a.rate);
+  const best = ranked[0];
+  const worst = ranked.at(-1);
+  return {
+    text: "Konversiya va atkaz filiallar bo'yicha, filial ichida — operatorlar bo'yicha.",
+    blocks: [
+      {
+        type: "table",
+        title: "Filiallar",
+        columns: ["Filial", "Lid", "Sotildi", "Konversiya", "Atkaz"],
+        rows: flows(ctx).map(({ filial, flow }) => [
+          `${codeOf(filial)} · ${filial.name}`,
+          count(flow.leads),
+          count(flow.sold),
+          share(pct(flow.leadSold, flow.leads)),
+          share(pct(flow.cancelled, flow.sold)),
+        ]),
+      },
+      {
+        type: "bullets",
+        title: "Operatorlar",
+        items: [
+          ...(best ? [`Eng yuqori: ${best.full_name} (${best.code}) — ${share(best.rate)}`] : []),
+          ...(worst ? [`Eng past: ${worst.full_name} (${worst.code}) — ${share(worst.rate)}`] : []),
+        ],
+      },
+      { type: "links", title: "Ochish", items: [{ label: "Analitika", kind: "section", id: "analytics" }] },
+    ],
+    suggestions: ["Xodimlar reytingi", "Pul hozir qayerda?"],
+  };
+};
 
-type Topic = { keywords: readonly string[]; build: (ctx: MockContext) => AnswerContent };
+const warehouse = (ctx: MockContext): AnswerContent => {
+  const low = skladState(ctx.now).sklads.flatMap((sklad) =>
+    PRODUCTS.flatMap((product) => {
+      const stores = locations().filter(
+        (location) => location.kind === "region" && sklad.regions.includes(location.region),
+      );
+      const cell = stores.reduce(
+        (sum, location) => {
+          const own = cellOf(location.id, product.id);
+          return { qty: sum.qty + own.on_hand, min: sum.min + own.min };
+        },
+        { qty: 0, min: 0 },
+      );
+      return cell.qty < cell.min ? [{ sklad, product, cell }] : [];
+    }),
+  );
+  const ungranted = PRODUCTS.filter((product) => productGrant(product.id) === null);
+  return {
+    text: low.length
+      ? `${low.length} ta pozitsiya minimal qoldiqdan past. Eng xavflisi — ${low[0]?.sklad.name}: ${low[0]?.product.name}.`
+      : "Hamma skladda qoldiq minimaldan yuqori.",
+    blocks: [
+      {
+        type: "table",
+        title: "Kam qolgan mahsulotlar",
+        columns: ["Sklad", "Mahsulot", "Qoldiq", "Minimal"],
+        rows: low.map(({ sklad, product, cell }) => [
+          sklad.name,
+          product.name,
+          count(cell.qty),
+          count(cell.min),
+        ]),
+      },
+      {
+        type: "bullets",
+        title: "Dopusk",
+        items: ungranted.length
+          ? ungranted.map(
+              (product) => `${product.name} hech bir filialga berilmagan — qoldig'ini hech kim boshqarmaydi`,
+            )
+          : ["Har mahsulot bitta filialga berilgan"],
+      },
+      { type: "links", title: "Ochish", items: [{ label: "Sklad", kind: "section", id: "warehouse" }] },
+    ],
+    suggestions: ["Skladlar qaysi viloyatlarni qamraydi?", "Umumiy holat"],
+  };
+};
 
-/** Kunlik umumiy hisobot — standart javob. */
-const daily = (ctx: MockContext): AnswerContent => ({
-  text: "Bugun jami tushum 312 mln so'm, kechagidan 8% ko'p.",
-  blocks: [
-    {
-      type: "kpis",
-      title: "Bugun",
-      items: [
-        { label: "Tushum", value: "312 mln so'm", delta_pct: 8.1 },
-        { label: "Buyurtmalar", value: "131 ta", delta_pct: 5.6 },
-        { label: "Klinika qabullari", value: "74 ta", delta_pct: 2.8 },
-        { label: "Ilovada faol", value: "1 284 kishi", delta_pct: 4.2 },
-      ],
-    },
-    {
-      type: "table",
-      title: "Filiallar",
-      columns: ["Filial", "Buyurtma", "Tushum", "Yetkazildi"],
-      rows: [
-        ["Toshkent", "412", "174 mln", "86%"],
-        ["Qo'qon", "196", "81 mln", "83%"],
-        ["Samarqand", "131", "57 mln", "79%"],
-      ],
-    },
-    {
-      type: "bullets",
-      title: "E'tibor bering",
-      items: [
-        "Samarqandda 14 buyurtma 3 kundan beri yo'lda",
-        "Rayhon krem 50 ml omborda 4 dona qoldi — 2 kunga yetadi",
-        "Kuryer #12 da 3,2 mln so'm topshirilmagan naqd",
-      ],
-    },
-    {
-      type: "chart",
-      title: "So'nggi 7 kun",
-      kind: "line",
-      labels: lastDays(ctx, 7),
-      series: [
-        { name: "Tushum", values: [268, 281, 274, 295, 288, 290, 312].map((value) => value * 1_000_000) },
-      ],
-      unit: "uzs",
-    },
-    {
-      type: "links",
-      title: "Ochish",
-      items: [
-        { label: "DA-184011", kind: "order", id: "184011" },
-        { label: "Ombor bo'limi", kind: "section", id: "warehouse" },
-      ],
-    },
-    { type: "future_chart" },
-  ],
-  attachments: [attachment(33, "Kunlik hisobot", ctx)],
-  suggestions: ["Klinika bo'yicha batafsil", "Qaysi operator sustlashgan?", "Omborda nima tugayapti?"],
-});
+const sklads = (ctx: MockContext): AnswerContent => {
+  const all = skladState(ctx.now).sklads;
+  return {
+    text: `Butun O'zbekistonda ${all.length} ta sklad — har bosh kuryerga bitta.`,
+    blocks: [
+      {
+        type: "table",
+        title: "Skladlar",
+        columns: ["Sklad", "Bosh kuryer", "Viloyatlar"],
+        rows: all.map((sklad) => [
+          sklad.name,
+          sklad.chief.full_name,
+          sklad.regions.map((code) => REGION_NAMES[code]).join(", "),
+        ]),
+      },
+      { type: "links", title: "Ochish", items: [{ label: "Sklad", kind: "section", id: "warehouse" }] },
+    ],
+    suggestions: ["Qaysi skladda mahsulot kam?"],
+  };
+};
 
-const operators = (ctx: MockContext): AnswerContent => ({
-  text: "Bugun 11 operatordan 9 tasi faol. Ikki operatorda faollik keskin tushgan, Samarqand jamoasi rejadan 18% orqada.",
-  blocks: [
-    {
-      type: "kpis",
-      title: "Operatorlar — bugun",
-      items: [
-        { label: "Onlayn", value: "9 / 11", delta_pct: null },
-        { label: "Lidlar", value: "486 ta", delta_pct: 6.4 },
-        { label: "Konversiya", value: "34,1%", delta_pct: -1.2 },
-        { label: "Javobsiz qo'ng'iroq", value: "17 ta", delta_pct: 21.4 },
-      ],
-    },
-    {
-      type: "table",
-      title: "Sustlashganlar",
-      columns: ["Operator", "Filial", "Lid", "Konversiya", "Holat"],
-      rows: [
-        ["Nodira Yusupova", "Samarqand", "12", "16%", "2 soatdan beri oflayn"],
-        ["Bekzod Aliyev", "Qo'qon", "19", "21%", "9 ta muddati o'tgan vazifa"],
-        ["Shahzoda Rasulova", "Samarqand", "24", "25%", "Javobsiz qo'ng'iroqlar 6 ta"],
-      ],
-    },
-    {
-      type: "chart",
-      title: "Filiallar bo'yicha savdo (mln so'm)",
-      kind: "bar",
-      labels: ["Toshkent", "Qo'qon", "Samarqand"],
-      series: [{ name: "Savdo", values: [174_000_000, 81_000_000, 57_000_000] }],
-      unit: "uzs",
-    },
-    {
-      type: "bullets",
-      title: "Tavsiya",
-      items: [
-        "Samarqand jamoasiga Toshkentdan 1 operatorni kunduzgi smenaga vaqtincha biriktiring",
-        "Javobsiz qo'ng'iroqlarni soat 14:00 gacha qayta chaqirish ro'yxatiga qo'ying",
-      ],
-    },
-    {
-      type: "links",
-      title: "Ochish",
-      items: [
-        { label: "Xodimlar reytingi", kind: "section", id: "staff" },
-        { label: "Sotuv bo'limi", kind: "section", id: "sales" },
-      ],
-    },
-  ],
-  attachments: [attachment(34, "Operatorlar hisoboti", ctx)],
-  suggestions: ["Eng yaxshi operatorlar kim?", "Lidlar qayerdan kelyapti?"],
-});
+const filials = (ctx: MockContext): AnswerContent => {
+  const main = filialsState().find((filial) => filial.is_main);
+  return {
+    text: `${filialsState().length} ta filial. Asosiy filial — ${main ? `${main.code} · ${main.name}` : "belgilanmagan"}.`,
+    blocks: [
+      {
+        type: "table",
+        title: "Filiallar va rahbarlar",
+        columns: ["Filial", "B.L", "B.O", "Sotildi", "Konversiya"],
+        rows: flows(ctx).map(({ filial, flow }) => [
+          `${codeOf(filial)} · ${filial.name}${filial.is_main ? " ★" : ""}`,
+          filial.leaders.chief_logist?.full_name ?? "—",
+          filial.leaders.chief_operator?.full_name ?? "—",
+          count(flow.sold),
+          share(pct(flow.leadSold, flow.leads)),
+        ]),
+      },
+      { type: "links", title: "Ochish", items: [{ label: "Filiallar", kind: "section", id: "filials" }] },
+    ],
+    suggestions: ["Qaysi filial konversiyasi past?", "Pul hozir qayerda?"],
+  };
+};
 
-const cash = (ctx: MockContext): AnswerContent => ({
-  text: "3 ta kuryerda jami 7,8 mln so'm naqd 2 kundan ortiq topshirilmagan. 14 ta buyurtma 3 kundan beri yetkazilmagan.",
-  blocks: [
-    {
-      type: "kpis",
-      title: "Naqd pul va yetkazish",
-      items: [
-        { label: "Topshirilmagan naqd", value: "7,8 mln so'm", delta_pct: 12.5 },
-        { label: "Kechikkan buyurtma", value: "14 ta", delta_pct: -6.7 },
-        { label: "O'rtacha yetkazish", value: "19 soat", delta_pct: -3.1 },
-      ],
-    },
-    {
-      type: "table",
-      title: "Kuryerlar",
-      columns: ["Kuryer", "Filial", "Naqd", "Eng eskisi"],
-      rows: [
-        ["Kuryer #12 — Sherzod N.", "Samarqand", "3,2 mln", "3 kun"],
-        ["Jasur Karimov", "Toshkent", "2,4 mln", "2 kun"],
-        ["Sardor To'xtayev", "Toshkent", "2,2 mln", "2 kun"],
-      ],
-    },
-    {
-      type: "bullets",
-      title: "Nima qilish kerak",
-      items: [
-        "Kassir bugun kuryer #12 bilan solishtiruv o'tkazsin",
-        "Samarqanddagi 6 ta buyurtmani Urgutdagi bo'sh kuryerlarga biriktirish mumkin (AI taklifi tayyor)",
-      ],
-    },
-    {
-      type: "links",
-      title: "Ochish",
-      items: [
-        { label: "Jasur Karimov", kind: "courier", id: "1" },
-        { label: "DA-184011", kind: "order", id: "184011" },
-        { label: "Muammolar markazi", kind: "section", id: "issues" },
-      ],
-    },
-  ],
-  attachments: [attachment(35, "Kuryerlar va naqd pul", ctx)],
-  suggestions: ["Kechikkan buyurtmalar ro'yxati", "Kassaga bugun qancha topshirildi?"],
-});
-
-const warehouse = (ctx: MockContext): AnswerContent => ({
-  text: "Omborda 3 ta mahsulot kritik darajada kam: eng xavflisi Rayhon krem 50 ml — 2 kunga yetadi.",
-  blocks: [
-    {
-      type: "kpis",
-      title: "Ombor",
-      items: [
-        { label: "Mahsulot turlari", value: "64 ta", delta_pct: null },
-        { label: "Kam qolgan", value: "3 ta", delta_pct: 50 },
-        { label: "Ombor qiymati", value: "1,42 mlrd so'm", delta_pct: -4.3 },
-      ],
-    },
-    {
-      type: "table",
-      title: "Tugayotgan mahsulotlar",
-      columns: ["Mahsulot", "Qoldiq", "Kunlik sotuv", "Yetadi"],
-      rows: [
-        ["Rayhon krem 50 ml", "4", "2,1", "2 kun"],
-        ["Mehrigiyo balzami", "38", "9,4", "4 kun"],
-        ["Zangori choy 100 g", "61", "8,7", "7 kun"],
-      ],
-    },
-    {
-      type: "chart",
-      title: "Rayhon krem qoldig'i",
-      kind: "line",
-      labels: lastDays(ctx, 7),
-      series: [{ name: "Qoldiq", values: [19, 17, 14, 12, 9, 6, 4] }],
-      unit: "count",
-    },
-    {
-      type: "bullets",
-      title: "Tavsiya",
-      items: ["Ta'minotchiga 200 dona buyurtma qoralamasi tayyor — tasdiqlash kerak"],
-    },
-    {
-      type: "links",
-      title: "Ochish",
-      items: [
-        { label: "Ombor bo'limi", kind: "section", id: "warehouse" },
-        { label: "Prognoz", kind: "section", id: "forecast" },
-      ],
-    },
-  ],
-  attachments: [attachment(36, "Mahsulotlar qoldig'i", ctx)],
-  suggestions: ["Qaysi mahsulot eng ko'p sotildi?", "Keyingi oy prognozi"],
-});
-
-const clinic = (ctx: MockContext): AnswerContent => ({
-  text: "Klinikada bugun 74 ta qabul, tushum 17,4 mln so'm. Qo'qon filiali kechagidan 11% ko'proq bemor qabul qildi.",
-  blocks: [
-    {
-      type: "kpis",
-      title: "Klinika — bugun",
-      items: [
-        { label: "Qabullar", value: "74 ta", delta_pct: 2.8 },
-        { label: "Tushum", value: "17,4 mln so'm", delta_pct: 6.1 },
-        { label: "O'rtacha chek", value: "235 ming so'm", delta_pct: 3.2 },
-      ],
-    },
-    {
-      type: "table",
-      title: "Shifokorlar",
-      columns: ["Shifokor", "Filial", "Qabul", "Tushum"],
-      rows: [
-        ["Dr. Aliyev", "Toshkent", "21", "5,2 mln"],
-        ["Dr. Saidova", "Qo'qon", "17", "3,9 mln"],
-        ["Dr. Rahimov", "Toshkent", "14", "3,1 mln"],
-      ],
-    },
-    {
-      type: "chart",
-      title: "Qabullar — 7 kun",
-      kind: "bar",
-      labels: lastDays(ctx, 7),
-      series: [{ name: "Qabul", values: [61, 68, 70, 66, 72, 72, 74] }],
-      unit: "count",
-    },
-    { type: "links", title: "Ochish", items: [{ label: "Klinika bo'limi", kind: "section", id: "clinic" }] },
-  ],
-  attachments: [attachment(38, "Klinika hisoboti", ctx)],
-  suggestions: ["Qaysi shifokorga navbat ko'p?", "Bugungi hisobot"],
-});
-
-const app = (ctx: MockContext): AnswerContent => ({
-  text: "Doctor Ali ilovasida 30 kunda 8 940 faol foydalanuvchi, bugun 1 284 kishi kirdi. 2 316 kishi 30 kundan beri kirmagan.",
-  blocks: [
-    {
-      type: "kpis",
-      title: "Ilova",
-      items: [
-        { label: "Faol (30 kun)", value: "8 940", delta_pct: 7.4 },
-        { label: "Bugun", value: "1 284", delta_pct: 4.2 },
-        { label: "O'rtacha vaqt", value: "6 daq 40 s", delta_pct: 2.1 },
-        { label: "30+ kun kirmagan", value: "2 316", delta_pct: -3.5 },
-      ],
-    },
-    {
-      type: "chart",
-      title: "Kunlik faol foydalanuvchilar",
-      kind: "line",
-      labels: lastDays(ctx, 7),
-      series: [{ name: "Faol", values: [1102, 1167, 1190, 1215, 1236, 1232, 1284] }],
-      unit: "count",
-    },
-    {
-      type: "bullets",
-      title: "Tavsiya",
-      items: [
-        "30+ kun kirmaganlarga shaxsiy chegirma bilan push-xabar yuboring",
-        "Konsultatsiya bo'limi eng ko'p vaqt olinadigan joy — u yerga mahsulot tavsiyalarini qo'shing",
-      ],
-    },
-    { type: "links", title: "Ochish", items: [{ label: "Mobil ilova", kind: "section", id: "app" }] },
-  ],
-  attachments: [attachment(38, "Ilova faolligi", ctx)],
-  suggestions: ["Ilovadan qancha buyurtma keldi?", "Bugungi hisobot"],
-});
-
-const forecast = (ctx: MockContext): AnswerContent => ({
-  text: "Joriy sur'atda oy oxirigacha tushum 9,6 mlrd so'mga yetadi — rejadan 4% yuqori. Eng katta o'sish imkoniyati — Samarqand.",
-  blocks: [
-    {
-      type: "kpis",
-      title: "Prognoz",
-      items: [
-        { label: "Oy oxiri tushumi", value: "9,6 mlrd so'm", delta_pct: 4 },
-        { label: "Keyingi 30 kun", value: "10,1 mlrd so'm", delta_pct: 6.3 },
-        { label: "Ishonch", value: "82%", delta_pct: null },
-      ],
-    },
-    {
-      type: "chart",
-      title: "Tushum prognozi (mln so'm)",
-      kind: "line",
-      labels: lastDays(ctx, 7),
-      series: [
-        { name: "Haqiqiy", values: [268, 281, 274, 295, 288, 290, 312].map((value) => value * 1_000_000) },
-        { name: "Prognoz", values: [272, 278, 284, 290, 296, 302, 308].map((value) => value * 1_000_000) },
-      ],
-      unit: "uzs",
-    },
-    {
-      type: "bullets",
-      title: "O'sish uchun",
-      items: [
-        "Samarqandda 2 ta qo'shimcha kuryer — oyiga +240 mln so'm kutiladi",
-        "Rayhon krem zaxirasini oshirish — tugab qolsa haftasiga ~60 mln yo'qotiladi",
-        "Ilovada qayta kirmaganlarni qaytarish — +3–5% buyurtma",
-      ],
-    },
-    {
-      type: "links",
-      title: "Ochish",
-      items: [{ label: "Prognoz bo'limi", kind: "section", id: "forecast" }],
-    },
-  ],
-  attachments: [attachment(39, "Prognoz va reja", ctx)],
-  suggestions: ["Qaysi viloyat eng tez o'syapti?", "Omborda nima tugayapti?"],
-});
-
-const finance = (ctx: MockContext): AnswerContent => ({
-  text: "30 kunda tushum 2,33 mlrd so'm (+10,6%), xarajat 412 mln, sof pul oqimi 1,84 mlrd so'm. Qarzdorlik 31,2 mln so'm.",
-  blocks: [
-    {
-      type: "kpis",
-      title: "Moliya — 30 kun",
-      items: [
-        { label: "Tushum", value: "2,33 mlrd so'm", delta_pct: 10.6 },
-        { label: "Xarajat", value: "412 mln so'm", delta_pct: 3.5 },
-        { label: "Sof oqim", value: "1,84 mlrd so'm", delta_pct: 11.6 },
-        { label: "Qarzdorlik", value: "31,2 mln so'm", delta_pct: -2.4 },
-      ],
-    },
-    {
-      type: "table",
-      title: "Eng katta qarzdorlar",
-      columns: ["Mijoz", "Filial", "Qoldiq", "Kechikish"],
-      rows: [
-        ["Baxtiyor Normatov", "Toshkent", "3,2 mln", "46 kun"],
-        ["Saida Mirzayeva", "Qo'qon", "2,4 mln", "38 kun"],
-      ],
-    },
-    { type: "links", title: "Ochish", items: [{ label: "Moliya bo'limi", kind: "section", id: "finance" }] },
-  ],
-  attachments: [attachment(37, "Qarzdorlik", ctx)],
-  suggestions: ["Oylik foyda va zarar", "Qolib ketgan pul"],
-});
-
-const regions = (ctx: MockContext): AnswerContent => ({
-  text: "Eng ko'p buyurtma Toshkent shahridan (38%), eng tez o'sayotgan — Samarqand (+19%). Qoraqalpog'istonda yetkazish eng sekin.",
-  blocks: [
-    {
-      type: "chart",
-      title: "Viloyatlar bo'yicha buyurtmalar",
-      kind: "bar",
-      labels: ["Toshkent sh.", "Farg'ona", "Samarqand", "Andijon", "Namangan"],
-      series: [{ name: "Buyurtma", values: [1467, 612, 498, 371, 344] }],
-      unit: "count",
-    },
-    {
-      type: "bullets",
-      title: "Xulosa",
-      items: [
-        "Samarqandda talab o'sdi, lekin kuryerlar yetishmaydi",
-        "Qoraqalpog'istonda o'rtacha yetkazish 3,4 kun — pochta hamkorini ko'rib chiqing",
-      ],
-    },
-    {
-      type: "links",
-      title: "Ochish",
-      items: [{ label: "Hududlar xaritasi", kind: "section", id: "overview" }],
-    },
-  ],
-  attachments: [attachment(38, "Hududlar", ctx)],
-  suggestions: ["Prognoz", "Kuryerlar holati"],
-});
-
-const issues = (ctx: MockContext): AnswerContent => ({
-  text: "Hozir 7 ta ochiq muammo bor, 2 tasi kritik: kuryer #12 dagi naqd farqi va Rayhon krem tugashi.",
-  blocks: [
-    {
-      type: "table",
-      title: "Ochiq muammolar",
-      columns: ["Muammo", "Daraja", "Mas'ul"],
-      rows: [
-        ["Kuryer #12 da 3,2 mln naqd", "Kritik", "Kassir"],
-        ["Rayhon krem 2 kunga yetadi", "Kritik", "Skladchi"],
-        ["Samarqandda 14 buyurtma yo'lda", "Yuqori", "Logist"],
-      ],
-    },
-    {
-      type: "links",
-      title: "Ochish",
-      items: [{ label: "Muammolar markazi", kind: "section", id: "issues" }],
-    },
-  ],
-  attachments: [attachment(33, "Muammolar ro'yxati", ctx)],
-  suggestions: ["Mas'ullarga xabar yuborilganmi?", "Bugungi hisobot"],
-});
-
-/** Tartib muhim: aniqroq mavzu oldin turadi ("kunlik hisobot" — umumiy). */
+/** Tartib muhim: aniqroq mavzu oldin turadi. */
 const TOPICS: readonly Topic[] = [
-  { keywords: ["kunlik", "hisobot", "отчет", "отчёт"], build: daily },
-  { keywords: ["ilova", "foydalanuvchi", "приложен", "пользовател"], build: app },
-  { keywords: ["operator", "sotuv", "lid", "qo'ng'iroq", "оператор", "продаж"], build: operators },
-  { keywords: ["kuryer", "naqd", "kassa", "yetkaz", "курьер", "налич", "доставк"], build: cash },
+  { keywords: ["viloyat", "qamra", "hudud", "регион", "област"], tools: ["sklad_list"], build: sklads },
   {
-    keywords: ["ombor", "qoldiq", "zaxira", "mahsulot", "tovar", "склад", "остат", "товар"],
+    keywords: ["sklad", "qoldiq", "mahsulot", "dopusk", "склад", "остат", "товар"],
+    tools: ["sklad_stock", "sklad_grants"],
     build: warehouse,
   },
-  { keywords: ["klinika", "shifokor", "qabul", "bemor", "клиник", "врач"], build: clinic },
-  { keywords: ["prognoz", "o'sish", "tavsiya", "reja", "прогноз", "рост"], build: forecast },
   {
-    keywords: ["moliya", "foyda", "xarajat", "qarz", "tushum", "pul", "финанс", "долг", "прибыл"],
+    keywords: ["pul", "moliya", "tushum", "bosh kuryer", "haq", "topshir", "деньг", "финанс", "курьер"],
+    tools: ["finance_summary", "chief_handovers"],
     build: finance,
   },
-  { keywords: ["viloyat", "hudud", "xarita", "регион", "област"], build: regions },
-  { keywords: ["muammo", "xato", "signal", "проблем", "ошибк"], build: issues },
+  {
+    keywords: ["konversiya", "atkaz", "operator", "xodim", "конверс", "отказ", "оператор", "сотрудник"],
+    tools: ["filial_compare", "operator_stats"],
+    build: conversion,
+  },
+  { keywords: ["filial", "b.l", "b.o", "rahbar", "филиал"], tools: ["filial_compare"], build: filials },
 ];
 
-/** Apostrof turlari (ʻ ’ `) bir xil — "qo‘ng‘iroq" ham topiladi. */
+/** Apostrof turlari (ʻ ’ `) bir xil. */
 const normalize = (text: string): string => text.toLowerCase().replace(/[ʻʼ‘’`]/g, "'");
 
-export const answerFor = (question: string, ctx: MockContext): AnswerContent => {
+/** Bloklar matnga: owner AI chat javobi — bitta `answer` matni (v2 §8.3). */
+const line = (item: unknown): string => {
+  if (typeof item === "string") return `• ${item}`;
+  if (typeof item === "object" && item !== null && "label" in item && "value" in item)
+    return `• ${String(item.label)}: ${String(item.value)}`;
+  return "";
+};
+
+const toText = (content: AnswerContent): string =>
+  [
+    content.text,
+    ...content.blocks.flatMap((block) => {
+      if (block.type === "links") return [];
+      const rows = (block.rows ?? []).map(
+        (row) =>
+          `• ${row.map((cell, index) => (index === 0 ? cell : `${block.columns?.[index] ?? ""}: ${cell}`)).join(", ")}`,
+      );
+      return [`${block.title}:`, ...(block.items ?? []).map(line).filter(Boolean), ...rows];
+    }),
+  ].join("\n");
+
+/**
+ * `POST owner/ai/chat/` javobi namunasi: matn namuna bazadan hisoblanadi (ekrandagi raqamlar bilan
+ * bir xil), `tools_used` — qaysi manbadan, `period` — oxirgi 30 kun.
+ */
+export const answerFor = (question: string, ctx: MockContext) => {
   const text = normalize(question);
   const topic = TOPICS.find(({ keywords }) => keywords.some((keyword) => text.includes(keyword)));
-  return (topic ?? TOPICS[0] ?? { build: daily }).build(ctx);
+  const last30 = buildContext({ searchParams: new URLSearchParams({ period: "30d" }), now: ctx.now });
+  return {
+    answer: toText((topic?.build ?? overview)(last30)),
+    tools_used: [...(topic?.tools ?? ["overview_summary", "filial_compare"])],
+    period: { date_from: last30.period.from, date_to: last30.period.to },
+  };
 };

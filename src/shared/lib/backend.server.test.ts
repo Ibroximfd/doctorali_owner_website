@@ -5,7 +5,6 @@ vi.mock("@/shared/config/env.server", () => ({
     backendOrigin: "https://backend.test",
     backendServer: "custom",
     isProduction: false,
-    telegramBotToken: null,
   },
 }));
 

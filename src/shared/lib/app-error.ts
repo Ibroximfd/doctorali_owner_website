@@ -19,6 +19,8 @@ export class AppError extends Error {
     message?: string,
     /** Backend `{code}` maydoni (`section_forbidden`, `invalid_period` …). */
     readonly code?: string,
+    /** Backend `{fields}` (v2 xato kelishuvi): `grant_conflict` → `{filial: 1}` va h.k. */
+    readonly fields: Readonly<Record<string, unknown>> = {},
   ) {
     super(message ?? kind);
     this.name = "AppError";

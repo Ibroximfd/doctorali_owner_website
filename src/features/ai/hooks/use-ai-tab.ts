@@ -1,20 +1,13 @@
 "use client";
 
-import { parseAsInteger, parseAsStringLiteral, useQueryStates } from "nuqs";
+import { parseAsStringLiteral, useQueryState } from "nuqs";
 
-export const AI_TABS = ["chat", "findings", "actions", "recommendations", "checks", "reports"] as const;
+/** «Tahlil» — topilmalar va AI xulosasi; «Chat» — savol-javob (`status.enabled` bo'lsa). */
+export const AI_TABS = ["findings", "chat"] as const;
 export type AiTab = (typeof AI_TABS)[number];
 
-/** Ochiq varaq va chat URL da: havola ulashiladi, «orqaga» ishlaydi. */
+/** Ochiq varaq URL da: havola ulashiladi, «orqaga» ishlaydi. */
 export const useAiTab = () => {
-  const [{ tab, chat }, setState] = useQueryStates({
-    tab: parseAsStringLiteral(AI_TABS).withDefault("chat"),
-    chat: parseAsInteger,
-  });
-  return {
-    tab,
-    chatId: chat,
-    setTab: (next: AiTab) => void setState({ tab: next === "chat" ? null : next }),
-    openChat: (id: number | null) => void setState({ tab: null, chat: id }),
-  };
+  const [tab, setTab] = useQueryState("tab", parseAsStringLiteral(AI_TABS).withDefault("findings"));
+  return { tab, setTab: (next: AiTab) => void setTab(next === "findings" ? null : next) };
 };

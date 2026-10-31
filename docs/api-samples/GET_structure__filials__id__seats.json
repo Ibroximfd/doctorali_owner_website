@@ -1,0 +1,23 @@
+{
+  "count": 2,
+  "results": [
+    {
+      "seat_id": 207,
+      "full_name": "Nodir Ahmedov",
+      "username": "nodir_l",
+      "department": "Baza-1",
+      "is_admin": false,
+      "is_logist": true,
+      "roles": []
+    },
+    {
+      "seat_id": 209,
+      "full_name": "Shahzod Tursunov",
+      "username": "shahzod_op",
+      "department": "Pervichka-1",
+      "is_admin": false,
+      "is_logist": false,
+      "roles": []
+    }
+  ]
+}

@@ -1,114 +1,61 @@
 {
   "title": "Moliya",
-  "description": "Pul oqimi — tushum, yig'ilgan pul, xarajat, qarz va majburiyatlar",
-  "monthlyReport": "Oylik hisobot (PDF)",
-  "kpi": {
+  "description": "Pul qancha va qayerda — har filial alohida va umumiy; bosh kuryerlar bilan hisob.",
+  "main": "Asosiy filial",
+  "kpis": {
     "revenue": "Tushum",
-    "revenueNote": "yetkazildi + klinika + konsultatsiya",
-    "collected": "Yig'ilgan pul",
-    "collectedNote": "haqiqatda qo'lga tushgan",
-    "expenses": "Xarajat",
-    "expensesNote": "yig'ilgan pulning {share}",
-    "netCash": "Sof qoldiq (taxminiy)",
-    "netCashNote": "yig'ilgan − xarajat, tannarxsiz"
+    "addresses": "{count} ta manzil yetkazildi",
+    "handed": "Filiallarga topshirildi",
+    "atChiefs": "Bosh kuryerlarda",
+    "atCouriers": "Kuryerlarda",
+    "share": "tushumning {value} i",
+    "chainAllSources": "Pul zanjiri manbaga bo'linmaydi — hamma zakazlar"
   },
-  "cashflow": {
-    "title": "Kirim va chiqim",
-    "description": "Davr bo'yicha pul oqimi, so'm",
-    "series": {
-      "inflow": "Kirim",
-      "outflow": "Chiqim"
-    },
-    "refunds": "Qaytarishlar",
-    "refundsNote": "{count} ta buyurtma",
-    "avgInflow": "O'rtacha kunlik kirim",
-    "biggestExpense": "Eng katta xarajat",
-    "biggestExpenseNote": "{share} · {value}",
-    "noExpenses": "xarajat yo'q"
+  "filials": {
+    "title": "Filiallar bo'yicha",
+    "description": "Har filial puli va uning qayerdaligi",
+    "filial": "Filial",
+    "revenue": "Tushum",
+    "where": "Qayerda",
+    "whereLabel": "{name}: pul qayerda"
   },
-  "position": {
-    "title": "Pul qayerda turibdi",
-    "description": "Hozirgi holat",
-    "tills": "Klinika kassalari",
-    "cash": "Naqd",
-    "card": "Karta",
-    "terminal": "Terminal",
-    "cod": "Kuryerlarda naqd",
-    "codHint": "{count} kuryer",
-    "online": "Onlayn hisobda",
-    "onlineHint": "Click · Payme",
-    "debt": "Mijozlar qarzi",
-    "overdue": "muddati o'tgan"
+  "fee": {
+    "title": "Bosh kuryer haqi",
+    "description": "Yetkazilgan manzil × bitta narx, har filial alohida to'laydi",
+    "rate": "Bir manzil narxi",
+    "rateNote": "Hamma filial uchun bitta · asosiy filial B.L i belgilaydi",
+    "due": "Qarz {value}",
+    "paid": "To'langan",
+    "formula": "{count} manzil × narx",
+    "paidLabel": "To'landi"
   },
-  "paymentMix": {
-    "title": "To'lov usullari",
-    "description": "Tushum qaysi yo'l bilan to'landi",
-    "method": {
-      "cash": "Naqd",
-      "click": "Click",
-      "payme": "Payme",
-      "card": "Karta",
-      "terminal": "Terminal"
-    }
+  "handovers": {
+    "title": "Filiallarga topshirilgan pul",
+    "description": "Bosh kuryer → filial: oxirgi pul topshirish, kechikkanlar tepada",
+    "route": "{chief} → {filial}",
+    "onTime": "o'z vaqtida",
+    "late": "Kechikdi"
   },
-  "expenses": {
-    "title": "Xarajatlar",
-    "total": "Jami {value}",
-    "category": {
-      "salary": "Ish haqi",
-      "rent": "Ijara",
-      "supplies": "Sarf materiallari",
-      "transport": "Transport",
-      "utilities": "Kommunal",
-      "repair": "Ta'mirlash",
-      "other": "Boshqa"
-    }
+  "chiefs": {
+    "title": "Bosh kuryerlar bilan hisob",
+    "description": "Har bosh kuryer har filial bilan alohida hisoblashadi; haqini puldan ushlab qolmaydi",
+    "chief": "Bosh kuryer",
+    "sklad": "{name} skladi",
+    "filial": "Filial",
+    "addresses": "Manzil",
+    "collected": "Yig'ildi",
+    "handed": "Topshirildi",
+    "pending": "Hali yetmagan",
+    "fee": "Haq: to'langan / jami"
   },
-  "liabilities": {
-    "title": "Majburiyatlar",
-    "description": "Hali to'lanmagan — bizning qarzimiz",
-    "operatorCommission": "Operator komissiyasi",
-    "operatorCommissionNote": "to'lanmagan",
-    "doctorPayouts": "Shifokor to'lovlari",
-    "doctorPayoutsNote": "{count} shifokor",
-    "cashback": "Keshbek ballari",
-    "cashbackNote": "{points} ball",
-    "gifts": "Sovg'alar (10-buyurtma)",
-    "giftsNote": "{count} ta berildi",
-    "total": "Jami majburiyat"
-  },
-  "debts": {
-    "title": "Mijozlar qarzi",
-    "summary": "Ochiq {value} · {count} mijoz",
-    "agingLabel": "Qarz muddati",
-    "bucket": {
-      "week": "0–7 kun",
-      "month": "8–30 kun",
-      "older": "31+ kun"
-    },
-    "columns": {
-      "debtor": "Eng katta qarzdorlar",
-      "remaining": "Qoldiq",
-      "overdue": "Muddati o'tdi"
-    },
-    "days": "{count} kun",
-    "emptyTitle": "Ochiq qarz yo'q",
-    "emptyDescription": "Tanlangan filiallarda mijozlar qarzi qolmagan."
-  },
-  "closings": {
-    "title": "Kunlik kassa yopilishi",
-    "description": "Klinika filiallari · sanalgan naqd va kutilgan o'rtasidagi farq",
-    "columns": {
-      "date": "Sana",
-      "filial": "Filial",
-      "status": "Holat",
-      "difference": "Farq",
-      "closedBy": "Kim yopdi"
-    },
-    "status": {
-      "closed": "Yopilgan",
-      "open": "Yopilmagan",
-      "reopened": "Qayta ochilgan"
-    }
+  "map": {
+    "title": "Viloyatlar",
+    "description": "Rang — yetkazilgan pul. Viloyat ustiga olib boring yoki bosing",
+    "sold": "Sotildi",
+    "delivered": "Yetkazildi",
+    "cancelled": "Atkaz",
+    "money": "Pul",
+    "summary": "{money} · {sold} ta sotildi",
+    "hint": "Viloyatni bosing — raqamlari shu yerda chiqadi."
   }
 }

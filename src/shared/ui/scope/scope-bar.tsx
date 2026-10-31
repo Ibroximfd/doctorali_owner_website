@@ -163,8 +163,13 @@ const RangeForm = ({
   );
 };
 
+type ScopeProps = {
+  /** Faqat davr: filial va taqqoslash tanlovi chizilmaydi (`ROUTES_PERIOD_ONLY`). */
+  periodOnly?: boolean;
+};
+
 /** Sahifa tepasidagi yagona filtr qatori — pastdagi barcha bloklar shu tilimga bo'ysunadi. */
-export const ScopeBar = () => {
+export const ScopeBar = ({ periodOnly = false }: ScopeProps) => {
   const controls = useScopeControls();
   const { t, scope } = controls;
   const queryClient = useQueryClient();
@@ -210,53 +215,63 @@ export const ScopeBar = () => {
         </PopoverContent>
       </Popover>
 
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button>
-            <Building2 aria-hidden />
-            {controls.filialLabel}
-            <ChevronDown aria-hidden />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent>
-          <div role="menu">
-            <MenuOption checked={scope.filials.length === 0} onSelect={() => void controls.setFilials([])}>
-              {t("filial.all")}
-            </MenuOption>
-            {controls.filials.map((filial) => (
-              <MenuOption
-                key={filial.id}
-                kind="checkbox"
-                checked={scope.filials.includes(filial.id)}
-                onSelect={() => controls.toggleFilial(filial.id)}
-              >
-                {filial.name}
-              </MenuOption>
-            ))}
-          </div>
-        </PopoverContent>
-      </Popover>
-
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button intent={scope.compare === "none" ? "ghost" : "outline"}>
-            <ArrowLeftRight aria-hidden />
-            {t(`compare.${scope.compare}`)}
-            <ChevronDown aria-hidden />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent>
-          <div role="menu">
-            {COMPARE_MODES.map((mode) => (
-              <PopoverClose asChild key={mode}>
-                <MenuOption checked={scope.compare === mode} onSelect={() => void controls.setCompare(mode)}>
-                  {t(`compareOption.${mode}`)}
+      {periodOnly ? null : (
+        <>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button>
+                <Building2 aria-hidden />
+                {controls.filialLabel}
+                <ChevronDown aria-hidden />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent>
+              <div role="menu">
+                <MenuOption
+                  checked={scope.filials.length === 0}
+                  onSelect={() => void controls.setFilials([])}
+                >
+                  {t("filial.all")}
                 </MenuOption>
-              </PopoverClose>
-            ))}
-          </div>
-        </PopoverContent>
-      </Popover>
+                {controls.filials.map((filial) => (
+                  <MenuOption
+                    key={filial.id}
+                    kind="checkbox"
+                    checked={scope.filials.includes(filial.id)}
+                    onSelect={() => controls.toggleFilial(filial.id)}
+                  >
+                    {filial.name}
+                  </MenuOption>
+                ))}
+              </div>
+            </PopoverContent>
+          </Popover>
+
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button intent={scope.compare === "none" ? "ghost" : "outline"}>
+                <ArrowLeftRight aria-hidden />
+                {t(`compare.${scope.compare}`)}
+                <ChevronDown aria-hidden />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent>
+              <div role="menu">
+                {COMPARE_MODES.map((mode) => (
+                  <PopoverClose asChild key={mode}>
+                    <MenuOption
+                      checked={scope.compare === mode}
+                      onSelect={() => void controls.setCompare(mode)}
+                    >
+                      {t(`compareOption.${mode}`)}
+                    </MenuOption>
+                  </PopoverClose>
+                ))}
+              </div>
+            </PopoverContent>
+          </Popover>
+        </>
+      )}
 
       <div className="text-ink-3 ml-auto flex items-center gap-1.5 text-xs whitespace-nowrap">
         {lastUpdated === null ? null : (
@@ -278,7 +293,7 @@ export const ScopeBar = () => {
 const ALL_PRESETS: readonly PresetKey[] = [...SEGMENT_PERIODS, ...RANGE_PERIODS];
 
 /** Telefon: bitta tugma → pastki varaq (davr, filial, taqqoslash). */
-export const MobileScope = () => {
+export const MobileScope = ({ periodOnly = false }: ScopeProps) => {
   const controls = useScopeControls();
   const { t, scope } = controls;
   const [open, setOpen] = useState(false);
@@ -288,7 +303,7 @@ export const MobileScope = () => {
       <Button size="lg" className="w-full justify-start" onClick={() => setOpen(true)}>
         <CalendarDays aria-hidden />
         <span className="truncate">
-          {controls.periodLabel} · {controls.filialLabel}
+          {periodOnly ? controls.periodLabel : `${controls.periodLabel} · ${controls.filialLabel}`}
         </span>
         <ChevronDown aria-hidden className="ml-auto" />
       </Button>
@@ -320,33 +335,41 @@ export const MobileScope = () => {
             />
           </div>
         </SheetGroup>
-        <SheetGroup title={t("filialLabel")}>
-          <Chip size="lg" pressed={scope.filials.length === 0} onClick={() => void controls.setFilials([])}>
-            {t("filial.all")}
-          </Chip>
-          {controls.filials.map((filial) => (
-            <Chip
-              key={filial.id}
-              size="lg"
-              pressed={scope.filials.includes(filial.id)}
-              onClick={() => controls.toggleFilial(filial.id)}
-            >
-              {filial.name}
-            </Chip>
-          ))}
-        </SheetGroup>
-        <SheetGroup title={t("compareLabel")}>
-          {COMPARE_MODES.map((mode: CompareMode) => (
-            <Chip
-              key={mode}
-              size="lg"
-              pressed={scope.compare === mode}
-              onClick={() => void controls.setCompare(mode)}
-            >
-              {t(`compareOption.${mode}`)}
-            </Chip>
-          ))}
-        </SheetGroup>
+        {periodOnly ? null : (
+          <>
+            <SheetGroup title={t("filialLabel")}>
+              <Chip
+                size="lg"
+                pressed={scope.filials.length === 0}
+                onClick={() => void controls.setFilials([])}
+              >
+                {t("filial.all")}
+              </Chip>
+              {controls.filials.map((filial) => (
+                <Chip
+                  key={filial.id}
+                  size="lg"
+                  pressed={scope.filials.includes(filial.id)}
+                  onClick={() => controls.toggleFilial(filial.id)}
+                >
+                  {filial.name}
+                </Chip>
+              ))}
+            </SheetGroup>
+            <SheetGroup title={t("compareLabel")}>
+              {COMPARE_MODES.map((mode: CompareMode) => (
+                <Chip
+                  key={mode}
+                  size="lg"
+                  pressed={scope.compare === mode}
+                  onClick={() => void controls.setCompare(mode)}
+                >
+                  {t(`compareOption.${mode}`)}
+                </Chip>
+              ))}
+            </SheetGroup>
+          </>
+        )}
         <Button intent="primary" size="lg" className="mt-4.5 w-full" onClick={() => setOpen(false)}>
           {t("done")}
         </Button>

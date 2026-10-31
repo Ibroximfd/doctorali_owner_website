@@ -4,32 +4,18 @@
   "home": "Doctor Ali Nazorat — bosh sahifa",
   "product": "Nazorat",
   "groups": {
-    "main": "Asosiy",
-    "business": "Biznes",
-    "growth": "O'sish",
-    "control": "Nazorat"
+    "main": "Boshqaruv",
+    "control": "Yordamchi"
   },
   "items": {
     "overview": "Umumiy",
-    "issues": "Muammolar markazi",
-    "ai": "AI tahlil",
-    "forecast": "Prognoz",
-    "orders": "Buyurtmalar",
+    "filials": "Filiallar",
     "finance": "Moliya",
-    "clinic": "Klinika",
-    "logistics": "Yetkazib berish",
-    "warehouse": "Ombor",
-    "settlements": "Hisob-kitob",
-    "staff": "Xodimlar reytingi",
-    "sales": "Sotuv jamoasi",
-    "app": "Mobil ilova",
-    "products": "Mahsulotlar",
-    "customers": "Mijozlar",
-    "doctors": "Shifokorlar",
-    "alerts": "Signallar",
-    "reports": "Hisobotlar",
-    "system": "Tizim holati",
-    "access": "Ruxsatlar",
+    "analytics": "Analitika",
+    "app": "Ilova",
+    "staff": "Xodimlar",
+    "warehouse": "Sklad",
+    "ai": "AI tahlil",
     "settings": "Sozlamalar"
   },
   "more": "Yana",
@@ -37,15 +23,12 @@
   "toggleSidebar": "Yon panelni yig'ish yoki ochish",
   "toggleTheme": "Yorug' / qorong'i mavzu",
   "search": "Qidirish",
-  "searchPlaceholder": "Bo'lim yoki buyurtma raqami, telefon, ism…",
-  "searchOrders": "Buyurtmalardan qidirish: «{query}»",
+  "searchPlaceholder": "Bo'lim nomi…",
   "sections": "Bo'limlar",
-  "live": "Jonli",
-  "alertsCount": "Signallar: {count} ta ochiq",
   "logout": "Chiqish",
   "userFallback": "Boshliq",
   "roles": {
-    "owner": "Egasi · faqat ko'rish",
+    "owner": "Egasi",
     "viewer": "Kuzatuvchi · faqat ko'rish"
   }
 }

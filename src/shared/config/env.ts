@@ -6,20 +6,13 @@ import { z } from "zod";
  */
 const schema = z.object({
   NEXT_PUBLIC_WS_URL: z.string().url().optional(),
-  NEXT_PUBLIC_TELEGRAM_BOT_USERNAME: z
-    .string()
-    .regex(/^[A-Za-z0-9_]{5,32}$/)
-    .optional(),
 });
 
 const parsed = schema.parse({
   // Next `NEXT_PUBLIC_*` ni faqat to'liq yozilgan `process.env.X` ko'rinishida inline qiladi.
   NEXT_PUBLIC_WS_URL: process.env.NEXT_PUBLIC_WS_URL || undefined,
-  NEXT_PUBLIC_TELEGRAM_BOT_USERNAME: process.env.NEXT_PUBLIC_TELEGRAM_BOT_USERNAME || undefined,
 });
 
 export const env = {
   wsUrl: parsed.NEXT_PUBLIC_WS_URL ?? null,
-  /** «Telegram ichida oching» sahifasidagi bot havolasi uchun (ixtiyoriy). */
-  telegramBotUsername: parsed.NEXT_PUBLIC_TELEGRAM_BOT_USERNAME ?? null,
 } as const;

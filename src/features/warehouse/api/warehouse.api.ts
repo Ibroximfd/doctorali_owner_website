@@ -1,37 +1,97 @@
-import { parseEnvelope, timeseriesSchema, type Envelope, type Timeseries } from "@/shared/lib/envelope";
-import { apiGet, type QueryParams } from "@/shared/lib/http";
+import { parseJson } from "@/shared/lib/envelope";
+import { apiGet, apiSend, skladGet } from "@/shared/lib/http";
 
 import {
-  salesMixSchema,
+  documentSchema,
+  grantsResultSchema,
+  grantsSchema,
+  itemsSchema,
+  ledgerSchema,
+  ledgerSummarySchema,
+  overviewSchema,
+  skladsSchema,
+  stockPageSchema,
   stockSchema,
-  warehouseSummarySchema,
-  warehousesSchema,
-  type SalesMix,
-  type StockRow,
-  type Warehouse,
-  type WarehouseSummary,
+  type FilialGrants,
+  type Ledger,
+  type SkladDocument,
 } from "../model/warehouse.schema";
 
-export const loadWarehouseSummary = async (params: QueryParams): Promise<Envelope<WarehouseSummary>> =>
-  parseEnvelope(warehouseSummarySchema, await apiGet("warehouse/summary/", params));
+/** Sklad API — logist saytidagi bilan bir xil (`/api/sklad/*`, v2 §2.10); Owner faqat o'qiydi. */
 
-export const loadWarehouses = async (params: QueryParams): Promise<Envelope<Warehouse[]>> =>
-  parseEnvelope(warehousesSchema, await apiGet("warehouse/warehouses/", params));
+export const loadSklads = async () => parseJson(skladsSchema, await skladGet("sklads/"));
+export const loadItems = async () => parseJson(itemsSchema, await skladGet("items/", { pagination: false }));
+/** Juda katta bo'lsa ham oxirigacha: sahifalar soni cheklangan (cheksiz sikl bo'lmasin). */
+const STOCK_MAX_PAGES = 20;
+const STOCK_PAGE_SIZE = 200;
 
-/** `warehouse` berilmasa — hamma omborlar qatori. */
-export const loadStock = async (
-  params: QueryParams,
-  warehouse: number | null,
-): Promise<Envelope<StockRow[]>> =>
-  parseEnvelope(
-    stockSchema,
-    await apiGet("warehouse/stock/", { ...params, warehouse: warehouse ?? undefined }),
+/**
+ * Qoldiq to'liq kerak (xarita, yig'indi). `pagination=false` massiv qaytaradi; jonli javob
+ * sahifali (`{count, next, results}`) bo'lsa — `next` tugaguncha yig'iladi.
+ */
+export const loadStock = async () => {
+  const first = await skladGet("stock/", { pagination: false, page_size: STOCK_PAGE_SIZE });
+  if (Array.isArray(first)) return parseJson(stockSchema, first);
+  let page = stockPageSchema.parse(first);
+  const rows = [...page.results];
+  for (let index = 2; page.next !== null && index <= STOCK_MAX_PAGES; index += 1) {
+    page = stockPageSchema.parse(await skladGet("stock/", { page: index, page_size: STOCK_PAGE_SIZE }));
+    rows.push(...page.results);
+  }
+  return parseJson(stockSchema, rows);
+};
+export const loadOverview = async () => parseJson(overviewSchema, await skladGet("overview/"));
+
+export type Range = { dateFrom: string; dateTo: string };
+
+export const loadLedgerSummary = async (range: Range) =>
+  parseJson(
+    ledgerSummarySchema,
+    await skladGet("ledger/summary/", { date_from: range.dateFrom, date_to: range.dateTo }),
   );
 
-/** Kirim va chiqim (dona): `inbound`, `outbound` seriyalari. */
-export const loadMovements = async (params: QueryParams): Promise<Envelope<Timeseries>> =>
-  parseEnvelope(timeseriesSchema, await apiGet("warehouse/movements/", params));
+export type LedgerFilters = {
+  from: string | null;
+  to: string | null;
+  region: string | null;
+  /** Sklad (B-8b `?sklad=`) — uning viloyatlaridagi harakatlar. */
+  sklad: number | null;
+  item: number | null;
+  /** Kim (B-8b `?actor_kind=`): `logist | chief_courier | courier | system`. */
+  actor: string | null;
+  type: string | null;
+  page: number;
+};
 
-/** Chiqim tarkibi: to'liq narx, chegirma va sovg'a (davr bo'yicha). */
-export const loadSalesMix = async (params: QueryParams): Promise<Envelope<SalesMix>> =>
-  parseEnvelope(salesMixSchema, await apiGet("warehouse/sales-mix/", params));
+export const LEDGER_PAGE_SIZE = 20;
+
+export const loadLedger = async (filters: LedgerFilters): Promise<Ledger> =>
+  parseJson(
+    ledgerSchema,
+    await skladGet("ledger/", {
+      date_from: filters.from ?? undefined,
+      date_to: filters.to ?? undefined,
+      region: filters.region ?? undefined,
+      sklad: filters.sklad ?? undefined,
+      item: filters.item ?? undefined,
+      actor_kind: filters.actor ?? undefined,
+      movement_type: filters.type ?? undefined,
+      page: filters.page,
+      page_size: LEDGER_PAGE_SIZE,
+    }),
+  );
+
+export const loadDocument = async (id: number): Promise<SkladDocument> =>
+  parseJson(documentSchema, await skladGet(`documents/${id}/`));
+
+/* ---------- mahsulot dopuski (owner, v2 §2.9) ---------- */
+
+export const loadFilialGrants = async (filialId: number): Promise<FilialGrants> =>
+  parseJson(grantsSchema, await apiGet(`structure/sklad-grants/${filialId}/`));
+
+/** Filialning dopusk to'plamini almashtiradi (idempotent). */
+export const putFilialGrants = async ({ filialId, itemIds }: { filialId: number; itemIds: number[] }) =>
+  parseJson(
+    grantsResultSchema,
+    await apiSend("put", `structure/sklad-grants/${filialId}/`, { item_ids: itemIds }),
+  );

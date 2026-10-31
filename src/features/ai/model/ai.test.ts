@@ -1,80 +1,72 @@
 import { describe, expect, it } from "vitest";
 
 import { parseJson } from "@/shared/lib/envelope";
-import { mockGet } from "@/shared/testing/mock-api";
+import { mockGet, mockSend } from "@/shared/testing/mock-api";
 
-import {
-  attachmentHref,
-  confidenceLevel,
-  hasPendingReply,
-  healthTone,
-  isKnownBlock,
-  sortRecommendations,
-} from "./ai.rules";
-import {
-  aiSummarySchema,
-  checksSchema,
-  findingsResponseSchema,
-  messageSchema,
-  recommendationsSchema,
-  reportsSchema,
-} from "./ai.schema";
+import { findingAdvice, findingDetail, findingTitle, groupBySeverity, summaryLines } from "./ai.rules";
+import { aiStatusSchema, analysisSchema, chatAnswerSchema } from "./ai.schema";
 
-describe("ai contract", () => {
-  it("every read endpoint matches its schema", () => {
-    expect(() => {
-      parseJson(aiSummarySchema, mockGet("ai/summary/"));
-      parseJson(findingsResponseSchema, mockGet("ai/findings/", { status: "all" }));
-      parseJson(checksSchema, mockGet("ai/checks/"));
-      parseJson(reportsSchema, mockGet("ai/reports/"));
-      parseJson(recommendationsSchema, mockGet("ai/recommendations/"));
-    }).not.toThrow();
+describe("owner AI contract (backend v2 §8)", () => {
+  it("status, analysis and chat match their schemas", () => {
+    expect(parseJson(aiStatusSchema, mockGet("ai/status/")).enabled).toBe(true);
+    const analysis = analysisSchema.parse(mockGet("ai/analysis/"));
+    expect(analysis.findings.map((finding) => finding.severity)).toEqual(
+      [...analysis.findings.map((finding) => finding.severity)].sort(
+        (a, b) => ["urgent", "attention", "good"].indexOf(a) - ["urgent", "attention", "good"].indexOf(b),
+      ),
+    );
+    const answer = parseJson(
+      chatAnswerSchema,
+      mockSend("POST", "ai/chat/", { question: "Pul qayerda?" }).json,
+    );
+    expect(answer.toolsUsed).toContain("finance_summary");
+    expect(answer.period).not.toBeNull();
   });
 
-  it("money at risk equals the open findings' amounts", () => {
-    const summary = parseJson(aiSummarySchema, mockGet("ai/summary/"));
-    const open = parseJson(findingsResponseSchema, mockGet("ai/findings/", { status: "open" })).results;
-    expect(open.reduce((sum, row) => sum + (row.amountAtRisk ?? 0), 0)).toBe(summary.moneyAtRisk);
-  });
-
-  it("keeps an unknown chat block instead of failing", () => {
-    const message = parseJson(messageSchema, {
-      id: 1,
-      role: "assistant",
-      status: "done",
-      text: "",
-      created_at: "2026-10-28T10:00:00+05:00",
-      blocks: [
-        { type: "kpis", items: [] },
-        { type: "hologram", foo: 1 },
-      ],
+  it("refuses a question that is too short", () => {
+    expect(mockSend("POST", "ai/chat/", { question: "a" })).toMatchObject({
+      status: 400,
+      json: { code: "validation_error" },
     });
-    expect(message.blocks.filter(isKnownBlock)).toHaveLength(1);
-    expect(message.attachments).toEqual([]);
+  });
+
+  it("accepts an analysis without the AI summary (no key)", () => {
+    const parsed = analysisSchema.parse({
+      generated_at: "2026-10-31T09:00:00Z",
+      findings: [],
+      ai_summary: null,
+    });
+    expect(parsed.ai_summary).toBeNull();
+    expect(parsed.warehouse_findings).toEqual([]);
   });
 });
 
 describe("ai rules", () => {
-  it("maps confidence and health to levels", () => {
-    expect(confidenceLevel(86)).toBe("high");
-    expect(confidenceLevel(50)).toBe("medium");
-    expect(confidenceLevel(10)).toBe("low");
-    expect(healthTone(82)).toBe("good");
-    expect(healthTone(58)).toBe("crit");
-  });
-
-  it("detects pending replies and builds file links", () => {
-    expect(hasPendingReply(undefined)).toBe(false);
-    expect(hasPendingReply({ messages: [{ status: "pending" } as never] })).toBe(true);
-    expect(attachmentHref(33)).toBe("/api/owner/ai/attachments/33/file/");
-  });
-
-  it("orders recommendations by priority then horizon", () => {
-    const sorted = sortRecommendations([
-      { priority: 2, horizon: "now" },
-      { priority: 1, horizon: "month" },
-      { priority: 1, horizon: "now" },
+  it("groups findings by severity in the documented order, unknown last", () => {
+    const groups = groupBySeverity([
+      { severity: "good" },
+      { severity: "weird" },
+      { severity: "urgent" },
+      { severity: "attention" },
     ]);
-    expect(sorted.map((row) => `${row.priority}-${row.horizon}`)).toEqual(["1-now", "1-month", "2-now"]);
+    expect(groups.map((group) => group.severity)).toEqual(["urgent", "attention", "good", "other"]);
+  });
+
+  it("reads title, detail and advice from the known field names", () => {
+    const finding = {
+      severity: "urgent",
+      message: "Kassa farqi",
+      description: "3 kun",
+      action: "Solishtiring",
+    };
+    expect(findingTitle(finding)).toBe("Kassa farqi");
+    expect(findingDetail(finding)).toBe("3 kun");
+    expect(findingAdvice(finding)).toBe("Solishtiring");
+    expect(findingTitle({ severity: "good" })).toBe("good");
+  });
+
+  it("splits the AI summary into points", () => {
+    expect(summaryLines("1. Bir\n2) Ikki\n\n- Uch")).toEqual(["Bir", "Ikki", "Uch"]);
+    expect(summaryLines(null)).toEqual([]);
   });
 });

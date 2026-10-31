@@ -17,38 +17,42 @@ const card = (title: string): HTMLElement => {
 describe("StaffScreen", () => {
   useMockApi();
 
-  it("ranks operators with conversion and cancel rate, best first", async () => {
+  it("ranks operators from sales/operators by sales, best first", async () => {
     await renderWithProviders(<StaffScreen />);
 
-    expect(screen.getByRole("heading", { level: 1, name: "Xodimlar reytingi" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1, name: "Xodimlar nazorati" })).toBeInTheDocument();
     const board = card("Reyting");
     expect((await within(board).findAllByText("Dilnoza Karimova")).length).toBeGreaterThan(0);
-    expect(within(board).getAllByText("Konversiya").length).toBeGreaterThan(0);
-    expect(within(board).getAllByText("ma'lumot kam").length).toBeGreaterThan(0);
+    expect(within(board).getAllByText("Sotuv summasi").length).toBeGreaterThan(0);
+    // jamoa = filial
+    expect(screen.getByRole("button", { name: /Toshkent 2/ })).toBeInTheDocument();
   });
 
-  it("switches to couriers and opens a profile with ratings", async () => {
+  it("opens an operator profile compared with the filial team", async () => {
     const user = userEvent.setup();
     await renderWithProviders(<StaffScreen />);
 
-    await user.click(screen.getByRole("tab", { name: "Kuryerlar" }));
     const board = card("Reyting");
-    expect((await within(board).findAllByText("Jasur Karimov")).length).toBeGreaterThan(0);
-
-    const [row] = within(board).getAllByRole("button", { name: "Jasur Karimov profilini ochish" });
+    const [row] = await within(board).findAllByRole("button", { name: "Dilnoza Karimova profilini ochish" });
     if (!row) throw new Error("qator yo'q");
     await user.click(row);
     const dialog = await screen.findByRole("dialog");
-    expect(await within(dialog).findByText("Mijoz baholari")).toBeInTheDocument();
-    expect(within(dialog).getByText("Juda xushmuomala", { exact: false })).toBeInTheDocument();
+    expect(await within(dialog).findByText("Jamoa o'rtachasi bilan")).toBeInTheDocument();
   });
 
-  it("puts the best three on the podium and explains the leader in the hero", async () => {
+  it("marks logists as waiting for the backend", async () => {
+    const user = userEvent.setup();
+    await renderWithProviders(<StaffScreen />);
+
+    await user.click(screen.getByRole("tab", { name: "Logistlar" }));
+    expect((await screen.findAllByText(/backend/i)).length).toBeGreaterThan(0);
+  });
+
+  it("puts the best three on the podium", async () => {
     await renderWithProviders(<StaffScreen />);
 
     const podium = await screen.findByRole("region", { name: "Eng yaxshi uchlik" });
     expect(await within(podium).findByText("Dilnoza Karimova")).toBeInTheDocument();
     expect(within(podium).getAllByRole("listitem")).toHaveLength(3);
-    expect(await screen.findByText(/jamoa o'rtachasidan/)).toBeInTheDocument();
   });
 });

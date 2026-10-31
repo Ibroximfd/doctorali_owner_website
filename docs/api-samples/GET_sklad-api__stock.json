@@ -1,0 +1,3042 @@
+[
+  {
+    "location": {
+      "id": 100,
+      "name": "Toshkent shahri ombori",
+      "kind": "region",
+      "region": "toshkent_shahar"
+    },
+    "item": {
+      "id": 11,
+      "name": "Gepatofit",
+      "sku": "MG-11",
+      "package_size": 12
+    },
+    "on_hand": 260,
+    "min_quantity": 100,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 100,
+      "name": "Toshkent shahri ombori",
+      "kind": "region",
+      "region": "toshkent_shahar"
+    },
+    "item": {
+      "id": 12,
+      "name": "Kardiomed",
+      "sku": "MG-12",
+      "package_size": 12
+    },
+    "on_hand": 225,
+    "min_quantity": 80,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 100,
+      "name": "Toshkent shahri ombori",
+      "kind": "region",
+      "region": "toshkent_shahar"
+    },
+    "item": {
+      "id": 13,
+      "name": "Artroflex",
+      "sku": "MG-13",
+      "package_size": 12
+    },
+    "on_hand": 130,
+    "min_quantity": 60,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 100,
+      "name": "Toshkent shahri ombori",
+      "kind": "region",
+      "region": "toshkent_shahar"
+    },
+    "item": {
+      "id": 14,
+      "name": "Gastrofit",
+      "sku": "MG-14",
+      "package_size": 12
+    },
+    "on_hand": 105,
+    "min_quantity": 50,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 100,
+      "name": "Toshkent shahri ombori",
+      "kind": "region",
+      "region": "toshkent_shahar"
+    },
+    "item": {
+      "id": 15,
+      "name": "Immunoxit",
+      "sku": "MG-15",
+      "package_size": 12
+    },
+    "on_hand": 190,
+    "min_quantity": 70,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 100,
+      "name": "Toshkent shahri ombori",
+      "kind": "region",
+      "region": "toshkent_shahar"
+    },
+    "item": {
+      "id": 16,
+      "name": "Diabefit",
+      "sku": "MG-16",
+      "package_size": 12
+    },
+    "on_hand": 155,
+    "min_quantity": 60,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 100,
+      "name": "Toshkent shahri ombori",
+      "kind": "region",
+      "region": "toshkent_shahar"
+    },
+    "item": {
+      "id": 17,
+      "name": "Neyrovit",
+      "sku": "MG-17",
+      "package_size": 12
+    },
+    "on_hand": 120,
+    "min_quantity": 45,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 100,
+      "name": "Toshkent shahri ombori",
+      "kind": "region",
+      "region": "toshkent_shahar"
+    },
+    "item": {
+      "id": 18,
+      "name": "Prostavit",
+      "sku": "MG-18",
+      "package_size": 12
+    },
+    "on_hand": 60,
+    "min_quantity": 25,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 101,
+      "name": "Toshkent viloyati ombori",
+      "kind": "region",
+      "region": "toshkent"
+    },
+    "item": {
+      "id": 11,
+      "name": "Gepatofit",
+      "sku": "MG-11",
+      "package_size": 12
+    },
+    "on_hand": 260,
+    "min_quantity": 100,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 101,
+      "name": "Toshkent viloyati ombori",
+      "kind": "region",
+      "region": "toshkent"
+    },
+    "item": {
+      "id": 12,
+      "name": "Kardiomed",
+      "sku": "MG-12",
+      "package_size": 12
+    },
+    "on_hand": 225,
+    "min_quantity": 80,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 101,
+      "name": "Toshkent viloyati ombori",
+      "kind": "region",
+      "region": "toshkent"
+    },
+    "item": {
+      "id": 13,
+      "name": "Artroflex",
+      "sku": "MG-13",
+      "package_size": 12
+    },
+    "on_hand": 130,
+    "min_quantity": 60,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 101,
+      "name": "Toshkent viloyati ombori",
+      "kind": "region",
+      "region": "toshkent"
+    },
+    "item": {
+      "id": 14,
+      "name": "Gastrofit",
+      "sku": "MG-14",
+      "package_size": 12
+    },
+    "on_hand": 105,
+    "min_quantity": 50,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 101,
+      "name": "Toshkent viloyati ombori",
+      "kind": "region",
+      "region": "toshkent"
+    },
+    "item": {
+      "id": 15,
+      "name": "Immunoxit",
+      "sku": "MG-15",
+      "package_size": 12
+    },
+    "on_hand": 190,
+    "min_quantity": 70,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 101,
+      "name": "Toshkent viloyati ombori",
+      "kind": "region",
+      "region": "toshkent"
+    },
+    "item": {
+      "id": 16,
+      "name": "Diabefit",
+      "sku": "MG-16",
+      "package_size": 12
+    },
+    "on_hand": 155,
+    "min_quantity": 60,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 101,
+      "name": "Toshkent viloyati ombori",
+      "kind": "region",
+      "region": "toshkent"
+    },
+    "item": {
+      "id": 17,
+      "name": "Neyrovit",
+      "sku": "MG-17",
+      "package_size": 12
+    },
+    "on_hand": 120,
+    "min_quantity": 45,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 101,
+      "name": "Toshkent viloyati ombori",
+      "kind": "region",
+      "region": "toshkent"
+    },
+    "item": {
+      "id": 18,
+      "name": "Prostavit",
+      "sku": "MG-18",
+      "package_size": 12
+    },
+    "on_hand": 60,
+    "min_quantity": 25,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 102,
+      "name": "Samarqand ombori",
+      "kind": "region",
+      "region": "samarqand"
+    },
+    "item": {
+      "id": 11,
+      "name": "Gepatofit",
+      "sku": "MG-11",
+      "package_size": 12
+    },
+    "on_hand": 87,
+    "min_quantity": 34,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 102,
+      "name": "Samarqand ombori",
+      "kind": "region",
+      "region": "samarqand"
+    },
+    "item": {
+      "id": 12,
+      "name": "Kardiomed",
+      "sku": "MG-12",
+      "package_size": 12
+    },
+    "on_hand": 60,
+    "min_quantity": 27,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 102,
+      "name": "Samarqand ombori",
+      "kind": "region",
+      "region": "samarqand"
+    },
+    "item": {
+      "id": 13,
+      "name": "Artroflex",
+      "sku": "MG-13",
+      "package_size": 12
+    },
+    "on_hand": 47,
+    "min_quantity": 20,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 102,
+      "name": "Samarqand ombori",
+      "kind": "region",
+      "region": "samarqand"
+    },
+    "item": {
+      "id": 14,
+      "name": "Gastrofit",
+      "sku": "MG-14",
+      "package_size": 12
+    },
+    "on_hand": 40,
+    "min_quantity": 17,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 102,
+      "name": "Samarqand ombori",
+      "kind": "region",
+      "region": "samarqand"
+    },
+    "item": {
+      "id": 15,
+      "name": "Immunoxit",
+      "sku": "MG-15",
+      "package_size": 12
+    },
+    "on_hand": 32,
+    "min_quantity": 17,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 102,
+      "name": "Samarqand ombori",
+      "kind": "region",
+      "region": "samarqand"
+    },
+    "item": {
+      "id": 16,
+      "name": "Diabefit",
+      "sku": "MG-16",
+      "package_size": 12
+    },
+    "on_hand": 24,
+    "min_quantity": 14,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 102,
+      "name": "Samarqand ombori",
+      "kind": "region",
+      "region": "samarqand"
+    },
+    "item": {
+      "id": 17,
+      "name": "Neyrovit",
+      "sku": "MG-17",
+      "package_size": 12
+    },
+    "on_hand": 19,
+    "min_quantity": 10,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 102,
+      "name": "Samarqand ombori",
+      "kind": "region",
+      "region": "samarqand"
+    },
+    "item": {
+      "id": 18,
+      "name": "Prostavit",
+      "sku": "MG-18",
+      "package_size": 12
+    },
+    "on_hand": 10,
+    "min_quantity": 7,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 103,
+      "name": "Farg'ona ombori",
+      "kind": "region",
+      "region": "fargona"
+    },
+    "item": {
+      "id": 11,
+      "name": "Gepatofit",
+      "sku": "MG-11",
+      "package_size": 12
+    },
+    "on_hand": 214,
+    "min_quantity": 67,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 103,
+      "name": "Farg'ona ombori",
+      "kind": "region",
+      "region": "fargona"
+    },
+    "item": {
+      "id": 12,
+      "name": "Kardiomed",
+      "sku": "MG-12",
+      "package_size": 12
+    },
+    "on_hand": 137,
+    "min_quantity": 54,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 103,
+      "name": "Farg'ona ombori",
+      "kind": "region",
+      "region": "fargona"
+    },
+    "item": {
+      "id": 13,
+      "name": "Artroflex",
+      "sku": "MG-13",
+      "package_size": 12
+    },
+    "on_hand": 127,
+    "min_quantity": 40,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 103,
+      "name": "Farg'ona ombori",
+      "kind": "region",
+      "region": "fargona"
+    },
+    "item": {
+      "id": 14,
+      "name": "Gastrofit",
+      "sku": "MG-14",
+      "package_size": 12
+    },
+    "on_hand": 100,
+    "min_quantity": 34,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 103,
+      "name": "Farg'ona ombori",
+      "kind": "region",
+      "region": "fargona"
+    },
+    "item": {
+      "id": 15,
+      "name": "Immunoxit",
+      "sku": "MG-15",
+      "package_size": 12
+    },
+    "on_hand": 40,
+    "min_quantity": 20,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 103,
+      "name": "Farg'ona ombori",
+      "kind": "region",
+      "region": "fargona"
+    },
+    "item": {
+      "id": 16,
+      "name": "Diabefit",
+      "sku": "MG-16",
+      "package_size": 12
+    },
+    "on_hand": 30,
+    "min_quantity": 17,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 103,
+      "name": "Farg'ona ombori",
+      "kind": "region",
+      "region": "fargona"
+    },
+    "item": {
+      "id": 17,
+      "name": "Neyrovit",
+      "sku": "MG-17",
+      "package_size": 12
+    },
+    "on_hand": 25,
+    "min_quantity": 14,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 103,
+      "name": "Farg'ona ombori",
+      "kind": "region",
+      "region": "fargona"
+    },
+    "item": {
+      "id": 18,
+      "name": "Prostavit",
+      "sku": "MG-18",
+      "package_size": 12
+    },
+    "on_hand": 14,
+    "min_quantity": 10,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 104,
+      "name": "Andijon ombori",
+      "kind": "region",
+      "region": "andijon"
+    },
+    "item": {
+      "id": 11,
+      "name": "Gepatofit",
+      "sku": "MG-11",
+      "package_size": 12
+    },
+    "on_hand": 213,
+    "min_quantity": 66,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 104,
+      "name": "Andijon ombori",
+      "kind": "region",
+      "region": "andijon"
+    },
+    "item": {
+      "id": 12,
+      "name": "Kardiomed",
+      "sku": "MG-12",
+      "package_size": 12
+    },
+    "on_hand": 136,
+    "min_quantity": 53,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 104,
+      "name": "Andijon ombori",
+      "kind": "region",
+      "region": "andijon"
+    },
+    "item": {
+      "id": 13,
+      "name": "Artroflex",
+      "sku": "MG-13",
+      "package_size": 12
+    },
+    "on_hand": 126,
+    "min_quantity": 40,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 104,
+      "name": "Andijon ombori",
+      "kind": "region",
+      "region": "andijon"
+    },
+    "item": {
+      "id": 14,
+      "name": "Gastrofit",
+      "sku": "MG-14",
+      "package_size": 12
+    },
+    "on_hand": 100,
+    "min_quantity": 33,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 104,
+      "name": "Andijon ombori",
+      "kind": "region",
+      "region": "andijon"
+    },
+    "item": {
+      "id": 15,
+      "name": "Immunoxit",
+      "sku": "MG-15",
+      "package_size": 12
+    },
+    "on_hand": 40,
+    "min_quantity": 20,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 104,
+      "name": "Andijon ombori",
+      "kind": "region",
+      "region": "andijon"
+    },
+    "item": {
+      "id": 16,
+      "name": "Diabefit",
+      "sku": "MG-16",
+      "package_size": 12
+    },
+    "on_hand": 30,
+    "min_quantity": 16,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 104,
+      "name": "Andijon ombori",
+      "kind": "region",
+      "region": "andijon"
+    },
+    "item": {
+      "id": 17,
+      "name": "Neyrovit",
+      "sku": "MG-17",
+      "package_size": 12
+    },
+    "on_hand": 25,
+    "min_quantity": 13,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 104,
+      "name": "Andijon ombori",
+      "kind": "region",
+      "region": "andijon"
+    },
+    "item": {
+      "id": 18,
+      "name": "Prostavit",
+      "sku": "MG-18",
+      "package_size": 12
+    },
+    "on_hand": 13,
+    "min_quantity": 10,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 105,
+      "name": "Namangan ombori",
+      "kind": "region",
+      "region": "namangan"
+    },
+    "item": {
+      "id": 11,
+      "name": "Gepatofit",
+      "sku": "MG-11",
+      "package_size": 12
+    },
+    "on_hand": 213,
+    "min_quantity": 67,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 105,
+      "name": "Namangan ombori",
+      "kind": "region",
+      "region": "namangan"
+    },
+    "item": {
+      "id": 12,
+      "name": "Kardiomed",
+      "sku": "MG-12",
+      "package_size": 12
+    },
+    "on_hand": 137,
+    "min_quantity": 53,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 105,
+      "name": "Namangan ombori",
+      "kind": "region",
+      "region": "namangan"
+    },
+    "item": {
+      "id": 13,
+      "name": "Artroflex",
+      "sku": "MG-13",
+      "package_size": 12
+    },
+    "on_hand": 127,
+    "min_quantity": 40,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 105,
+      "name": "Namangan ombori",
+      "kind": "region",
+      "region": "namangan"
+    },
+    "item": {
+      "id": 14,
+      "name": "Gastrofit",
+      "sku": "MG-14",
+      "package_size": 12
+    },
+    "on_hand": 100,
+    "min_quantity": 33,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 105,
+      "name": "Namangan ombori",
+      "kind": "region",
+      "region": "namangan"
+    },
+    "item": {
+      "id": 15,
+      "name": "Immunoxit",
+      "sku": "MG-15",
+      "package_size": 12
+    },
+    "on_hand": 40,
+    "min_quantity": 20,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 105,
+      "name": "Namangan ombori",
+      "kind": "region",
+      "region": "namangan"
+    },
+    "item": {
+      "id": 16,
+      "name": "Diabefit",
+      "sku": "MG-16",
+      "package_size": 12
+    },
+    "on_hand": 30,
+    "min_quantity": 17,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 105,
+      "name": "Namangan ombori",
+      "kind": "region",
+      "region": "namangan"
+    },
+    "item": {
+      "id": 17,
+      "name": "Neyrovit",
+      "sku": "MG-17",
+      "package_size": 12
+    },
+    "on_hand": 25,
+    "min_quantity": 13,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 105,
+      "name": "Namangan ombori",
+      "kind": "region",
+      "region": "namangan"
+    },
+    "item": {
+      "id": 18,
+      "name": "Prostavit",
+      "sku": "MG-18",
+      "package_size": 12
+    },
+    "on_hand": 13,
+    "min_quantity": 10,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 106,
+      "name": "Qashqadaryo ombori",
+      "kind": "region",
+      "region": "qashqadaryo"
+    },
+    "item": {
+      "id": 11,
+      "name": "Gepatofit",
+      "sku": "MG-11",
+      "package_size": 12
+    },
+    "on_hand": 75,
+    "min_quantity": 35,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 106,
+      "name": "Qashqadaryo ombori",
+      "kind": "region",
+      "region": "qashqadaryo"
+    },
+    "item": {
+      "id": 12,
+      "name": "Kardiomed",
+      "sku": "MG-12",
+      "package_size": 12
+    },
+    "on_hand": 12,
+    "min_quantity": 30,
+    "is_low": true,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 106,
+      "name": "Qashqadaryo ombori",
+      "kind": "region",
+      "region": "qashqadaryo"
+    },
+    "item": {
+      "id": 13,
+      "name": "Artroflex",
+      "sku": "MG-13",
+      "package_size": 12
+    },
+    "on_hand": 45,
+    "min_quantity": 20,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 106,
+      "name": "Qashqadaryo ombori",
+      "kind": "region",
+      "region": "qashqadaryo"
+    },
+    "item": {
+      "id": 14,
+      "name": "Gastrofit",
+      "sku": "MG-14",
+      "package_size": 12
+    },
+    "on_hand": 35,
+    "min_quantity": 18,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 106,
+      "name": "Qashqadaryo ombori",
+      "kind": "region",
+      "region": "qashqadaryo"
+    },
+    "item": {
+      "id": 15,
+      "name": "Immunoxit",
+      "sku": "MG-15",
+      "package_size": 12
+    },
+    "on_hand": 30,
+    "min_quantity": 15,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 106,
+      "name": "Qashqadaryo ombori",
+      "kind": "region",
+      "region": "qashqadaryo"
+    },
+    "item": {
+      "id": 16,
+      "name": "Diabefit",
+      "sku": "MG-16",
+      "package_size": 12
+    },
+    "on_hand": 23,
+    "min_quantity": 13,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 106,
+      "name": "Qashqadaryo ombori",
+      "kind": "region",
+      "region": "qashqadaryo"
+    },
+    "item": {
+      "id": 17,
+      "name": "Neyrovit",
+      "sku": "MG-17",
+      "package_size": 12
+    },
+    "on_hand": 9,
+    "min_quantity": 10,
+    "is_low": true,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 106,
+      "name": "Qashqadaryo ombori",
+      "kind": "region",
+      "region": "qashqadaryo"
+    },
+    "item": {
+      "id": 18,
+      "name": "Prostavit",
+      "sku": "MG-18",
+      "package_size": 12
+    },
+    "on_hand": 10,
+    "min_quantity": 8,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 107,
+      "name": "Buxoro ombori",
+      "kind": "region",
+      "region": "buxoro"
+    },
+    "item": {
+      "id": 11,
+      "name": "Gepatofit",
+      "sku": "MG-11",
+      "package_size": 12
+    },
+    "on_hand": 48,
+    "min_quantity": 20,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 107,
+      "name": "Buxoro ombori",
+      "kind": "region",
+      "region": "buxoro"
+    },
+    "item": {
+      "id": 12,
+      "name": "Kardiomed",
+      "sku": "MG-12",
+      "package_size": 12
+    },
+    "on_hand": 30,
+    "min_quantity": 15,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 107,
+      "name": "Buxoro ombori",
+      "kind": "region",
+      "region": "buxoro"
+    },
+    "item": {
+      "id": 13,
+      "name": "Artroflex",
+      "sku": "MG-13",
+      "package_size": 12
+    },
+    "on_hand": 25,
+    "min_quantity": 12,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 107,
+      "name": "Buxoro ombori",
+      "kind": "region",
+      "region": "buxoro"
+    },
+    "item": {
+      "id": 14,
+      "name": "Gastrofit",
+      "sku": "MG-14",
+      "package_size": 12
+    },
+    "on_hand": 22,
+    "min_quantity": 10,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 107,
+      "name": "Buxoro ombori",
+      "kind": "region",
+      "region": "buxoro"
+    },
+    "item": {
+      "id": 15,
+      "name": "Immunoxit",
+      "sku": "MG-15",
+      "package_size": 12
+    },
+    "on_hand": 18,
+    "min_quantity": 9,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 107,
+      "name": "Buxoro ombori",
+      "kind": "region",
+      "region": "buxoro"
+    },
+    "item": {
+      "id": 16,
+      "name": "Diabefit",
+      "sku": "MG-16",
+      "package_size": 12
+    },
+    "on_hand": 17,
+    "min_quantity": 8,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 107,
+      "name": "Buxoro ombori",
+      "kind": "region",
+      "region": "buxoro"
+    },
+    "item": {
+      "id": 17,
+      "name": "Neyrovit",
+      "sku": "MG-17",
+      "package_size": 12
+    },
+    "on_hand": 10,
+    "min_quantity": 7,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 107,
+      "name": "Buxoro ombori",
+      "kind": "region",
+      "region": "buxoro"
+    },
+    "item": {
+      "id": 18,
+      "name": "Prostavit",
+      "sku": "MG-18",
+      "package_size": 12
+    },
+    "on_hand": 7,
+    "min_quantity": 4,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 108,
+      "name": "Surxondaryo ombori",
+      "kind": "region",
+      "region": "surxondaryo"
+    },
+    "item": {
+      "id": 11,
+      "name": "Gepatofit",
+      "sku": "MG-11",
+      "package_size": 12
+    },
+    "on_hand": 75,
+    "min_quantity": 35,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 108,
+      "name": "Surxondaryo ombori",
+      "kind": "region",
+      "region": "surxondaryo"
+    },
+    "item": {
+      "id": 12,
+      "name": "Kardiomed",
+      "sku": "MG-12",
+      "package_size": 12
+    },
+    "on_hand": 12,
+    "min_quantity": 30,
+    "is_low": true,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 108,
+      "name": "Surxondaryo ombori",
+      "kind": "region",
+      "region": "surxondaryo"
+    },
+    "item": {
+      "id": 13,
+      "name": "Artroflex",
+      "sku": "MG-13",
+      "package_size": 12
+    },
+    "on_hand": 45,
+    "min_quantity": 20,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 108,
+      "name": "Surxondaryo ombori",
+      "kind": "region",
+      "region": "surxondaryo"
+    },
+    "item": {
+      "id": 14,
+      "name": "Gastrofit",
+      "sku": "MG-14",
+      "package_size": 12
+    },
+    "on_hand": 35,
+    "min_quantity": 17,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 108,
+      "name": "Surxondaryo ombori",
+      "kind": "region",
+      "region": "surxondaryo"
+    },
+    "item": {
+      "id": 15,
+      "name": "Immunoxit",
+      "sku": "MG-15",
+      "package_size": 12
+    },
+    "on_hand": 30,
+    "min_quantity": 15,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 108,
+      "name": "Surxondaryo ombori",
+      "kind": "region",
+      "region": "surxondaryo"
+    },
+    "item": {
+      "id": 16,
+      "name": "Diabefit",
+      "sku": "MG-16",
+      "package_size": 12
+    },
+    "on_hand": 22,
+    "min_quantity": 12,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 108,
+      "name": "Surxondaryo ombori",
+      "kind": "region",
+      "region": "surxondaryo"
+    },
+    "item": {
+      "id": 17,
+      "name": "Neyrovit",
+      "sku": "MG-17",
+      "package_size": 12
+    },
+    "on_hand": 9,
+    "min_quantity": 10,
+    "is_low": true,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 108,
+      "name": "Surxondaryo ombori",
+      "kind": "region",
+      "region": "surxondaryo"
+    },
+    "item": {
+      "id": 18,
+      "name": "Prostavit",
+      "sku": "MG-18",
+      "package_size": 12
+    },
+    "on_hand": 10,
+    "min_quantity": 7,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 109,
+      "name": "Xorazm ombori",
+      "kind": "region",
+      "region": "xorazm"
+    },
+    "item": {
+      "id": 11,
+      "name": "Gepatofit",
+      "sku": "MG-11",
+      "package_size": 12
+    },
+    "on_hand": 47,
+    "min_quantity": 20,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 109,
+      "name": "Xorazm ombori",
+      "kind": "region",
+      "region": "xorazm"
+    },
+    "item": {
+      "id": 12,
+      "name": "Kardiomed",
+      "sku": "MG-12",
+      "package_size": 12
+    },
+    "on_hand": 30,
+    "min_quantity": 15,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 109,
+      "name": "Xorazm ombori",
+      "kind": "region",
+      "region": "xorazm"
+    },
+    "item": {
+      "id": 13,
+      "name": "Artroflex",
+      "sku": "MG-13",
+      "package_size": 12
+    },
+    "on_hand": 25,
+    "min_quantity": 11,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 109,
+      "name": "Xorazm ombori",
+      "kind": "region",
+      "region": "xorazm"
+    },
+    "item": {
+      "id": 14,
+      "name": "Gastrofit",
+      "sku": "MG-14",
+      "package_size": 12
+    },
+    "on_hand": 21,
+    "min_quantity": 10,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 109,
+      "name": "Xorazm ombori",
+      "kind": "region",
+      "region": "xorazm"
+    },
+    "item": {
+      "id": 15,
+      "name": "Immunoxit",
+      "sku": "MG-15",
+      "package_size": 12
+    },
+    "on_hand": 17,
+    "min_quantity": 9,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 109,
+      "name": "Xorazm ombori",
+      "kind": "region",
+      "region": "xorazm"
+    },
+    "item": {
+      "id": 16,
+      "name": "Diabefit",
+      "sku": "MG-16",
+      "package_size": 12
+    },
+    "on_hand": 16,
+    "min_quantity": 7,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 109,
+      "name": "Xorazm ombori",
+      "kind": "region",
+      "region": "xorazm"
+    },
+    "item": {
+      "id": 17,
+      "name": "Neyrovit",
+      "sku": "MG-17",
+      "package_size": 12
+    },
+    "on_hand": 10,
+    "min_quantity": 6,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 109,
+      "name": "Xorazm ombori",
+      "kind": "region",
+      "region": "xorazm"
+    },
+    "item": {
+      "id": 18,
+      "name": "Prostavit",
+      "sku": "MG-18",
+      "package_size": 12
+    },
+    "on_hand": 6,
+    "min_quantity": 4,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 110,
+      "name": "Jizzax ombori",
+      "kind": "region",
+      "region": "jizzax"
+    },
+    "item": {
+      "id": 11,
+      "name": "Gepatofit",
+      "sku": "MG-11",
+      "package_size": 12
+    },
+    "on_hand": 87,
+    "min_quantity": 33,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 110,
+      "name": "Jizzax ombori",
+      "kind": "region",
+      "region": "jizzax"
+    },
+    "item": {
+      "id": 12,
+      "name": "Kardiomed",
+      "sku": "MG-12",
+      "package_size": 12
+    },
+    "on_hand": 60,
+    "min_quantity": 27,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 110,
+      "name": "Jizzax ombori",
+      "kind": "region",
+      "region": "jizzax"
+    },
+    "item": {
+      "id": 13,
+      "name": "Artroflex",
+      "sku": "MG-13",
+      "package_size": 12
+    },
+    "on_hand": 47,
+    "min_quantity": 20,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 110,
+      "name": "Jizzax ombori",
+      "kind": "region",
+      "region": "jizzax"
+    },
+    "item": {
+      "id": 14,
+      "name": "Gastrofit",
+      "sku": "MG-14",
+      "package_size": 12
+    },
+    "on_hand": 40,
+    "min_quantity": 17,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 110,
+      "name": "Jizzax ombori",
+      "kind": "region",
+      "region": "jizzax"
+    },
+    "item": {
+      "id": 15,
+      "name": "Immunoxit",
+      "sku": "MG-15",
+      "package_size": 12
+    },
+    "on_hand": 32,
+    "min_quantity": 17,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 110,
+      "name": "Jizzax ombori",
+      "kind": "region",
+      "region": "jizzax"
+    },
+    "item": {
+      "id": 16,
+      "name": "Diabefit",
+      "sku": "MG-16",
+      "package_size": 12
+    },
+    "on_hand": 23,
+    "min_quantity": 13,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 110,
+      "name": "Jizzax ombori",
+      "kind": "region",
+      "region": "jizzax"
+    },
+    "item": {
+      "id": 17,
+      "name": "Neyrovit",
+      "sku": "MG-17",
+      "package_size": 12
+    },
+    "on_hand": 18,
+    "min_quantity": 10,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 110,
+      "name": "Jizzax ombori",
+      "kind": "region",
+      "region": "jizzax"
+    },
+    "item": {
+      "id": 18,
+      "name": "Prostavit",
+      "sku": "MG-18",
+      "package_size": 12
+    },
+    "on_hand": 10,
+    "min_quantity": 7,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 111,
+      "name": "Navoiy ombori",
+      "kind": "region",
+      "region": "navoiy"
+    },
+    "item": {
+      "id": 11,
+      "name": "Gepatofit",
+      "sku": "MG-11",
+      "package_size": 12
+    },
+    "on_hand": 48,
+    "min_quantity": 20,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 111,
+      "name": "Navoiy ombori",
+      "kind": "region",
+      "region": "navoiy"
+    },
+    "item": {
+      "id": 12,
+      "name": "Kardiomed",
+      "sku": "MG-12",
+      "package_size": 12
+    },
+    "on_hand": 30,
+    "min_quantity": 15,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 111,
+      "name": "Navoiy ombori",
+      "kind": "region",
+      "region": "navoiy"
+    },
+    "item": {
+      "id": 13,
+      "name": "Artroflex",
+      "sku": "MG-13",
+      "package_size": 12
+    },
+    "on_hand": 25,
+    "min_quantity": 11,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 111,
+      "name": "Navoiy ombori",
+      "kind": "region",
+      "region": "navoiy"
+    },
+    "item": {
+      "id": 14,
+      "name": "Gastrofit",
+      "sku": "MG-14",
+      "package_size": 12
+    },
+    "on_hand": 21,
+    "min_quantity": 10,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 111,
+      "name": "Navoiy ombori",
+      "kind": "region",
+      "region": "navoiy"
+    },
+    "item": {
+      "id": 15,
+      "name": "Immunoxit",
+      "sku": "MG-15",
+      "package_size": 12
+    },
+    "on_hand": 18,
+    "min_quantity": 9,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 111,
+      "name": "Navoiy ombori",
+      "kind": "region",
+      "region": "navoiy"
+    },
+    "item": {
+      "id": 16,
+      "name": "Diabefit",
+      "sku": "MG-16",
+      "package_size": 12
+    },
+    "on_hand": 17,
+    "min_quantity": 8,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 111,
+      "name": "Navoiy ombori",
+      "kind": "region",
+      "region": "navoiy"
+    },
+    "item": {
+      "id": 17,
+      "name": "Neyrovit",
+      "sku": "MG-17",
+      "package_size": 12
+    },
+    "on_hand": 10,
+    "min_quantity": 6,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 111,
+      "name": "Navoiy ombori",
+      "kind": "region",
+      "region": "navoiy"
+    },
+    "item": {
+      "id": 18,
+      "name": "Prostavit",
+      "sku": "MG-18",
+      "package_size": 12
+    },
+    "on_hand": 6,
+    "min_quantity": 4,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 112,
+      "name": "Sirdaryo ombori",
+      "kind": "region",
+      "region": "sirdaryo"
+    },
+    "item": {
+      "id": 11,
+      "name": "Gepatofit",
+      "sku": "MG-11",
+      "package_size": 12
+    },
+    "on_hand": 86,
+    "min_quantity": 33,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 112,
+      "name": "Sirdaryo ombori",
+      "kind": "region",
+      "region": "sirdaryo"
+    },
+    "item": {
+      "id": 12,
+      "name": "Kardiomed",
+      "sku": "MG-12",
+      "package_size": 12
+    },
+    "on_hand": 60,
+    "min_quantity": 26,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 112,
+      "name": "Sirdaryo ombori",
+      "kind": "region",
+      "region": "sirdaryo"
+    },
+    "item": {
+      "id": 13,
+      "name": "Artroflex",
+      "sku": "MG-13",
+      "package_size": 12
+    },
+    "on_hand": 46,
+    "min_quantity": 20,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 112,
+      "name": "Sirdaryo ombori",
+      "kind": "region",
+      "region": "sirdaryo"
+    },
+    "item": {
+      "id": 14,
+      "name": "Gastrofit",
+      "sku": "MG-14",
+      "package_size": 12
+    },
+    "on_hand": 40,
+    "min_quantity": 16,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 112,
+      "name": "Sirdaryo ombori",
+      "kind": "region",
+      "region": "sirdaryo"
+    },
+    "item": {
+      "id": 15,
+      "name": "Immunoxit",
+      "sku": "MG-15",
+      "package_size": 12
+    },
+    "on_hand": 31,
+    "min_quantity": 16,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 112,
+      "name": "Sirdaryo ombori",
+      "kind": "region",
+      "region": "sirdaryo"
+    },
+    "item": {
+      "id": 16,
+      "name": "Diabefit",
+      "sku": "MG-16",
+      "package_size": 12
+    },
+    "on_hand": 23,
+    "min_quantity": 13,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 112,
+      "name": "Sirdaryo ombori",
+      "kind": "region",
+      "region": "sirdaryo"
+    },
+    "item": {
+      "id": 17,
+      "name": "Neyrovit",
+      "sku": "MG-17",
+      "package_size": 12
+    },
+    "on_hand": 18,
+    "min_quantity": 10,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 112,
+      "name": "Sirdaryo ombori",
+      "kind": "region",
+      "region": "sirdaryo"
+    },
+    "item": {
+      "id": 18,
+      "name": "Prostavit",
+      "sku": "MG-18",
+      "package_size": 12
+    },
+    "on_hand": 10,
+    "min_quantity": 6,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 113,
+      "name": "Qoraqalpog'iston ombori",
+      "kind": "region",
+      "region": "qoraqalpogiston"
+    },
+    "item": {
+      "id": 11,
+      "name": "Gepatofit",
+      "sku": "MG-11",
+      "package_size": 12
+    },
+    "on_hand": 47,
+    "min_quantity": 20,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 113,
+      "name": "Qoraqalpog'iston ombori",
+      "kind": "region",
+      "region": "qoraqalpogiston"
+    },
+    "item": {
+      "id": 12,
+      "name": "Kardiomed",
+      "sku": "MG-12",
+      "package_size": 12
+    },
+    "on_hand": 30,
+    "min_quantity": 15,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 113,
+      "name": "Qoraqalpog'iston ombori",
+      "kind": "region",
+      "region": "qoraqalpogiston"
+    },
+    "item": {
+      "id": 13,
+      "name": "Artroflex",
+      "sku": "MG-13",
+      "package_size": 12
+    },
+    "on_hand": 25,
+    "min_quantity": 11,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 113,
+      "name": "Qoraqalpog'iston ombori",
+      "kind": "region",
+      "region": "qoraqalpogiston"
+    },
+    "item": {
+      "id": 14,
+      "name": "Gastrofit",
+      "sku": "MG-14",
+      "package_size": 12
+    },
+    "on_hand": 21,
+    "min_quantity": 10,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 113,
+      "name": "Qoraqalpog'iston ombori",
+      "kind": "region",
+      "region": "qoraqalpogiston"
+    },
+    "item": {
+      "id": 15,
+      "name": "Immunoxit",
+      "sku": "MG-15",
+      "package_size": 12
+    },
+    "on_hand": 17,
+    "min_quantity": 8,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 113,
+      "name": "Qoraqalpog'iston ombori",
+      "kind": "region",
+      "region": "qoraqalpogiston"
+    },
+    "item": {
+      "id": 16,
+      "name": "Diabefit",
+      "sku": "MG-16",
+      "package_size": 12
+    },
+    "on_hand": 16,
+    "min_quantity": 7,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 113,
+      "name": "Qoraqalpog'iston ombori",
+      "kind": "region",
+      "region": "qoraqalpogiston"
+    },
+    "item": {
+      "id": 17,
+      "name": "Neyrovit",
+      "sku": "MG-17",
+      "package_size": 12
+    },
+    "on_hand": 10,
+    "min_quantity": 6,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 113,
+      "name": "Qoraqalpog'iston ombori",
+      "kind": "region",
+      "region": "qoraqalpogiston"
+    },
+    "item": {
+      "id": 18,
+      "name": "Prostavit",
+      "sku": "MG-18",
+      "package_size": 12
+    },
+    "on_hand": 6,
+    "min_quantity": 3,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 201,
+      "name": "Vodiy kuryerlari",
+      "kind": "courier",
+      "region": "fargona"
+    },
+    "item": {
+      "id": 11,
+      "name": "Gepatofit",
+      "sku": "MG-11",
+      "package_size": 12
+    },
+    "on_hand": 120,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 201,
+      "name": "Vodiy kuryerlari",
+      "kind": "courier",
+      "region": "fargona"
+    },
+    "item": {
+      "id": 12,
+      "name": "Kardiomed",
+      "sku": "MG-12",
+      "package_size": 12
+    },
+    "on_hand": 90,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 201,
+      "name": "Vodiy kuryerlari",
+      "kind": "courier",
+      "region": "fargona"
+    },
+    "item": {
+      "id": 13,
+      "name": "Artroflex",
+      "sku": "MG-13",
+      "package_size": 12
+    },
+    "on_hand": 70,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 201,
+      "name": "Vodiy kuryerlari",
+      "kind": "courier",
+      "region": "fargona"
+    },
+    "item": {
+      "id": 14,
+      "name": "Gastrofit",
+      "sku": "MG-14",
+      "package_size": 12
+    },
+    "on_hand": 55,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 201,
+      "name": "Vodiy kuryerlari",
+      "kind": "courier",
+      "region": "fargona"
+    },
+    "item": {
+      "id": 15,
+      "name": "Immunoxit",
+      "sku": "MG-15",
+      "package_size": 12
+    },
+    "on_hand": 30,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 201,
+      "name": "Vodiy kuryerlari",
+      "kind": "courier",
+      "region": "fargona"
+    },
+    "item": {
+      "id": 16,
+      "name": "Diabefit",
+      "sku": "MG-16",
+      "package_size": 12
+    },
+    "on_hand": 18,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 201,
+      "name": "Vodiy kuryerlari",
+      "kind": "courier",
+      "region": "fargona"
+    },
+    "item": {
+      "id": 17,
+      "name": "Neyrovit",
+      "sku": "MG-17",
+      "package_size": 12
+    },
+    "on_hand": 12,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 201,
+      "name": "Vodiy kuryerlari",
+      "kind": "courier",
+      "region": "fargona"
+    },
+    "item": {
+      "id": 18,
+      "name": "Prostavit",
+      "sku": "MG-18",
+      "package_size": 12
+    },
+    "on_hand": 6,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 202,
+      "name": "Toshkent kuryerlari",
+      "kind": "courier",
+      "region": "toshkent_shahar"
+    },
+    "item": {
+      "id": 11,
+      "name": "Gepatofit",
+      "sku": "MG-11",
+      "package_size": 12
+    },
+    "on_hand": 110,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 202,
+      "name": "Toshkent kuryerlari",
+      "kind": "courier",
+      "region": "toshkent_shahar"
+    },
+    "item": {
+      "id": 12,
+      "name": "Kardiomed",
+      "sku": "MG-12",
+      "package_size": 12
+    },
+    "on_hand": 95,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 202,
+      "name": "Toshkent kuryerlari",
+      "kind": "courier",
+      "region": "toshkent_shahar"
+    },
+    "item": {
+      "id": 13,
+      "name": "Artroflex",
+      "sku": "MG-13",
+      "package_size": 12
+    },
+    "on_hand": 60,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 202,
+      "name": "Toshkent kuryerlari",
+      "kind": "courier",
+      "region": "toshkent_shahar"
+    },
+    "item": {
+      "id": 14,
+      "name": "Gastrofit",
+      "sku": "MG-14",
+      "package_size": 12
+    },
+    "on_hand": 44,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 202,
+      "name": "Toshkent kuryerlari",
+      "kind": "courier",
+      "region": "toshkent_shahar"
+    },
+    "item": {
+      "id": 15,
+      "name": "Immunoxit",
+      "sku": "MG-15",
+      "package_size": 12
+    },
+    "on_hand": 80,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 202,
+      "name": "Toshkent kuryerlari",
+      "kind": "courier",
+      "region": "toshkent_shahar"
+    },
+    "item": {
+      "id": 16,
+      "name": "Diabefit",
+      "sku": "MG-16",
+      "package_size": 12
+    },
+    "on_hand": 66,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 202,
+      "name": "Toshkent kuryerlari",
+      "kind": "courier",
+      "region": "toshkent_shahar"
+    },
+    "item": {
+      "id": 17,
+      "name": "Neyrovit",
+      "sku": "MG-17",
+      "package_size": 12
+    },
+    "on_hand": 40,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 202,
+      "name": "Toshkent kuryerlari",
+      "kind": "courier",
+      "region": "toshkent_shahar"
+    },
+    "item": {
+      "id": 18,
+      "name": "Prostavit",
+      "sku": "MG-18",
+      "package_size": 12
+    },
+    "on_hand": 20,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 203,
+      "name": "Markaz kuryerlari",
+      "kind": "courier",
+      "region": "samarqand"
+    },
+    "item": {
+      "id": 11,
+      "name": "Gepatofit",
+      "sku": "MG-11",
+      "package_size": 12
+    },
+    "on_hand": 48,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 203,
+      "name": "Markaz kuryerlari",
+      "kind": "courier",
+      "region": "samarqand"
+    },
+    "item": {
+      "id": 12,
+      "name": "Kardiomed",
+      "sku": "MG-12",
+      "package_size": 12
+    },
+    "on_hand": 36,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 203,
+      "name": "Markaz kuryerlari",
+      "kind": "courier",
+      "region": "samarqand"
+    },
+    "item": {
+      "id": 13,
+      "name": "Artroflex",
+      "sku": "MG-13",
+      "package_size": 12
+    },
+    "on_hand": 25,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 203,
+      "name": "Markaz kuryerlari",
+      "kind": "courier",
+      "region": "samarqand"
+    },
+    "item": {
+      "id": 14,
+      "name": "Gastrofit",
+      "sku": "MG-14",
+      "package_size": 12
+    },
+    "on_hand": 20,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 203,
+      "name": "Markaz kuryerlari",
+      "kind": "courier",
+      "region": "samarqand"
+    },
+    "item": {
+      "id": 15,
+      "name": "Immunoxit",
+      "sku": "MG-15",
+      "package_size": 12
+    },
+    "on_hand": 18,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 203,
+      "name": "Markaz kuryerlari",
+      "kind": "courier",
+      "region": "samarqand"
+    },
+    "item": {
+      "id": 16,
+      "name": "Diabefit",
+      "sku": "MG-16",
+      "package_size": 12
+    },
+    "on_hand": 12,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 203,
+      "name": "Markaz kuryerlari",
+      "kind": "courier",
+      "region": "samarqand"
+    },
+    "item": {
+      "id": 17,
+      "name": "Neyrovit",
+      "sku": "MG-17",
+      "package_size": 12
+    },
+    "on_hand": 10,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 203,
+      "name": "Markaz kuryerlari",
+      "kind": "courier",
+      "region": "samarqand"
+    },
+    "item": {
+      "id": 18,
+      "name": "Prostavit",
+      "sku": "MG-18",
+      "package_size": 12
+    },
+    "on_hand": 5,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 204,
+      "name": "Janub kuryerlari",
+      "kind": "courier",
+      "region": "qashqadaryo"
+    },
+    "item": {
+      "id": 11,
+      "name": "Gepatofit",
+      "sku": "MG-11",
+      "package_size": 12
+    },
+    "on_hand": 30,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 204,
+      "name": "Janub kuryerlari",
+      "kind": "courier",
+      "region": "qashqadaryo"
+    },
+    "item": {
+      "id": 12,
+      "name": "Kardiomed",
+      "sku": "MG-12",
+      "package_size": 12
+    },
+    "on_hand": 8,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 204,
+      "name": "Janub kuryerlari",
+      "kind": "courier",
+      "region": "qashqadaryo"
+    },
+    "item": {
+      "id": 13,
+      "name": "Artroflex",
+      "sku": "MG-13",
+      "package_size": 12
+    },
+    "on_hand": 16,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 204,
+      "name": "Janub kuryerlari",
+      "kind": "courier",
+      "region": "qashqadaryo"
+    },
+    "item": {
+      "id": 14,
+      "name": "Gastrofit",
+      "sku": "MG-14",
+      "package_size": 12
+    },
+    "on_hand": 12,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 204,
+      "name": "Janub kuryerlari",
+      "kind": "courier",
+      "region": "qashqadaryo"
+    },
+    "item": {
+      "id": 15,
+      "name": "Immunoxit",
+      "sku": "MG-15",
+      "package_size": 12
+    },
+    "on_hand": 10,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 204,
+      "name": "Janub kuryerlari",
+      "kind": "courier",
+      "region": "qashqadaryo"
+    },
+    "item": {
+      "id": 16,
+      "name": "Diabefit",
+      "sku": "MG-16",
+      "package_size": 12
+    },
+    "on_hand": 9,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 204,
+      "name": "Janub kuryerlari",
+      "kind": "courier",
+      "region": "qashqadaryo"
+    },
+    "item": {
+      "id": 17,
+      "name": "Neyrovit",
+      "sku": "MG-17",
+      "package_size": 12
+    },
+    "on_hand": 4,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 204,
+      "name": "Janub kuryerlari",
+      "kind": "courier",
+      "region": "qashqadaryo"
+    },
+    "item": {
+      "id": 18,
+      "name": "Prostavit",
+      "sku": "MG-18",
+      "package_size": 12
+    },
+    "on_hand": 3,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 205,
+      "name": "G'arb kuryerlari",
+      "kind": "courier",
+      "region": "buxoro"
+    },
+    "item": {
+      "id": 11,
+      "name": "Gepatofit",
+      "sku": "MG-11",
+      "package_size": 12
+    },
+    "on_hand": 34,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 205,
+      "name": "G'arb kuryerlari",
+      "kind": "courier",
+      "region": "buxoro"
+    },
+    "item": {
+      "id": 12,
+      "name": "Kardiomed",
+      "sku": "MG-12",
+      "package_size": 12
+    },
+    "on_hand": 22,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 205,
+      "name": "G'arb kuryerlari",
+      "kind": "courier",
+      "region": "buxoro"
+    },
+    "item": {
+      "id": 13,
+      "name": "Artroflex",
+      "sku": "MG-13",
+      "package_size": 12
+    },
+    "on_hand": 18,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 205,
+      "name": "G'arb kuryerlari",
+      "kind": "courier",
+      "region": "buxoro"
+    },
+    "item": {
+      "id": 14,
+      "name": "Gastrofit",
+      "sku": "MG-14",
+      "package_size": 12
+    },
+    "on_hand": 14,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 205,
+      "name": "G'arb kuryerlari",
+      "kind": "courier",
+      "region": "buxoro"
+    },
+    "item": {
+      "id": 15,
+      "name": "Immunoxit",
+      "sku": "MG-15",
+      "package_size": 12
+    },
+    "on_hand": 12,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 205,
+      "name": "G'arb kuryerlari",
+      "kind": "courier",
+      "region": "buxoro"
+    },
+    "item": {
+      "id": 16,
+      "name": "Diabefit",
+      "sku": "MG-16",
+      "package_size": 12
+    },
+    "on_hand": 10,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 205,
+      "name": "G'arb kuryerlari",
+      "kind": "courier",
+      "region": "buxoro"
+    },
+    "item": {
+      "id": 17,
+      "name": "Neyrovit",
+      "sku": "MG-17",
+      "package_size": 12
+    },
+    "on_hand": 7,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  },
+  {
+    "location": {
+      "id": 205,
+      "name": "G'arb kuryerlari",
+      "kind": "courier",
+      "region": "buxoro"
+    },
+    "item": {
+      "id": 18,
+      "name": "Prostavit",
+      "sku": "MG-18",
+      "package_size": 12
+    },
+    "on_hand": 4,
+    "min_quantity": 0,
+    "is_low": false,
+    "sold_7d": 0,
+    "days_left": null,
+    "updated_at": "2026-10-31T09:00:00+05:00"
+  }
+]
