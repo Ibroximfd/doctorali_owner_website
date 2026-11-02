@@ -47,6 +47,7 @@
     "saved": "«{name}» → {to}",
     "failed": "Saqlab bo'lmadi — mahsulot oldingi joyida qoldi. Qayta urinib ko'ring.",
     "logistNote": "Filialga berilgan mahsulotni shu filialning hamma logisti skladda boshqaradi.",
+    "mainNote": "{name} — asosiy filial: hamma mahsulot bilan dopusksiz ishlaydi, shuning uchun ro'yxatda yo'q.",
     "unassignedTitle": "Hech bir filialga berilmagan",
     "allAssigned": "Hamma mahsulot filiallarga berilgan.",
     "assignedTitle": "Filiallarga berilgan",

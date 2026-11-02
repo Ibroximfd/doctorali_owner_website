@@ -36,10 +36,19 @@ export const GrantsCard = ({ className }: { className?: string }) => {
       <CardHeader title={t("title")} description={t("description")} />
       <CardBody flush>
         <p className="text-ink-3 px-4 pb-3 text-xs md:px-5.5">{t("logistNote")}</p>
+        <MainFilialNote />
         <GrantsBody />
       </CardBody>
     </Card>
   );
+};
+
+/** Asosiy filial hamma mahsulotni dopusksiz yuritadi — backend unga dopuskni `400` bilan rad etadi. */
+const MainFilialNote = () => {
+  const t = useTranslations("warehouse.grants");
+  const main = useMetaQuery().data?.filials.find((filial) => filial.isMain);
+  if (!main) return null;
+  return <p className="text-ink-3 px-4 pb-3 text-xs md:px-5.5">{t("mainNote", { name: main.name })}</p>;
 };
 
 const GrantsBody = () => {
@@ -73,7 +82,7 @@ const GrantsBody = () => {
         const holder = Number(appError.fields.filial);
         if (appError.code === "grant_conflict" && Number.isFinite(holder) && holder !== change.from)
           setConflict({ ...change, from: holder });
-        else toast.error(t("failed"));
+        else toast.error(t("failed"), { description: appError.code ? appError.message : undefined });
       },
     });
 
@@ -95,6 +104,8 @@ const GrantsBody = () => {
   const row = (item: SkladItem) => {
     const holder = owners.get(item.id) ?? null;
     const busy = move.isPending && move.variables.productId === item.id;
+    // Asosiy filial tanlovda yo'q; eski ma'lumotda unda turgan mahsulot bo'lsa — ko'rinib tursin.
+    const targets = filials.filter((filial) => !filial.isMain || filial.id === holder);
     return (
       <li key={item.id} className="flex flex-wrap items-center gap-x-3 gap-y-2 py-2.5">
         <ProductThumb name={item.name} src={item.image} />
@@ -113,7 +124,7 @@ const GrantsBody = () => {
           }
         >
           <option value={NONE}>{t("none")}</option>
-          {filials.map((filial) => (
+          {targets.map((filial) => (
             <option key={filial.id} value={filial.id}>
               {filial.name}
             </option>

@@ -200,12 +200,16 @@ export const grantsSchema = z.object({
 });
 export type FilialGrants = Camelized<z.infer<typeof grantsSchema>>;
 
-/** `PUT …/sklad-grants/{filial}/` javobi. */
+/**
+ * `PUT …/sklad-grants/{filial}/` javobi. Jonli server `{filial_id, granted, revoked}`
+ * qaytaradi — `item_ids` yo'q (2026-11-02 tekshirildi). Majburiy bo'lsa saqlangan
+ * dopusk «saqlanmadi» deb ko'rinardi; panel to'plamni baribir qayta so'raydi.
+ */
 export const grantsResultSchema = z.object({
   filial_id: z.number(),
-  granted: z.array(z.number()),
-  revoked: z.array(z.number()),
-  item_ids: z.array(z.number()),
+  granted: z.array(z.number()).default([]),
+  revoked: z.array(z.number()).default([]),
+  item_ids: z.array(z.number()).optional(),
 });
 
 /* ---------- tarix lug'ati ---------- */

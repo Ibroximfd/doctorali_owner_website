@@ -88,6 +88,17 @@ describe("WarehouseScreen", () => {
     });
   });
 
+  it("leaves the main filial out of the picker — it runs every product without a grant", async () => {
+    await renderWithProviders(<WarehouseScreen />, { searchParams: "?period=30d" });
+
+    const grants = within(card("Mahsulot dopuski"));
+    const picker = await grants.findByLabelText("Prostavit: qaysi filialga berilgan");
+    const options = within(picker).getAllByRole("option").map((option) => option.textContent);
+    expect(options).toContain("Toshkent 1");
+    expect(options).not.toContain("Qo'qon");
+    expect(grants.getByText(/Qo'qon — asosiy filial/)).toBeInTheDocument();
+  });
+
   it("moves a product between filials only after a confirm", async () => {
     const user = userEvent.setup();
     await renderWithProviders(<WarehouseScreen />, { searchParams: "?period=30d" });

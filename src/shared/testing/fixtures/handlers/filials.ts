@@ -569,6 +569,9 @@ const putGrants = (ctx: MockContext) => {
   }
   const current = grantsOf(filial.id).map((grant) => grant.product_id);
   const granted = wanted.filter((id) => !current.includes(id));
+  // Jonli server (2026-11-02): asosiy filial hammasini yuritadi — unga yangi dopusk berilmaydi.
+  if (filial.is_main && granted.length > 0)
+    return fail(400, "validation_error", "Asosiy filialga dopusk kerak emas — u hammasini yuritadi");
   const revoked = current.filter((id) => !wanted.includes(id));
   for (const id of granted) setProductGrant(id, filial.id);
   for (const id of revoked) setProductGrant(id, null);

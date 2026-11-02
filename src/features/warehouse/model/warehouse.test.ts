@@ -19,6 +19,7 @@ import {
   actorKindParam,
   actorNameError,
   documentSchema,
+  grantsResultSchema,
   grantsSchema,
   ledgerSchema,
   ledgerSummarySchema,
@@ -165,6 +166,16 @@ describe("warehouse rules", () => {
     expect(owners.get(11)).toBe(1);
     expect(owners.get(15)).toBe(2);
     expect(owners.has(18)).toBe(false);
+  });
+
+  it("PUT dopusk javobi `item_ids` siz ham o'qiladi (jonli server shakli)", () => {
+    // 2026-11-02 jonli: {filial_id, granted, revoked} — `item_ids` yo'q edi va
+    // saqlangan dopusk «saqlanmadi» deb ko'rinardi.
+    expect(parseJson(grantsResultSchema, { filial_id: 3, granted: [14], revoked: [] })).toMatchObject({
+      filialId: 3,
+      granted: [14],
+      revoked: [],
+    });
   });
 
   it("computes the page range", () => {
