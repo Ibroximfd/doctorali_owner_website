@@ -3,7 +3,6 @@ import { isRegionCode } from "@/shared/config/regions";
 import { envelope, type MockContext } from "../engine";
 import {
   PERMISSION_CATALOG,
-  ROLE_DEFAULTS,
   PRODUCTS,
   REGION_NAMES,
   auditState,
@@ -11,6 +10,7 @@ import {
   productGrant,
   pushAudit,
   replaceFilials,
+  roleDefaultsFor,
   setProductGrant,
   type FilialState,
   type Leader,
@@ -36,24 +36,34 @@ const isRecord = (value: unknown): value is Record<string, unknown> =>
 const fail = (status: number, code: string, detail: string, fields?: Record<string, unknown>) =>
   mockResponse(status, { code, detail, ...(fields ? { fields } : {}) });
 
-/** Sukut + qo'shimcha (`effective_permissions`). */
-const effectiveOf = (kind: LeaderRole, leader: Leader) => [
-  ...new Set([...ROLE_DEFAULTS[kind], ...leader.permissions]),
+/**
+ * TZ 32 §D-1: `permissions` — SAQLANGAN samarali to'plam (sukut runtime'da qo'shilmaydi),
+ * `effective_permissions` — ayni qiymat (moslik), `role_defaults` — ma'lumot, `revoked_defaults` —
+ * sukutda bor, lekin olingan kalitlar.
+ */
+const permissionFields = (kind: LeaderRole, isMain: boolean, leader: Leader) => {
+  const defaults = roleDefaultsFor(kind, isMain);
+  return {
+    permissions: [...leader.permissions],
+    effective_permissions: [...leader.permissions],
+    role_defaults: defaults,
+    revoked_defaults: defaults.filter((key) => !leader.permissions.includes(key)),
+  };
+};
+
+/** Yangi rol: sukut ∪ berilgan kalitlar (§D-1 «Yangi berilgan rol»). */
+const withDefaults = (kind: LeaderRole, isMain: boolean, given: readonly string[]) => [
+  ...new Set([...roleDefaultsFor(kind, isMain), ...given]),
 ];
 
-/**
- * Rahbar qatori. `effective_permissions` — namuna kengaytmasi: backend structure/ da hali bermaydi
- * (savol B-26); kelmasa panel sukut huquqlarni ko'rsatmaydi.
- */
-const headDto = (leader: Leader | undefined, kind: LeaderRole) =>
+const headDto = (leader: Leader | undefined, kind: LeaderRole, isMain: boolean) =>
   leader
     ? {
         seat_id: leader.seat_id,
         full_name: leader.full_name,
         username: leader.username,
         role_id: leader.role_id,
-        permissions: [...leader.permissions],
-        effective_permissions: effectiveOf(kind, leader),
+        ...permissionFields(kind, isMain, leader),
       }
     : null;
 
@@ -73,8 +83,8 @@ const structure = () => ({
   results: filialsState().map((filial) => ({
     ...filialDto(filial),
     region_name: filial.region ? REGION_NAMES[filial.region] : null,
-    chief_operator: headDto(filial.leaders.chief_operator, "chief_operator"),
-    chief_logist: headDto(filial.leaders.chief_logist, "chief_logist"),
+    chief_operator: headDto(filial.leaders.chief_operator, "chief_operator", filial.is_main),
+    chief_logist: headDto(filial.leaders.chief_logist, "chief_logist", filial.is_main),
     departments_count: filial.counts.departments,
     operators_count: filial.counts.operators,
     logists_count: filial.counts.logists,
@@ -206,16 +216,33 @@ const setMain = (ctx: MockContext) => {
 let roleSeq = 900;
 let seatSeq = 800;
 
-const roleDto = (filialId: number, kind: LeaderRole, leader: Leader) => ({
+type Cascade = { seat_id: number; role: string; permissions: string[] }[];
+
+const roleDto = (filial: FilialState, kind: LeaderRole, leader: Leader, cascade: Cascade = []) => ({
   id: leader.role_id,
   role: kind,
   scope_kind: "filial",
-  scope_id: String(filialId),
-  permissions: [...leader.permissions],
-  effective_permissions: effectiveOf(kind, leader),
+  scope_id: String(filial.id),
+  ...permissionFields(kind, filial.is_main, leader),
   since: leader.since,
   until: null,
+  cascade,
 });
+
+/**
+ * §D-2a kaskad: rahbardan olingan kalit filialning quyi xodimlaridan ham olinadi. Namunada quyi
+ * xodimlar faqat soni bilan bor — har biri uchun bitta qator.
+ */
+const cascadeOf = (filial: FilialState, kind: LeaderRole, removed: readonly string[]): Cascade => {
+  if (removed.length === 0) return [];
+  const count = kind === "chief_logist" ? filial.counts.logists : filial.counts.operators;
+  const role = kind === "chief_logist" ? "logist" : "seller";
+  return Array.from({ length: count }, (_, index) => ({
+    seat_id: 5000 + filial.id * 100 + index,
+    role,
+    permissions: [],
+  }));
+};
 
 const validPermissions = (value: unknown): string[] | null => {
   if (value === undefined) return [];
@@ -294,7 +321,12 @@ const appointHead = (ctx: MockContext) => {
   if ("response" in person) return person.response;
   const { seat, password } = person;
 
-  const leader: Leader = { ...seat, role_id: (roleSeq += 1), permissions, since: ctx.now.toISOString() };
+  const leader: Leader = {
+    ...seat,
+    role_id: (roleSeq += 1),
+    permissions: withDefaults(kind, filial.is_main, permissions),
+    since: ctx.now.toISOString(),
+  };
   update(filial.id, (item) => ({
     ...item,
     leaders: { ...item.leaders, [kind]: leader },
@@ -311,8 +343,8 @@ const appointHead = (ctx: MockContext) => {
   return mockResponse(201, {
     filial_id: filial.id,
     kind,
-    head: headDto(leader, kind),
-    role: roleDto(filial.id, kind, leader),
+    head: headDto(leader, kind, filial.is_main),
+    role: roleDto(filial, kind, leader),
     ...(password !== undefined ? { password } : {}),
   });
 };
@@ -389,7 +421,7 @@ const patchHead = (ctx: MockContext) => {
     seat_id: leader.seat_id,
     full_name: next.full_name,
   });
-  return { filial_id: filial.id, kind, head: headDto(next, kind) };
+  return { filial_id: filial.id, kind, head: headDto(next, kind, filial.is_main) };
 };
 
 /** Yangi parol BIR MARTA qaytadi, auditga tushmaydi (B-2). */
@@ -438,8 +470,8 @@ const replaceHead = (ctx: MockContext) => {
   return {
     filial_id: filial.id,
     kind,
-    head: headDto(next, kind),
-    role: roleDto(filial.id, kind, next),
+    head: headDto(next, kind, filial.is_main),
+    role: roleDto(filial, kind, next),
     ...(person.password !== undefined ? { password: person.password } : {}),
   };
 };
@@ -463,7 +495,7 @@ const seats = (ctx: MockContext) => {
   return { count: rows.length, results: rows };
 };
 
-/** Rolning qo'shimcha dopusklarini TO'LIQ almashtiradi; owner uchun ship yo'q (§2.7). */
+/** Rol dopusklarini TO'LIQ almashtiradi (§D-1) — sukutdagisi ham olinadi; olinganlari kaskad (§D-2a). */
 const patchRole = (ctx: MockContext) => {
   const roleId = Number(ctx.params.id);
   const owner = filialsState()
@@ -480,13 +512,14 @@ const patchRole = (ctx: MockContext) => {
   if (permissions === null || body.permissions === undefined)
     return fail(400, "validation_error", "Noma'lum dopusk", { permissions: ["katalogda yo'q"] });
   const leader = { ...owner.leader, permissions };
+  const removed = owner.leader.permissions.filter((key) => !permissions.includes(key));
   update(owner.filial.id, (item) => ({ ...item, leaders: { ...item.leaders, [owner.kind]: leader } }));
   audit(ctx, "structure.role.permissions", `/api/owner/structure/roles/${roleId}/`, "PATCH", 200, {
     role_id: roleId,
     filial_id: owner.filial.id,
     kind: owner.kind,
   });
-  return roleDto(owner.filial.id, owner.kind, leader);
+  return roleDto(owner.filial, owner.kind, leader, cascadeOf(owner.filial, owner.kind, removed));
 };
 
 const auditList = (ctx: MockContext) => {

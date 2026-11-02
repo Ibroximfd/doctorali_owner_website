@@ -9,6 +9,54 @@ import { financeSchema } from "./finance.schema";
 const finance = (query: Record<string, string>) =>
   parseEnvelope(financeSchema, mockGet("finance/v2/", query)).data;
 
+describe("TZ 32 §R — region rates", () => {
+  const raw = {
+    address_rate: "25000",
+    address_rates: { fargona: "23000", andijon: null },
+    chiefs: [
+      {
+        seat_id: 7,
+        full_name: "Vodiy",
+        by_filial: [
+          { filial: { id: 1, name: "Q" }, addresses: 4, fee: "92000", missing_rate: false },
+          {
+            filial: { id: 2, name: "T1" },
+            addresses: 2,
+            fee: null,
+            missing_rate: true,
+            missing_rates: ["andijon"],
+          },
+        ],
+      },
+    ],
+    by_filial: [{ filial: { id: 1, name: "Q" } }, { filial: { id: 2, name: "T1" } }],
+  };
+
+  it("keeps a missing rate as null (not 0) and flags the sums as incomplete", () => {
+    const data = financeSchema.parse(raw) as unknown as {
+      address_rates: { region: string; rate: number | null }[];
+      totals: { chief_fee: number; missing_rate: boolean };
+      filials: { id: number; missing_rate: boolean; chief_fee: number }[];
+      chiefs: { by_filial: { fee: number | null; missing_rates: string[] }[] }[];
+    };
+    expect(data.address_rates).toEqual([
+      { region: "fargona", rate: 23000 },
+      { region: "andijon", rate: null },
+    ]);
+    expect(data.chiefs[0]?.by_filial[1]).toMatchObject({ fee: null, missing_rates: ["andijon"] });
+    expect(data.totals).toMatchObject({ chief_fee: 92000, missing_rate: true });
+    expect(data.filials.map((row) => [row.id, row.missing_rate])).toEqual([
+      [1, false],
+      [2, true],
+    ]);
+  });
+
+  it("old backend: no `address_rates` → null, single rate stays", () => {
+    const parsed = financeSchema.parse({ address_rate: 25000 }) as unknown as { address_rates: unknown };
+    expect(parsed.address_rates).toBeNull();
+  });
+});
+
 describe("finance contract", () => {
   it.each(SCOPE_CASES)("matches its schema for %o", (query) => {
     expect(() => finance(query)).not.toThrow();
@@ -27,6 +75,7 @@ describe("finance contract", () => {
     const data = finance({ period: "30d" });
     expect(data.addressRate).toBe(25_000);
     for (const row of chiefRows(data.chiefs)) expect(row.fee).toBe(row.addresses * (data.addressRate ?? 0));
+    expect(data.addressRates?.every((row) => row.rate === 25_000)).toBe(true);
     expect(data.chiefs).toHaveLength(5);
   });
 

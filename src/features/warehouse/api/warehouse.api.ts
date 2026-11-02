@@ -9,7 +9,9 @@ import {
   ledgerSchema,
   ledgerSummarySchema,
   overviewSchema,
+  skladSchema,
   skladsSchema,
+  ACTOR_NAME_MIN,
   actorKindParam,
   stockSchema,
   type FilialGrants,
@@ -20,6 +22,8 @@ import {
 /** Sklad API — logist saytidagi bilan bir xil (`/api/sklad/*`, v2 §2.10); Owner faqat o'qiydi. */
 
 export const loadSklads = async () => parseJson(skladsSchema, await skladGet("sklads/"));
+/** Bitta sklad (§S-3.2) — `404 not_found` bo'lsa detal «topilmadi». */
+export const loadSklad = async (id: number) => parseJson(skladSchema, await skladGet(`sklads/${id}/`));
 export const loadItems = async () => parseJson(itemsSchema, await skladGet("items/", { pagination: false }));
 /** Qoldiq to'liq kerak (xarita, yig'indi): `pagination=false` butun ro'yxatni massiv qaytaradi (B-23). */
 export const loadStock = async () => parseJson(stockSchema, await skladGet("stock/", { pagination: false }));
@@ -43,8 +47,17 @@ export type LedgerFilters = {
   /** Kim (B-23 `?actor_kind=`): `logist | courier | system`, vergul bilan bir nechtasi. */
   actor: string | null;
   type: string | null;
+  /** Erkin matn (§S-8.1 `q`): izoh, hujjat/zakaz raqami, mahsulot nomi, odam ismi. */
+  q: string | null;
+  /** Kim yozgani — ism bo'yicha (`actor_name`, kamida 3 belgi). */
+  actorName: string | null;
+  /** Zakaz raqami (to'liq) yoki id (`order`). */
+  order: string | null;
   page: number;
 };
+
+const longEnough = (value: string | null, min: number) =>
+  value !== null && value.trim().length >= min ? value.trim() : undefined;
 
 export const LEDGER_PAGE_SIZE = 20;
 
@@ -59,6 +72,9 @@ export const loadLedger = async (filters: LedgerFilters): Promise<Ledger> =>
       item: filters.item ?? undefined,
       actor_kind: actorKindParam(filters.actor) ?? undefined,
       movement_type: filters.type ?? undefined,
+      q: longEnough(filters.q, 1),
+      actor_name: longEnough(filters.actorName, ACTOR_NAME_MIN),
+      order: longEnough(filters.order, 1),
       page: filters.page,
       page_size: LEDGER_PAGE_SIZE,
     }),

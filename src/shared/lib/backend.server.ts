@@ -13,9 +13,13 @@ const BACKEND_TIMEOUT_MS = 9_000;
 /** Brauzer haqida backend audit jurnali va urinishlar cheklovi uchun bilishi kerak bo'lganlar. */
 export type ClientInfo = { ip: string | null; userAgent: string | null };
 
+/** Fayl yuklash (`multipart/form-data`) — tana o'zgarishsiz, asl sarlavha bilan uzatiladi. */
+export type RawBody = { bytes: ArrayBuffer; contentType: string };
+
 type BackendInit = {
   method?: string;
   body?: unknown;
+  raw?: RawBody;
   access?: string | null;
   search?: string;
   lang?: string;
@@ -34,13 +38,14 @@ export const clientInfoOf = (request: Request): ClientInfo => ({
 
 export const backendFetch = async (
   path: string,
-  { method = "GET", body, access, search = "", lang, client }: BackendInit = {},
+  { method = "GET", body, raw, access, search = "", lang, client }: BackendInit = {},
 ): Promise<Response> => {
   // Demo: tashqi so'rov yo'q — javob ichki namuna bazadan (`config/servers.mjs`).
   if (serverEnv.isDemo) return demoFetch(path, { method, body, search });
 
   const headers = new Headers({ accept: "application/json" });
-  if (body !== undefined) headers.set("content-type", "application/json");
+  if (raw) headers.set("content-type", raw.contentType);
+  else if (body !== undefined) headers.set("content-type", "application/json");
   if (access) headers.set("authorization", `Bearer ${access}`);
   // Platforma odati: server matnlari (signal sarlavhasi va h.k.) shu tilda keladi.
   if (lang) headers.set("x-lang", lang);
@@ -50,7 +55,7 @@ export const backendFetch = async (
   return fetch(`${serverEnv.backendOrigin}${path}${search}`, {
     method,
     headers,
-    body: body === undefined ? undefined : JSON.stringify(body),
+    body: raw ? raw.bytes : body === undefined ? undefined : JSON.stringify(body),
     // Hamma narsa pul va odamlar haqida — hech narsa keshlanmaydi.
     cache: "no-store",
     signal: AbortSignal.timeout(BACKEND_TIMEOUT_MS),

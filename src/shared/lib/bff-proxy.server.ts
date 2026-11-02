@@ -4,7 +4,17 @@ import { type NextRequest } from "next/server";
 
 import { LOCALE_COOKIE } from "@/i18n/locales";
 
-import { backendFetch, clientInfoOf, errorResponse, refreshAccess, relay, relayFile } from "./backend.server";
+import { serverEnv } from "@/shared/config/env.server";
+
+import {
+  backendFetch,
+  clientInfoOf,
+  errorResponse,
+  refreshAccess,
+  relay,
+  relayFile,
+  type RawBody,
+} from "./backend.server";
 import { clearSession, readSession, writeSession } from "./session.server";
 
 /**
@@ -20,8 +30,31 @@ const SAFE_SEGMENT = /^[\w.~-]+$/;
 /** `.` va `..` — `fetch` ularni yo'lga aylantiradi va so'rov prefiksdan chiqib ketadi. */
 const DOT_SEGMENT = /^\.+$/;
 
+const isMultipart = (request: NextRequest): boolean =>
+  request.headers.get("content-type")?.startsWith("multipart/form-data") ?? false;
+
+/**
+ * Demo rejimda fayl backendga ketmaydi: namuna baza maydonlarni oddiy obyekt sifatida oladi
+ * (fayl — faqat nomi, turi va hajmi).
+ */
+const formToObject = async (request: NextRequest): Promise<Record<string, unknown>> => {
+  const form = await request.formData();
+  const result: Record<string, unknown> = {};
+  for (const [key, value] of form.entries())
+    result[key] =
+      typeof value === "string" ? value : { name: value.name, type: value.type, size: value.size };
+  return result;
+};
+
+/** Fayl yuklash: tana baytlari va chegara (`boundary`) bilan asl `content-type` — o'zgarishsiz. */
+const readRaw = async (request: NextRequest): Promise<RawBody> => ({
+  bytes: await request.arrayBuffer(),
+  contentType: request.headers.get("content-type") ?? "multipart/form-data",
+});
+
 const readBody = async (request: NextRequest): Promise<unknown> => {
   if (request.method === "GET" || request.method === "HEAD") return undefined;
+  if (isMultipart(request)) return serverEnv.isDemo ? formToObject(request) : undefined;
   const text = await request.text();
   if (text === "") return undefined;
   try {
@@ -42,12 +75,14 @@ export const createProxy = (prefix: "/api/owner/" | "/api/sklad/") =>
 
     // Django yo'llari `/` bilan tugaydi — Next uni `params` dan olib tashlaydi.
     const relativePath = `${path.join("/")}/`;
-    const body = await readBody(request);
+    const raw = isMultipart(request) && !serverEnv.isDemo ? await readRaw(request) : undefined;
+    const body = raw ? undefined : await readBody(request);
 
     const forward = (access: string | null) =>
       backendFetch(`${prefix}${relativePath}`, {
         method: request.method,
         body,
+        raw,
         access,
         search: request.nextUrl.search,
         lang: request.cookies.get(LOCALE_COOKIE)?.value,

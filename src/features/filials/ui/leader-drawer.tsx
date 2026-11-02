@@ -12,7 +12,7 @@ import { Drawer, DrawerSection } from "@/shared/ui/drawer";
 import { Segmented } from "@/shared/ui/segmented";
 
 import { useAppointHead, useFilialDialogs } from "../hooks/use-filials";
-import { isUsernameTaken, leaderOf, roleDefaults } from "../model/filials.rules";
+import { isUsernameTaken, leaderOf, permissionModeOf } from "../model/filials.rules";
 import {
   accountFormSchema,
   type AccountFormValues,
@@ -64,10 +64,9 @@ export const LeaderDrawer = ({ filials }: { filials: readonly FilialItem[] }) =>
           <PermissionsForm
             key={leader.roleId}
             role={leaderRole}
-            isMain={filial.isMain}
             roleId={leader.roleId}
             current={leader.permissions}
-            defaults={roleDefaults(leader)}
+            mode={permissionModeOf(leader)}
             onDone={close}
           />
         ) : (
@@ -183,9 +182,9 @@ const AppointForm = ({
         </DrawerSection>
       )}
 
+      <p className="text-ink-3 text-xs">{t("appointDefaultsNote")}</p>
       <PermissionPicker
         role={role}
-        isMain={filial.isMain}
         value={permissions}
         onChange={setPermissions}
         disabled={appoint.isPending}

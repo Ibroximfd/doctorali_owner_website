@@ -27,6 +27,7 @@ import type { Sklad, StockCell } from "../model/warehouse.schema";
 import { GrantsCard } from "./grants-card";
 import { HistoryCard } from "./history-card";
 import { SkladMapCard } from "./sklad-map-card";
+import { SkladsCard } from "./sklads-card";
 
 const ALL = "all";
 
@@ -69,6 +70,8 @@ export const WarehouseScreen = () => {
 
       <Grid>
         <SkladMapCard className={span.full} />
+
+        <SkladsCard className={span.full} />
 
         <Card className={span.full}>
           <CardHeader title={t("stock.title")} description={t("stock.description")} />

@@ -88,6 +88,24 @@ export type CatalogItem = {
   role: LeaderRole | "both";
   group: string;
   main_only: boolean;
+  /** TZ 32 §D-3: qaysi sayt menyusiga tegishli. */
+  site: "crm" | "logist" | "both";
+  /** Ro'yxatdagi sarlavha (TZ 32 §D-3, owner katalogida yangi). */
+  group_label: string;
+};
+
+/** Sayt rahbar turidan kelib chiqadi: B.L → logist, B.O → CRM, ikkalasi → ikkalasi. */
+const SITE_OF: Record<CatalogItem["role"], CatalogItem["site"]> = {
+  chief_logist: "logist",
+  chief_operator: "crm",
+  both: "both",
+};
+
+/** Eski `group` (qila oladi | ko'radi | boshqaradi) → `group_label`. */
+const GROUP_LABEL: Record<string, string> = {
+  "qila oladi": "Amallar",
+  "ko'radi": "Ko'rish",
+  boshqaradi: "Boshqaruv",
 };
 
 const item = (
@@ -97,7 +115,17 @@ const item = (
   label: string,
   labelRu: string,
   mainOnly = false,
-): CatalogItem => ({ key, label, label_ru: labelRu, role, group, main_only: mainOnly });
+  groupLabel?: string,
+): CatalogItem => ({
+  key,
+  label,
+  label_ru: labelRu,
+  role,
+  group,
+  main_only: mainOnly,
+  site: SITE_OF[role],
+  group_label: groupLabel ?? GROUP_LABEL[group] ?? group,
+});
 
 export const PERMISSION_CATALOG: readonly CatalogItem[] = [
   item(
@@ -188,23 +216,89 @@ export const PERMISSION_CATALOG: readonly CatalogItem[] = [
     "Istalgan zakaz chatiga qo'shilish",
     "Подключение к любому чату заказа",
   ),
+  // TZ 32 §D-3 sahifa kalitlari va §M-1 imtiyozlari
+  item(
+    "orders.view",
+    "chief_logist",
+    "ko'radi",
+    "Buyurtmalar, Dostavka va Baza (ko'rish)",
+    "Заказы, Доставка и База (просмотр)",
+    false,
+    "Buyurtmalar",
+  ),
+  item(
+    "couriers.view",
+    "chief_logist",
+    "ko'radi",
+    "Kuryerlar ro'yxati",
+    "Список курьеров",
+    false,
+    "Kuryerlar",
+  ),
+  item(
+    "chiefs.manage",
+    "chief_logist",
+    "boshqaradi",
+    "Bosh kuryerlar: yaratish, almashtirish, viloyatlar",
+    "Главные курьеры: создание, замена, регионы",
+    true,
+    "Kuryerlar",
+  ),
+  item("rates.manage", "chief_logist", "boshqaradi", "Manzil narxlari", "Цены за адрес", true, "Moliya"),
+  item("warehouse.view", "chief_logist", "ko'radi", "Sklad: ko'rish", "Склад: просмотр", false, "Sklad"),
+  item(
+    "warehouse.manage",
+    "chief_logist",
+    "qila oladi",
+    "Sklad: kirim/chiqim/kuryerga berish",
+    "Склад: приход/расход/выдача курьеру",
+    false,
+    "Sklad",
+  ),
+  item(
+    "warehouse.admin",
+    "chief_logist",
+    "boshqaradi",
+    "Sklad: skladlarni boshqarish",
+    "Склад: управление складами",
+    true,
+    "Sklad",
+  ),
+  item("chat.owner", "both", "qila oladi", "Boshliq bilan chat", "Чат с руководителем", false, "Chat"),
 ];
 
 /**
- * Rol bilan birga keladigan (sukut) huquqlar — `effective_permissions` ning qo'shimchasiz qismi.
- * Namuna: backend structure/ da bu ro'yxatni hali bermaydi (savol B-26).
+ * Rolning sukut to'plami (TZ 32 §D-1: faqat boshlang'ich to'plam, `role_defaults` — ma'lumot).
+ * `chat.owner` va `view.other_filials` sukutda YO'Q (§D-3, §M-2).
  */
 export const ROLE_DEFAULTS: Record<LeaderRole, readonly string[]> = {
-  chief_logist: ["orders.manage", "orders.dispatch", "couriers.manage"],
+  chief_logist: [
+    "orders.view",
+    "couriers.view",
+    "orders.manage",
+    "orders.dispatch",
+    "couriers.manage",
+    "warehouse.view",
+    "warehouse.manage",
+  ],
   chief_operator: ["lead.distribute", "seat.create", "structure.manage"],
 };
 
+/** §M-1: asosiy filial B.L iga sukutda qo'shiladigan uchta imtiyoz. */
+export const MAIN_FILIAL_DEFAULTS: readonly string[] = ["chiefs.manage", "rates.manage", "warehouse.admin"];
+
+export const roleDefaultsFor = (role: LeaderRole, isMain: boolean): string[] => [
+  ...ROLE_DEFAULTS[role],
+  ...(role === "chief_logist" && isMain ? MAIN_FILIAL_DEFAULTS : []),
+];
+
+/** Boshlang'ich SAQLANGAN to'plam: shu rolga tegishli hamma kalit (`chat.owner` dan tashqari). */
 const allFor = (role: LeaderRole, isMain: boolean): string[] =>
   PERMISSION_CATALOG.filter(
     (entry) =>
       (entry.role === role || entry.role === "both") &&
-      (isMain || !entry.main_only) &&
-      !ROLE_DEFAULTS[role].includes(entry.key),
+      entry.key !== "chat.owner" &&
+      (isMain || !entry.main_only),
   ).map((entry) => entry.key);
 
 const head = (

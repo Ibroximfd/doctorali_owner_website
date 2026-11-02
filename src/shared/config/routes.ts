@@ -7,6 +7,8 @@ export const routes = {
   analytics: "/analytics",
   app: "/app",
   staff: "/staff",
+  ratings: "/ratings",
+  chats: "/chats",
   warehouse: "/warehouse",
   ai: "/ai",
   settings: "/settings",
@@ -19,6 +21,7 @@ export type PanelRouteKey = Exclude<RouteKey, "login">;
 export const ROUTES_WITHOUT_SCOPE: readonly PanelRouteKey[] = [
   // hozirgi holat bilan ishlaydi (davr filtri ma'nosiz)
   "ai",
+  "chats",
   "settings",
 ];
 

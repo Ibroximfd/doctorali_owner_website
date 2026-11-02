@@ -1,7 +1,7 @@
 import { addDays } from "@/shared/lib/scope";
 
 import { envelope, type MockContext } from "../engine";
-import { ADDRESS_RATE, AVG_CHECK, SKLADS, filialsState, codeOf } from "../structure-v2";
+import { ADDRESS_RATE, AVG_CHECK, REGION_NAMES, SKLADS, filialsState, codeOf } from "../structure-v2";
 import { type MockHandler } from "../types";
 import { chiefMoney, filialFlow, regionFlows, selectedFilials, totalsOf } from "../v2-metrics";
 
@@ -73,6 +73,9 @@ const finance = (ctx: MockContext) => {
   // haq «to'landi» deb yopish backendda yo'q (B-18) — namuna ham shunday: to'langani `null`
   return envelope(ctx, {
     address_rate: ADDRESS_RATE,
+    // TZ 32 §R: viloyat narxi — namunada hamma viloyatda umumiy narx (haq o'zgarmaydi, §1.6
+    // migratsiyasi kabi), narxi belgilanmagan viloyat yo'q
+    address_rates: Object.fromEntries(Object.keys(REGION_NAMES).map((code) => [code, String(ADDRESS_RATE)])),
     fee_paid: null,
     fee_paid_tracked: false,
     totals: {

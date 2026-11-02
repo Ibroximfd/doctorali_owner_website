@@ -11,18 +11,36 @@ import { aliases, optStr, toNumber } from "@/shared/lib/lenient";
 
 const refSchema = z.object({ id: z.number(), name: z.string() });
 
-/** `GET /api/sklad/sklads/` (v2 §4.6). */
-export const skladsSchema = z.array(
+const chiefRefSchema = z.object({ id: z.number(), full_name: z.string() });
+
+/**
+ * Sklad (TZ 32 §S-1.1): `chiefs[]` — haqiqat manbai (bir nechta bosh kuryer); eski `chief` faqat
+ * moslik uchun (`chiefs[0]` yoki `null`). Eski backend `chiefs` bermasa — `chief` dan bitta
+ * elementli ro'yxat yasaladi. Ekranda faqat `chiefs` ishlatiladi.
+ */
+export const skladSchema = z.preprocess(
+  (raw) => {
+    if (typeof raw !== "object" || raw === null || Array.isArray(raw)) return raw;
+    const sklad = raw as Record<string, unknown>;
+    if (Array.isArray(sklad.chiefs)) return sklad;
+    const chief = sklad.chief;
+    return { ...sklad, chiefs: typeof chief === "object" && chief !== null ? [chief] : [] };
+  },
   z.object({
     id: z.number(),
     name: z.string(),
     regions: z.array(z.string()),
     is_active: z.boolean().default(true),
-    chief: z.object({ id: z.number(), full_name: z.string() }).nullable(),
-    locations: z.number().default(0),
+    chiefs: z.array(chiefRefSchema),
+    /** Biriktirilgan omborlar soni (ma'lumot) — yangi yaratilgan skladda `null` bo'lishi mumkin. */
+    locations: z.number().nullable().default(null),
+    created_at: z.string().nullable().default(null),
   }),
 );
-export type Sklad = Camelized<z.infer<typeof skladsSchema>>[number];
+
+/** `GET /api/sklad/sklads/` — sahifalashsiz massiv (§S-3.1). */
+export const skladsSchema = z.array(skladSchema);
+export type Sklad = Camelized<z.infer<typeof skladSchema>>;
 
 /**
  * Mahsulot rasmi (B-27, sklad 8.1): `item.image` — TO'LIQ URL yoki `null`; `items/`, `stock/`,
@@ -132,7 +150,10 @@ export const ledgerRowSchema = z.object({
       number: z.string().nullable().default(""),
     })
     .nullable(),
-  actor: z.object({ full_name: z.string(), kind: z.string() }).nullable(),
+  /** `actor.id` — FOYDALANUVCHI id si (§S-8.3), o'rin emas. */
+  actor: z
+    .object({ id: z.number().nullable().default(null), full_name: z.string(), kind: z.string() })
+    .nullable(),
   note: z.string().default(""),
 });
 
@@ -207,14 +228,31 @@ export const actorKindParam = (value: string | null): string | null => {
   return kinds.size === 0 ? null : ACTOR_KINDS.filter((kind) => kinds.has(kind)).join(",");
 };
 
+/** Harakat turlari to'liq ro'yxati (§S-8.2) — `?movement_type=` bilan yuboriladi. */
 export const MOVEMENT_TYPES = [
   "receipt",
+  "opening_balance",
   "write_off",
   "adjustment",
   "courier_load",
   "courier_return",
+  "transfer",
   "sale",
   "gift",
   "sale_points",
   "sale_return",
 ] as const;
+
+/** «Kim» ism bo'yicha (`?actor_name=`): kamida shuncha belgi — undan qisqa so'rov yuborilmaydi (§S-9). */
+export const ACTOR_NAME_MIN = 3;
+
+/**
+ * `?actor_name=` da 50+ moslik — `400 validation_error` + `fields.actor_name[0]` (§S-9): matn maydon
+ * ostida ko'rsatiladi, jadval xato bermaydi.
+ */
+export const actorNameError = (error: { code?: string; fields: Readonly<Record<string, unknown>> }) => {
+  if (error.code !== "validation_error") return null;
+  const field = error.fields.actor_name;
+  const first: unknown = Array.isArray(field) ? field[0] : field;
+  return typeof first === "string" && first !== "" ? first : null;
+};

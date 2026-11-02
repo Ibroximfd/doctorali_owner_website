@@ -19,7 +19,9 @@ export const MESSAGE_NAMESPACES = [
   "analytics",
   "app",
   "staff",
+  "ratings",
   "warehouse",
+  "chats",
   "ai",
   "settings",
 ] as const;

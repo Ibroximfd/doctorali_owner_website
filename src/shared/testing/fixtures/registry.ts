@@ -2,10 +2,12 @@ import { buildContext } from "./engine";
 import { aiHandlers } from "./handlers/ai";
 import { analyticsHandlers } from "./handlers/analytics";
 import { appHandlers } from "./handlers/app";
+import { chatsHandlers } from "./handlers/chats";
 import { filialsHandlers } from "./handlers/filials";
 import { financeHandlers } from "./handlers/finance";
 import { metaHandlers } from "./handlers/meta";
 import { overviewHandlers } from "./handlers/overview";
+import { ratingsHandlers } from "./handlers/ratings";
 import { settingsHandlers } from "./handlers/settings";
 import { staffHandlers } from "./handlers/staff";
 import { skladHandlers } from "./handlers/sklad";
@@ -28,6 +30,8 @@ const HANDLERS: readonly MockHandler[] = [
   ...staffHandlers,
   ...skladHandlers,
   ...aiHandlers,
+  ...ratingsHandlers,
+  ...chatsHandlers,
   ...settingsHandlers,
 ];
 

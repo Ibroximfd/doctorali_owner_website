@@ -12,7 +12,7 @@ import { RegionMap } from "@/shared/ui/region-map";
 import { ChartSkeleton, QueryState } from "@/shared/ui/states";
 
 import { useOverviewQuery, useSelectedSklad, useSkladsQuery, useStockQuery } from "../hooks/use-warehouse";
-import { skladByRegion, skladColorIndex, skladSummary } from "../model/warehouse.rules";
+import { chiefNames, skladByRegion, skladColorIndex, skladSummary } from "../model/warehouse.rules";
 import type { Sklad, SkladOverview, StockCell } from "../model/warehouse.schema";
 
 /**
@@ -59,7 +59,7 @@ const SkladMap = ({ sklads, overview, cells }: SummarySource & { sklads: readonl
             code,
             name: regionName(code),
             tone: "none",
-            summary: t("regionSummary", { sklad: sklad.name, chief: sklad.chief?.fullName ?? "—" }),
+            summary: t("regionSummary", { sklad: sklad.name, chief: chiefNames(sklad) }),
           }))}
           // viloyatni bosish — o'sha viloyat skladini tanlash (yana bosilsa — hammasi)
           selected={null}
@@ -134,7 +134,7 @@ const SkladDetails = ({ sklad, overview, cells }: SummarySource & { sklad: Sklad
       <p className="text-ink-2 text-xs">{sklad.regions.map(regionName).join(", ")}</p>
       <KvList
         rows={[
-          { key: "chief", label: t("chief"), value: sklad.chief?.fullName ?? "—" },
+          { key: "chief", label: t("chief"), value: chiefNames(sklad) },
           { key: "stock", label: t("stock"), value: t("pcs", { count: formatNumber(summary.onHand) }) },
           {
             key: "couriers",

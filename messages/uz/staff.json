@@ -103,5 +103,10 @@
     "label": "Eng yaxshi uchlik",
     "caption": "{metric} · yetakchiga nisbatan {score}%",
     "score": "yetakchiga nisbatan"
+  },
+  "logists": {
+    "title": "Logistlar natijasi — «Reytinglar» bo'limida",
+    "description": "Tasdiqlash tezligi, yakunlangan va bekor qilingan zakazlar — formula bilan, davr va filial bo'yicha.",
+    "open": "Logistlar reytingini ochish"
   }
 }

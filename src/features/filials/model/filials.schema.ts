@@ -12,18 +12,26 @@ import { aliases, list, num, numbers, optNum, str } from "@/shared/lib/lenient";
 export const LEADER_ROLES = ["chief_logist", "chief_operator"] as const;
 export type LeaderRole = (typeof LEADER_ROLES)[number];
 
+/**
+ * TZ 32 §D-1 dopusk maydonlari (rahbar qatori va `PATCH roles/{id}` javobida bir xil):
+ * - `role_defaults` keladi (yangi backend) — `permissions` SAMARALI to'liq to'plam, hamma kalit
+ *   o'chirib-yoqiladi, `role_defaults` faqat «sukut» yorlig'i, `revoked_defaults` — olinganlari;
+ * - kelmaydi (eski backend) — `permissions` qo'shimchalar, sukut `effective_permissions − permissions`
+ *   va u o'chirilmaydi.
+ */
+const permissionFields = {
+  permissions: z.array(z.string()).default([]),
+  effective_permissions: z.array(z.string()).nullable().default(null),
+  role_defaults: z.array(z.string()).nullable().default(null),
+  revoked_defaults: z.array(z.string()).default([]),
+};
+
 const headSchema = z.object({
   seat_id: z.number(),
   full_name: z.string(),
   username: z.string(),
   role_id: z.number(),
-  /** Qo'shimcha dopusklar — `PATCH roles/{id}` shuni to'liq almashtiradi. */
-  permissions: z.array(z.string()).default([]),
-  /**
-   * Rol sukutlari ∪ qo'shimchalar (B-26) — dopusk oynasidagi «Rol bilan keladi» bo'limi shundan
-   * (o'chirib bo'lmaydi). Kelmasa `null`: sukut huquqlar alohida ko'rsatilmaydi.
-   */
-  effective_permissions: z.array(z.string()).nullable().default(null),
+  ...permissionFields,
 });
 
 const filialSchema = z.object({
@@ -60,15 +68,28 @@ export const filialObjectSchema = z.object({
   zone_id: z.number().nullable().default(null),
 });
 
+/** §D-2a: rahbardan olingan kalit filialning quyi xodimlaridan ham olinadi. */
+const cascadeSchema = z
+  .array(
+    z.object({
+      seat_id: z.number(),
+      role: z.string().default(""),
+      permissions: z.array(z.string()).default([]),
+    }),
+  )
+  .nullable()
+  .default([])
+  .transform((rows) => rows ?? []);
+
 const roleSchema = z.object({
   id: z.number(),
   role: z.string(),
   scope_kind: z.string(),
   scope_id: z.string().nullable(),
-  permissions: z.array(z.string()),
-  effective_permissions: z.array(z.string()).default([]),
+  ...permissionFields,
   since: z.string().nullable(),
   until: z.string().nullable(),
+  cascade: cascadeSchema,
 });
 
 /** `POST /structure/filials/{id}/heads/` — yangi akkauntda `password` BIR MARTA keladi. */
@@ -83,6 +104,7 @@ export type AppointResult = Camelized<z.infer<typeof appointResultSchema>>;
 
 /** `PATCH /structure/roles/{id}/`. */
 export const roleResultSchema = roleSchema;
+export type RoleResult = Camelized<z.infer<typeof roleResultSchema>>;
 
 /** `PATCH …/heads/{kind}/` (B-1) — javob shakli tasdiqlanmagan: faqat muvaffaqiyat o'qiladi. */
 export const headUpdateResultSchema = z.unknown();
@@ -133,7 +155,11 @@ const rows = <Item extends z.ZodTypeAny>(item: Item) =>
     z.array(item),
   );
 
-/** `GET /structure/permissions/` (B-4): `role` — qaysi rahbarga (`both` — ikkalasiga), `group` — guruh. */
+/**
+ * `GET /structure/permissions/` (B-4, TZ 32 §D-3): `role` — qaysi rahbarga (`both` — ikkalasiga),
+ * `group` — eski guruh, `group_label` — yangi sarlavha, `site` — `crm | logist | both`,
+ * `main_only` — §M-1: asosiy filial B.L i sukutida (endi faqat yorliq, qulf emas).
+ */
 export const catalogSchema = rows(
   z.preprocess(
     (raw) => {
@@ -152,6 +178,8 @@ export const catalogSchema = rows(
       label_ru: z.string(),
       role: z.string(),
       group: z.string().nullable().default(null),
+      group_label: z.string().nullable().default(null),
+      site: z.string().nullable().default(null),
       main_only: z.boolean().default(false),
     }),
   ),

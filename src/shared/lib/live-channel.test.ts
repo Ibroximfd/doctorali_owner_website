@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { liveEventType, retryDelay } from "./live-channel";
+import { liveEventType, parseLiveEvent, retryDelay } from "./live-channel";
 
 describe("liveEventType", () => {
   it("recognises the events from the contract", () => {
@@ -13,6 +13,16 @@ describe("liveEventType", () => {
     expect(liveEventType("not json")).toBeNull();
     expect(liveEventType(new ArrayBuffer(4))).toBeNull();
     expect(liveEventType(JSON.stringify({ no: "type" }))).toBeNull();
+  });
+});
+
+describe("parseLiveEvent", () => {
+  it("keeps the whole payload of chat events", () => {
+    const raw = JSON.stringify({ type: "chat_read", channel_id: 12, unread: 0 });
+    expect(parseLiveEvent(raw)).toEqual({
+      type: "chat_read",
+      payload: { type: "chat_read", channel_id: 12, unread: 0 },
+    });
   });
 });
 

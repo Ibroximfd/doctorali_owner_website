@@ -2,8 +2,10 @@ import {
   Building2,
   ChartColumnBig,
   LayoutDashboard,
+  MessagesSquare,
   SlidersHorizontal,
   Smartphone,
+  Star,
   Trophy,
   Wallet,
 } from "lucide-react";
@@ -19,10 +21,15 @@ export type NavItem = {
   /** lucide yoki brend ikonkasi — ikkalasi bir xil API da. */
   icon: IconComponent;
   group: NavGroupKey;
+  /**
+   * Backend bo'lim nomlari (`me.sections`), agar yo'l nomidan farq qilsa: «Reytinglar» yorliqlari
+   * `logistics`/`sales` ostida, «Chatlar» — `structure` ostida (TZ 32 §A-3a, §C-1).
+   */
+  sections?: readonly string[];
 };
 
 /**
- * Tuzilma v2 (`mehrigiyo_platform_tz/21` §12): boshqaruv va nazorat — 9 bo'lim (8 + «Ilova», egasi talabi).
+ * Tuzilma v2 (`mehrigiyo_platform_tz/21` §12): boshqaruv va nazorat — 9 bo'lim (8 + «Ilova», egasi talabi) + «Reytinglar» va «Chatlar» (TZ 32 §A, §C).
  * Yorliqlar `nav` tarjima nomlar fazosidan olinadi: `nav.items.<route>`, `nav.groups.<group>`.
  */
 export const NAV_ITEMS: readonly NavItem[] = [
@@ -32,7 +39,9 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { route: "analytics", icon: ChartColumnBig, group: "main" },
   { route: "app", icon: Smartphone, group: "main" },
   { route: "staff", icon: Trophy, group: "main" },
+  { route: "ratings", icon: Star, group: "main", sections: ["logistics", "sales"] },
   { route: "warehouse", icon: WarehouseIcon, group: "main" },
+  { route: "chats", icon: MessagesSquare, group: "control", sections: ["structure"] },
   { route: "ai", icon: AiIcon, group: "control" },
   { route: "settings", icon: SlidersHorizontal, group: "control" },
 ];
@@ -46,8 +55,13 @@ export const TAB_ROUTES: readonly PanelRouteKey[] = ["overview", "filials", "fin
  * Foydalanuvchiga ko'rinadigan bo'limlar. `allowed` — `me.sections`: **bo'sh = hammasi
  * ochiq** (biznes egasi), to'lgan bo'lsa faqat sanalganlari (`API_QOLLANMA` §2.2).
  */
+const isItemAllowed = (item: Pick<NavItem, "route" | "sections">, allowed: readonly string[]): boolean =>
+  allowed.length === 0 ||
+  allowed.includes(item.route) ||
+  (item.sections ?? []).some((section) => allowed.includes(section));
+
 export const visibleNavItems = (allowed: readonly string[]): NavItem[] =>
-  NAV_ITEMS.filter((item) => allowed.length === 0 || allowed.includes(item.route));
+  NAV_ITEMS.filter((item) => isItemAllowed(item, allowed));
 
 export const isRouteAllowed = (route: PanelRouteKey, allowed: readonly string[]): boolean =>
-  allowed.length === 0 || allowed.includes(route);
+  isItemAllowed(NAV_ITEMS.find((item) => item.route === route) ?? { route }, allowed);

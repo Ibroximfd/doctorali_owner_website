@@ -9,7 +9,13 @@ import { cn } from "@/shared/lib/cn";
 import { ListSkeleton, QueryState } from "@/shared/ui/states";
 
 import { useAnalysisQuery } from "../hooks/use-ai";
-import { findingTitle, severityRank, summaryLines } from "../model/ai.rules";
+import {
+  analysisSummary,
+  effectiveSeverity,
+  findingTitle,
+  severityRank,
+  summaryLines,
+} from "../model/ai.rules";
 
 const SHOWN = 3;
 const SEVERITY_DOT: Record<string, string> = { urgent: "bg-crit", attention: "bg-warn", good: "bg-good" };
@@ -29,12 +35,12 @@ export const AiHighlights = () => {
       <QueryState query={query} skeleton={<ListSkeleton rows={4} />}>
         {(analysis) => {
           const top = [...analysis.findings]
-            .sort((a, b) => severityRank(a.severity) - severityRank(b.severity))
+            .sort((a, b) => severityRank(effectiveSeverity(a)) - severityRank(effectiveSeverity(b)))
             .slice(0, SHOWN);
           return (
             <>
               <p className="text-ink text-sm leading-relaxed">
-                {summaryLines(analysis.aiSummary)[0] ?? t("noHeadline")}
+                {summaryLines(analysisSummary(analysis, locale))[0] ?? t("noHeadline")}
               </p>
               {top.length === 0 ? (
                 <p className="text-ink-3 text-sm">{t("none")}</p>
@@ -46,12 +52,14 @@ export const AiHighlights = () => {
                         aria-hidden
                         className={cn(
                           "mt-1.5 size-2 shrink-0 rounded-full",
-                          SEVERITY_DOT[finding.severity] ?? "bg-ink-3",
+                          SEVERITY_DOT[effectiveSeverity(finding)] ?? "bg-ink-3",
                         )}
                       />
                       <span className="min-w-0">
                         <span className="sr-only">
-                          {tSeverity.has(finding.severity) ? tSeverity(finding.severity) : finding.severity}
+                          {tSeverity.has(effectiveSeverity(finding))
+                            ? tSeverity(effectiveSeverity(finding))
+                            : effectiveSeverity(finding)}
                           :{" "}
                         </span>
                         {findingTitle(finding, locale)}

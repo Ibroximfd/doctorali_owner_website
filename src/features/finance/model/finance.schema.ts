@@ -32,9 +32,22 @@ const MONEY_ALIASES = {
 
 const moneySplit = { at_couriers: balance, at_chiefs: balance, handed: balance };
 
+/**
+ * Viloyat narxi (TZ 32 §R): narxi belgilanmagan viloyatdagi haq `null` + `missing_rate: true`; agregat
+ * qatorda `missing_rate` — haq faqat narxi bor viloyatlar yig'indisi, ya'ni TO'LIQ EMAS.
+ */
+const missingRate = { missing_rate: z.boolean().default(false) };
+
 const totalsSchema = aliases(
   MONEY_ALIASES,
-  z.object({ revenue: num, ...moneySplit, addresses: num, chief_fee: num, chief_fee_paid: optNum }),
+  z.object({
+    revenue: num,
+    ...moneySplit,
+    addresses: num,
+    chief_fee: num,
+    chief_fee_paid: optNum,
+    ...missingRate,
+  }),
 );
 
 const filialSchema = flattenRef(
@@ -54,6 +67,7 @@ const filialSchema = flattenRef(
         chief_fee: num,
         /** To'langan haq — jonli javobda yo'q (`null` → «—»). */
         chief_fee_paid: optNum,
+        ...missingRate,
       }),
     ),
   ),
@@ -74,7 +88,11 @@ const chiefFilialSchema = flattenRef(
         filial_id: num,
         filial_code: str,
         addresses: num,
-        fee: num,
+        /** Narxsiz viloyat bo'lsa `null` (TZ 32 §R, `0` EMAS) — ekranda «—». */
+        fee: optNum,
+        ...missingRate,
+        /** Narxi belgilanmagan viloyat kodlari — haq shular hisobiga to'liq emas. */
+        missing_rates: list(z.string()),
         /** To'langan haq — jonli javobda yo'q. */
         fee_paid: optNum,
         /** Bosh kuryer kuryerlardan qabul qilgan pul (`cash_accepted`). */
@@ -165,6 +183,13 @@ const deriveFromChiefs = (raw: unknown): unknown => {
       if (filialId !== undefined && cellFilial(cell) !== filialId) return total;
       return total + (toNumber((cell as Record<string, unknown>)[key]) ?? 0);
     }, 0);
+  /** Biror katakda narx yo'q (`missing_rate` yoki `fee: null`) — yig'indi to'liq emas. */
+  const missing = (filialId?: number) =>
+    cells.some((cell) => {
+      if (filialId !== undefined && cellFilial(cell) !== filialId) return false;
+      const row = cell as Record<string, unknown>;
+      return row.missing_rate === true || (row.fee === null && "fee" in row);
+    });
   const filialRows = Array.isArray(body.by_filial ?? body.filials)
     ? ((body.by_filial ?? body.filials) as unknown[])
     : [];
@@ -174,7 +199,7 @@ const deriveFromChiefs = (raw: unknown): unknown => {
   >;
   return {
     ...body,
-    totals: { addresses: sum("addresses"), chief_fee: sum("fee"), ...totals },
+    totals: { addresses: sum("addresses"), chief_fee: sum("fee"), missing_rate: missing(), ...totals },
     [body.by_filial ? "by_filial" : "filials"]: filialRows.map((row) => {
       const id = cellFilial({
         filial: (row as { filial?: unknown }).filial,
@@ -182,18 +207,37 @@ const deriveFromChiefs = (raw: unknown): unknown => {
       });
       return id === null
         ? row
-        : { addresses: sum("addresses", id), chief_fee: sum("fee", id), ...(row as object) };
+        : {
+            addresses: sum("addresses", id),
+            chief_fee: sum("fee", id),
+            missing_rate: missing(id),
+            ...(row as object),
+          };
     }),
   };
 };
+
+/**
+ * `address_rates` (TZ 32 §R): `{viloyat_kodi: "narx" | null}` — joriy viloyat narxlari. Kalitlari
+ * viloyat KODI, shuning uchun lug'at qatorlar ro'yxatiga aylantiriladi (`camelize` kodni buzmasin).
+ * Kelmasa (eski backend) — `null`, ekran eski bitta narxni (`address_rate`) ko'rsatadi.
+ */
+const addressRatesSchema = z.preprocess(
+  (raw) =>
+    typeof raw === "object" && raw !== null && !Array.isArray(raw)
+      ? Object.entries(raw).map(([region, rate]) => ({ region, rate }))
+      : null,
+  z.array(z.object({ region: z.string(), rate: optNum })).nullable(),
+);
 
 export const financeSchema = z.preprocess(
   deriveFromChiefs,
   aliases(
     { filials: ["by_filial"] },
     z.object({
-      /** Bir manzil narxi — hamma filial uchun bitta (B-18); kelmasa `null` — blok «kutilmoqda». */
+      /** Eski bitta manzil narxi (B-18) — haqni bermaydi, faqat `address_rates` kelmasa ko'rsatiladi. */
       address_rate: optNum,
+      address_rates: addressRatesSchema,
       /**
        * Haq «to'landi» deb yopiladimi (B-18). `false` — to'langani tizimda yo'q: ekranda
        * «to'landi / qarz» o'rniga halol izoh. Maydon kelmasa ham `false` (taxmin qilinmaydi).

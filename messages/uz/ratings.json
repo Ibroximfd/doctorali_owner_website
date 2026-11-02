@@ -1,0 +1,107 @@
+{
+  "title": "Reytinglar",
+  "description": "Kuryerlar, operatorlar va logistlar — formulani server hisoblaydi va shu yerda izohlaydi.",
+  "tabs": {
+    "label": "Reyting yorliqlari",
+    "couriers": "Kuryerlar",
+    "operators": "Operatorlar",
+    "logists": "Logistlar"
+  },
+  "formula": {
+    "title": "Qanday hisoblanadi",
+    "description": "Formulani server tanlaydi va javobda yozadi.",
+    "main": "Asosiy",
+    "direction": {
+      "desc": "Ko'p — yaxshi",
+      "asc": "Kam — yaxshi"
+    },
+    "nullWhen": "«—» qachon: {reason}"
+  },
+  "summary": {
+    "note": "Jamlanma — tanlangan davr va filial bo'yicha butun to'plamdan; pastdagi ro'yxat filtrlari unga ta'sir qilmaydi.",
+    "outOf5": "/ 5",
+    "couriers": {
+      "avg": "O'rtacha baho",
+      "count": "Baholar soni",
+      "withComment": "Izohli baholar",
+      "lowCount": "Past baholar",
+      "lowNote": "1–2 yulduz",
+      "distribution": "Baholar taqsimoti",
+      "couriersNote": "Baholangan kuryerlar: {count}",
+      "starLabel": "{star} yulduz ulushi"
+    },
+    "operators": {
+      "operators": "Operatorlar",
+      "ordersTotal": "Zakazlar",
+      "ordersDelivered": "Yetkazilgan",
+      "avgScore": "O'rtacha yetkazilish ulushi"
+    },
+    "logists": {
+      "logists": "Logistlar",
+      "finalizedOrders": "Yakunlangan zakazlar",
+      "avgReview": "O'rtacha tasdiqlash vaqti",
+      "avgReviewNote": "Kam — yaxshi"
+    }
+  },
+  "columns": {
+    "rank": "#",
+    "courier": "Kuryer",
+    "operator": "Operator",
+    "logist": "Logist",
+    "filial": "Filial",
+    "region": "Viloyat",
+    "inactive": "Nofaol",
+    "score": {
+      "couriers": "Kuryer reytingi",
+      "operators": "Yetkazilish ulushi",
+      "logists": "Tasdiqlash tezligi"
+    },
+    "ratingAvg": "O'rtacha baho",
+    "ratingsCount": "Baholar",
+    "deliveredOrders": "Yetkazgan",
+    "ratedShare": "Baholangan ulush",
+    "ordersTotal": "Zakazlar",
+    "ordersDelivered": "Yetkazilgan",
+    "ordersCancelled": "Bekor qilingan",
+    "revenue": "Tushum",
+    "finalizedOrders": "Yakunlangan",
+    "cancelledOrders": "Bekor qilingan"
+  },
+  "list": {
+    "couriers": "Kuryerlar reytingi",
+    "operators": "Operatorlar reytingi",
+    "logists": "Logistlar reytingi",
+    "shown": "{shown} / {total} ta ko'rsatilmoqda"
+  },
+  "filters": {
+    "label": "Ro'yxat filtrlari",
+    "search": "Ism bo'yicha qidirish",
+    "rated": "Faqat natijasi bor",
+    "region": "Viloyat",
+    "allRegions": "Barcha viloyatlar",
+    "minScore": "Reyting kamida",
+    "anyScore": "Har qanday reyting",
+    "minOption": "{stars} ★ va yuqori",
+    "activityLabel": "Kuryer holati",
+    "activity": {
+      "all": "Hammasi",
+      "active": "Faol",
+      "inactive": "Nofaol"
+    },
+    "clear": "Filtrlarni tozalash"
+  },
+  "empty": {
+    "couriers": {
+      "title": "Bu davrda kuryer bahosi yo'q",
+      "description": "Mijozlar yetkazilgan zakazga baho qo'yganda shu yerda ko'rinadi. Kengroq davrni tanlab ko'ring."
+    },
+    "operators": {
+      "title": "Bu davrda operator natijasi yo'q",
+      "description": "Operator sotgan zakazlar yakunlanganda shu yerda ko'rinadi."
+    },
+    "logists": {
+      "title": "Bu davrda logist natijasi yo'q",
+      "description": "Logist kuryer natijasini tasdiqlaganda shu yerda ko'rinadi."
+    }
+  }
+}

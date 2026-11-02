@@ -21,6 +21,11 @@ export class AppError extends Error {
     readonly code?: string,
     /** Backend `{fields}` (v2 xato kelishuvi): `grant_conflict` → `{filial: 1}` va h.k. */
     readonly fields: Readonly<Record<string, unknown>> = {},
+    /**
+     * Xato javobining to'liq tanasi — kontrakt xato ichida ma'lumot beradigan joylar uchun
+     * (masalan, `503 ai_unavailable` + `analysis` bloki, TZ 32 §I «kalitsiz rejim»).
+     */
+    readonly body: unknown = undefined,
   ) {
     super(message ?? kind);
     this.name = "AppError";

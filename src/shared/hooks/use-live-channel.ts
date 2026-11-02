@@ -5,7 +5,8 @@ import { useEffect } from "react";
 
 import { env } from "@/shared/config/env";
 import { authGet } from "@/shared/lib/http";
-import { openLiveChannel } from "@/shared/lib/live-channel";
+import { publishLive } from "@/shared/lib/live-bus";
+import { openLiveChannel, SCOPED_EVENT_TYPES } from "@/shared/lib/live-channel";
 
 /** Hodisalar ketma-ket kelsa ham ekran bir marta yangilanadi. */
 const REFRESH_DEBOUNCE_MS = 2000;
@@ -33,7 +34,11 @@ export const useLiveChannel = (): void => {
     const close = openLiveChannel({
       url: env.wsUrl,
       loadTicket: () => authGet("ws-ticket"),
-      onEvent: refreshSoon,
+      onEvent: (event) => {
+        publishLive(event);
+        // bo'limga xos hodisa (chat) — faqat o'sha bo'lim keshi, eshituvchisi o'zi yangilaydi
+        if (!SCOPED_EVENT_TYPES.includes(event.type)) refreshSoon();
+      },
     });
     return () => {
       clearTimeout(pending);

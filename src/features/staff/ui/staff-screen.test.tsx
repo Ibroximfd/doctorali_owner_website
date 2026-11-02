@@ -40,12 +40,13 @@ describe("StaffScreen", () => {
     expect(await within(dialog).findByText("Jamoa o'rtachasi bilan")).toBeInTheDocument();
   });
 
-  it("marks logists as waiting for the backend", async () => {
+  it("sends logists to the «Reytinglar» tab instead of a placeholder", async () => {
     const user = userEvent.setup();
     await renderWithProviders(<StaffScreen />);
 
     await user.click(screen.getByRole("tab", { name: "Logistlar" }));
-    expect((await screen.findAllByText(/backend/i)).length).toBeGreaterThan(0);
+    const link = await screen.findByRole("link", { name: /Logistlar reytingini ochish/ });
+    expect(link.getAttribute("href")).toContain("/ratings?tab=logists");
   });
 
   it("puts the best three on the podium", async () => {

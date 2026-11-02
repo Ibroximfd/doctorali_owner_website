@@ -8,9 +8,17 @@
  */
 import type { z } from "zod";
 
-import { aiStatusSchema, analysisSchema } from "@/features/ai/model/ai.schema";
+import {
+  aiChatsSchema,
+  aiMessagesPageSchema,
+  aiStatusSchema,
+  analysisSchema,
+  draftsSchema,
+  usageSchema,
+} from "@/features/ai/model/ai.schema";
 import { analyticsSchema } from "@/features/analytics/model/analytics.schema";
 import { userSchema } from "@/features/auth/model/auth.schema";
+import { channelsSchema, messagesPageSchema } from "@/features/chats/model/chats.schema";
 import {
   auditSchema,
   catalogSchema,
@@ -21,6 +29,11 @@ import {
 import { financeSchema } from "@/features/finance/model/finance.schema";
 import { appV2Schema } from "@/features/mobile-app/model/mobile-app.schema";
 import { overviewSchema } from "@/features/overview/model/overview.schema";
+import {
+  couriersDataSchema,
+  logistsDataSchema,
+  operatorsDataSchema,
+} from "@/features/ratings/model/ratings.schema";
 import { sessionsResponseSchema } from "@/features/settings/model/settings.schema";
 import { salesOperatorsSchema } from "@/features/staff/model/sales-operators";
 import {
@@ -30,6 +43,7 @@ import {
   ledgerSchema,
   ledgerSummarySchema,
   overviewSchema as skladOverviewSchema,
+  skladSchema,
   skladsSchema,
   stockSchema,
 } from "@/features/warehouse/model/warehouse.schema";
@@ -75,6 +89,18 @@ const firstId =
     return list.slice(0, DETAIL_SAMPLE_SIZE).flatMap((item: unknown) => {
       const id = isRecord(item) ? item[field] : undefined;
       return typeof id === "string" || typeof id === "number" ? [String(id)] : [];
+    });
+  };
+
+/** `{<key>: [{id}]}` ko'rinishidagi ro'yxat (`chats/`, `ai/chats/`) yozuvlarining `id` lari. */
+const idsUnder =
+  (key: string) =>
+  (json: unknown): string[] => {
+    const list: unknown = isRecord(json) ? json[key] : undefined;
+    if (!Array.isArray(list)) return [];
+    return list.slice(0, DETAIL_SAMPLE_SIZE).flatMap((item: unknown) => {
+      const id = isRecord(item) ? item.id : undefined;
+      return typeof id === "number" ? [String(id)] : [];
     });
   };
 
@@ -171,6 +197,15 @@ export const CONTRACT_ENDPOINTS: readonly ContractEndpoint[] = [
   { section: "Sklad", path: `${SKLAD_PREFIX}sklads/`, shape: "plain", scoped: false, schema: skladsSchema },
   {
     section: "Sklad",
+    path: `${SKLAD_PREFIX}sklads/:id/`,
+    shape: "plain",
+    scoped: false,
+    schema: skladSchema,
+    note: "TZ 32 §S-3.2",
+    idSource: { path: `${SKLAD_PREFIX}sklads/`, query: {}, pick: firstId() },
+  },
+  {
+    section: "Sklad",
     path: `${SKLAD_PREFIX}items/`,
     shape: "plain",
     scoped: false,
@@ -239,6 +274,54 @@ export const CONTRACT_ENDPOINTS: readonly ContractEndpoint[] = [
     note: "B-10",
   },
   { section: "AI", path: "ai/analysis/", shape: "plain", scoped: false, schema: analysisSchema },
+  {
+    section: "AI",
+    path: "ai/chats/",
+    shape: "plain",
+    scoped: false,
+    schema: aiChatsSchema,
+    note: "TZ 32 §I-3",
+  },
+  {
+    section: "AI",
+    path: "ai/chats/:id/messages/",
+    shape: "plain",
+    scoped: false,
+    schema: aiMessagesPageSchema,
+    idSource: { path: "ai/chats/", query: {}, pick: idsUnder("chats") },
+  },
+  {
+    section: "AI",
+    path: "ai/drafts/",
+    shape: "plain",
+    scoped: false,
+    schema: draftsSchema,
+    note: "TZ 32 §C-2",
+  },
+  {
+    section: "AI",
+    path: "ai/usage/",
+    shape: "plain",
+    scoped: false,
+    schema: usageSchema,
+    note: "TZ 32 §I-4",
+  },
+
+  /* ---------- reytinglar (TZ 32 §A-3a) ---------- */
+  { section: "Reytinglar", path: "ratings/couriers/", ...SCOPED, schema: couriersDataSchema },
+  { section: "Reytinglar", path: "ratings/operators/", ...SCOPED, schema: operatorsDataSchema },
+  { section: "Reytinglar", path: "ratings/logists/", ...SCOPED, schema: logistsDataSchema },
+
+  /* ---------- rahbarlar bilan yozishma (TZ 32 §C-1) ---------- */
+  { section: "Chatlar", path: "chats/", shape: "plain", scoped: false, schema: channelsSchema },
+  {
+    section: "Chatlar",
+    path: "chats/:id/messages/",
+    shape: "plain",
+    scoped: false,
+    schema: messagesPageSchema,
+    idSource: { path: "chats/", query: {}, pick: idsUnder("chats") },
+  },
 
   /* ---------- sozlamalar ---------- */
   { section: "Sozlamalar", path: "sessions/", shape: "plain", scoped: false, schema: sessionsResponseSchema },

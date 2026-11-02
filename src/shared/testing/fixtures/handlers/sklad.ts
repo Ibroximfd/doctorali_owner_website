@@ -29,13 +29,27 @@ const items = () =>
     image: null,
   }));
 
-const sklads = (ctx: MockContext) =>
-  skladState(ctx.now).sklads.map((sklad) => ({
+/** §S-1.1: `chiefs[]` — haqiqat manbai, `chief_ids`, eski `chief` = `chiefs[0]` yoki `null`. */
+const skladDto = (sklad: ReturnType<typeof skladState>["sklads"][number]) => {
+  const chiefs = [{ ...sklad.chief }];
+  return {
     ...sklad,
     regions: [...sklad.regions],
-    chief: { ...sklad.chief },
+    is_active: true,
+    chiefs,
+    chief_ids: chiefs.map((chief) => chief.id),
+    chief: chiefs[0] ?? null,
     locations: sklad.regions.length,
-  }));
+    created_at: "2026-10-30T18:47:12+05:00",
+  };
+};
+
+const sklads = (ctx: MockContext) => skladState(ctx.now).sklads.map(skladDto);
+
+const skladDetail = (ctx: MockContext) => {
+  const sklad = skladState(ctx.now).sklads.find((item) => item.id === Number(ctx.params.id));
+  return sklad ? skladDto(sklad) : fail(404, "not_found", "Sklad topilmadi");
+};
 
 const locationRef = (id: number) => {
   const location = locations().find((item) => item.id === id);
@@ -122,9 +136,18 @@ const ledgerMatches = (ctx: MockContext) => {
   const skladRegions = skladId
     ? (skladState(ctx.now).sklads.find((sklad) => sklad.id === skladId)?.regions ?? [])
     : null;
+  // §S-8.1: kim (ism), zakaz raqami, erkin matn
+  const actorName = (query.get("actor_name") ?? "").trim().toLowerCase();
+  const order = (query.get("order") ?? "").trim();
+  const q = (query.get("q") ?? "").trim().toLowerCase();
+  const haystack = (row: LedgerRow) =>
+    [row.note, row.source.number, row.item.name, row.actor.full_name].join(" ").toLowerCase();
   return (row: LedgerRow) => {
     const date = row.created_at.slice(0, 10);
     return (
+      (!actorName || row.actor.full_name.toLowerCase().includes(actorName)) &&
+      (!order || row.source.number === order || String(row.source.id) === order) &&
+      (!q || haystack(row).includes(q)) &&
       (!region || row.region === region) &&
       (skladRegions === null || skladRegions.some((code) => code === row.region)) &&
       (actorKinds.length === 0 || actorKinds.includes(row.actor.kind)) &&
@@ -182,6 +205,7 @@ const documentDetail = (ctx: MockContext) => {
 export const skladHandlers: MockHandler[] = [
   { method: "GET", path: `${P}items/`, resolve: items },
   { method: "GET", path: `${P}sklads/`, resolve: sklads },
+  { method: "GET", path: `${P}sklads/:id/`, resolve: skladDetail },
   { method: "GET", path: `${P}overview/`, resolve: overview },
   { method: "GET", path: `${P}stock/`, resolve: stock },
   { method: "GET", path: `${P}ledger/`, resolve: ledger },

@@ -1,5 +1,6 @@
 // @vitest-environment jsdom
 import { screen, within } from "@testing-library/react";
+import { toast } from "sonner";
 import userEvent from "@testing-library/user-event";
 import { HttpResponse, http } from "msw";
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -11,7 +12,7 @@ import { server, useMockApi } from "@/shared/testing/server";
 
 import { FilialsScreen } from "./filials-screen";
 
-vi.mock("sonner", () => ({ toast: { success: vi.fn(), error: vi.fn() } }));
+vi.mock("sonner", () => ({ toast: { success: vi.fn(), error: vi.fn(), warning: vi.fn() } }));
 
 const cardOf = async (name: string) => {
   const heading = await screen.findByRole("heading", { level: 2, name });
@@ -64,31 +65,52 @@ describe("FilialsScreen", () => {
 
     const box = await screen.findByRole("region", { name: "Yangi akkaunt paroli" });
     expect(within(box).getByText("Olim2026x")).toBeInTheDocument();
-    expect(headOf("Toshkent 2", "chief_logist")).toMatchObject({
-      username: "olim_bl",
-      permissions: ["cash.accept"],
-    });
+    // yangi rol: sukut ∪ berilgan kalit (TZ 32 §D-1)
+    expect(headOf("Toshkent 2", "chief_logist")?.username).toBe("olim_bl");
+    expect(headOf("Toshkent 2", "chief_logist")?.permissions).toEqual(
+      expect.arrayContaining(["cash.accept", "orders.view", "couriers.view"]),
+    );
   });
 
-  it("edits a head's extra permissions in full: role defaults stay locked, clear all works", async () => {
+  it("TZ 32 §D-1: switches off a role default, sends the FULL list and warns about the cascade", async () => {
     const user = userEvent.setup();
     await renderWithProviders(<FilialsScreen />, { searchParams: "?leader=2&role=chief_logist" });
 
     const dialog = await screen.findByRole("dialog", { name: "Toshkent 1 — Bosh logist: dopusklar" });
-    expect(await within(dialog).findByText("Rol bilan birga keladi")).toBeInTheDocument();
-    // sukut huquq — yoqilgan, lekin o'chirib bo'lmaydi
+    // sukut kalit — yoqilgan VA o'chirib bo'ladi, faqat «Sukut» yorlig'i bilan
     const dispatch = await within(dialog).findByRole("switch", { name: /Zakazlarni kuryerlarga taqsimlash/ });
     expect(dispatch).toBeChecked();
-    expect(dispatch).toBeDisabled();
+    expect(dispatch).toBeEnabled();
     expect(within(dialog).getByRole("button", { name: "Saqlash" })).toBeDisabled();
 
-    await user.click(within(dialog).getByRole("button", { name: "Hammasini olib tashlash" }));
-    expect(within(dialog).getByText(/−\d+ olinadi/)).toBeInTheDocument();
+    await user.click(dispatch);
+    expect(within(dialog).getByRole("switch", { name: /Sukut · olingan/ })).not.toBeChecked();
+    expect(within(dialog).getByText(/quyi xodimlaridan ham/)).toBeInTheDocument();
+    await user.click(within(dialog).getByRole("button", { name: "Saqlash" }));
+
+    await vi.waitFor(() =>
+      expect(headOf("Toshkent 1", "chief_logist")?.permissions).not.toContain("orders.dispatch"),
+    );
+    expect(headOf("Toshkent 1", "chief_logist")?.permissions).toContain("orders.manage");
+    expect(headOf("Toshkent 1", "chief_logist")).toMatchObject({ revoked_defaults: ["orders.dispatch"] });
+    await vi.waitFor(() =>
+      expect(toast.warning).toHaveBeenCalledWith(expect.stringMatching(/Kalit 2 xodimdan ham olindi/), {
+        duration: 12_000,
+      }),
+    );
+  });
+
+  it("clears every key on request — the head is left with nothing", async () => {
+    const user = userEvent.setup();
+    await renderWithProviders(<FilialsScreen />, { searchParams: "?leader=2&role=chief_logist" });
+
+    const dialog = await screen.findByRole("dialog", { name: "Toshkent 1 — Bosh logist: dopusklar" });
+    await user.click(await within(dialog).findByRole("button", { name: "Hammasini olib tashlash" }));
+    expect(within(dialog).getByText(/hech qanday dopusk qolmaydi/)).toBeInTheDocument();
     await user.click(within(dialog).getByRole("button", { name: "Saqlash" }));
 
     await vi.waitFor(() => expect(headOf("Toshkent 1", "chief_logist")?.permissions).toEqual([]));
-    // kartadagi son darhol yangilanadi
-    expect(await screen.findByText(/jahongir_bl · 0 ta qo'shimcha dopusk/)).toBeInTheDocument();
+    expect(await screen.findByText(/jahongir_bl · 0 ta dopusk/)).toBeInTheDocument();
   });
 
   it("resets a head's password and shows it once", async () => {

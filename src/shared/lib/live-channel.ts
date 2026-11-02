@@ -13,23 +13,35 @@ export const LIVE_EVENT_TYPES = [
   "pipeline_changed",
   "alert_opened",
   "alert_resolved",
+  // TZ 32 §C-1: rahbarlar bilan yozishma — faqat chat keshi yangilanadi (`live-bus`)
+  "chat_message",
+  "chat_read",
 ] as const;
+
+/** Faqat o'z bo'limiga tegishli hodisalar: butun panel qayta so'ralmaydi. */
+export const SCOPED_EVENT_TYPES: readonly string[] = ["chat_message", "chat_read"];
+
+export type LiveEvent = { type: string; payload: Record<string, unknown> };
 
 const messageSchema = z.object({ type: z.string() });
 const ticketSchema = z.object({ ticket: z.string().nullable() });
 
-/** Xabar turi; tanib bo'lmaydigan xabar — `null` (e'tiborsiz qoldiriladi). */
-export const liveEventType = (raw: unknown): string | null => {
+/** Tanilgan hodisa (turi + to'liq tanasi); tanib bo'lmaydigan xabar — `null` (e'tiborsiz qoldiriladi). */
+export const parseLiveEvent = (raw: unknown): LiveEvent | null => {
   if (typeof raw !== "string") return null;
   try {
-    const parsed = messageSchema.safeParse(JSON.parse(raw));
+    const json: unknown = JSON.parse(raw);
+    const parsed = messageSchema.passthrough().safeParse(json);
     return parsed.success && (LIVE_EVENT_TYPES as readonly string[]).includes(parsed.data.type)
-      ? parsed.data.type
+      ? { type: parsed.data.type, payload: parsed.data }
       : null;
   } catch {
     return null;
   }
 };
+
+/** Xabar turi; tanib bo'lmaydigan xabar — `null`. */
+export const liveEventType = (raw: unknown): string | null => parseLiveEvent(raw)?.type ?? null;
 
 const MAX_RETRY_DELAY_MS = 30_000;
 
@@ -41,7 +53,7 @@ type LiveChannelOptions = {
   url: string;
   /** Bir martalik qisqa token (`/api/auth/ws-ticket`). `null` — kanal hozircha yo'q. */
   loadTicket: () => Promise<unknown>;
-  onEvent: (type: string) => void;
+  onEvent: (event: LiveEvent) => void;
 };
 
 /** Kanalni ochadi va uzilganda o'zi qayta ulanadi. Qaytgan funksiya — yopish. */
@@ -68,8 +80,8 @@ export const openLiveChannel = ({ url, loadTicket, onEvent }: LiveChannelOptions
         attempt = 0;
       };
       socket.onmessage = (event) => {
-        const type = liveEventType(event.data);
-        if (type !== null) onEvent(type);
+        const parsed = parseLiveEvent(event.data);
+        if (parsed !== null) onEvent(parsed);
       };
       socket.onclose = scheduleReconnect;
     } catch {

@@ -36,7 +36,7 @@ describe("QueryState", () => {
   it("shows a calm «coming soon» state, without retry, when the endpoint is not on the server yet", async () => {
     await renderState(query({ error: new AppError("not-found", "backend_error", "backend_error") }));
 
-    expect(screen.getByText("Tez orada")).toBeInTheDocument();
+    expect(screen.getByText("Ma'lumot kelmadi")).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Qayta urinish" })).not.toBeInTheDocument();
   });
 

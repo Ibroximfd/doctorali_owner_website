@@ -63,7 +63,7 @@ const readErrorBody = (
 const translate = async (error: unknown): Promise<AppError> => {
   if (isHTTPError(error)) {
     const { code, detail, fields } = readErrorBody(error.data);
-    return new AppError(kindFromStatus(error.response.status), detail, code, fields);
+    return new AppError(kindFromStatus(error.response.status), detail, code, fields, error.data);
   }
   if (isTimeoutError(error)) return new AppError("offline", "timeout");
   return toAppError(error);
@@ -129,6 +129,19 @@ const sendTo = async (base: string, method: Method, path: string, body?: unknown
 
 export const apiSend = (method: Method, path: string, body?: unknown): Promise<unknown> =>
   sendTo("/api/owner/", method, path, body);
+
+/**
+ * Fayl bilan yuborish (`multipart/form-data`) — brauzer chegarani o'zi qo'yadi, BFF tanani
+ * o'zgarishsiz uzatadi (masalan, chat xabari + ilova, TZ 32 §C-1).
+ */
+export const apiSendForm = async (path: string, form: FormData): Promise<unknown> => {
+  try {
+    const response = await clientFor("/api/owner/").post(path, { body: form });
+    return response.status === 204 ? null : await response.json<unknown>();
+  } catch (error) {
+    throw await translate(error);
+  }
+};
 
 export const skladSend = (method: Method, path: string, body?: unknown): Promise<unknown> =>
   sendTo("/api/sklad/", method, path, body);

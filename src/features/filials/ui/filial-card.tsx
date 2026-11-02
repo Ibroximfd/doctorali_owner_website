@@ -130,8 +130,8 @@ const PerformanceLine = ({ performance }: { performance: FilialCardProps["perfor
         ))}
       </div>
     );
-  if (performance === "pending")
-    return <p className="text-ink-3 px-4 py-4 text-sm md:px-5">{t("perfPending")}</p>;
+  // natija endpointi bu serverda yo'q — blok chizilmaydi (kartaning qolgani ishlaydi)
+  if (performance === "pending") return null;
   if (performance === null) return <p className="text-ink-3 px-4 py-4 text-sm md:px-5">{t("noData")}</p>;
 
   const stats = [

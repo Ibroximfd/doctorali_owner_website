@@ -7,9 +7,20 @@ export const skladColorIndex = (sklads: readonly Pick<Sklad, "id">[], id: number
     [...sklads].sort((a, b) => a.id - b.id).findIndex((sklad) => sklad.id === id),
   );
 
-/** Viloyat → uni qamragan sklad. */
+/** Viloyat → uni qamragan FAOL sklad (yopilgan sklad viloyatni band qilmaydi, §S-3.5). */
 export const skladByRegion = (sklads: readonly Sklad[]): Map<string, Sklad> =>
-  new Map(sklads.flatMap((sklad) => sklad.regions.map((code) => [code, sklad] as const)));
+  new Map(
+    sklads
+      .filter((sklad) => sklad.isActive)
+      .flatMap((sklad) => sklad.regions.map((code) => [code, sklad] as const)),
+  );
+
+/**
+ * Bosh kuryerlar ismi — HAMMASI (§S-1.1: `chief` faqat birinchisini beradi, ikkinchisi «yo'qolmasin»).
+ * Biriktirilmagan — «—».
+ */
+export const chiefNames = (sklad: Pick<Sklad, "chiefs">): string =>
+  sklad.chiefs.length === 0 ? "—" : sklad.chiefs.map((chief) => chief.fullName).join(", ");
 
 /**
  * Sklad xulosasi (xarita kartasi): qoldiq va kuryerlardagi — viloyatlari bo'yicha `overview`

@@ -17,12 +17,13 @@ const card = (title: string): HTMLElement => {
 describe("FinanceScreen", () => {
   useMockApi();
 
-  it("shows where the money is, per filial, and the chief courier fee at one rate", async () => {
+  it("shows where the money is, per filial, and the chief courier fee by region rate", async () => {
     await renderWithProviders(<FinanceScreen />, { searchParams: "?period=30d" });
 
     expect((await screen.findAllByText("Filiallarga topshirildi")).length).toBeGreaterThan(0);
     const fee = within(card("Bosh kuryer haqi"));
-    expect(await fee.findByText(/25 000/)).toBeInTheDocument();
+    expect(await fee.findByText("Bir manzil narxi — viloyatlar bo'yicha")).toBeInTheDocument();
+    expect((await fee.findAllByText(/25 000/)).length).toBe(14);
     const chiefs = within(card("Bosh kuryerlar bilan hisob"));
     expect((await chiefs.findAllByText("Farhod Normatov")).length).toBeGreaterThan(0);
     expect(within(card("Filiallarga topshirilgan pul")).getAllByText("Bahsli").length).toBeGreaterThan(0);

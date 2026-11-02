@@ -15,7 +15,7 @@ import { Pill } from "@/shared/ui/pill";
 import { StackedBar } from "@/shared/ui/stacked-bar";
 import { StatRow, StatTile } from "@/shared/ui/stat-tile";
 import { ListSkeleton, QueryState, StatRowSkeleton, TableSkeleton } from "@/shared/ui/states";
-import { SourcePendingState } from "@/shared/ui/states/states";
+import { useRegionName } from "@/shared/meta/use-region-name";
 
 import { useFinanceQuery } from "../hooks/use-finance";
 import { PENDING_ALERT_PCT, chiefRows, feeDue, lastHandovers, type ChiefRow } from "../model/finance.rules";
@@ -24,7 +24,7 @@ import { RegionsMapCard } from "./regions-map-card";
 
 /**
  * «Moliya» (tuzilma v2 §6, §12.2): pul qancha va qayerda — har filial alohida va umumiy;
- * bosh kuryerlar bilan har filial hisobi, ularning haqi (manzil × bitta narx), topshiriqlar,
+ * bosh kuryerlar bilan har filial hisobi, ularning haqi (viloyat narxi bo'yicha), topshiriqlar,
  * viloyatlar xaritasi.
  */
 export const FinanceScreen = () => {
@@ -50,12 +50,10 @@ export const FinanceScreen = () => {
         <Card className={span.c5}>
           <CardHeader title={t("fee.title")} description={t("fee.description")} />
           <CardBody>
-            {/* manzil narxi kelmasa (`address_rate: null`) — blok «backend kutilmoqda» */}
             <QueryState
               query={query}
               skeleton={<ListSkeleton rows={4} />}
-              isEmpty={({ data }) => data.addressRate === null}
-              empty={<SourcePendingState />}
+              isEmpty={({ data }) => data.filials.length === 0}
             >
               {({ data }) => <ChiefFee finance={data} />}
             </QueryState>
@@ -188,8 +186,10 @@ const FilialsMoneyTable = ({ rows }: { rows: readonly FinanceFilial[] }) => {
 };
 
 /**
- * Bosh kuryer haqi: bitta narx, har filial — manzil soni × narx. To'langan va qarz faqat tizim
- * to'lovni kuzatsa (`fee_paid_tracked`); aks holda halol izoh — «—/80 000» kabi shakl emas.
+ * Bosh kuryer haqi (TZ 32 §R): narx VILOYAT bo'yicha (`address_rates`), har filial — haq serverdan
+ * tayyor (panel manzilga bo'lib hisoblamaydi). Narxsiz viloyat — «—» va qizil belgi, haq to'liq
+ * emasligi ogohlantiriladi. Eski backend (`address_rates` yo'q) — bitta umumiy narx. To'langan va
+ * qarz faqat tizim to'lovni kuzatsa (`fee_paid_tracked`).
  */
 const ChiefFee = ({ finance }: { finance: Finance }) => {
   const t = useTranslations("finance.fee");
@@ -198,11 +198,12 @@ const ChiefFee = ({ finance }: { finance: Finance }) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="bg-accent-soft rounded-2xl px-4 py-3">
-        <div className="text-ink-2 text-xs">{t("rate")}</div>
-        <div className="num font-display text-2xl">{format.money(finance.addressRate ?? 0)}</div>
-        <div className="text-ink-3 text-2xs mt-0.5">{t("rateNote")}</div>
-      </div>
+      <RatesBlock finance={finance} />
+      {finance.totals.missingRate ? (
+        <p role="note" className="bg-warn-soft text-warn rounded-xl px-3 py-2 text-xs">
+          {t("incompleteNote")}
+        </p>
+      ) : null}
       {tracked ? null : <p className="text-ink-3 text-xs">{t("notTrackedNote")}</p>}
       <ul className="flex flex-col divide-y">
         {finance.filials.map((row) => {
@@ -211,13 +212,18 @@ const ChiefFee = ({ finance }: { finance: Finance }) => {
             <li key={row.id} className="py-2.5">
               <div className="flex items-center gap-2">
                 <FilialName code={row.code} name={row.name} />
+                {row.missingRate ? (
+                  <Pill intent="warn" icon={AlertTriangle} className="ml-auto">
+                    {t("incomplete")}
+                  </Pill>
+                ) : null}
                 {/* to'langani kuzatilmaydi yoki noma'lum — holat belgisi yo'q */}
                 {due === null ? null : due > 0 ? (
-                  <Pill intent="warn" className="ml-auto">
+                  <Pill intent="warn" className={row.missingRate ? undefined : "ml-auto"}>
                     {t("due", { value: format.moneyCompact(due) })}
                   </Pill>
                 ) : (
-                  <Pill intent="good" icon={CheckCircle2} className="ml-auto">
+                  <Pill intent="good" icon={CheckCircle2} className={row.missingRate ? undefined : "ml-auto"}>
                     {t("paid")}
                   </Pill>
                 )}
@@ -227,7 +233,7 @@ const ChiefFee = ({ finance }: { finance: Finance }) => {
                 rows={[
                   {
                     key: "fee",
-                    label: t("formula", { count: formatNumber(row.addresses) }),
+                    label: t("addresses", { count: formatNumber(row.addresses) }),
                     value: format.money(row.chiefFee),
                   },
                   {
@@ -245,6 +251,47 @@ const ChiefFee = ({ finance }: { finance: Finance }) => {
           );
         })}
       </ul>
+    </div>
+  );
+};
+
+/** Joriy narxlar: viloyatlar ro'yxati (yangi) yoki bitta umumiy narx (eski); ikkalasi yo'q — blok yo'q. */
+const RatesBlock = ({ finance }: { finance: Finance }) => {
+  const t = useTranslations("finance.fee");
+  const format = useFormat();
+  const regionName = useRegionName();
+  const rates = finance.addressRates;
+
+  if (rates !== null && rates.length > 0)
+    return (
+      <div className="bg-accent-soft rounded-2xl px-4 py-3">
+        <div className="text-ink-2 text-xs">{t("ratesTitle")}</div>
+        <ul className="mt-1.5 grid gap-x-4 gap-y-1 sm:grid-cols-2">
+          {[...rates]
+            .sort((a, b) => Number(a.rate !== null) - Number(b.rate !== null))
+            .map((row) => (
+              <li key={row.region} className="flex items-center justify-between gap-2 text-sm">
+                <span className="truncate">
+                  {row.region === "" ? t("unknownRegion") : regionName(row.region)}
+                </span>
+                {row.rate === null ? (
+                  <Pill intent="crit">{t("noRate")}</Pill>
+                ) : (
+                  <span className="num font-semibold">{format.money(row.rate)}</span>
+                )}
+              </li>
+            ))}
+        </ul>
+        <div className="text-ink-3 text-2xs mt-1.5">{t("ratesNote")}</div>
+      </div>
+    );
+
+  if (finance.addressRate === null) return null;
+  return (
+    <div className="bg-accent-soft rounded-2xl px-4 py-3">
+      <div className="text-ink-2 text-xs">{t("rate")}</div>
+      <div className="num font-display text-2xl">{format.money(finance.addressRate)}</div>
+      <div className="text-ink-3 text-2xs mt-0.5">{t("rateNote")}</div>
     </div>
   );
 };
@@ -273,6 +320,35 @@ const HandoversList = ({ rows }: { rows: readonly Handover[] }) => {
         </li>
       ))}
     </ul>
+  );
+};
+
+/**
+ * Haq katagi: narxsiz viloyat — «—» (0 emas); qisman narxsiz — summa + «to'liq emas» va qaysi
+ * viloyatlar tushib qolgani (TZ 32 §R, `missing_rates`).
+ */
+const ChiefFeeCell = ({ row, feePaidTracked }: { row: ChiefRow; feePaidTracked: boolean }) => {
+  const t = useTranslations("finance.fee");
+  const format = useFormat();
+  const regionName = useRegionName();
+  const fee = row.fee === null ? "—" : format.moneyCompact(row.fee);
+  const value = feePaidTracked ? (
+    <span className="text-ink-2">
+      {row.feePaid === null ? "—" : format.moneyCompact(row.feePaid)} / {fee}
+    </span>
+  ) : (
+    fee
+  );
+  if (!row.missingRate && row.fee !== null) return value;
+  return (
+    <span className="inline-flex flex-col items-end gap-0.5">
+      {value}
+      <span className="text-warn text-2xs">
+        {row.missingRates.length > 0
+          ? t("missingRegions", { regions: row.missingRates.map(regionName).join(", ") })
+          : t("noRate")}
+      </span>
+    </span>
   );
 };
 
@@ -342,14 +418,7 @@ const ChiefsTable = ({ rows, feePaidTracked }: { rows: readonly ChiefRow[]; feeP
       header: feePaidTracked ? t("fee") : t("feeTotal"),
       numeric: true,
       align: "right",
-      cell: (row) =>
-        feePaidTracked ? (
-          <span className="text-ink-2">
-            {row.feePaid === null ? "—" : format.moneyCompact(row.feePaid)} / {format.moneyCompact(row.fee)}
-          </span>
-        ) : (
-          format.moneyCompact(row.fee)
-        ),
+      cell: (row) => <ChiefFeeCell row={row} feePaidTracked={feePaidTracked} />,
     },
   ];
 

@@ -1,0 +1,82 @@
+{
+  "title": "Chatlar",
+  "description": "Har filialning bosh logisti va bosh operatori bilan alohida yozishma. Rahbar almashsa ham kanal va tarix joyida qoladi.",
+  "list": {
+    "label": "Kanallar",
+    "totalUnread": "O'qilmagan: {count}",
+    "noFilial": "Filialsiz",
+    "noLeader": "Rahbar tayinlanmagan",
+    "noMessages": "Hali xabar yo'q",
+    "unread": "{count} ta o'qilmagan",
+    "emptyTitle": "Kanal yo'q",
+    "emptyDescription": "Filialda bosh logist yoki bosh operator o'rni paydo bo'lishi bilan kanal shu yerda ko'rinadi.",
+    "fileMessage": "Fayl"
+  },
+  "conversation": {
+    "pickTitle": "Kanalni tanlang",
+    "pickDescription": "Chapdagi ro'yxatdan filial rahbarini tanlang.",
+    "back": "Kanallarga qaytish",
+    "notFoundTitle": "Kanal topilmadi",
+    "notFoundDescription": "Bu kanal yo'q yoki sizning filiallaringiz qamrovida emas.",
+    "loadOlder": "Oldingi xabarlar",
+    "loadingOlder": "Yuklanmoqda…",
+    "start": "Yozishmaning boshi",
+    "emptyTitle": "Hali xabar yo'q",
+    "emptyDescription": "Birinchi xabarni yozing — rahbar uni o'z saytidagi chatda ko'radi.",
+    "leaderLine": "{name} · @{username}",
+    "noLeaderTitle": "Bu o'rinda hozir rahbar yo'q",
+    "noLeaderText": "Kanal va tarix saqlanadi. Yozgan xabaringizni yangi tayinlangan rahbar butun tarix bilan ko'radi.",
+    "accessNote": "Rahbar yozishmani ko'rishi uchun unda «Owner bilan chat» (chat.owner) dopuski bo'lishi kerak — Filiallar → rahbar → Dopusklar.",
+    "deleted": "Xabar o'chirilgan",
+    "edited": "tahrirlangan",
+    "read": "O'qildi",
+    "sent": "Yuborildi",
+    "reply": "Javob berish",
+    "replyTo": "Javob: {name}",
+    "replyFallback": "xabarga",
+    "you": "Siz",
+    "refOrder": "Zakaz",
+    "refLead": "Lid",
+    "refMissing": "topilmadi",
+    "openFile": "Faylni ochish",
+    "fileNoLink": "havola yo'q"
+  },
+  "composer": {
+    "label": "Xabar",
+    "placeholder": "Xabar yozing…",
+    "send": "Yuborish",
+    "sending": "Yuborilmoqda…",
+    "attach": "Fayl biriktirish",
+    "removeFile": "Faylni olib tashlash",
+    "addRef": "Zakaz yoki lid havolasi",
+    "removeRef": "Havolani olib tashlash",
+    "refType": "Havola turi",
+    "refId": "Raqam yoki ID",
+    "refIdPlaceholder": "masalan, 12345",
+    "cancelReply": "Javobni bekor qilish",
+    "charsLeft": "{count} belgi qoldi",
+    "hint": "Enter — yuborish, Shift+Enter — yangi qator",
+    "viewerNote": "Ko'rish rejimi — xabar yozish faqat boshliqqa ochiq.",
+    "problems": {
+      "empty": "Matn yozing yoki fayl biriktiring.",
+      "tooLong": "Matn 8000 belgidan oshmasin.",
+      "fileTooLarge": "Fayl juda katta: bu turdagi fayl {limit} MB gacha.",
+      "refId": "Havola raqamini yozing."
+    }
+  },
+  "fileKinds": {
+    "image": "Rasm",
+    "video": "Video",
+    "audio": "Ovoz",
+    "document": "Hujjat"
+  },
+  "errors": {
+    "empty_message": "Matn ham, fayl ham yo'q — xabar yuborilmadi.",
+    "file_too_large": "Fayl hajmi chegaradan katta.",
+    "validation_error": "Xabar noto'g'ri tuzilgan (havola yoki matnni tekshiring).",
+    "reply_not_found": "Javob berilayotgan xabar bu kanalda topilmadi.",
+    "chat_not_found": "Kanal topilmadi — ro'yxatni yangilang.",
+    "section_forbidden": "Bu bo'lim sizga ochilmagan.",
+    "failed": "Xabar yuborilmadi. Qayta urinib ko'ring."
+  }
+}

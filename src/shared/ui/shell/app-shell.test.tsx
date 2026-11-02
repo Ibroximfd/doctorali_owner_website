@@ -31,11 +31,11 @@ describe("AppShell", () => {
     navigation.push.mockReset();
   });
 
-  it("marks the current section among the nine sections", async () => {
+  it("marks the current section among the eleven sections", async () => {
     await renderShell();
 
     const nav = screen.getByRole("navigation", { name: "Bo'limlar" });
-    expect(within(nav).getAllByRole("link")).toHaveLength(9);
+    expect(within(nav).getAllByRole("link")).toHaveLength(11);
     expect(within(nav).getByRole("link", { name: /Analitika/ })).toHaveAttribute("aria-current", "page");
     expect(within(nav).getByRole("link", { name: /Umumiy/ })).not.toHaveAttribute("aria-current");
     expect(screen.getByText("kontent")).toBeInTheDocument();

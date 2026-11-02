@@ -5,10 +5,19 @@ import { resetSklad } from "@/shared/testing/fixtures/sklad-state";
 import { resetStructure } from "@/shared/testing/fixtures/structure-v2";
 import { mockGet, mockSend } from "@/shared/testing/mock-api";
 
-import { grantOwners, lowCount, pageRange, skladByRegion, skladSummary, stockRows } from "./warehouse.rules";
+import {
+  chiefNames,
+  grantOwners,
+  lowCount,
+  pageRange,
+  skladByRegion,
+  skladSummary,
+  stockRows,
+} from "./warehouse.rules";
 import {
   ACTOR_KINDS,
   actorKindParam,
+  actorNameError,
   documentSchema,
   grantsSchema,
   ledgerSchema,
@@ -19,6 +28,65 @@ import {
 } from "./warehouse.schema";
 
 const S = "sklad-api/";
+
+describe("TZ 32 §S — sklads", () => {
+  it("reads `chiefs[]` and falls back to the old single `chief`", () => {
+    const [fresh, legacy, empty] = parseJson(skladsSchema, [
+      {
+        id: 1,
+        name: "Vodiy",
+        regions: ["fargona"],
+        chiefs: [
+          { id: 7, full_name: "A" },
+          { id: 9, full_name: "B" },
+        ],
+        chief: { id: 7, full_name: "A" },
+        locations: 3,
+      },
+      { id: 2, name: "Eski", regions: ["xorazm"], chief: { id: 4, full_name: "C" } },
+      { id: 3, name: "Yangi", regions: [], chiefs: [], chief: null, locations: null, is_active: false },
+    ]);
+    expect(fresh && chiefNames(fresh)).toBe("A, B");
+    expect(legacy?.chiefs).toEqual([{ id: 4, fullName: "C" }]);
+    expect(empty && chiefNames(empty)).toBe("—");
+    expect(empty?.locations).toBeNull();
+  });
+
+  it("a closed sklad does not hold its regions", () => {
+    const rows = parseJson(skladsSchema, [
+      { id: 1, name: "Yopiq", regions: ["xorazm"], chiefs: [], is_active: false },
+      { id: 2, name: "Ochiq", regions: ["xorazm"], chiefs: [] },
+    ]);
+    expect(skladByRegion(rows).get("xorazm")?.name).toBe("Ochiq");
+  });
+
+  it("puts the `actor_name` 50+ error under the field, ignores other errors", () => {
+    expect(
+      actorNameError({ code: "validation_error", fields: { actor_name: ["Juda ko'p moslik (50+)"] } }),
+    ).toBe("Juda ko'p moslik (50+)");
+    expect(actorNameError({ code: "validation_error", fields: { kind: ["x"] } })).toBeNull();
+    expect(actorNameError({ code: "not_found", fields: {} })).toBeNull();
+  });
+
+  it("demo ledger filters by name, order number and free text (AND)", () => {
+    const all = ledger({ date_from: "2020-01-01", date_to: "2030-01-01", page_size: "100" });
+    const sample = all.results[0];
+    if (!sample?.actor) throw new Error("qator yo'q");
+    const byName = ledger({
+      date_from: "2020-01-01",
+      date_to: "2030-01-01",
+      actor_name: sample.actor.fullName.slice(0, 4),
+    });
+    expect(byName.count).toBeGreaterThan(0);
+    const byText = ledger({ date_from: "2020-01-01", date_to: "2030-01-01", q: sample.item.name });
+    expect(
+      byText.results.every(
+        (row) => row.item.name === sample.item.name || row.note.includes(sample.item.name),
+      ),
+    ).toBe(true);
+    expect(parseJson(skladsSchema, [mockGet(`${S}sklads/1/`)])[0]?.chiefs.length).toBeGreaterThan(0);
+  });
+});
 const sklads = () => parseJson(skladsSchema, mockGet(`${S}sklads/`));
 const stock = () => parseJson(stockSchema, mockGet(`${S}stock/`, { pagination: "false" }));
 const ledger = (query: Record<string, string> = {}) => parseJson(ledgerSchema, mockGet(`${S}ledger/`, query));

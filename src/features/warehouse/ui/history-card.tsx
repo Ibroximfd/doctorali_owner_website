@@ -1,10 +1,12 @@
 "use client";
 
-import { ChevronLeft, ChevronRight, History } from "lucide-react";
+import { ChevronLeft, ChevronRight, History, Search } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
 
 import { REGION_TILES } from "@/shared/config/regions";
 import { useFormat } from "@/shared/hooks/use-format";
+import { toAppError } from "@/shared/lib/app-error";
 import { cn } from "@/shared/lib/cn";
 import { formatNumber } from "@/shared/lib/format";
 import { useRegionName } from "@/shared/meta/use-region-name";
@@ -28,51 +30,129 @@ import {
   useWarehouseDialogs,
 } from "../hooks/use-warehouse";
 import { pageRange } from "../model/warehouse.rules";
-import { ACTOR_KINDS, MOVEMENT_TYPES, type LedgerEntry, type SkladDocument } from "../model/warehouse.schema";
+import {
+  ACTOR_KINDS,
+  ACTOR_NAME_MIN,
+  MOVEMENT_TYPES,
+  actorNameError,
+  type LedgerEntry,
+  type SkladDocument,
+} from "../model/warehouse.schema";
 
 const REGION_CODES = Object.keys(REGION_TILES);
 
+/** Yozish to'xtagach URL ga yoziladi — har harfda so'rov ketmasin. */
+const SEARCH_DEBOUNCE_MS = 400;
+
 /**
- * Sklad daftari (`GET ledger/`, TZ 18 §3.5): har harakat — qo'lda (kirim, chiqim, tuzatish, kuryerga
- * berish, qabul) va avtomatik (sotuv, sovg'a, ball). Istalgan sana oralig'i, viloyat, mahsulot va tur
- * bo'yicha (URL da), sahifalab. Qator — hujjat (`documents/{id}/`). «Kim» bo'yicha filtr API da yo'q.
+ * Sklad daftari (`GET ledger/`, TZ 18 §3.5, TZ 32 §S-5): har harakat — qo'lda (kirim, chiqim, tuzatish,
+ * kuryerga berish, qabul, ko'chirish) va avtomatik (sotuv, sovg'a, ball). Filtrlar (URL da, birga — AND):
+ * sana, sklad, viloyat, mahsulot, kim (tur va ism), zakaz raqami, harakat turi va erkin matn `q`.
+ * Sana berilmasa — server BUGUNNI oladi, matnli qidiruv ham shu oynada. Qator — hujjat.
  */
 export const HistoryCard = ({ className }: { className?: string }) => {
   const t = useTranslations("warehouse.history");
   const query = useLedgerQuery();
   const { isFiltered, clear } = useLedgerFilters();
+  // `actor_name` da 50+ moslik — 400 (§S-9): matn maydon ostida, jadval o'rnida izoh
+  const nameError = query.error ? actorNameError(toAppError(query.error)) : null;
 
   return (
     <Card className={className}>
       <CardHeader title={t("title")} description={t("description")} />
       <CardBody flush>
-        <Filters />
-        <QueryState
-          query={query}
-          skeleton={<TableSkeleton rows={10} className="px-5" />}
-          isEmpty={(data) => data.count === 0}
-          empty={
-            isFiltered ? (
-              <NoResults onClear={clear} />
-            ) : (
-              <StateBlock icon={History} title={t("emptyTitle")} description={t("emptyDescription")} />
-            )
-          }
-        >
-          {(data) => (
-            <>
-              <LedgerTable rows={data.results} />
-              <Pagination count={data.count} />
-            </>
-          )}
-        </QueryState>
+        <Filters actorNameError={nameError} />
+        {nameError ? (
+          <StateBlock icon={Search} title={t("tooManyTitle")} description={nameError} />
+        ) : (
+          <QueryState
+            query={query}
+            skeleton={<TableSkeleton rows={10} className="px-5" />}
+            isEmpty={(data) => data.count === 0}
+            empty={
+              isFiltered ? (
+                <NoResults onClear={clear} />
+              ) : (
+                <StateBlock icon={History} title={t("emptyTitle")} description={t("emptyDescription")} />
+              )
+            }
+          >
+            {(data) => (
+              <>
+                <LedgerTable rows={data.results} />
+                <Pagination count={data.count} />
+              </>
+            )}
+          </QueryState>
+        )}
       </CardBody>
       <EntryDrawer rows={query.data?.results ?? []} />
     </Card>
   );
 };
 
-const Filters = () => {
+/**
+ * Matn maydoni: yozilayotgan qiymat o'zida, URL ga kechikib (debounce) yoziladi; URL o'zgarsa
+ * (tozalash, orqaga) — maydon ham yangilanadi.
+ */
+const SearchField = ({
+  id,
+  label,
+  value,
+  onCommit,
+  placeholder,
+  minLength = 1,
+  error,
+  hint,
+  className,
+}: {
+  id: string;
+  label: string;
+  value: string | null;
+  onCommit: (next: string | null) => void;
+  placeholder?: string;
+  minLength?: number;
+  error?: string | null;
+  hint?: string;
+  className?: string;
+}) => {
+  const [draft, setDraft] = useState(value ?? "");
+  const [synced, setSynced] = useState(value);
+  if (synced !== value) {
+    // URL dan kelgan o'zgarish (tozalash, orqaga) — maydon unga ergashadi
+    setSynced(value);
+    setDraft(value ?? "");
+  }
+
+  useEffect(() => {
+    const trimmed = draft.trim();
+    const next = trimmed.length >= minLength ? trimmed : null;
+    if (next === (value ?? null)) return;
+    const timer = setTimeout(() => onCommit(next), SEARCH_DEBOUNCE_MS);
+    return () => clearTimeout(timer);
+  }, [draft, minLength, onCommit, value]);
+
+  return (
+    <Field id={id} label={label} error={error ?? undefined} className={className}>
+      <Input
+        id={id}
+        type="search"
+        value={draft}
+        placeholder={placeholder}
+        aria-invalid={Boolean(error)}
+        aria-describedby={error ? `${id}-error` : hint ? `${id}-hint` : undefined}
+        onChange={(event) => setDraft(event.target.value)}
+      />
+      {hint && !error ? (
+        <p id={`${id}-hint`} className="text-2xs text-ink-3">
+          {hint}
+        </p>
+      ) : null}
+    </Field>
+  );
+};
+
+const Filters = ({ actorNameError: nameError }: { actorNameError: string | null }) => {
   const t = useTranslations("warehouse.history");
   const regionName = useRegionName();
   const items = useItemsQuery().data ?? [];
@@ -86,6 +166,33 @@ const Filters = () => {
       aria-label={t("filters")}
       className="grid grid-cols-2 gap-2.5 px-4 pb-3 sm:grid-cols-3 md:px-5.5 lg:grid-cols-7"
     >
+      <SearchField
+        id="h-q"
+        className="col-span-2 sm:col-span-3"
+        label={t("q")}
+        placeholder={t("qPlaceholder")}
+        value={filters.q}
+        onCommit={(next) => setFilter({ hQ: next })}
+      />
+      <SearchField
+        id="h-actor-name"
+        className="col-span-2 sm:col-span-1 lg:col-span-2"
+        label={t("actorName")}
+        placeholder={t("actorNamePlaceholder")}
+        minLength={ACTOR_NAME_MIN}
+        hint={t("actorNameHint", { min: ACTOR_NAME_MIN })}
+        error={nameError}
+        value={filters.actorName}
+        onCommit={(next) => setFilter({ hActorName: next })}
+      />
+      <SearchField
+        id="h-order"
+        className="col-span-2 sm:col-span-2"
+        label={t("order")}
+        placeholder={t("orderPlaceholder")}
+        value={filters.order}
+        onCommit={(next) => setFilter({ hOrder: next })}
+      />
       <Field id="h-from" label={t("from")}>
         <Input
           id="h-from"
@@ -178,13 +285,16 @@ const Filters = () => {
           ))}
         </Select>
       </Field>
-      {isFiltered ? (
-        <div className="col-span-2 sm:col-span-3 lg:col-span-7">
+      <div className="col-span-2 flex flex-wrap items-center gap-2 sm:col-span-3 lg:col-span-7">
+        <p className="text-2xs text-ink-3 me-auto">
+          {t(filters.from || filters.to ? "rangeNote" : "todayNote")}
+        </p>
+        {isFiltered ? (
           <Button size="sm" intent="ghost" onClick={clear}>
             {t("clear")}
           </Button>
-        </div>
-      ) : null}
+        ) : null}
+      </div>
     </div>
   );
 };

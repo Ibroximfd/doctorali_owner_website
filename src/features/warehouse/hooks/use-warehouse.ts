@@ -21,6 +21,7 @@ import {
   loadLedger,
   loadLedgerSummary,
   loadOverview,
+  loadSklad,
   loadSklads,
   loadStock,
   putFilialGrants,
@@ -30,6 +31,7 @@ import {
 export const warehouseKeys = {
   all: ["warehouse"] as const,
   sklads: () => [...warehouseKeys.all, "sklads"] as const,
+  sklad: (id: number | null) => [...warehouseKeys.all, "sklads", id] as const,
   items: () => [...warehouseKeys.all, "items"] as const,
   stock: () => [...warehouseKeys.all, "stock"] as const,
   overview: () => [...warehouseKeys.all, "overview"] as const,
@@ -44,6 +46,19 @@ const LIVE_MS = 60_000;
 const DICTIONARY_MS = 10 * 60_000;
 
 export const useSkladsQuery = () => useQuery({ queryKey: warehouseKeys.sklads(), queryFn: loadSklads });
+
+/** Sklad detali (§S-3.2) — ro'yxatdagi qator darhol ko'rinadi, keyin yangi javob bilan almashadi. */
+export const useSkladQuery = (id: number | null) => {
+  const queryClient = useQueryClient();
+  return useQuery({
+    queryKey: warehouseKeys.sklad(id),
+    queryFn: id === null ? skipToken : () => loadSklad(id),
+    placeholderData: () =>
+      queryClient
+        .getQueryData<Awaited<ReturnType<typeof loadSklads>>>(warehouseKeys.sklads())
+        ?.find((sklad) => sklad.id === id),
+  });
+};
 export const useItemsQuery = () =>
   useQuery({ queryKey: warehouseKeys.items(), queryFn: loadItems, staleTime: DICTIONARY_MS });
 /** Mahsulot rasmlari `items/` dan (id → rasm) — qoldiq, tarix va dopusk qatorlari uchun. */
@@ -149,6 +164,9 @@ export const useLedgerFilters = () => {
     hItem: parseAsInteger,
     hActor: parseAsString,
     hType: parseAsString,
+    hQ: parseAsString,
+    hActorName: parseAsString,
+    hOrder: parseAsString,
     hPage: parseAsInteger.withDefault(1),
   });
   const filters: LedgerFilters = {
@@ -159,6 +177,9 @@ export const useLedgerFilters = () => {
     item: state.hItem,
     actor: state.hActor,
     type: state.hType,
+    q: state.hQ,
+    actorName: state.hActorName,
+    order: state.hOrder,
     page: state.hPage,
   };
   const isFiltered = [
@@ -169,6 +190,9 @@ export const useLedgerFilters = () => {
     filters.item,
     filters.actor,
     filters.type,
+    filters.q,
+    filters.actorName,
+    filters.order,
   ].some((value) => value !== null);
   return {
     filters,
@@ -185,6 +209,9 @@ export const useLedgerFilters = () => {
         hItem: null,
         hActor: null,
         hType: null,
+        hQ: null,
+        hActorName: null,
+        hOrder: null,
         hPage: null,
       }),
   };
@@ -205,12 +232,15 @@ export const useDocumentQuery = (id: number | null) =>
     queryFn: id === null ? skipToken : () => loadDocument(id),
   });
 
-/** Ochiq tarix qatori URL da: `?entry=<daftar qatori>`. */
+/** Ochiq oynalar URL da: `?entry=<daftar qatori>`, `?skladInfo=<sklad>`. */
 export const useWarehouseDialogs = () => {
-  const [entry, setEntry] = useQueryState("entry", parseAsInteger);
+  const [state, setState] = useQueryStates({ entry: parseAsInteger, skladInfo: parseAsInteger });
   return {
-    entryId: entry,
-    openEntry: (id: number) => void setEntry(id),
-    closeEntry: () => void setEntry(null),
+    entryId: state.entry,
+    openEntry: (id: number) => void setState({ entry: id }),
+    closeEntry: () => void setState({ entry: null }),
+    skladInfoId: state.skladInfo,
+    openSklad: (id: number) => void setState({ skladInfo: id }),
+    closeSklad: () => void setState({ skladInfo: null }),
   };
 };

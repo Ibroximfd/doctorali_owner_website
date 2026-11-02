@@ -10,11 +10,11 @@ import { cn } from "@/shared/lib/cn";
 import { Button } from "@/shared/ui/button";
 
 import { useAskAi } from "../hooks/use-ai";
-import { QUESTION_MAX, QUESTION_MIN } from "../model/ai.rules";
+import { chatFailure, QUESTION_MAX, QUESTION_MIN } from "../model/ai.rules";
 import type { ChatAnswer } from "../model/ai.schema";
 import { AiAvatar } from "./ai-orb";
 
-const STARTERS = [
+export const STARTERS = [
   { key: "overview", icon: CalendarCheck },
   { key: "money", icon: Wallet },
   { key: "conversion", icon: UsersRound },
@@ -23,21 +23,11 @@ const STARTERS = [
 
 type Turn = { id: number; question: string; answer: ChatAnswer | null; error: string | null };
 
-/** Backend xatosi → tushunarli gap (§8.3): 429 — tezlik, 503 — o'chiq, 422 — rad etdi, 400 — uzunlik. */
-const errorKey = (error: unknown): string => {
-  const appError = toAppError(error);
-  if (appError.code === "too_many_attempts" || appError.kind === "rate-limited") return "rateLimited";
-  if (appError.code === "ai_unavailable") return "unavailable";
-  if (appError.code === "ai_refused") return "refused";
-  if (appError.code === "validation_error") return "invalid";
-  return appError.kind === "offline" ? "offline" : "failed";
-};
-
 /**
- * AI chat (§8.3): savol → bitta javob, `tools_used` (qaysi manbadan) va `period` (qaysi davr).
- * Backend suhbatni saqlamaydi — tarix shu oynada, sahifa yopilsa tozalanadi.
+ * ZAXIRA — eski tarixsiz `POST ai/chat/` (savol → bitta javob). Faqat backendda `ai/chats/`
+ * hali yo'q bo'lsa (eski prod) chiziladi; tarix shu oynada, sahifa yopilsa tozalanadi.
  */
-export const ChatPanel = () => {
+export const LegacyChatPanel = () => {
   const t = useTranslations("ai.chat");
   const ask = useAskAi();
   const [turns, setTurns] = useState<Turn[]>([]);
@@ -65,7 +55,7 @@ export const ChatPanel = () => {
         setTurns((current) => current.map((turn) => (turn.id === id ? { ...turn, answer } : turn))),
       onError: (error) =>
         setTurns((current) =>
-          current.map((turn) => (turn.id === id ? { ...turn, error: errorKey(error) } : turn)),
+          current.map((turn) => (turn.id === id ? { ...turn, error: chatFailure(toAppError(error)) } : turn)),
         ),
     });
   };

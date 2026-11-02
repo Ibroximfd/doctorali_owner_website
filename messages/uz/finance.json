@@ -21,15 +21,22 @@
   },
   "fee": {
     "title": "Bosh kuryer haqi",
-    "description": "Yetkazilgan manzil × bitta narx, har filial alohida to'laydi",
+    "description": "Haq viloyat narxi bo'yicha serverda hisoblanadi, har filial alohida to'laydi",
     "rate": "Bir manzil narxi",
     "rateNote": "Hamma filial uchun bitta · asosiy filial B.L i belgilaydi",
     "due": "Qarz {value}",
     "paid": "To'langan",
-    "formula": "{count} manzil × narx",
     "paidLabel": "To'landi",
     "notTracked": "Tizimda kuzatilmaydi",
-    "notTrackedNote": "Haqning to'langanini tizim hozircha qayd etmaydi — faqat hisoblangan summa ko'rsatiladi."
+    "notTrackedNote": "Haqning to'langanini tizim hozircha qayd etmaydi — faqat hisoblangan summa ko'rsatiladi.",
+    "ratesTitle": "Bir manzil narxi — viloyatlar bo'yicha",
+    "ratesNote": "Narx hamma filial uchun bir xil · rates.manage dopuski bor bosh logist belgilaydi",
+    "unknownRegion": "Viloyat belgilanmagan",
+    "noRate": "Narx belgilanmagan",
+    "incomplete": "Haq to'liq emas",
+    "incompleteNote": "Ba'zi viloyatlarda narx belgilanmagan — o'sha manzillar haqqa kirmagan, summa to'liq emas.",
+    "missingRegions": "Narxsiz: {regions}",
+    "addresses": "{count} manzil"
   },
   "handovers": {
     "title": "Filiallarga topshirilgan pul",

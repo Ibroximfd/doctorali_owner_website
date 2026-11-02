@@ -1,4 +1,12 @@
-import type { AuditEntry, FilialItem, Head, LeaderRole, Permission, Structure } from "./filials.schema";
+import type {
+  AuditEntry,
+  FilialItem,
+  Head,
+  LeaderRole,
+  Permission,
+  RoleResult,
+  Structure,
+} from "./filials.schema";
 
 export const leaderOf = (
   filial: Pick<FilialItem, "chiefLogist" | "chiefOperator">,
@@ -9,15 +17,11 @@ export const leaderOf = (
 export const isForRole = (permission: Pick<Permission, "role">, role: LeaderRole): boolean =>
   permission.role === role || permission.role === "both";
 
-/** Bu filial rahbariga berilishi mumkin bo'lgan dopusk: o'z roli, asosiy bo'lmasa — umumiylari. */
-export const isPermissionAllowed = (permission: Permission, role: LeaderRole, isMain: boolean): boolean =>
-  isForRole(permission, role) && (isMain || !permission.mainOnly);
-
 /** Guruhsiz dopusklar shu nom ostida (oxirida). */
 export const OTHER_GROUP = "other";
 
 /**
- * Backend guruhi o'zbekcha so'z (`qila oladi | ko'radi | boshqaradi`) — tarjima kaliti va tartib
+ * Eski backend guruhi o'zbekcha so'z (`qila oladi | ko'radi | boshqaradi`) — tarjima kaliti va tartib
  * uchun barqaror kalitga keltiriladi; notanish guruh o'z nomi bilan qoladi.
  */
 const GROUP_KEYS: Readonly<Record<string, string>> = {
@@ -36,56 +40,96 @@ export const groupKey = (group: string | null): string => {
   return GROUP_KEYS[normalized] ?? group;
 };
 
+/**
+ * Guruh: yangi katalogda `group_label` (TZ 32 §D-3 — backend sarlavhasi, katalog tartibida), eski
+ * katalogda `group` dan barqaror kalit.
+ */
+const groupOf = (permission: Pick<Permission, "group" | "groupLabel">): string =>
+  permission.groupLabel?.trim() ? permission.groupLabel.trim() : groupKey(permission.group);
+
 const groupRank = (group: string): number => {
   const index = GROUP_ORDER.indexOf(group);
   if (index !== -1) return index;
-  return group === OTHER_GROUP ? GROUP_ORDER.length + 1 : GROUP_ORDER.length;
+  return group === OTHER_GROUP ? Number.MAX_SAFE_INTEGER : GROUP_ORDER.length;
 };
 
-export type PermissionGroup = {
-  group: string;
-  items: { permission: Permission; disabled: boolean }[];
-};
+export type PermissionGroup = { group: string; items: Permission[] };
 
 /**
- * Dopusklar guruhlab (qila oladi · ko'radi · boshqaradi), katalog tartibida. Asosiy filialga
- * xos dopusklar oddiy filialda ko'rinadi, lekin o'chiq — Owner nima uchun yo'qligini ko'rsin.
+ * Shu rahbar turining dopusklari guruhlab, katalog tartibida (`group_label` bo'lsa — backend
+ * sarlavhalari kelgan tartibda). §M-1 dan keyin `main_only` qulf EMAS — faqat yorliq: owner
+ * imtiyoz kalitlarini istalgan filial rahbariga beradi.
  */
-export const permissionGroups = (
-  catalog: readonly Permission[],
-  role: LeaderRole,
-  isMain: boolean,
-): PermissionGroup[] => {
-  const groups = new Map<string, PermissionGroup["items"]>();
+export const permissionGroups = (catalog: readonly Permission[], role: LeaderRole): PermissionGroup[] => {
+  const groups = new Map<string, Permission[]>();
   for (const permission of catalog) {
     if (!isForRole(permission, role)) continue;
-    const group = groupKey(permission.group);
-    groups.set(group, [
-      ...(groups.get(group) ?? []),
-      { permission, disabled: !isPermissionAllowed(permission, role, isMain) },
-    ]);
+    const group = groupOf(permission);
+    groups.set(group, [...(groups.get(group) ?? []), permission]);
   }
   return [...groups.entries()]
     .map(([group, items]) => ({ group, items }))
     .sort((a, b) => groupRank(a.group) - groupRank(b.group));
 };
 
-/** Rol bilan birga keladigan (sukut) huquqlar: `effective` dagi, qo'shimchada yo'q kalitlar. */
-export const roleDefaults = (head: Pick<Head, "permissions" | "effectivePermissions">): string[] =>
+/**
+ * Dopusk oynasi rejimi (TZ 32 §D-1):
+ * - `full` — javobda `role_defaults` bor: `permissions` samarali to'liq to'plam, HAR kalit (sukutdagisi
+ *   ham) o'chirib-yoqiladi; `defaults` faqat «sukut» yorlig'i uchun;
+ * - `extras` — eski backend: `permissions` qo'shimchalar, `locked` (rol bilan keladi) o'chirilmaydi.
+ */
+export type PermissionMode =
+  { kind: "full"; defaults: readonly string[] } | { kind: "extras"; locked: readonly string[] };
+
+/** Eski backend: rol bilan keladigan huquqlar — `effective` dagi, qo'shimchada yo'q kalitlar (B-26). */
+export const legacyDefaults = (head: Pick<Head, "permissions" | "effectivePermissions">): string[] =>
   (head.effectivePermissions ?? []).filter((key) => !head.permissions.includes(key));
 
-/** Shu rahbarga berilishi mumkin bo'lgan qo'shimcha kalitlar (sukutdagilar va o'chiqlar kirmaydi). */
+export const permissionModeOf = (
+  head: Pick<Head, "permissions" | "effectivePermissions" | "roleDefaults">,
+): PermissionMode =>
+  head.roleDefaults !== null
+    ? { kind: "full", defaults: head.roleDefaults }
+    : { kind: "extras", locked: legacyDefaults(head) };
+
+/** Qulflangan (o'chirib bo'lmaydigan) kalitlar — faqat eski rejimda. */
+export const lockedKeys = (mode: PermissionMode): readonly string[] =>
+  mode.kind === "extras" ? mode.locked : [];
+
+/** Sukut yorlig'i qo'yiladigan kalitlar. */
+export const defaultKeys = (mode: PermissionMode): readonly string[] =>
+  mode.kind === "full" ? mode.defaults : mode.locked;
+
+/** Shu rahbarga o'chirib-yoqiladigan kalitlar: rol katalogidagi hammasi, qulflanganlardan tashqari. */
 export const grantableKeys = (
   catalog: readonly Permission[],
   role: LeaderRole,
-  isMain: boolean,
-  defaults: readonly string[],
+  locked: readonly string[] = [],
 ): string[] =>
   catalog
-    .filter(
-      (permission) => isPermissionAllowed(permission, role, isMain) && !defaults.includes(permission.key),
-    )
+    .filter((permission) => isForRole(permission, role) && !locked.includes(permission.key))
     .map((permission) => permission.key);
+
+/** Sukutda bor, lekin hozir tanlanmagan — «olingan» belgisi (`revoked_defaults` ning jonli hisobi). */
+export const revokedDefaults = (mode: PermissionMode, selected: readonly string[]): string[] =>
+  mode.kind === "full" ? mode.defaults.filter((key) => !selected.includes(key)) : [];
+
+/**
+ * Saqlangan to'plamda bor, lekin shu rahbar katalogida yo'q kalitlar (masalan, eski yoki boshqa
+ * rol kaliti) — `PATCH` to'liq ro'yxat bo'lgani uchun yo'qolmasin, alohida ko'rsatiladi.
+ */
+export const uncataloguedKeys = (
+  catalog: readonly Permission[],
+  role: LeaderRole,
+  selected: readonly string[],
+): string[] => {
+  const known = new Set(catalog.filter((permission) => isForRole(permission, role)).map((item) => item.key));
+  return selected.filter((key) => !known.has(key));
+};
+
+/** §D-2a kaskad: kalit nechta quyi xodimdan ham olindi (o'rin bo'yicha takrorsiz). */
+export const cascadeCount = (role: Pick<RoleResult, "cascade">): number =>
+  new Set(role.cascade.map((row) => row.seatId)).size;
 
 /** Saqlashdan oldin: nima beriladi, nima olinadi. */
 export const permissionDiff = (before: readonly string[], after: readonly string[]) => ({
@@ -143,17 +187,16 @@ export const isUsernameTaken = (error: {
 /** `PATCH roles/{id}` javobini tuzilmaga yozadi: shu rol egasining dopusklari darhol yangilanadi. */
 export const withRolePermissions = (
   structure: Structure,
-  role: { id: number; permissions: string[]; effectivePermissions: string[] },
+  role: Pick<RoleResult, "id" | "permissions" | "effectivePermissions" | "roleDefaults" | "revokedDefaults">,
 ): Structure => {
   const patch = (head: Head | null): Head | null =>
     head && head.roleId === role.id
       ? {
           ...head,
           permissions: role.permissions,
-          effectivePermissions:
-            head.effectivePermissions === null && role.effectivePermissions.length === 0
-              ? null
-              : role.effectivePermissions,
+          effectivePermissions: role.effectivePermissions ?? head.effectivePermissions,
+          roleDefaults: role.roleDefaults ?? head.roleDefaults,
+          revokedDefaults: role.revokedDefaults,
         }
       : head;
   return {

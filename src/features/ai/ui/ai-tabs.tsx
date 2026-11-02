@@ -17,7 +17,6 @@ export const AiTabs = ({
   tabs = AI_TABS,
 }: {
   counts: Partial<Record<AiTab, number>>;
-  /** Ko'rinadigan varaqlar — `status.enabled` bo'lmasa chat yo'q. */
   tabs?: readonly AiTab[];
 }) => {
   const t = useTranslations("ai.tabs");
@@ -54,7 +53,12 @@ export const AiTabs = ({
             ) : null}
             <span className="relative">{t(key)}</span>
             {count ? (
-              <span className={cn("num relative text-xs", isActive ? "text-accent" : "text-crit")}>
+              <span
+                className={cn(
+                  "num relative text-xs",
+                  isActive ? "text-accent" : key === "findings" ? "text-crit" : "text-warn",
+                )}
+              >
                 {formatNumber(count)}
               </span>
             ) : null}

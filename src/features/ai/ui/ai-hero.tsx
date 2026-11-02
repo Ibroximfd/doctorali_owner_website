@@ -7,6 +7,7 @@ import { useFormat } from "@/shared/hooks/use-format";
 import { formatNumber } from "@/shared/lib/format";
 
 import { useAiStatusQuery, useAnalysisQuery } from "../hooks/use-ai";
+import { useAiPeriod } from "../hooks/use-ai-tab";
 import { countBySeverity } from "../model/ai.rules";
 import { AiOrb } from "./ai-orb";
 
@@ -17,7 +18,9 @@ export const AiHero = () => {
   const format = useFormat();
   const reduce = useReducedMotion();
   const status = useAiStatusQuery();
-  const analysis = useAnalysisQuery().data;
+  const { period } = useAiPeriod();
+  const analysis = useAnalysisQuery(period).data;
+  const noKey = status.data?.enabled === false || analysis?.aiAvailable === false;
   const model = status.data?.model ?? analysis?.model ?? null;
 
   return (
@@ -42,13 +45,13 @@ export const AiHero = () => {
               })}
             </span>
           ) : null}
-          {analysis ? (
+          {analysis?.status === "ready" && analysis.generatedAt ? (
             <span className="text-ink-3">
               {t("generated", { time: format.dateTime(analysis.generatedAt) })}
             </span>
           ) : null}
           {model ? <span className="text-ink-3">{t("model", { model })}</span> : null}
-          {status.data && !status.data.enabled ? <span className="text-warn">{t("disabled")}</span> : null}
+          {noKey ? <span className="text-warn">{t("disabled")}</span> : null}
         </p>
       </motion.div>
     </header>

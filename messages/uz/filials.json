@@ -25,12 +25,11 @@
     "edit": "Tahrirlash",
     "makeMain": "Asosiy qilish",
     "noData": "Bu davrda hali sotuv yo'q.",
-    "perfPending": "Filial natijasi backendda kutilmoqda.",
     "sold": "Sotildi",
     "conversion": "Konversiya",
     "cancelRate": "Atkaz",
     "revenue": "Tushum",
-    "permissions": "{count} ta qo'shimcha dopusk",
+    "permissions": "{count} ta dopusk",
     "noLeader": "{role} tayinlanmagan",
     "assignLeader": "Tayinlash",
     "assignLeaderLabel": "{filial} filialiga {role} tayinlash",
@@ -77,7 +76,7 @@
     "copy": "Nusxa olish",
     "copied": "Nusxa olindi",
     "copyFailed": "Nusxa olib bo'lmadi — qo'lda ko'chiring.",
-    "once": "Parol faqat hozir ko'rinadi — backend uni qayta bermaydi. Rahbarga yetkazing."
+    "once": "Parol faqat hozir ko'rinadi — tizim uni qayta bermaydi. Rahbarga yetkazing."
   },
   "leader": {
     "permissionsTitle": "{filial} — {role}: dopusklar",
@@ -85,8 +84,7 @@
     "fallbackTitle": "Filial rahbari",
     "done": "Tayyor",
     "permissions": "Dopusklar",
-    "catalogPending": "Dopusk katalogi kelmadi — hozircha dopusklar faqat ko'rinadi.",
-    "mainOnly": "Faqat asosiy filialda",
+    "catalogPending": "Dopusk katalogi kelmadi — dopusklar faqat ko'rinadi. Sahifani yangilab ko'ring.",
     "permissionsNote": "Rol bilan keladigan huquqlar doim qoladi. Pastdagi qo'shimchalar saqlanganda to'liq almashadi.",
     "saving": "Saqlanmoqda…",
     "appointed": "{name} tayinlandi",
@@ -140,8 +138,27 @@
       "role_not_found": "Bu rol endi yo'q — oynani yopib, sahifani yangilang.",
       "validation_error": "Katalogda yo'q dopusk bor — sahifani yangilab, qayta tanlang.",
       "forbidden": "Bu amalga ruxsat yo'q.",
-      "failed": "Saqlab bo'lmadi. Qayta urinib ko'ring."
-    }
+      "failed": "Saqlab bo'lmadi. Qayta urinib ko'ring.",
+      "permission_ceiling": "Bu dopuskni berib bo'lmaydi — beruvchida yo'q kalit."
+    },
+    "enabled": "Yoqilgan: {count} / {total}",
+    "fullNote": "Sukut — rol bilan keladigan boshlang'ich to'plam. Istalgan kalitni, sukutdagisini ham, o'chirib-yoqish mumkin.",
+    "restoreDefaults": "Sukutni qaytarish ({count})",
+    "default": "Sukut",
+    "defaultRevoked": "Sukut · olingan",
+    "mainDefault": "Asosiy filial sukuti",
+    "sites": {
+      "crm": "CRM",
+      "logist": "Logist sayti",
+      "both": "CRM va logist sayti"
+    },
+    "uncatalogued": "Katalogda yo'q kalitlar",
+    "uncataloguedNote": "Bu kalitlar saqlangan to'plamda bor, lekin shu rahbar katalogida yo'q. O'chirmasangiz saqlanganda o'z holicha qoladi.",
+    "permissionsNoteFull": "Bu ro'yxat rahbarning TO'LIQ dopusk to'plami: saqlanganda aynan shu holat yoziladi.",
+    "cascadeNote": "Olingan kalit shu filialning quyi xodimlaridan ham avtomatik olinadi. Qayta berilganda ularga o'zi qaytmaydi.",
+    "cascadeWarning": "Kalit {count} xodimdan ham olindi; qaytarish uchun rahbar har biriga alohida beradi.",
+    "emptyWarning": "Hamma kalit o'chirildi — saqlansa rahbarda hech qanday dopusk qolmaydi.",
+    "appointDefaultsNote": "Rolning sukut kalitlari tayinlanganda avtomatik qo'shiladi; bu yerda qo'shimchalarni tanlang. Keyin istalganini o'chirish mumkin."
   },
   "seat": {
     "emptyTitle": "O'rin bo'sh",

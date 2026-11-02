@@ -3,7 +3,7 @@
   "description": "Logistlar ko'rgandek — o'sha sklad API dan, faqat ko'rish: hamma sklad, hamma mahsulot. Owner bu yerda faqat mahsulot dopuskini beradi.",
   "kpis": {
     "sklads": "Skladlar",
-    "skladsNote": "har bosh kuryerga bitta",
+    "skladsNote": "viloyatlar bo'yicha; bosh kuryerlar alohida biriktiriladi",
     "stock": "Omborlarda",
     "couriers": "Kuryerlarda",
     "pcs": "dona",
@@ -13,11 +13,11 @@
   "map": {
     "title": "Skladlar xaritasi",
     "description": "Bir rang — bitta sklad viloyatlari. Ustiga olib boring yoki bosing",
-    "regionSummary": "{sklad} · bosh kuryer {chief}",
+    "regionSummary": "{sklad} · bosh kuryerlar: {chief}",
     "noSklad": "Bu viloyat hech bir skladga biriktirilmagan",
     "legend": "Skladlar",
     "pcs": "{count} dona",
-    "chief": "Bosh kuryer",
+    "chief": "Bosh kuryerlar",
     "stock": "Omborda",
     "couriers": "Kuryerlarda",
     "low": "Kam qolgan"
@@ -82,7 +82,9 @@
       "sale": "Sotuv (avto minus)",
       "gift": "Sovg'a (avto minus)",
       "sale_points": "Ball bilan sotuv",
-      "sale_return": "Sotuv qaytdi"
+      "sale_return": "Sotuv qaytdi",
+      "opening_balance": "Boshlang'ich qoldiq",
+      "transfer": "Ko'chirish"
     },
     "actors": {
       "system": "Tizim",
@@ -123,6 +125,37 @@
       "count_diff": "Sanoq farqi",
       "app_error": "Ilova xatosi"
     },
-    "sklad": "Sklad"
+    "sklad": "Sklad",
+    "q": "Qidiruv",
+    "qPlaceholder": "Izoh, hujjat yoki zakaz raqami, mahsulot, odam…",
+    "actorName": "Kim (ism)",
+    "actorNamePlaceholder": "Masalan, Sardor",
+    "actorNameHint": "Kamida {min} belgi",
+    "order": "Zakaz",
+    "orderPlaceholder": "MH-2026-000123",
+    "todayNote": "Sana tanlanmagan — faqat bugungi harakatlar; qidiruv ham shu kun ichida.",
+    "rangeNote": "Qidiruv tanlangan sana oralig'ida (366 kungacha).",
+    "tooManyTitle": "Aniqroq yozing"
+  },
+  "sklads": {
+    "title": "Skladlar",
+    "description": "Har skladning viloyatlari va biriktirilgan bosh kuryerlari. Qatorni bosing — tafsilot",
+    "emptyTitle": "Hali sklad yo'q",
+    "emptyDescription": "Sklad logist saytida ochiladi (warehouse.admin dopuski bor bosh logist).",
+    "name": "Sklad",
+    "regions": "Viloyatlar",
+    "chiefs": "Bosh kuryerlar",
+    "locations": "Omborlar",
+    "status": "Holat",
+    "active": "Faol",
+    "closed": "Yopilgan",
+    "noChief": "Biriktirilmagan",
+    "noChiefNote": "Skladga hali bosh kuryer biriktirilmagan — bu normal holat (sklad bosh kuryerdan alohida ochiladi).",
+    "closedNote": "Yopilgan sklad viloyatni band qilmaydi — bu viloyatlar boshqa skladga berilishi mumkin.",
+    "openRow": "{name} skladi tafsiloti",
+    "detailTitle": "Sklad",
+    "about": "Umumiy",
+    "created": "Ochilgan",
+    "readOnlyNote": "Owner skladni faqat ko'radi: yaratish, viloyat va bosh kuryer biriktirish — logist saytida."
   }
 }

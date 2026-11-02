@@ -9,13 +9,18 @@ import {
   auditFor,
   filialRegionLabel,
   leaderOf,
+  cascadeCount,
   grantableKeys,
   groupKey,
+  legacyDefaults,
   permissionDiff,
   permissionGroups,
   permissionLabel,
-  roleDefaults,
+  permissionModeOf,
+  revokedDefaults,
   sortFilials,
+  uncataloguedKeys,
+  withRolePermissions,
   togglePermission,
 } from "./filials.rules";
 import {
@@ -202,47 +207,82 @@ describe("owner structure contract (backend v2 §2)", () => {
 describe("filials rules", () => {
   const catalog = parseJson(catalogSchema, mockGet("structure/permissions/"));
 
-  it("groups rights do · see · manage from the backend words, in that order", () => {
-    const groups = permissionGroups(catalog, "chief_logist", false);
-    expect(groups.map((group) => group.group)).toEqual(["do", "see", "manage"]);
+  it("groups by `group_label` when the catalog has it, else do · see · manage from the old words", () => {
+    const groups = permissionGroups(catalog, "chief_logist");
+    expect(groups.map((group) => group.group)).toEqual(
+      expect.arrayContaining(["Amallar", "Ko'rish", "Boshqaruv", "Sklad"]),
+    );
+    const legacy = catalog.map((item) => ({ ...item, groupLabel: null }));
+    expect(permissionGroups(legacy, "chief_logist").map((group) => group.group)).toEqual([
+      "do",
+      "see",
+      "manage",
+    ]);
     expect(groupKey("Ko’radi")).toBe("see");
     expect(groupKey(null)).toBe("other");
     expect(togglePermission(["a"], "a")).toEqual([]);
   });
 
-  it("disables main-only rights on an ordinary filial and keeps role defaults out of the extras", () => {
-    const mainOnly = [
-      {
-        key: "rate.set",
-        label: "Narx",
-        labelRu: "Цена",
-        role: "chief_logist",
-        group: "boshqaradi",
-        mainOnly: true,
-      },
-      {
-        key: "cash.accept",
-        label: "Kassa",
-        labelRu: "Касса",
-        role: "both",
-        group: "qila oladi",
-        mainOnly: false,
-      },
-    ];
-    const items = permissionGroups(mainOnly, "chief_logist", false).flatMap((group) => group.items);
-    expect(items.find((item) => item.permission.key === "rate.set")?.disabled).toBe(true);
-    expect(grantableKeys(mainOnly, "chief_logist", false, [])).toEqual(["cash.accept"]);
-    expect(grantableKeys(mainOnly, "chief_logist", true, ["cash.accept"])).toEqual(["rate.set"]);
-    expect(roleDefaults({ permissions: ["a"], effectivePermissions: ["a", "b"] })).toEqual(["b"]);
-    expect(roleDefaults({ permissions: ["a"], effectivePermissions: null })).toEqual([]);
+  it("TZ 32 §D-1: with `role_defaults` every key — defaults and main-only too — is switchable", () => {
+    const full = permissionModeOf({
+      permissions: ["orders.view"],
+      effectivePermissions: ["orders.view"],
+      roleDefaults: ["orders.view", "couriers.view"],
+    });
+    expect(full).toEqual({ kind: "full", defaults: ["orders.view", "couriers.view"] });
+    const keys = grantableKeys(catalog, "chief_logist", []);
+    expect(keys).toEqual(
+      expect.arrayContaining(["orders.view", "chiefs.manage", "rates.manage", "chat.owner"]),
+    );
+    expect(keys).toContain("view.other_filials");
+    expect(revokedDefaults(full, ["orders.view"])).toEqual(["couriers.view"]);
+  });
+
+  it("old backend: role defaults come from `effective − permissions` and stay locked", () => {
+    const head = { permissions: ["a"], effectivePermissions: ["a", "b"], roleDefaults: null };
+    expect(permissionModeOf(head)).toEqual({ kind: "extras", locked: ["b"] });
+    expect(legacyDefaults({ permissions: ["a"], effectivePermissions: null })).toEqual([]);
+    expect(grantableKeys(catalog, "chief_logist", ["cash.accept"])).not.toContain("cash.accept");
+    expect(revokedDefaults({ kind: "extras", locked: ["b"] }, [])).toEqual([]);
     expect(permissionDiff(["a", "b"], ["b", "c"])).toEqual({ added: ["c"], removed: ["a"] });
+  });
+
+  it("writes the PATCH answer into the structure cache, incl. revoked defaults", () => {
+    const structure = parseJson(structureSchema, mockGet("structure/"));
+    const head = structure.results[1]?.chiefLogist;
+    if (!head) throw new Error("rahbar yo'q");
+    const next = withRolePermissions(structure, {
+      id: head.roleId,
+      permissions: ["orders.view"],
+      effectivePermissions: ["orders.view"],
+      roleDefaults: ["orders.view", "couriers.view"],
+      revokedDefaults: ["couriers.view"],
+    });
+    expect(next.results[1]?.chiefLogist).toMatchObject({
+      permissions: ["orders.view"],
+      revokedDefaults: ["couriers.view"],
+    });
+    expect(next.results[0]?.chiefLogist?.permissions).toEqual(structure.results[0]?.chiefLogist?.permissions);
+  });
+
+  it("keeps keys missing from the catalog, counts the cascade per seat", () => {
+    expect(uncataloguedKeys(catalog, "chief_operator", ["seat.create", "legacy.key"])).toEqual([
+      "legacy.key",
+    ]);
+    expect(
+      cascadeCount({
+        cascade: [
+          { seatId: 18, role: "logist", permissions: [] },
+          { seatId: 18, role: "logist", permissions: [] },
+          { seatId: 19, role: "logist", permissions: [] },
+        ],
+      }),
+    ).toBe(2);
   });
 
   it("shows `both` rights to either head, labels in the current language", () => {
     const keys = (role: "chief_logist" | "chief_operator") =>
-      permissionGroups(catalog, role, true).flatMap((group) =>
-        group.items.map((item) => item.permission.key),
-      );
+      permissionGroups(catalog, role).flatMap((group) => group.items.map((item) => item.key));
     expect(keys("chief_logist")).toContain("export.stats");
     expect(keys("chief_operator")).toContain("export.stats");
     expect(keys("chief_operator")).not.toContain("cash.accept");

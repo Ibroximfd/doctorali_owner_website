@@ -1,8 +1,7 @@
 {
   "title": "AI tahlil",
   "description": "AI butun ma'lumotni tahlil qiladi — moliya, analitika, xodimlar, filiallar, sklad — va savolingizga aniq raqam bilan javob beradi.",
-  "chatDisabled": "AI chat o'chiq — backendda AI kaliti sozlanmagan. Tahlil (hisoblangan topilmalar) ishlaydi.",
-  "statusPending": "AI holati backendda kutilmoqda — chat hozircha yashirin, tahlil ishlaydi.",
+  "noKey": "AI kaliti hali qo'yilmagan: topilmalar kod bilan hisoblanadi va ishlaydi; AI xulosasi va chat kalit qo'yilishi bilan o'zi yoqiladi.",
   "hero": {
     "findingsLine": "{urgent} ta shoshilinch, {attention} ta e'tibor talab",
     "generated": "Tahlil: {time}",
@@ -12,7 +11,9 @@
   "tabs": {
     "label": "AI bo'limlari",
     "findings": "Tahlil",
-    "chat": "Chat"
+    "chat": "Chat",
+    "drafts": "Loyihalar",
+    "usage": "Xarajat"
   },
   "severity": {
     "urgent": "Shoshilinch",
@@ -20,13 +21,41 @@
     "good": "Yaxshi",
     "other": "Boshqa"
   },
+  "roles": {
+    "logistics": "Bosh logist (B.L)",
+    "sales": "Bosh operator (B.O)"
+  },
   "findings": {
     "title": "AI topgan narsalar",
-    "description": "Oxirgi 30 kun · hisoblangan topilmalar va AI xulosasi",
+    "description": "Saqlangan tahlil · «Yangilash» AI ni bir marta chaqiradi",
+    "periodLabel": "Tahlil davri",
+    "periods": {
+      "7d": "7 kun",
+      "14d": "14 kun",
+      "30d": "30 kun",
+      "60d": "60 kun",
+      "90d": "90 kun"
+    },
     "refresh": "Yangilash",
     "refreshing": "Yangilanmoqda…",
+    "running": "Hisoblanmoqda…",
+    "runningNote": "Bu davr uchun tahlil hozir hisoblanmoqda — natija tayyor bo'lishi bilan shu yerda chiqadi.",
+    "refreshErrors": {
+      "running": "Bu davr uchun tahlil hozir hisoblanmoqda.",
+      "noKey": "AI kaliti qo'yilmagan — topilmalar kod bilan qayta hisoblandi, AI xulosasi kalit qo'yilgach chiqadi.",
+      "rateLimited": "Daqiqalik so'rov chegarasi tugadi — bir daqiqadan keyin qayta bosing.",
+      "invalid": "Bu davrni server qabul qilmadi — boshqa davrni tanlang.",
+      "offline": "Internet yo'q — yangilab bo'lmadi.",
+      "failed": "Yangilab bo'lmadi. Qayta urinib ko'ring."
+    },
     "summary": "AI xulosasi",
-    "noSummary": "AI xulosasi yo'q — AI o'chiq yoki javob bermadi. Pastdagi topilmalar kod bilan hisoblangan.",
+    "periodRange": "{from} — {to}",
+    "savedAt": "Saqlangan: {time}",
+    "summaryStates": {
+      "noKey": "AI kaliti qo'yilmagan — xulosa yo'q. Pastdagi topilmalar kod bilan hisoblangan va to'liq.",
+      "notRefreshed": "Bu davr uchun AI xulosasi hali olinmagan — «Yangilash» ni bosing. Pastdagi topilmalar kod bilan hisoblangan.",
+      "noSummary": "Bu safar AI xulosa bermadi. Pastdagi topilmalar kod bilan hisoblangan."
+    },
     "emptyTitle": "Hozircha shubhali narsa yo'q",
     "emptyDescription": "Topilma chiqsa — shu yerda ko'rinadi.",
     "warehouse": "Sklad bo'yicha",
@@ -34,6 +63,24 @@
   },
   "chat": {
     "conversation": "AI bilan suhbat",
+    "listTitle": "Suhbatlar",
+    "newChat": "Yangi suhbat",
+    "createFailed": "Suhbat ochilmadi. Qayta urinib ko'ring.",
+    "listEmptyTitle": "Hali suhbat yo'q",
+    "listEmptyText": "Savol yozing yoki «Yangi suhbat» ni bosing — tarix shu yerda saqlanadi.",
+    "untitled": "Nomsiz suhbat",
+    "chatMeta": "{count} ta xabar",
+    "delete": "«{title}» suhbatini o'chirish",
+    "deleteTitle": "«{title}» o'chirilsinmi?",
+    "deleteDescription": "Suhbat ro'yxatdan olib tashlanadi. AI hisoblari va xarajati o'zgarmaydi.",
+    "deleteConfirm": "O'chirish",
+    "deleting": "O'chirilmoqda…",
+    "deleteFailed": "O'chirib bo'lmadi. Qayta urinib ko'ring.",
+    "back": "Suhbatlar",
+    "loadOlder": "Oldingi xabarlar",
+    "loadingOlder": "Yuklanmoqda…",
+    "emptyChat": "Bu suhbatda hali xabar yo'q — savolingizni yozing.",
+    "unavailable": "AI chat hozir mavjud emas: AI kaliti qo'yilmagan. Suhbatlar tarixi ko'rinadi, yangi savol kalit qo'yilgach yuboriladi.",
     "welcomeTitle": "Assalomu alaykum! Nimani tahlil qilay?",
     "welcomeText": "Moliya, filiallar, sklad, xodimlar — istalganini so'rang. Javob tizimdagi raqamlardan.",
     "starters": {
@@ -72,19 +119,98 @@
       "operator_stats": "Operatorlar",
       "sklad_stock": "Sklad qoldig'i",
       "sklad_grants": "Sklad dopuski",
-      "sklad_list": "Skladlar"
+      "sklad_list": "Skladlar",
+      "list_filials": "Filiallar ro'yxati",
+      "sales_stats": "Sotuv",
+      "operator_ranking": "Operatorlar reytingi",
+      "cash_chain": "Pul zanjiri",
+      "warehouse_overview": "Sklad xulosasi",
+      "delivery_stats": "Yetkazish va kuryer haqi",
+      "staff_ratings": "Xodimlar reytingi",
+      "warehouse_stock": "Sklad qoldig'i",
+      "warehouse_ledger_search": "Sklad daftari",
+      "order_search": "Zakaz qidiruvi",
+      "find_issues": "Kamchiliklar",
+      "draft_message": "Xabar loyihasi"
     },
+    "retry": "Qayta yuborish",
+    "dismiss": "Olib tashlash",
     "errors": {
-      "rateLimited": "1 daqiqada ko'pi bilan 10 ta savol — biroz kuting.",
-      "unavailable": "AI o'chiq — backendda AI kaliti sozlanmagan.",
+      "rateLimited": "Daqiqasiga so'rov chegarasi tugadi — biroz kuting.",
+      "unavailable": "AI kaliti qo'yilmagan — savol saqlanmadi.",
       "refused": "AI bu savolga javob bermadi — boshqacha so'rang.",
-      "invalid": "Savol 3–1000 belgi oralig'ida bo'lsin.",
+      "invalid": "Savol juda qisqa yoki juda uzun.",
+      "notFound": "Bu suhbat endi yo'q — ro'yxatdan boshqasini tanlang.",
       "offline": "Internet yo'q — savol yuborilmadi.",
       "failed": "Javob kelmadi. Qayta urinib ko'ring."
     },
     "tooShort": "Kamida {min} belgi yozing",
     "charsLeft": "{count} belgi qoldi",
     "sending": "Javob tayyorlanmoqda…"
+  },
+  "drafts": {
+    "title": "AI loyihalari",
+    "description": "AI kamchilik topganda filial rahbariga yozgan xabar loyihalari",
+    "statusLabel": "Loyiha holati",
+    "statuses": {
+      "draft": "Yuborilmagan",
+      "sent": "Yuborilgan",
+      "discarded": "Rad etilgan"
+    },
+    "safety": "AI xabarni hech qachon o'zi yubormaydi — loyiha faqat siz «Yuborish» ni tasdiqlaganingizda rahbarga ketadi.",
+    "empty": {
+      "draft": "Yuborilmagan loyiha yo'q",
+      "sent": "Yuborilgan loyiha yo'q",
+      "discarded": "Rad etilgan loyiha yo'q"
+    },
+    "emptyDescription": "AI kamchilik topib xabar tayyorlasa — shu yerda chiqadi.",
+    "roles": {
+      "logistics": "Bosh logist",
+      "sales": "Bosh operator",
+      "unknown": "Filial rahbari"
+    },
+    "send": "Yuborish",
+    "discard": "Rad etish",
+    "sendTitle": "Loyihani yuborasizmi?",
+    "sendDescription": "Xabar sizning nomingizdan shu rahbarga yozishmaga tushadi: {recipient}.",
+    "sendConfirm": "Yuborish",
+    "discardTitle": "Loyiha rad etilsinmi?",
+    "discardDescription": "Loyiha hech kimga yuborilmaydi va «Rad etilgan» ro'yxatiga o'tadi.",
+    "discardConfirm": "Rad etish",
+    "pending": "Bajarilmoqda…",
+    "sent": "Xabar rahbarga yuborildi",
+    "discarded": "Loyiha rad etildi",
+    "errors": {
+      "alreadySent": "Bu loyiha allaqachon yuborilgan — ro'yxat yangilandi.",
+      "discarded": "Bu loyiha allaqachon rad etilgan — ro'yxat yangilandi.",
+      "notFound": "Loyiha topilmadi — ro'yxatni yangilang.",
+      "noChannel": "Bu filial rahbari bilan yozishma kanali yo'q.",
+      "failed": "Bajarib bo'lmadi. Qayta urinib ko'ring."
+    }
+  },
+  "usage": {
+    "title": "AI xarajati",
+    "description": "Oy bo'yicha chaqiruvlar, tokenlar va narx (so'rov paytidagi tarif bilan)",
+    "monthLabel": "Oy",
+    "prevMonth": "Oldingi oy",
+    "nextMonth": "Keyingi oy",
+    "cost": "Xarajat",
+    "calls": "Chaqiruvlar",
+    "inputTokens": "Kiruvchi tokenlar",
+    "outputTokens": "Chiquvchi tokenlar",
+    "byKind": "Tur bo'yicha",
+    "model": "Model: {model}",
+    "noCalls": "Bu oyda AI chaqirilmagan.",
+    "kindHint": "{calls} ta chaqiruv · {input} kiruvchi · {output} chiquvchi token",
+    "kinds": {
+      "analysis": "AI tahlil",
+      "chat": "AI chat"
+    },
+    "limits": "Chegaralar",
+    "limitsNote": "Server sozlamasi — oshsa so'rov rad etiladi",
+    "ratePerMin": "Daqiqasiga so'rov",
+    "maxTokensChat": "Chat javobi, token",
+    "maxTokensAnalysis": "Tahlil javobi, token"
   },
   "highlights": {
     "noHeadline": "AI hali xulosa bermagan.",
