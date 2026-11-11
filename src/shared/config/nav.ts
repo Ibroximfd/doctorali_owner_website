@@ -2,6 +2,7 @@ import {
   Building2,
   ChartColumnBig,
   LayoutDashboard,
+  MapPinned,
   MessagesSquare,
   SlidersHorizontal,
   Smartphone,
@@ -23,7 +24,8 @@ export type NavItem = {
   group: NavGroupKey;
   /**
    * Backend bo'lim nomlari (`me.sections`), agar yo'l nomidan farq qilsa: «Reytinglar» yorliqlari
-   * `logistics`/`sales` ostida, «Chatlar» — `structure` ostida (TZ 32 §A-3a, §C-1).
+   * `logistics`/`sales` ostida, «Tumanlar tarixi» — `logistics` ostida, «Chatlar» — `structure`
+   * ostida (TZ 32 §A-3a, §C-1).
    */
   sections?: readonly string[];
 };
@@ -41,6 +43,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { route: "staff", icon: Trophy, group: "main" },
   { route: "ratings", icon: Star, group: "main", sections: ["logistics", "sales"] },
   { route: "warehouse", icon: WarehouseIcon, group: "main" },
+  { route: "districts", icon: MapPinned, group: "main", sections: ["logistics"] },
   { route: "chats", icon: MessagesSquare, group: "control", sections: ["structure"] },
   { route: "ai", icon: AiIcon, group: "control" },
   { route: "settings", icon: SlidersHorizontal, group: "control" },

@@ -19,6 +19,7 @@ import {
 import { analyticsSchema } from "@/features/analytics/model/analytics.schema";
 import { userSchema } from "@/features/auth/model/auth.schema";
 import { channelsSchema, messagesPageSchema } from "@/features/chats/model/chats.schema";
+import { districtChangesSchema } from "@/features/districts/model/districts.schema";
 import {
   auditSchema,
   catalogSchema,
@@ -311,6 +312,16 @@ export const CONTRACT_ENDPOINTS: readonly ContractEndpoint[] = [
   { section: "Reytinglar", path: "ratings/couriers/", ...SCOPED, schema: couriersDataSchema },
   { section: "Reytinglar", path: "ratings/operators/", ...SCOPED, schema: operatorsDataSchema },
   { section: "Reytinglar", path: "ratings/logists/", ...SCOPED, schema: logistsDataSchema },
+
+  /* ---------- tumanlar tarixi (bo'lim `logistics`) ---------- */
+  {
+    section: "Tumanlar tarixi",
+    path: "logistics/district-changes/",
+    shape: "plain",
+    scoped: false,
+    query: { page: "1", page_size: "50" },
+    schema: districtChangesSchema,
+  },
 
   /* ---------- rahbarlar bilan yozishma (TZ 32 §C-1) ---------- */
   { section: "Chatlar", path: "chats/", shape: "plain", scoped: false, schema: channelsSchema },

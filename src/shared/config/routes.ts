@@ -10,6 +10,7 @@ export const routes = {
   ratings: "/ratings",
   chats: "/chats",
   warehouse: "/warehouse",
+  districts: "/districts",
   ai: "/ai",
   settings: "/settings",
 } as const;
@@ -23,6 +24,8 @@ export const ROUTES_WITHOUT_SCOPE: readonly PanelRouteKey[] = [
   "ai",
   "chats",
   "settings",
+  // o'z sana filtri bor (jurnal), global davr va filial ma'nosiz
+  "districts",
 ];
 
 /**

@@ -3,6 +3,7 @@ import { aiHandlers } from "./handlers/ai";
 import { analyticsHandlers } from "./handlers/analytics";
 import { appHandlers } from "./handlers/app";
 import { chatsHandlers } from "./handlers/chats";
+import { districtChangesHandlers } from "./handlers/district-changes";
 import { filialsHandlers } from "./handlers/filials";
 import { financeHandlers } from "./handlers/finance";
 import { metaHandlers } from "./handlers/meta";
@@ -31,6 +32,7 @@ const HANDLERS: readonly MockHandler[] = [
   ...skladHandlers,
   ...aiHandlers,
   ...ratingsHandlers,
+  ...districtChangesHandlers,
   ...chatsHandlers,
   ...settingsHandlers,
 ];

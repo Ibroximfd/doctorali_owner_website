@@ -1,0 +1,60 @@
+{
+  "title": "Tumanlar tarixi",
+  "description": "Bosh kuryer va admin tuman ro'yxatiga kiritgan o'zgarishlar — faqat ko'rish uchun.",
+  "listTitle": "O'zgarishlar jurnali",
+  "journalNote": "Eng yangisi birinchi. Jurnal {date} dan yuritiladi.",
+  "emptyTitle": "Hali o'zgarish yo'q",
+  "emptyDescription": "Jurnal {date} dan yuritiladi — undan oldingi o'zgarishlar yozilmagan.",
+  "columns": {
+    "at": "Vaqt",
+    "region": "Viloyat",
+    "district": "Tuman",
+    "action": "Amal",
+    "name": "Nomi",
+    "changes": "Maydonlar",
+    "actor": "Kim"
+  },
+  "actions": {
+    "created": "Qo'shildi",
+    "renamed": "Nomi o'zgardi",
+    "hidden": "Yashirildi",
+    "restored": "Qaytarildi",
+    "edited": "Tahrirlandi"
+  },
+  "sources": {
+    "chief": "Bosh kuryer",
+    "admin": "Admin"
+  },
+  "fields": {
+    "name_uz": "Nomi (lotin)",
+    "name_ru": "Nomi (rus)",
+    "name_uz_cyrl": "Nomi (kirill)",
+    "is_active": "Ko'rinishi"
+  },
+  "visible": "Ko'rinadi",
+  "hiddenValue": "Yashirin",
+  "customBadge": "qo'lda qo'shilgan",
+  "hiddenBadge": "yashirin",
+  "unknownActor": "Noma'lum",
+  "arrow": "o'rniga",
+  "fieldsCount": "{count} ta maydon",
+  "filterByDistrict": "{name} tumani bo'yicha saralash",
+  "filters": {
+    "label": "Tumanlar tarixi filtrlari",
+    "region": "Viloyat",
+    "allRegions": "Barcha viloyatlar",
+    "from": "Sanadan",
+    "to": "Sanagacha",
+    "district": "Tuman: {name}",
+    "districtClear": "Tuman filtrini olib tashlash",
+    "districtHint": "Tuman bo'yicha saralash uchun jadvaldagi nomini bosing.",
+    "clear": "Tozalash"
+  },
+  "pagination": {
+    "label": "Sahifalar",
+    "range": "{from}–{to} / {count}",
+    "page": "{page} / {pages}",
+    "prev": "Oldingi sahifa",
+    "next": "Keyingi sahifa"
+  }
+}
