@@ -58,6 +58,11 @@ export const itemsSchema = z.array(
       sku: z.string().default(""),
       is_active: z.boolean().default(true),
       image: optStr,
+      /**
+       * Qoldiq nazorati (TZ 18 §16): dopusk faqat nazoratdagi mahsulotga beriladi (§15). Maydon
+       * kelmasa yoki boolean bo'lmasa — `null` («noma'lum»): UI qulflamaydi, server rad etsa aniq toast.
+       */
+      stock_tracking: z.preprocess((raw) => (typeof raw === "boolean" ? raw : null), z.boolean().nullable()),
     }),
   ),
 );

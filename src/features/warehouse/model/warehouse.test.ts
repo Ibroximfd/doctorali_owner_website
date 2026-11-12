@@ -8,6 +8,8 @@ import { mockGet, mockSend } from "@/shared/testing/mock-api";
 import {
   chiefNames,
   grantOwners,
+  isGrantBlocked,
+  isTrackingError,
   lowCount,
   pageRange,
   skladByRegion,
@@ -21,6 +23,7 @@ import {
   documentSchema,
   grantsResultSchema,
   grantsSchema,
+  itemsSchema,
   ledgerSchema,
   ledgerSummarySchema,
   overviewSchema,
@@ -261,5 +264,38 @@ describe("sklad v2 answers (B-23, item.image)", () => {
     expect(lowCount(rows)).toBe(0);
     expect(skladSummary({ regions: ["fargona"] }, undefined, cells).lowItems).toBe(1);
     expect(skladSummary({ regions: ["andijon"] }, undefined, undefined).lowItems).toBeNull();
+  });
+});
+
+describe("stock tracking and grants (TZ 18 §15–§16)", () => {
+  const base = { id: 18, name: "Prostavit" };
+
+  it("reads stock_tracking; a missing or odd value is unknown (null), not false", () => {
+    const [on, off, missing, odd] = itemsSchema.parse([
+      { ...base, stock_tracking: true },
+      { ...base, stock_tracking: false },
+      base,
+      { ...base, stock_tracking: "yes" },
+    ]);
+    expect([on?.stock_tracking, off?.stock_tracking, missing?.stock_tracking, odd?.stock_tracking]).toEqual([
+      true,
+      false,
+      null,
+      null,
+    ]);
+  });
+
+  it("blocks giving only an explicitly untracked, unassigned product", () => {
+    expect(isGrantBlocked({ stockTracking: false }, null)).toBe(true);
+    expect(isGrantBlocked({ stockTracking: false }, 2)).toBe(false);
+    expect(isGrantBlocked({ stockTracking: null }, null)).toBe(false);
+    expect(isGrantBlocked({ stockTracking: true }, null)).toBe(false);
+  });
+
+  it("recognises both tracking refusal codes", () => {
+    expect(isTrackingError("tracking_required_for_grant")).toBe(true);
+    expect(isTrackingError("tracking_off")).toBe(true);
+    expect(isTrackingError("grant_conflict")).toBe(false);
+    expect(isTrackingError(undefined)).toBe(false);
   });
 });

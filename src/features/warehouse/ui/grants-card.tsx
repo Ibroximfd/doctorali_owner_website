@@ -16,7 +16,7 @@ import { ProductThumb } from "@/shared/ui/product-thumb";
 import { QueryState, StateBlock, TableSkeleton } from "@/shared/ui/states";
 
 import { useGrantsQueries, useItemsQuery, useMoveGrant, type GrantMove } from "../hooks/use-warehouse";
-import { grantOwners, splitByGrant } from "../model/warehouse.rules";
+import { grantOwners, isGrantBlocked, isTrackingError, splitByGrant } from "../model/warehouse.rules";
 import type { SkladItem } from "../model/warehouse.schema";
 
 /** Kutilayotgan o'zgarish: tasdiq oynasida nima bo'lishi yoziladi. */
@@ -82,7 +82,15 @@ const GrantsBody = () => {
         const holder = Number(appError.fields.filial);
         if (appError.code === "grant_conflict" && Number.isFinite(holder) && holder !== change.from)
           setConflict({ ...change, from: holder });
-        else toast.error(t("failed"), { description: appError.code ? appError.message : undefined });
+        else if (isTrackingError(appError.code)) {
+          // Qayta urinish yordam bermaydi — kim va qayerda nazoratni yoqishini aytamiz; ro'yxat yangilansin.
+          // `fields.item_id` — rad etilgan birinchi mahsulot (hujjat 55 A-1..3); kelmasa — tanlangani.
+          const culprit = items.data?.find((item) => item.id === Number(appError.fields.item_id));
+          toast.error(t("trackingOffTitle", { name: culprit?.name ?? change.name }), {
+            description: t("trackingOffDescription"),
+          });
+          void items.refetch();
+        } else toast.error(t("failed"), { description: appError.code ? appError.message : undefined });
       },
     });
 
@@ -106,10 +114,15 @@ const GrantsBody = () => {
     const busy = move.isPending && move.variables.productId === item.id;
     // Asosiy filial tanlovda yo'q; eski ma'lumotda unda turgan mahsulot bo'lsa — ko'rinib tursin.
     const targets = filials.filter((filial) => !filial.isMain || filial.id === holder);
+    const blocked = isGrantBlocked(item, holder);
+    const noteId = `grant-${item.id}-note`;
     return (
       <li key={item.id} className="flex flex-wrap items-center gap-x-3 gap-y-2 py-2.5">
         <ProductThumb name={item.name} src={item.image} />
-        <span className="min-w-0 flex-1 text-sm font-semibold">{item.name}</span>
+        <span className="flex min-w-0 flex-1 items-center gap-2 text-sm font-semibold">
+          {item.name}
+          {blocked ? <Pill intent="neutral">{t("untracked")}</Pill> : null}
+        </span>
         <label className="sr-only" htmlFor={`grant-${item.id}`}>
           {t("pickerLabel", { name: item.name })}
         </label>
@@ -117,8 +130,9 @@ const GrantsBody = () => {
           id={`grant-${item.id}`}
           className="h-9 w-full text-sm sm:w-48"
           value={holder === null ? NONE : String(holder)}
-          disabled={!canAct || move.isPending}
+          disabled={!canAct || move.isPending || blocked}
           aria-busy={busy}
+          aria-describedby={blocked ? noteId : undefined}
           onChange={(event) =>
             request(item, holder, event.target.value === NONE ? null : Number(event.target.value))
           }
@@ -130,6 +144,11 @@ const GrantsBody = () => {
             </option>
           ))}
         </Select>
+        {blocked ? (
+          <p id={noteId} className="text-ink-3 basis-full text-xs">
+            {t("untrackedNote")}
+          </p>
+        ) : null}
       </li>
     );
   };
@@ -144,8 +163,12 @@ const GrantsBody = () => {
         {(data) => {
           if (!loaded) return <TableSkeleton rows={8} className="px-5" />;
           const { unassigned, assigned } = splitByGrant(data, owners);
+          const untracked = unassigned.filter((item) => isGrantBlocked(item, null)).length;
           return (
             <div className="flex flex-col gap-4 px-4 pb-2 md:px-5.5">
+              {untracked > 0 ? (
+                <p className="text-ink-2 text-xs">{t("untrackedSummary", { count: untracked })}</p>
+              ) : null}
               <section aria-labelledby="grants-unassigned">
                 <h3 id="grants-unassigned" className="text-ink-2 flex items-center gap-2 text-xs font-medium">
                   {t("unassignedTitle")}

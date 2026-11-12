@@ -60,7 +60,12 @@
     "removeDescription": "{from} filiali bu mahsulot bilan ishlamay qoladi. Mahsulot «berilmagan» ro'yxatiga o'tadi.",
     "removeConfirm": "Olib tashlash",
     "conflictTitle": "«{name}» allaqachon {filial} filialida",
-    "pending": "Saqlanmoqda…"
+    "pending": "Saqlanmoqda…",
+    "untracked": "Nazoratsiz",
+    "untrackedNote": "Avval bosh filial logisti logist saytida nazoratga olsin (Sklad › Mahsulotlar › «Nazoratni yoqish»).",
+    "trackingOffTitle": "«{name}» nazoratsiz — dopusk berib bo'lmaydi",
+    "trackingOffDescription": "Bosh filial logisti logist saytida Sklad › Mahsulotlar › «Nazoratni yoqish» qilsin, keyin shu yerda filialni tanlang.",
+    "untrackedSummary": "{count} ta mahsulot nazoratsiz — bosh filial logisti ularni logist saytida nazoratga olmaguncha filialga berib bo'lmaydi."
   },
   "history": {
     "title": "Harakatlar tarixi",

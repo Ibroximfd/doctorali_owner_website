@@ -93,7 +93,9 @@ describe("WarehouseScreen", () => {
 
     const grants = within(card("Mahsulot dopuski"));
     const picker = await grants.findByLabelText("Prostavit: qaysi filialga berilgan");
-    const options = within(picker).getAllByRole("option").map((option) => option.textContent);
+    const options = within(picker)
+      .getAllByRole("option")
+      .map((option) => option.textContent);
     expect(options).toContain("Toshkent 1");
     expect(options).not.toContain("Qo'qon");
     expect(grants.getByText(/Qo'qon — asosiy filial/)).toBeInTheDocument();
@@ -139,5 +141,59 @@ describe("WarehouseScreen", () => {
       const saved = mockGet("structure/sklad-grants/2/") as { items: { product_id: number }[] };
       expect(saved.items.map((item) => item.product_id)).toContain(18);
     });
+  });
+
+  /** `items/` javobi: Prostavit (18) nazoratsiz yoki `stock_tracking` maydonisiz. */
+  const itemsWith = (patch: (item: Record<string, unknown>) => Record<string, unknown>) => {
+    const items = (mockGet("sklad-api/items/", { pagination: "false" }) as Record<string, unknown>[]).map(
+      (item) => (item.id === 18 ? patch(item) : item),
+    );
+    server.use(http.get("*/api/sklad/items/", () => HttpResponse.json(items)));
+  };
+
+  it("locks an untracked product's picker and says who turns tracking on", async () => {
+    itemsWith((item) => ({ ...item, stock_tracking: false }));
+    await renderWithProviders(<WarehouseScreen />, { searchParams: "?period=30d" });
+
+    const grants = within(card("Mahsulot dopuski"));
+    const picker = await grants.findByLabelText("Prostavit: qaysi filialga berilgan");
+    await vi.waitFor(() => expect(picker).toBeDisabled());
+    expect(picker).toHaveAccessibleDescription(/bosh filial logisti logist saytida nazoratga olsin/);
+    expect(grants.getByText("Nazoratsiz")).toBeInTheDocument();
+    expect(grants.getByLabelText("Gepatofit: qaysi filialga berilgan")).toBeEnabled();
+    expect(grants.getByText(/1 ta mahsulot nazoratsiz/)).toBeInTheDocument();
+  });
+
+  it("keeps the picker open when the server does not send stock_tracking, and explains a tracking refusal", async () => {
+    const user = userEvent.setup();
+    itemsWith(({ stock_tracking: _omit, ...item }) => item);
+    await renderWithProviders(<WarehouseScreen />, { searchParams: "?period=30d" });
+    server.use(
+      http.put(
+        "*/api/owner/structure/sklad-grants/:id/",
+        () =>
+          HttpResponse.json(
+            {
+              code: "tracking_required_for_grant",
+              detail: "Dopusk berishdan oldin nazoratni yoqing",
+              fields: { item_id: 18 },
+            },
+            { status: 409 },
+          ),
+        { once: true },
+      ),
+    );
+
+    const grants = within(card("Mahsulot dopuski"));
+    const picker = await grants.findByLabelText("Prostavit: qaysi filialga berilgan");
+    expect(picker).toBeEnabled();
+    expect(grants.queryByText("Nazoratsiz")).not.toBeInTheDocument();
+    await user.selectOptions(picker, "Toshkent 1");
+    await vi.waitFor(() =>
+      expect(toast.error).toHaveBeenCalledWith("«Prostavit» nazoratsiz — dopusk berib bo'lmaydi", {
+        description: expect.stringMatching(/Nazoratni yoqish/),
+      }),
+    );
+    expect(toast.error).not.toHaveBeenCalledWith(expect.stringMatching(/Qayta urinib/), expect.anything());
   });
 });

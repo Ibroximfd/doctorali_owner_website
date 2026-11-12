@@ -27,6 +27,7 @@ const items = () =>
     price: `${product.price}.00`,
     is_active: true,
     image: null,
+    stock_tracking: true,
   }));
 
 /** §S-1.1: `chiefs[]` — haqiqat manbai, `chief_ids`, eski `chief` = `chiefs[0]` yoki `null`. */

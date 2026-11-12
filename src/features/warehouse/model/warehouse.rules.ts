@@ -1,4 +1,4 @@
-import type { FilialGrants, Sklad, SkladOverview, StockCell } from "./warehouse.schema";
+import type { FilialGrants, Sklad, SkladItem, SkladOverview, StockCell } from "./warehouse.schema";
 
 /** Sklad rangi tartibi qat'iy — sklad id siga bog'langan (ro'yxat tartibiga emas). */
 export const skladColorIndex = (sklads: readonly Pick<Sklad, "id">[], id: number): number =>
@@ -115,3 +115,20 @@ export const splitByGrant = <Item extends { id: number }>(
   unassigned: items.filter((item) => !owners.has(item.id)),
   assigned: items.filter((item) => owners.has(item.id)),
 });
+
+/**
+ * Nazorat o'chiq mahsulotga dopusk berilmaydi (TZ 18 §15, hujjat 55): owner `PUT sklad-grants/` faqat
+ * `409 tracking_required_for_grant` qaytaradi, butun so'rov rad. `tracking_off` — sklad hujjat/qoldiq
+ * endpointlariniki, bu yerda kelmaydi; ehtiyot uchun ushlanadi. Nazoratni faqat bosh filial logisti yoqadi.
+ */
+const TRACKING_ERROR_CODES: ReadonlySet<string> = new Set(["tracking_required_for_grant", "tracking_off"]);
+
+export const isTrackingError = (code: string | undefined): boolean =>
+  code !== undefined && TRACKING_ERROR_CODES.has(code);
+
+/**
+ * Berish qulfi: faqat server aniq `stock_tracking: false` desa va mahsulot hali hech kimda bo'lmasa.
+ * Maydon kelmagan (`null`) — eski xatti-harakat. Olib qo'yish hech qachon rad etilmaydi (hujjat 55 D-13).
+ */
+export const isGrantBlocked = (item: Pick<SkladItem, "stockTracking">, holder: number | null): boolean =>
+  item.stockTracking === false && holder === null;
