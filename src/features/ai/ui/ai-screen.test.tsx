@@ -2,7 +2,7 @@
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { HttpResponse, http } from "msw";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { renderWithProviders } from "@/shared/testing/render";
 import { server, useMockApi } from "@/shared/testing/server";
@@ -13,6 +13,7 @@ const FINDING = "Janub bosh kuryeri T2 ga pulni 3 kunda bir topshirmoqda";
 
 describe("AiScreen", () => {
   useMockApi();
+  afterEach(() => vi.restoreAllMocks());
 
   it("opens on the saved analysis: AI summary and findings grouped by severity", async () => {
     await renderWithProviders(<AiScreen />);
@@ -93,8 +94,123 @@ describe("AiScreen", () => {
 
     await user.type(await screen.findByLabelText(/Savolingizni yozing/), "Qaysi filial yaxshi?");
     await user.click(screen.getByRole("button", { name: "Yuborish" }));
-    expect(await screen.findByRole("alert")).toHaveTextContent("AI kaliti qo'yilmagan — savol saqlanmadi.");
+    expect(await screen.findByRole("alert")).toHaveTextContent(
+      /AI hozircha javob bermayapti .* savol saqlanmadi/,
+    );
     expect(screen.queryByRole("button", { name: "Qayta yuborish" })).not.toBeInTheDocument();
+  });
+
+  it("renders a report answer as sections and a table, with Excel/PDF and copy", async () => {
+    const user = userEvent.setup();
+    await renderWithProviders(<AiScreen />, { searchParams: "?tab=chat&chat=3" });
+
+    await user.type(await screen.findByLabelText(/Savolingizni yozing/), "Filiallar bo'yicha hisobot kerak");
+    await user.click(screen.getByRole("button", { name: "Yuborish" }));
+    const conversation = screen.getByRole("region", { name: "AI bilan suhbat" });
+    expect(await within(conversation).findByText("Hisobot tayyor — faylni yuklab oling")).toBeInTheDocument();
+    const [table] = within(conversation).getAllByRole("table");
+    expect(table).toBeDefined();
+    expect(within(conversation).queryByText(/\|---/)).not.toBeInTheDocument();
+    expect(within(conversation).queryByText(/^## /)).not.toBeInTheDocument();
+    expect(within(conversation).getAllByRole("button", { name: "Excel" }).length).toBeGreaterThan(0);
+    expect(within(conversation).getAllByRole("button", { name: "PDF" }).length).toBeGreaterThan(0);
+    expect(within(conversation).getAllByRole("button", { name: "Nusxa olish" }).length).toBeGreaterThan(0);
+  });
+
+  it("locks the input while AI thinks and shows the 10–30 s hint", async () => {
+    const user = userEvent.setup();
+    let release: () => void = () => undefined;
+    server.use(
+      http.post("*/api/owner/ai/chats/:id/messages/", async () => {
+        await new Promise<void>((resolve) => {
+          release = resolve;
+        });
+        return HttpResponse.json({ code: "ai_refused", detail: "x" }, { status: 422 });
+      }),
+    );
+    await renderWithProviders(<AiScreen />, { searchParams: "?tab=chat&chat=3" });
+
+    const input = await screen.findByLabelText(/Savolingizni yozing/);
+    await user.type(input, "Qaysi filial yaxshi?");
+    await user.click(screen.getByRole("button", { name: "Yuborish" }));
+    expect(await screen.findByText("AI o'ylayapti…")).toBeInTheDocument();
+    expect(screen.getByText(/Odatda 10–30 soniya/)).toBeInTheDocument();
+    expect(input).toBeDisabled();
+    release();
+    expect(await screen.findByRole("alert")).toHaveTextContent(/savolni boshqacha/);
+    expect(screen.queryByRole("button", { name: "Qayta yuborish" })).not.toBeInTheDocument();
+  });
+
+  it("after a timeout re-reads the history and shows the saved answer instead of a resend", async () => {
+    const user = userEvent.setup();
+    const question = "Bugunlik hisobot kerak qoqon fliali bo'yicha";
+    let posted = false;
+    server.use(
+      http.post("*/api/owner/ai/chats/:id/messages/", () => {
+        posted = true;
+        return HttpResponse.json({ code: "backend_unreachable", detail: "x" }, { status: 502 });
+      }),
+      http.get("*/api/owner/ai/chats/:id/messages/", () =>
+        HttpResponse.json({
+          has_more: false,
+          oldest_id: 1,
+          messages: [
+            { id: 1, role: "user", text: "Salom", created_at: "2026-11-13T07:00:00Z" },
+            { id: 2, role: "assistant", text: "Salom!", created_at: "2026-11-13T07:00:05Z" },
+            ...(posted
+              ? [
+                  { id: 3, role: "user", text: question, created_at: "2026-11-13T07:05:53Z" },
+                  {
+                    id: 4,
+                    role: "assistant",
+                    text: "## Qo'qon — bugun\n\n| Ko'rsatkich | Qiymat |\n|---|---:|\n| Zakaz | 42 |",
+                    created_at: "2026-11-13T07:06:14Z",
+                  },
+                ]
+              : []),
+          ],
+        }),
+      ),
+    );
+    await renderWithProviders(<AiScreen />, { searchParams: "?tab=chat&chat=3" });
+
+    await user.type(await screen.findByLabelText(/Savolingizni yozing/), question);
+    await user.click(screen.getByRole("button", { name: "Yuborish" }));
+    expect(await screen.findByRole("heading", { name: "Qo'qon — bugun" })).toBeInTheDocument();
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Qayta yuborish" })).not.toBeInTheDocument();
+  });
+
+  it("offers a resend only when the answer is really missing after the backend's 90 s", async () => {
+    const user = userEvent.setup();
+    const realNow = Date.now.bind(Date);
+    server.use(
+      http.post("*/api/owner/ai/chats/:id/messages/", () => {
+        // uzilish 2 daqiqadan keyin bo'ldi — tiklanish bitta tekshiruv bilan tugaydi
+        vi.spyOn(Date, "now").mockImplementation(() => realNow() + 200_000);
+        return HttpResponse.json({ code: "backend_unreachable", detail: "x" }, { status: 502 });
+      }),
+    );
+    await renderWithProviders(<AiScreen />, { searchParams: "?tab=chat&chat=3" });
+
+    await user.type(await screen.findByLabelText(/Savolingizni yozing/), "Qaysi filial yaxshi?");
+    await user.click(screen.getByRole("button", { name: "Yuborish" }));
+    expect(await screen.findByRole("alert")).toHaveTextContent(/serverda ham saqlanmagan/);
+    expect(screen.getByRole("button", { name: "Qayta yuborish" })).toBeInTheDocument();
+  });
+
+  it("names the rate limit clearly (429)", async () => {
+    const user = userEvent.setup();
+    server.use(
+      http.post("*/api/owner/ai/chats/:id/messages/", () =>
+        HttpResponse.json({ code: "rate_limited", detail: "x" }, { status: 429 }),
+      ),
+    );
+    await renderWithProviders(<AiScreen />, { searchParams: "?tab=chat&chat=3" });
+
+    await user.type(await screen.findByLabelText(/Savolingizni yozing/), "Qaysi filial yaxshi?");
+    await user.click(screen.getByRole("button", { name: "Yuborish" }));
+    expect(await screen.findByRole("alert")).toHaveTextContent(/Daqiqasiga savollar chegarasi \(10 ta\)/);
   });
 
   it("keyless mode: banner, chat history visible, writing disabled, findings kept", async () => {

@@ -1,6 +1,7 @@
 import { parseJson } from "@/shared/lib/envelope";
 import { apiGet, apiSend } from "@/shared/lib/http";
 
+import { findReply } from "../model/ai.rules";
 import {
   aiChatsSchema,
   aiMessagesPageSchema,
@@ -15,6 +16,7 @@ import {
   usageSchema,
   type AiChat,
   type AiDraft,
+  type AiMessage,
   type AiMessagesPage,
   type AiPeriod,
   type AiStatus,
@@ -26,6 +28,13 @@ import {
 
 /** Owner AI — `API_QOLLANMA` §6.8, TZ 32 §I va §C-2. AI faqat POST so'rovlarda chaqiriladi. */
 
+/**
+ * AI POST lari (hujjat 56): javob 15–30 s, backend chegarasi 90 s, BFF 120 s. Brauzer BFF dan
+ * biroz ko'p kutadi — uzilish bo'lsa xatoni BFF o'zi tushunarli qaytaradi. GET lar 10 s da qoladi.
+ */
+export const AI_TIMEOUT_MS = 125_000;
+const AI_SEND = { timeoutMs: AI_TIMEOUT_MS };
+
 export const loadAiStatus = async (): Promise<AiStatus> =>
   parseJson(aiStatusSchema, await apiGet("ai/status/"));
 
@@ -35,7 +44,7 @@ export const loadAnalysis = async (period: AiPeriod): Promise<Analysis> =>
 
 /** «Yangilash» — AI shu yerda bir marta chaqiriladi (§I-2). */
 export const refreshAnalysis = async (period: AiPeriod): Promise<Analysis> =>
-  toAnalysis(analysisSchema.parse(await apiSend("post", "ai/analysis/", { period })));
+  toAnalysis(analysisSchema.parse(await apiSend("post", "ai/analysis/", { period }, AI_SEND)));
 
 /**
  * Kalitsiz rejim (TZ 32 §I): `503 ai_unavailable` tanasida to'liq `analysis` bloki keladi —
@@ -87,11 +96,55 @@ export const sendMessage = async ({
   chatId: number;
   text: string;
   lang: "uz" | "ru";
-}) => parseJson(sentMessageSchema, await apiSend("post", `ai/chats/${chatId}/messages/`, { text, lang }));
+}) =>
+  parseJson(
+    sentMessageSchema,
+    await apiSend("post", `ai/chats/${chatId}/messages/`, { text, lang }, AI_SEND),
+  );
+
+/** Tiklanish oynasi: backend 90 s dan oshmaydi (hujjat 56) + zaxira. */
+export const RECOVERY_WINDOW_MS = 100_000;
+export const RECOVERY_POLL_MS = 4_000;
+
+type RecoveryDeps = {
+  load?: (chatId: number, beforeId: number | null) => Promise<AiMessagesPage>;
+  sleep?: (ms: number) => Promise<void>;
+  now?: () => number;
+};
+
+const wait = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
+
+/**
+ * So'rov uzilgandan keyin javobni server tarixidan qidiradi (hujjat 56): backend javobni
+ * baribir tayyorlab saqlaydi. Yuborilgandan beri oyna tugaguncha har 4 s da oxirgi sahifa
+ * o'qiladi; brauzer 125 s kutib uzilgan bo'lsa — bitta tekshiruv yetadi. Topilmasa `null`:
+ * shundagina «Qayta yuborish» (ikkinchi AI xarajati) taklif qilinadi.
+ */
+export const recoverReply = async (
+  {
+    chatId,
+    afterId,
+    question,
+    startedAt,
+  }: { chatId: number; afterId: number | null; question: string; startedAt: number },
+  { load = loadMessages, sleep = wait, now = Date.now }: RecoveryDeps = {},
+): Promise<AiMessage | null> => {
+  for (;;) {
+    try {
+      const page = await load(chatId, null);
+      const found = findReply(page.messages, { afterId, question });
+      if (found.kind === "answered") return found.reply;
+    } catch {
+      // tarix ham o'qilmadi (tarmoq) — oyna ichida yana urinamiz
+    }
+    if (now() + RECOVERY_POLL_MS > startedAt + RECOVERY_WINDOW_MS) return null;
+    await sleep(RECOVERY_POLL_MS);
+  }
+};
 
 /** ESKI tarixsiz savol — faqat `ai/chats/` backendda yo'q bo'lsa (prod). */
 export const askAi = async (question: string): Promise<ChatAnswer> =>
-  parseJson(chatAnswerSchema, await apiSend("post", "ai/chat/", { question }));
+  parseJson(chatAnswerSchema, await apiSend("post", "ai/chat/", { question }, AI_SEND));
 
 /* ---------- AI loyihalari (§C-2) ---------- */
 

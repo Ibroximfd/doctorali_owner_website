@@ -108,7 +108,7 @@
     "placeholder": "Savolingizni yozing: masalan, «T2 konversiyasi nega past?»",
     "send": "Yuborish",
     "disclaimer": "AI faqat tizimdagi raqamlarga tayanadi; muhim qarordan oldin dalillarni tekshiring.",
-    "thinking": "Tahlil qilyapman",
+    "thinking": "AI o'ylayapti…",
     "period": "Davr: {from} — {to}",
     "sources": "Manba",
     "tools": {
@@ -136,17 +136,44 @@
     "retry": "Qayta yuborish",
     "dismiss": "Olib tashlash",
     "errors": {
-      "rateLimited": "Daqiqasiga so'rov chegarasi tugadi — biroz kuting.",
-      "unavailable": "AI kaliti qo'yilmagan — savol saqlanmadi.",
-      "refused": "AI bu savolga javob bermadi — boshqacha so'rang.",
+      "rateLimited": "Daqiqasiga savollar chegarasi (10 ta) tugadi — bir daqiqadan keyin qayta yuboring.",
+      "unavailable": "AI hozircha javob bermayapti (kalit yo'q yoki xizmat vaqtincha to'xtagan) — savol saqlanmadi.",
+      "refused": "AI bu savolga javob bermadi — savolni boshqacha, aniqroq yozing.",
       "invalid": "Savol juda qisqa yoki juda uzun.",
       "notFound": "Bu suhbat endi yo'q — ro'yxatdan boshqasini tanlang.",
       "offline": "Internet yo'q — savol yuborilmadi.",
-      "failed": "Javob kelmadi. Qayta urinib ko'ring."
+      "failed": "Javob kelmadi. Qayta urinib ko'ring.",
+      "busy": "AI oldingi so'rovni hali hisoblayapti — biroz kutib, keyin yuboring.",
+      "noReply": "Javob kelmadi va serverda ham saqlanmagan. Qayta yuborsangiz, yangi AI so'rovi hisoblanadi."
     },
     "tooShort": "Kamida {min} belgi yozing",
     "charsLeft": "{count} belgi qoldi",
-    "sending": "Javob tayyorlanmoqda…"
+    "sending": "Javob tayyorlanmoqda…",
+    "thinkingHint": "Odatda 10–30 soniya: AI tizimdagi raqamlarni bir necha bo'limdan yig'adi. Sahifani yopmang.",
+    "checking": "Javob kechikdi — serverdan tekshirilmoqda",
+    "checkingHint": "Aloqa uzildi, lekin AI javobni baribir tayyorlab saqlaydi. Savol qayta yuborilmaydi — tayyor bo'lishi bilan shu yerda chiqadi.",
+    "elapsed": "{seconds} s",
+    "locked": "Javob tayyorlanmoqda — tugaguncha yangi savol yuborilmaydi.",
+    "answer": {
+      "contents": "Bo'limlar",
+      "copy": "Nusxa olish",
+      "copied": "Nusxa olindi",
+      "copyFailed": "Nusxa olinmadi — brauzer buferga ruxsat bermadi.",
+      "excel": "Excel",
+      "pdf": "PDF",
+      "pdfHint": "Chop etish oynasida «PDF sifatida saqlash» ni tanlang",
+      "excelFailed": "Excel fayl yaratilmadi. Qayta urinib ko'ring.",
+      "reportReady": "Hisobot tayyor — faylni yuklab oling",
+      "serverFile": "Hisobot ({format})",
+      "fallbackTitle": "AI hisobot",
+      "filePrefix": "AI-hisobot",
+      "question": "Savol",
+      "generated": "Tayyorlandi",
+      "summarySheet": "Hisobot",
+      "tableSheet": "Jadval",
+      "printBrand": "Doctor Ali Nazorat · AI tahlil",
+      "printFooter": "AI faqat tizimdagi raqamlarga tayanadi; muhim qarordan oldin dalillarni tekshiring."
+    }
   },
   "drafts": {
     "title": "AI loyihalari",

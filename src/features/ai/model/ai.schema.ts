@@ -137,6 +137,17 @@ export const createdChatSchema = z.preprocess(
   aiChatSchema,
 );
 
+/**
+ * Hisobot fayli (07 §8.9 `attachments`, hujjat 57 savoli): backend bersa — `ai/attachments/{id}/file/`
+ * orqali yuklanadi. Hozirgi backend bermaydi — bo'sh ro'yxat.
+ */
+export const aiAttachmentSchema = z.object({
+  id: z.number(),
+  title: z.string().nullable().default(null),
+  format: z.string().default("xlsx"),
+  status: z.string().default("ready"),
+});
+
 export const aiMessageSchema = z.object({
   id: z.number(),
   role: z.string(),
@@ -145,6 +156,7 @@ export const aiMessageSchema = z.object({
   model: z.string().nullable().default(null),
   tools_used: z.array(z.string()).default([]),
   created_at: z.string().nullable().default(null),
+  attachments: z.array(aiAttachmentSchema).catch([]).default([]),
 });
 export type AiMessage = Camelized<z.infer<typeof aiMessageSchema>>;
 

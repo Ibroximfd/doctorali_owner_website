@@ -40,6 +40,7 @@ const message = (id: number) => ({
   model: null,
   toolsUsed: [],
   createdAt: null,
+  attachments: [],
 });
 
 describe("owner AI contract (TZ 32 §I, §C-2)", () => {

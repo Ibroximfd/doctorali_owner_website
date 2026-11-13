@@ -10,6 +10,17 @@ import { demoFetch } from "@/shared/demo/demo-backend.server";
 // Brauzer klientining chegarasidan (10 s) biroz kam — BFF o'zi tushunarli 502 qaytarib ulgursin.
 const BACKEND_TIMEOUT_MS = 9_000;
 
+/**
+ * AI (hujjat 56): har savol Claude ga 1–8 chaqiruv (15–30 s), tahlil 9–15 s. Backend o'zi
+ * 90 s da to'xtaydi, nginx 120 s — BFF shundan erta uzib, tayyor javobni yo'qotmasin.
+ */
+export const AI_BACKEND_TIMEOUT_MS = 120_000;
+const AI_PATH = /^\/api\/owner\/ai\//;
+
+/** Yo'lga qarab kutish chegarasi: AI — 120 s, qolgan hamma narsa — 9 s. */
+export const timeoutFor = (path: string): number =>
+  AI_PATH.test(path) ? AI_BACKEND_TIMEOUT_MS : BACKEND_TIMEOUT_MS;
+
 /** Brauzer haqida backend audit jurnali va urinishlar cheklovi uchun bilishi kerak bo'lganlar. */
 export type ClientInfo = { ip: string | null; userAgent: string | null };
 
@@ -58,7 +69,7 @@ export const backendFetch = async (
     body: raw ? raw.bytes : body === undefined ? undefined : JSON.stringify(body),
     // Hamma narsa pul va odamlar haqida — hech narsa keshlanmaydi.
     cache: "no-store",
-    signal: AbortSignal.timeout(BACKEND_TIMEOUT_MS),
+    signal: AbortSignal.timeout(timeoutFor(path)),
   });
 };
 

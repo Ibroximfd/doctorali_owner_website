@@ -8,7 +8,7 @@ vi.mock("@/shared/config/env.server", () => ({
   },
 }));
 
-const { clientInfoOf, refreshAccess, relay } = await import("./backend.server");
+const { clientInfoOf, refreshAccess, relay, timeoutFor } = await import("./backend.server");
 
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { "content-type": "application/json" } });
@@ -71,5 +71,14 @@ describe("clientInfoOf", () => {
 
     expect(clientInfoOf(request)).toEqual({ ip: "203.0.113.7", userAgent: "Safari" });
     expect(clientInfoOf(new Request("https://panel.test/"))).toEqual({ ip: null, userAgent: null });
+  });
+});
+
+describe("timeoutFor (hujjat 56)", () => {
+  it("waits 120 s for AI paths and 9 s for everything else", () => {
+    expect(timeoutFor("/api/owner/ai/chats/3/messages/")).toBe(120_000);
+    expect(timeoutFor("/api/owner/ai/analysis/")).toBe(120_000);
+    expect(timeoutFor("/api/owner/overview/v2/")).toBe(9_000);
+    expect(timeoutFor("/api/sklad/ai/x/")).toBe(9_000);
   });
 });

@@ -2,7 +2,7 @@
 
 import { ArrowLeft, ArrowUp, MessageSquarePlus, MessagesSquare, Trash2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { useRef, useState, type FormEvent, type KeyboardEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from "react";
 import { toast } from "sonner";
 
 import { useFormat } from "@/shared/hooks/use-format";
@@ -24,17 +24,29 @@ import {
 import { useSelectedChat } from "../hooks/use-ai-tab";
 import {
   chatFailure,
+  lastMessageId,
   mergeMessagePages,
   MESSAGE_MAX,
   MESSAGE_MIN,
   type ChatFailure,
 } from "../model/ai.rules";
 import type { AiChat, AiMessage } from "../model/ai.schema";
+import { AiAnswer } from "./ai-answer";
 import { AiAvatar } from "./ai-orb";
 import { LegacyChatPanel, STARTERS } from "./legacy-chat-panel";
 
-/** Javob kutilayotgan (yoki yuborilmay qolgan) savol — server uni javob bilan birga saqlaydi. */
-type Pending = { chatId: number; text: string; error: ChatFailure | null };
+/**
+ * Javob kutilayotgan (yoki yuborilmay qolgan) savol — server uni javob bilan birga saqlaydi.
+ * `checking` — so'rov uzildi, server tarixidan javob qidirilmoqda (hujjat 56).
+ */
+type Pending = {
+  chatId: number;
+  text: string;
+  afterId: number | null;
+  startedAt: number;
+  checking: boolean;
+  error: ChatFailure | null;
+};
 
 /**
  * AI chat (TZ 32 §I-3): suhbatlar ro'yxati, yangi suhbat (AI chaqirilmaydi), o'chirish, tarix
@@ -184,17 +196,25 @@ const Conversation = ({ chatId }: { chatId: number | null }) => {
   const canSend = !unavailable && !isBusy && trimmed.length >= MESSAGE_MIN && trimmed.length <= MESSAGE_MAX;
   const lang = locale === "ru" ? "ru" : "uz";
 
-  const deliver = (target: number, question: string) => {
-    setPending({ chatId: target, text: question, error: null });
+  const history = messages.data ? mergeMessagePages(messages.data.pages) : [];
+
+  const deliver = (target: number, question: string, afterId: number | null) => {
+    const base = { chatId: target, text: question, afterId, startedAt: currentTime() };
+    setPending({ ...base, checking: false, error: null });
     send.mutate(
-      { chatId: target, text: question, lang },
+      {
+        chatId: target,
+        text: question,
+        lang,
+        afterId,
+        onChecking: () => setPending((current) => (current ? { ...current, checking: true } : current)),
+      },
       {
         onSettled: () => {
           sending.current = false;
         },
         onSuccess: () => setPending(null),
-        onError: (error) =>
-          setPending({ chatId: target, text: question, error: chatFailure(toAppError(error)) }),
+        onError: (error) => setPending({ ...base, checking: false, error: chatFailure(toAppError(error)) }),
       },
     );
   };
@@ -204,11 +224,11 @@ const Conversation = ({ chatId }: { chatId: number | null }) => {
     if (sending.current || unavailable) return;
     sending.current = true;
     setText("");
-    if (chatId !== null) return deliver(chatId, question);
+    if (chatId !== null) return deliver(chatId, question, lastMessageId(history));
     create.mutate(undefined, {
       onSuccess: (chat) => {
         selectChat(chat.id);
-        deliver(chat.id, question);
+        deliver(chat.id, question, null);
       },
       onError: () => {
         sending.current = false;
@@ -229,7 +249,6 @@ const Conversation = ({ chatId }: { chatId: number | null }) => {
     }
   };
 
-  const history = messages.data ? mergeMessagePages(messages.data.pages) : [];
   const shownPending = pending && pending.chatId === chatId ? pending : null;
 
   return (
@@ -265,8 +284,12 @@ const Conversation = ({ chatId }: { chatId: number | null }) => {
                   <p className="text-ink-3 py-6 text-center text-sm">{t("emptyChat")}</p>
                 ) : (
                   <ol className="flex flex-col gap-4">
-                    {history.map((message) => (
-                      <MessageItem key={message.id} message={message} />
+                    {history.map((message, index) => (
+                      <MessageItem
+                        key={message.id}
+                        message={message}
+                        question={questionBefore(history, index)}
+                      />
                     ))}
                     {shownPending ? (
                       <PendingItem
@@ -275,7 +298,7 @@ const Conversation = ({ chatId }: { chatId: number | null }) => {
                         onRetry={() => {
                           if (sending.current) return;
                           sending.current = true;
-                          deliver(shownPending.chatId, shownPending.text);
+                          deliver(shownPending.chatId, shownPending.text, lastMessageId(history));
                         }}
                         onDismiss={() => setPending(null)}
                       />
@@ -304,10 +327,12 @@ const Conversation = ({ chatId }: { chatId: number | null }) => {
               value={text}
               onChange={(event) => setText(event.target.value)}
               onKeyDown={onKeyDown}
+              // javob kutilayotganda yangi savol yozilmaydi — ikkinchi AI chaqiruvi ketmasin
+              disabled={isBusy}
               placeholder={t("placeholder")}
               aria-invalid={tooShort}
               aria-describedby="ai-message-hint"
-              className="border-border-strong bg-surface/60 placeholder:text-ink-3 focus-visible:border-accent focus-visible:ring-accent/25 min-h-11 w-full resize-none rounded-xl border px-3.5 py-2.5 text-base focus-visible:ring-3 focus-visible:outline-none"
+              className="border-border-strong bg-surface/60 placeholder:text-ink-3 focus-visible:border-accent focus-visible:ring-accent/25 min-h-11 w-full resize-none rounded-xl border px-3.5 py-2.5 text-base focus-visible:ring-3 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-60"
             />
             <Button
               type="submit"
@@ -326,7 +351,7 @@ const Conversation = ({ chatId }: { chatId: number | null }) => {
               : text.length > MESSAGE_MAX - 200
                 ? t("charsLeft", { count: MESSAGE_MAX - text.length })
                 : isBusy
-                  ? t("sending")
+                  ? t("locked")
                   : null}
           </p>
           <p className="text-2xs text-ink-3 mt-2 text-center">{t("disclaimer")}</p>
@@ -363,8 +388,16 @@ const Welcome = ({ disabled, onPick }: { disabled: boolean; onPick: (prompt: str
   );
 };
 
-const MessageItem = ({ message }: { message: AiMessage }) => {
-  const t = useTranslations("ai.chat");
+/** Javobdan oldingi foydalanuvchi savoli (hisobot nomi va «hisobot so'radimi» uchun). */
+const questionBefore = (history: readonly AiMessage[], index: number): string | null => {
+  for (let at = index - 1; at >= 0; at -= 1) {
+    const message = history[at];
+    if (message?.role === "user") return message.text;
+  }
+  return null;
+};
+
+const MessageItem = ({ message, question }: { message: AiMessage; question: string | null }) => {
   if (message.role === "user")
     return (
       <li className="bg-accent-soft text-ink ml-auto max-w-xl rounded-2xl px-4 py-2.5 text-sm whitespace-pre-wrap">
@@ -375,22 +408,24 @@ const MessageItem = ({ message }: { message: AiMessage }) => {
     <li className="flex gap-3">
       <AiAvatar />
       <div className="min-w-0 flex-1">
-        <p className="text-ink text-sm leading-relaxed whitespace-pre-line">{message.text}</p>
-        {message.toolsUsed.length > 0 ? (
-          <div className="text-2xs text-ink-3 mt-2 flex flex-wrap items-center gap-1.5">
-            <span>{t("sources")}</span>
-            <ul aria-label={t("sources")} className="flex flex-wrap gap-1">
-              {message.toolsUsed.map((tool) => (
-                <li key={tool} className="bg-surface-3 num rounded-sm px-1.5 py-0.5">
-                  {t.has(`tools.${tool}`) ? t(`tools.${tool}`) : tool}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ) : null}
+        <AiAnswer message={message} question={question} />
       </div>
     </li>
   );
+};
+
+/** Soniya sanagichi: «AI o'ylayapti… 14 s» — kutish tirik ekani ko'rinsin. */
+/** Yuborish vaqti — faqat hodisa ichida chaqiriladi (render paytida emas). */
+const currentTime = (): number => Date.now();
+
+const useElapsedSeconds = (since: number, active: boolean): number => {
+  const [now, setNow] = useState(since);
+  useEffect(() => {
+    if (!active) return;
+    const timer = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(timer);
+  }, [active]);
+  return Math.max(0, Math.floor((now - since) / 1000));
 };
 
 const PendingItem = ({
@@ -405,13 +440,18 @@ const PendingItem = ({
   onDismiss: () => void;
 }) => {
   const t = useTranslations("ai.chat");
+  const waiting = pending.error === null;
+  const seconds = useElapsedSeconds(pending.startedAt, waiting);
+  // «Qayta yuborish» — yana bitta AI xarajati: faqat javob haqiqatan yo'q bo'lganda (hujjat 56)
+  const canRetry =
+    pending.error === "noReply" || pending.error === "offline" || pending.error === "rateLimited";
   return (
     <li className="flex flex-col gap-2.5">
       <p className="bg-accent-soft text-ink ml-auto max-w-xl rounded-2xl px-4 py-2.5 text-sm whitespace-pre-wrap">
         {pending.text}
       </p>
       <div className="flex gap-3">
-        <AiAvatar />
+        <AiAvatar thinking={waiting} />
         <div className="min-w-0 flex-1">
           {pending.error ? (
             <>
@@ -419,7 +459,7 @@ const PendingItem = ({
                 {t(`errors.${pending.error}`)}
               </p>
               <div className="mt-2 flex flex-wrap gap-2">
-                {pending.error !== "unavailable" && pending.error !== "notFound" ? (
+                {canRetry ? (
                   <Button size="sm" disabled={busy} onClick={onRetry}>
                     {t("retry")}
                   </Button>
@@ -430,9 +470,18 @@ const PendingItem = ({
               </div>
             </>
           ) : (
-            <p className="text-ink-3 text-sm" role="status">
-              {t("thinking")}
-            </p>
+            <div role="status" aria-live="polite" className="flex flex-col gap-1">
+              <p className="text-ink flex items-center gap-2 text-sm font-semibold">
+                {pending.checking ? t("checking") : t("thinking")}
+                <span aria-hidden className="flex gap-1">
+                  <span className="bg-accent animate-typing size-1.5 rounded-full" />
+                  <span className="bg-accent animate-typing anim-delay-1 size-1.5 rounded-full" />
+                  <span className="bg-accent animate-typing anim-delay-2 size-1.5 rounded-full" />
+                </span>
+                <span className="text-ink-3 num text-xs font-normal">{t("elapsed", { seconds })}</span>
+              </p>
+              <p className="text-ink-3 text-xs">{pending.checking ? t("checkingHint") : t("thinkingHint")}</p>
+            </div>
           )}
         </div>
       </div>

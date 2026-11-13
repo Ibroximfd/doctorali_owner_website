@@ -6,12 +6,12 @@ import { useRef, useState, type FormEvent, type KeyboardEvent } from "react";
 
 import { useFormat } from "@/shared/hooks/use-format";
 import { toAppError } from "@/shared/lib/app-error";
-import { cn } from "@/shared/lib/cn";
 import { Button } from "@/shared/ui/button";
 
 import { useAskAi } from "../hooks/use-ai";
 import { chatFailure, QUESTION_MAX, QUESTION_MIN } from "../model/ai.rules";
 import type { ChatAnswer } from "../model/ai.schema";
+import { AiAnswer } from "./ai-answer";
 import { AiAvatar } from "./ai-orb";
 
 export const STARTERS = [
@@ -116,6 +116,7 @@ export const LegacyChatPanel = () => {
             value={text}
             onChange={(event) => setText(event.target.value)}
             onKeyDown={onKeyDown}
+            disabled={ask.isPending}
             placeholder={t("placeholder")}
             aria-invalid={tooShort}
             aria-describedby="ai-question-hint"
@@ -160,38 +161,35 @@ const TurnItem = ({ turn }: { turn: Turn }) => {
         <div className="min-w-0 flex-1">
           {turn.answer ? (
             <>
-              <p className="text-ink text-sm leading-relaxed whitespace-pre-line">{turn.answer.answer}</p>
-              <div className="text-2xs text-ink-3 mt-2 flex flex-wrap items-center gap-1.5">
-                {turn.answer.period ? (
-                  <span>
-                    {t("period", {
-                      from: format.date(turn.answer.period.dateFrom),
-                      to: format.date(turn.answer.period.dateTo),
-                    })}
-                  </span>
-                ) : null}
-                {turn.answer.toolsUsed.length > 0 ? (
-                  <>
-                    <span>· {t("sources")}</span>
-                    <ul aria-label={t("sources")} className="flex flex-wrap gap-1">
-                      {turn.answer.toolsUsed.map((tool) => (
-                        <li key={tool} className="bg-surface-3 num rounded-sm px-1.5 py-0.5">
-                          {t.has(`tools.${tool}`) ? t(`tools.${tool}`) : tool}
-                        </li>
-                      ))}
-                    </ul>
-                  </>
-                ) : null}
-              </div>
+              {turn.answer.period ? (
+                <p className="text-2xs text-ink-3 mb-2">
+                  {t("period", {
+                    from: format.date(turn.answer.period.dateFrom),
+                    to: format.date(turn.answer.period.dateTo),
+                  })}
+                </p>
+              ) : null}
+              <AiAnswer
+                question={turn.question}
+                message={{
+                  id: turn.id,
+                  text: turn.answer.answer,
+                  toolsUsed: turn.answer.toolsUsed,
+                  model: turn.answer.model,
+                  createdAt: null,
+                  attachments: [],
+                }}
+              />
             </>
           ) : turn.error ? (
             <p role="alert" className="text-crit text-sm">
               {t(`errors.${turn.error}`)}
             </p>
           ) : (
-            <p className={cn("text-ink-3 text-sm")} role="status">
-              {t("thinking")}
-            </p>
+            <div role="status" className="flex flex-col gap-1">
+              <p className="text-ink text-sm font-semibold">{t("thinking")}</p>
+              <p className="text-ink-3 text-xs">{t("thinkingHint")}</p>
+            </div>
           )}
         </div>
       </div>

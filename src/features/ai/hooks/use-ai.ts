@@ -2,7 +2,7 @@
 
 import { skipToken, useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { toAppError } from "@/shared/lib/app-error";
+import { AppError, toAppError } from "@/shared/lib/app-error";
 
 import {
   askAi,
@@ -16,11 +16,19 @@ import {
   loadMessages,
   loadUsage,
   analysisFromError,
+  recoverReply,
   refreshAnalysis,
   sendDraft,
   sendMessage,
 } from "../api/ai.api";
-import { DEFAULT_AI_PERIOD, type AiMessagesPage, type AiPeriod, type DraftStatus } from "../model/ai.schema";
+import { chatFailure, mayHaveReply, NO_REPLY_CODE } from "../model/ai.rules";
+import {
+  DEFAULT_AI_PERIOD,
+  type AiMessage,
+  type AiMessagesPage,
+  type AiPeriod,
+  type DraftStatus,
+} from "../model/ai.schema";
 
 const MINUTE = 60_000;
 /** Saqlangan tahlil faqat «Yangilash» bilan o'zgaradi — tez-tez so'rash foyda bermaydi. */
@@ -64,7 +72,8 @@ export const useRefreshAnalysis = (period: AiPeriod) => {
       const { code, body } = toAppError(error);
       const fromBody = code === "ai_unavailable" ? analysisFromError(body) : null;
       if (fromBody) queryClient.setQueryData(aiKeys.analysis(period), fromBody);
-      else if (code === "analysis_running" || code === "ai_unavailable")
+      // `409`/`503` va uzilish (hujjat 56: backend natijani baribir saqlaydi) — saqlangani qayta o'qiladi
+      else if (code !== "rate_limited" && code !== "validation_error")
         void queryClient.invalidateQueries({ queryKey: aiKeys.analysis(period) });
     },
   });
@@ -106,16 +115,43 @@ export const useMessagesQuery = (chatId: number | null) =>
       page.hasMore && page.oldestId !== null ? page.oldestId : undefined,
   });
 
+export type SendVariables = {
+  chatId: number;
+  text: string;
+  lang: "uz" | "ru";
+  /** Yuborishdan oldingi oxirgi xabar `id` si — tiklanishda javobni ajratish uchun. */
+  afterId: number | null;
+  /** So'rov uzildi, server tarixi tekshirilmoqda (UI «tekshirilmoqda» holatiga o'tadi). */
+  onChecking?: () => void;
+};
+
 /**
  * Xabar yuborish. Javob kelgach tarix va ro'yxat qayta o'qiladi (savol ham serverda saqlangan);
  * shu tugaguncha mutatsiya «kutilmoqda» — kutayotgan savol ekrandan yo'qolmaydi.
  * `503` da savol bazaga yozilmaydi — tarixga tegilmaydi.
+ *
+ * Uzilish (hujjat 56): kutish chegarasi yoki `5xx` da savol qayta YUBORILMAYDI — avval server
+ * tarixi o'qiladi. Javob topilsa — muvaffaqiyat; topilmasa `no_reply` xatosi (faqat shunda
+ * «Qayta yuborish» chiqadi, chunki u ikkinchi AI xarajati).
  */
 export const useSendMessage = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: sendMessage,
-    onSuccess: async (_, { chatId }) => {
+    mutationFn: async ({ onChecking, afterId, ...input }: SendVariables): Promise<AiMessage> => {
+      const startedAt = Date.now();
+      try {
+        return (await sendMessage(input)).message;
+      } catch (error) {
+        const appError = toAppError(error);
+        const offline = typeof navigator !== "undefined" && navigator.onLine === false;
+        if (offline || !mayHaveReply(chatFailure(appError))) throw appError;
+        onChecking?.();
+        const reply = await recoverReply({ chatId: input.chatId, afterId, question: input.text, startedAt });
+        if (reply) return reply;
+        throw new AppError(appError.kind, appError.message, NO_REPLY_CODE);
+      }
+    },
+    onSettled: async (_, __, { chatId }) => {
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: aiKeys.messages(chatId) }),
         queryClient.invalidateQueries({ queryKey: aiKeys.chats() }),

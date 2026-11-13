@@ -118,17 +118,34 @@ export const resetMissingEndpoints = (): void => missingUntil.clear();
 
 type Method = "post" | "put" | "patch" | "delete";
 
-const sendTo = async (base: string, method: Method, path: string, body?: unknown): Promise<unknown> => {
+/** So'rov sozlamasi: `timeoutMs` — shu so'rov uchun alohida kutish chegarasi (AI POST lari). */
+export type SendOptions = { timeoutMs?: number };
+
+const sendTo = async (
+  base: string,
+  method: Method,
+  path: string,
+  body?: unknown,
+  options: SendOptions = {},
+): Promise<unknown> => {
   try {
-    const response = await clientFor(base)(path, { method, json: body });
+    const response = await clientFor(base)(path, {
+      method,
+      json: body,
+      timeout: options.timeoutMs ?? REQUEST_TIMEOUT_MS,
+    });
     return response.status === 204 ? null : await response.json<unknown>();
   } catch (error) {
     throw await translate(error);
   }
 };
 
-export const apiSend = (method: Method, path: string, body?: unknown): Promise<unknown> =>
-  sendTo("/api/owner/", method, path, body);
+export const apiSend = (
+  method: Method,
+  path: string,
+  body?: unknown,
+  options?: SendOptions,
+): Promise<unknown> => sendTo("/api/owner/", method, path, body, options);
 
 /**
  * Fayl bilan yuborish (`multipart/form-data`) — brauzer chegarani o'zi qo'yadi, BFF tanani

@@ -307,26 +307,37 @@ const TOPICS: readonly Topic[] = [
 /** Apostrof turlari (ʻ ’ `) bir xil. */
 const normalize = (text: string): string => text.toLowerCase().replace(/[ʻʼ‘’`]/g, "'");
 
-/** Bloklar matnga: owner AI chat javobi — bitta `answer` matni (v2 §8.3). */
+/**
+ * Bloklar matnga: owner AI chat javobi — bitta `answer` matni (v2 §8.3). Prod dagi Claude kabi
+ * Markdown: bo'lim sarlavhasi (`##`), ro'yxat (`-`) va jadval (`| … |`).
+ */
 const line = (item: unknown): string => {
-  if (typeof item === "string") return `• ${item}`;
+  if (typeof item === "string") return `- ${item}`;
   if (typeof item === "object" && item !== null && "label" in item && "value" in item)
-    return `• ${String(item.label)}: ${String(item.value)}`;
+    return `- **${String(item.label)}:** ${String(item.value)}`;
   return "";
 };
+
+const cell = (value: string): string => value.replace(/\|/g, "\\|");
 
 const toText = (content: AnswerContent): string =>
   [
     content.text,
     ...content.blocks.flatMap((block) => {
       if (block.type === "links") return [];
-      const rows = (block.rows ?? []).map(
-        (row) =>
-          `• ${row.map((cell, index) => (index === 0 ? cell : `${block.columns?.[index] ?? ""}: ${cell}`)).join(", ")}`,
-      );
-      return [`${block.title}:`, ...(block.items ?? []).map(line).filter(Boolean), ...rows];
+      const columns = block.columns ?? [];
+      const table =
+        block.rows && block.rows.length > 0 && columns.length > 0
+          ? [
+              `| ${columns.map(cell).join(" | ")} |`,
+              `|${columns.map((_, index) => (index === 0 ? "---" : "---:")).join("|")}|`,
+              ...block.rows.map((row) => `| ${row.map(cell).join(" | ")} |`),
+            ].join("\n")
+          : null;
+      const items = (block.items ?? []).map(line).filter(Boolean).join("\n");
+      return [`## ${block.title}`, items, table].filter((part): part is string => Boolean(part));
     }),
-  ].join("\n");
+  ].join("\n\n");
 
 /**
  * `POST owner/ai/chat/` javobi namunasi: matn namuna bazadan hisoblanadi (ekrandagi raqamlar bilan

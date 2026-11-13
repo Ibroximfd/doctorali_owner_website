@@ -97,18 +97,76 @@ export const refreshFailure = (error: { code?: string; kind: string }): RefreshF
   return error.kind === "offline" ? "offline" : "failed";
 };
 
-/** Chat xatosi → tushunarli gap (§I-3). */
+/**
+ * Chat xatosi → tushunarli gap (§I-3, hujjat 56). `noReply` — so'rov uzildi, server tarixi
+ * qayta o'qildi va javob haqiqatan yo'q: faqat shunda «Qayta yuborish» taklif qilinadi.
+ */
 export type ChatFailure =
-  "rateLimited" | "unavailable" | "refused" | "invalid" | "notFound" | "offline" | "failed";
+  | "rateLimited"
+  | "unavailable"
+  | "refused"
+  | "busy"
+  | "invalid"
+  | "notFound"
+  | "offline"
+  | "noReply"
+  | "failed";
+
+/** Tiklanish ishlaydigan holatda javob kodi — `chatFailure` uni `noReply` deb o'qiydi. */
+export const NO_REPLY_CODE = "no_reply";
+
 export const chatFailure = (error: { code?: string; kind: string }): ChatFailure => {
+  if (error.code === NO_REPLY_CODE) return "noReply";
   if (error.code === "ai_unavailable") return "unavailable";
   if (error.code === "ai_refused") return "refused";
+  if (error.code === "analysis_running" || error.code === "reply_pending") return "busy";
   if (error.code === "chat_not_found") return "notFound";
   if (error.code === "validation_error") return "invalid";
   if (error.code === "rate_limited" || error.code === "too_many_attempts" || error.kind === "rate-limited")
     return "rateLimited";
   return error.kind === "offline" ? "offline" : "failed";
 };
+
+/**
+ * Javob holati noma'lum bo'lgan xatolar: kutish chegarasi, BFF `502`, backend `5xx`. Savol
+ * backendga yetib, javob saqlangan bo'lishi mumkin (hujjat 56: 12:06 holati) — avval tarix
+ * qayta o'qiladi. Aniq kodli xatolar (`429`, `503`, `422`, `409`) tiklanmaydi.
+ */
+export const mayHaveReply = (failure: ChatFailure): boolean => failure === "offline" || failure === "failed";
+
+/** Yuborilgan savolning taqdiri server tarixida. */
+export type ReplyLookup =
+  | { kind: "answered"; reply: AiMessage }
+  /** Savol saqlangan, javob hali yozilmagan — backend ishlayapti. */
+  | { kind: "asked" }
+  | { kind: "missing" };
+
+/**
+ * Tarixdan javobni topadi: `afterId` dan keyingi (yuborishdan oldingi oxirgi xabar `id` si)
+ * shu matnli savol va undan keyingi assistent xabari. Savol saqlanmagan, lekin yangi assistent
+ * xabari bor bo'lsa (backend ikkisini birga yozadi) — u ham javob.
+ */
+export const findReply = (
+  messages: readonly AiMessage[],
+  { afterId, question }: { afterId: number | null; question: string },
+): ReplyLookup => {
+  const fresh = [...messages]
+    .filter((message) => afterId === null || message.id > afterId)
+    .sort((a, b) => a.id - b.id);
+  const asked = fresh.find((message) => message.role === "user" && message.text.trim() === question.trim());
+  const reply = fresh.find(
+    (message) => message.role === "assistant" && (asked === undefined || message.id > asked.id),
+  );
+  if (reply) return { kind: "answered", reply };
+  return asked ? { kind: "asked" } : { kind: "missing" };
+};
+
+/** Suhbatdagi oxirgi xabar `id` si (bo'sh suhbat — `null`). */
+export const lastMessageId = (messages: readonly Pick<AiMessage, "id">[]): number | null =>
+  messages.reduce<number | null>(
+    (max, message) => (max === null || message.id > max ? message.id : max),
+    null,
+  );
 
 /** Loyiha amali xatosi (§C-2): allaqachon yuborilgan / rad etilgan — ro'yxat eskirgan. */
 export type DraftFailure = "alreadySent" | "discarded" | "notFound" | "noChannel" | "failed";
