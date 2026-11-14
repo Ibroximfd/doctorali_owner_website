@@ -4,13 +4,13 @@ import type { Camelized } from "@/shared/lib/camelize";
 import { list, num, optNum, optStr, str } from "@/shared/lib/lenient";
 
 /**
- * «Reytinglar» — `GET /api/owner/ratings/{couriers|operators|logists}/` (API_QOLLANMA §5.r,
+ * «Reytinglar» — `GET /api/owner/ratings/{couriers|operators|logists|chief-couriers}/` (API_QOLLANMA §5.r,
  * ILOVA_HOLAT_VA_KURYER_REYTINGI §7.2–7.5). Javob konvertda, `data`: `{tab, formula, summary, rows}`.
  * Formulani SERVER tanlaydi va yozadi — panel `name` ni ustun sarlavhasi, `how` ni izoh qiladi.
  * Ma'lumot yo'q ko'rsatkich `null` (0 emas) — hamma son `optNum` bilan o'qiladi.
  */
 
-export const RATING_TABS = ["couriers", "operators", "logists"] as const;
+export const RATING_TABS = ["couriers", "operators", "logists", "chief_couriers"] as const;
 export type RatingTab = (typeof RATING_TABS)[number];
 
 /** `desc` — ko'p yaxshi, `asc` — kam yaxshi (logist tezligi). Notanish qiymat — `desc`. */
@@ -76,14 +76,25 @@ const operatorRowSchema = z.object({
   revenue: optNum,
 });
 
-const logistRowSchema = z.object({
+/**
+ * Logist va bosh kuryer qatori (hujjat 58): bosh kuryerlar yorlig'ida `logist` ham, yangi
+ * `chief_courier` ham bir xil obyekt. `logist` kelmasa `chief_courier` olinadi — kalit nomi
+ * keyin o'zgarsa ham jadval sinmasin.
+ */
+const withPerson = (raw: unknown) => {
+  if (typeof raw !== "object" || raw === null) return raw;
+  const row = raw as Record<string, unknown>;
+  return row.logist ? row : { ...row, logist: row.chief_courier };
+};
+
+const logistRowSchema = z.preprocess(withPerson, z.object({
   logist: personSchema,
   score: optNum,
   finalized_orders: optNum,
   delivered_orders: optNum,
   cancelled_orders: optNum,
   avg_review_minutes: optNum,
-});
+}));
 
 const objectOrEmpty = (raw: unknown) => (typeof raw === "object" && raw !== null ? raw : {});
 
@@ -112,11 +123,13 @@ export const operatorsDataSchema = z.object({
   rows: list(operatorRowSchema),
 });
 
+/** Logistlar va bosh kuryerlar — bir shakl, bir formula (hujjat 58). */
 export const logistsDataSchema = z.object({
   formula: formulaSchema,
   summary: z.preprocess(
     objectOrEmpty,
-    z.object({ logists: optNum, finalized_orders: optNum, avg_review_minutes: optNum }),
+    // `count` — ikkala yorliqda ham; bosh kuryerlarda `logists` kaliti tarixiy (aslida bosh kuryerlar soni).
+    z.object({ logists: optNum, count: optNum, finalized_orders: optNum, avg_review_minutes: optNum }),
   ),
   rows: list(logistRowSchema),
 });

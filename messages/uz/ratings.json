@@ -1,11 +1,12 @@
 {
   "title": "Reytinglar",
-  "description": "Kuryerlar, operatorlar va logistlar — formulani server hisoblaydi va shu yerda izohlaydi.",
+  "description": "Kuryerlar, operatorlar, logistlar va bosh kuryerlar — formulani server hisoblaydi va shu yerda izohlaydi.",
   "tabs": {
     "label": "Reyting yorliqlari",
     "couriers": "Kuryerlar",
     "operators": "Operatorlar",
-    "logists": "Logistlar"
+    "logists": "Logistlar",
+    "chief_couriers": "Bosh kuryerlar"
   },
   "formula": {
     "title": "Qanday hisoblanadi",
@@ -37,10 +38,17 @@
       "avgScore": "O'rtacha yetkazilish ulushi"
     },
     "logists": {
-      "logists": "Logistlar",
+      "people": "Logistlar",
       "finalizedOrders": "Yakunlangan zakazlar",
       "avgReview": "O'rtacha tasdiqlash vaqti",
       "avgReviewNote": "Kam — yaxshi"
+    },
+    "chief_couriers": {
+      "people": "Bosh kuryerlar",
+      "finalizedOrders": "Yakunlangan zakazlar",
+      "avgReview": "O'rtacha tasdiqlash vaqti",
+      "avgReviewNote": "Kam — yaxshi",
+      "scoreNote": "Bitrix zakazlarini integratsiya bosh kuryer nomidan avtomatik yopadi — shuning uchun «tasdiqlash tezligi» asosan Bitrix'dagi yopilish kechikishini ko'rsatadi, bosh kuryerning shaxsiy ishini emas. Filial filtri zakaz filiali bo'yicha."
     }
   },
   "columns": {
@@ -54,7 +62,8 @@
     "score": {
       "couriers": "Kuryer reytingi",
       "operators": "Yetkazilish ulushi",
-      "logists": "Tasdiqlash tezligi"
+      "logists": "Tasdiqlash tezligi",
+      "chief_couriers": "Tasdiqlash tezligi"
     },
     "ratingAvg": "O'rtacha baho",
     "ratingsCount": "Baholar",
@@ -65,12 +74,14 @@
     "ordersCancelled": "Bekor qilingan",
     "revenue": "Tushum",
     "finalizedOrders": "Yakunlangan",
-    "cancelledOrders": "Bekor qilingan"
+    "cancelledOrders": "Bekor qilingan",
+    "chiefCourier": "Bosh kuryer"
   },
   "list": {
     "couriers": "Kuryerlar reytingi",
     "operators": "Operatorlar reytingi",
     "logists": "Logistlar reytingi",
+    "chief_couriers": "Bosh kuryerlar reytingi",
     "shown": "{shown} / {total} ta ko'rsatilmoqda"
   },
   "filters": {
@@ -102,6 +113,10 @@
     "logists": {
       "title": "Bu davrda logist natijasi yo'q",
       "description": "Logist kuryer natijasini tasdiqlaganda shu yerda ko'rinadi."
+    },
+    "chief_couriers": {
+      "title": "Bu davrda bosh kuryer natijasi yo'q",
+      "description": "Bosh kuryer zakazni yakunlaganda shu yerda ko'rinadi."
     }
   }
 }

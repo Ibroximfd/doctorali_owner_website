@@ -6,7 +6,7 @@ import type { MockHandler } from "../types";
 import { operatorsOf, selectedFilials } from "../v2-metrics";
 
 /**
- * Reytinglar — `GET /api/owner/ratings/{couriers|operators|logists}/` (API_QOLLANMA §5.r,
+ * Reytinglar — `GET /api/owner/ratings/{couriers|operators|logists|chief-couriers}/` (API_QOLLANMA §5.r,
  * ILOVA_HOLAT §7.2–7.5). Shakl kontrakt namunasiga aynan: konvert, `data: {tab, formula,
  * summary, rows}`. Ma'lumot yo'q ko'rsatkich — `null` (bahosiz kuryer, natijasiz logist).
  * Bosh kuryer id lari (`chief_id`) — sklad namunasidagi bosh kuryerlar (301…305).
@@ -234,8 +234,54 @@ const logists = (ctx: MockContext) => {
   });
 };
 
+const CHIEF_COURIERS = [
+  { id: 76, name: "Zoirjon Usmonov", filial: 1, minutes: 32.5, orders: 863 },
+  { id: 81, name: "Faridbek Xomidov", filial: 2, minutes: 48, orders: 410 },
+  { id: 90, name: "Bekzod Aliyev", filial: 3, minutes: 0, orders: 0 },
+] as const;
+
+/** Bosh kuryerlar (hujjat 58): logistlar bilan bir shakl; qatorda `logist` ham, `chief_courier` ham. */
+const chiefCouriers = (ctx: MockContext) => {
+  const ids = new Set(selectedFilials(ctx).map((filial) => filial.id));
+  const rows = CHIEF_COURIERS.filter((chief) => ids.has(chief.filial)).map((chief) => {
+    const finalized = Math.round(chief.orders * ctx.period.scale);
+    const delivered = Math.round(finalized * 0.76);
+    const person = { id: chief.id, name: chief.name, filial_id: chief.filial };
+    return {
+      logist: person,
+      chief_courier: person,
+      score: finalized === 0 ? null : chief.minutes,
+      finalized_orders: finalized,
+      delivered_orders: delivered,
+      cancelled_orders: finalized - delivered,
+      avg_review_minutes: finalized === 0 ? null : chief.minutes,
+    };
+  });
+  return envelope(ctx, {
+    tab: "chief_couriers",
+    formula: {
+      score: {
+        key: "score",
+        name: "Tasdiqlash tezligi",
+        how: "Kuryer natijasi kelgandan bosh kuryer yakunlagangacha o'rtacha vaqt, daqiqada.",
+        unit: "daqiqa",
+        direction: "asc",
+      },
+      metrics: [],
+    },
+    summary: {
+      logists: rows.length,
+      count: rows.length,
+      finalized_orders: sum(rows.map((row) => row.finalized_orders)),
+      avg_review_minutes: rows.length ? 36.1 : null,
+    },
+    rows,
+  });
+};
+
 export const ratingsHandlers: readonly MockHandler[] = [
   { method: "GET", path: "ratings/couriers/", resolve: couriers },
   { method: "GET", path: "ratings/operators/", resolve: operators },
   { method: "GET", path: "ratings/logists/", resolve: logists },
+  { method: "GET", path: "ratings/chief-couriers/", resolve: chiefCouriers },
 ];

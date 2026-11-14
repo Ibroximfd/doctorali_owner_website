@@ -50,4 +50,20 @@ describe("RatingsScreen", () => {
       .map((node) => node.textContent);
     expect(names.indexOf("Sardor Ahmedov")).toBeLessThan(names.indexOf("Ilhom Jo'rayev"));
   });
+
+  it("shows chief couriers in their own tab, not among logists", async () => {
+    const user = userEvent.setup();
+    await renderWithProviders(<RatingsScreen />);
+
+    await user.click(screen.getByRole("tab", { name: "Bosh kuryerlar" }));
+    await screen.findByRole("heading", { name: "Bosh kuryerlar reytingi" });
+    const board = list("Bosh kuryerlar reytingi");
+    // tezligi kami (asc) yuqorida, natijasizi oxirida
+    const names = within(board)
+      .getAllByText(/Zoirjon Usmonov|Faridbek Xomidov|Bekzod Aliyev/)
+      .map((node) => node.textContent);
+    expect(names.indexOf("Zoirjon Usmonov")).toBeLessThan(names.indexOf("Faridbek Xomidov"));
+    expect(names.indexOf("Faridbek Xomidov")).toBeLessThan(names.indexOf("Bekzod Aliyev"));
+    expect(within(board).getAllByText("Bosh kuryer").length).toBeGreaterThan(0);
+  });
 });

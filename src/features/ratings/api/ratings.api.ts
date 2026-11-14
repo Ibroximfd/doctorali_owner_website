@@ -25,3 +25,7 @@ export const loadOperatorRatings = async (params: QueryParams): Promise<Envelope
 
 export const loadLogistRatings = async (params: QueryParams): Promise<Envelope<LogistsData>> =>
   parseFlexible(logistsDataSchema, await apiGet("ratings/logists/", params));
+
+/** Bosh kuryerlar (hujjat 58) — logistlar bilan aynan bir shakl va formula. */
+export const loadChiefCourierRatings = async (params: QueryParams): Promise<Envelope<LogistsData>> =>
+  parseFlexible(logistsDataSchema, await apiGet("ratings/chief-couriers/", params));

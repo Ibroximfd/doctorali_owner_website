@@ -6,14 +6,14 @@ import { cn } from "@/shared/lib/cn";
 
 import { useRatingsView } from "../hooks/use-ratings";
 import { RATING_TABS, type RatingTab } from "../model/ratings.schema";
-import { CouriersPanel, LogistsPanel, OperatorsPanel } from "./rating-panels";
+import { ChiefCouriersPanel, CouriersPanel, LogistsPanel, OperatorsPanel } from "./rating-panels";
 
 const PANEL_ID = "ratings-panel";
 const tabId = (tab: RatingTab) => `ratings-tab-${tab}`;
 
 /**
  * «Reytinglar» (TZ 32 §A-3a): kuryerlar (mijoz bahosi, Bayes), operatorlar (yetkazilish ulushi),
- * logistlar (tasdiqlash tezligi). Formulani server tanlaydi — ekranda izoh bilan. Faqat ochiq
+ * logistlar va bosh kuryerlar (tasdiqlash tezligi, hujjat 58). Formulani server tanlaydi — ekranda izoh bilan. Faqat ochiq
  * yorliq so'raladi; ruxsat yo'q yorliq (`section_forbidden`) faqat o'zida «ruxsat yo'q» ko'rsatadi.
  */
 export const RatingsScreen = () => {
@@ -47,7 +47,15 @@ export const RatingsScreen = () => {
         })}
       </div>
       <div id={PANEL_ID} role="tabpanel" aria-labelledby={tabId(tab)} className="min-w-0">
-        {tab === "couriers" ? <CouriersPanel /> : tab === "operators" ? <OperatorsPanel /> : <LogistsPanel />}
+        {tab === "couriers" ? (
+          <CouriersPanel />
+        ) : tab === "operators" ? (
+          <OperatorsPanel />
+        ) : tab === "chief_couriers" ? (
+          <ChiefCouriersPanel />
+        ) : (
+          <LogistsPanel />
+        )}
       </div>
     </div>
   );

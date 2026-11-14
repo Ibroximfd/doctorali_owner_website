@@ -5,7 +5,7 @@ import { parseAsBoolean, parseAsInteger, parseAsString, parseAsStringLiteral, us
 
 import { useScopeQuery } from "@/shared/hooks/use-scope";
 
-import { loadCourierRatings, loadLogistRatings, loadOperatorRatings } from "../api/ratings.api";
+import { loadChiefCourierRatings, loadCourierRatings, loadLogistRatings, loadOperatorRatings } from "../api/ratings.api";
 import { ACTIVITY, type RowFilters } from "../model/ratings.rules";
 import { RATING_TABS, type RatingTab } from "../model/ratings.schema";
 
@@ -14,7 +14,7 @@ export const ratingKeys = {
   tab: (tab: RatingTab, scope: readonly string[]) => [...ratingKeys.all, tab, ...scope] as const,
 };
 
-/** Faqat ochiq yorliq so'raladi — qolgan ikkitasi bosilganda. */
+/** Faqat ochiq yorliq so'raladi — qolganlari bosilganda. */
 export const useCourierRatings = () => {
   const { params, key, options } = useScopeQuery();
   return useQuery({
@@ -38,6 +38,15 @@ export const useLogistRatings = () => {
   return useQuery({
     queryKey: ratingKeys.tab("logists", key),
     queryFn: () => loadLogistRatings(params),
+    ...options,
+  });
+};
+
+export const useChiefCourierRatings = () => {
+  const { params, key, options } = useScopeQuery();
+  return useQuery({
+    queryKey: ratingKeys.tab("chief_couriers", key),
+    queryFn: () => loadChiefCourierRatings(params),
     ...options,
   });
 };

@@ -312,6 +312,8 @@ export const CONTRACT_ENDPOINTS: readonly ContractEndpoint[] = [
   { section: "Reytinglar", path: "ratings/couriers/", ...SCOPED, schema: couriersDataSchema },
   { section: "Reytinglar", path: "ratings/operators/", ...SCOPED, schema: operatorsDataSchema },
   { section: "Reytinglar", path: "ratings/logists/", ...SCOPED, schema: logistsDataSchema },
+  // Bosh kuryerlar — logistlar bilan bir shakl (hujjat 58).
+  { section: "Reytinglar", path: "ratings/chief-couriers/", ...SCOPED, schema: logistsDataSchema },
 
   /* ---------- tumanlar tarixi (bo'lim `logistics`) ---------- */
   {

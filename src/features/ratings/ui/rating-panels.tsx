@@ -15,6 +15,7 @@ import { StatRow, StatTile } from "@/shared/ui/stat-tile";
 import { BlockSkeleton, QueryState, StatRowSkeleton, TableSkeleton } from "@/shared/ui/states";
 
 import {
+  useChiefCourierRatings,
   useCourierRatings,
   useLogistRatings,
   useOperatorRatings,
@@ -337,18 +338,35 @@ const OperatorsBody = ({ data }: { data: OperatorsData }) => {
   );
 };
 
-/* ---------------- logistlar ---------------- */
+/* ---------------- logistlar va bosh kuryerlar ---------------- */
+
+/**
+ * Logistlar va bosh kuryerlar bir shakl va formulada (hujjat 58) — jadval bitta, farqi faqat
+ * matnlarda. Bosh kuryerlar ilgari «zakazni kim yakunladi» bo'yicha logistlar ichida chiqardi.
+ */
+type StaffKind = "logists" | "chief_couriers";
+
+const PERSON_COLUMN: Record<StaffKind, string> = { logists: "logist", chief_couriers: "chiefCourier" };
 
 export const LogistsPanel = () => {
   const query = useLogistRatings();
   return (
     <QueryState query={query} skeleton={<PanelSkeleton />}>
-      {(envelope) => <LogistsBody data={envelope.data} />}
+      {(envelope) => <StaffBody kind="logists" data={envelope.data} />}
     </QueryState>
   );
 };
 
-const LogistsBody = ({ data }: { data: LogistsData }) => {
+export const ChiefCouriersPanel = () => {
+  const query = useChiefCourierRatings();
+  return (
+    <QueryState query={query} skeleton={<PanelSkeleton />}>
+      {(envelope) => <StaffBody kind="chief_couriers" data={envelope.data} />}
+    </QueryState>
+  );
+};
+
+const StaffBody = ({ kind, data }: { kind: StaffKind; data: LogistsData }) => {
   const t = useTranslations("ratings");
   const format = useFormat();
   const filialName = useFilialName();
@@ -363,14 +381,14 @@ const LogistsBody = ({ data }: { data: LogistsData }) => {
     { id: "rank", header: t("columns.rank"), numeric: true, cell: (row) => ranks.get(row.logist.id) ?? "—" },
     {
       id: "name",
-      header: t("columns.logist"),
+      header: t(`columns.${PERSON_COLUMN[kind]}`),
       primary: true,
       cell: (row) => <span className="font-semibold">{row.logist.name}</span>,
     },
     { id: "filial", header: t("columns.filial"), cell: (row) => filialName(row.logist.filialId) },
     {
       id: "score",
-      header: title("score", "score.logists"),
+      header: title("score", `score.${kind}`),
       numeric: true,
       align: "right",
       cell: (row) => <span className="font-semibold">{format.duration(row.score)}</span>,
@@ -401,28 +419,33 @@ const LogistsBody = ({ data }: { data: LogistsData }) => {
   return (
     <>
       <StatRow columns={4}>
-        <StatTile label={t("summary.logists.logists")} value={formatNumber(summary.logists)} />
+        {/* `count` — yangi kalit; eski serverda faqat `logists` bor. */}
+        <StatTile label={t(`summary.${kind}.people`)} value={formatNumber(summary.count ?? summary.logists)} />
+        <StatTile label={t(`summary.${kind}.finalizedOrders`)} value={formatNumber(summary.finalizedOrders)} />
         <StatTile
-          label={t("summary.logists.finalizedOrders")}
-          value={formatNumber(summary.finalizedOrders)}
-        />
-        <StatTile
-          label={t("summary.logists.avgReview")}
+          label={t(`summary.${kind}.avgReview`)}
           value={format.duration(summary.avgReviewMinutes)}
-          note={t("summary.logists.avgReviewNote")}
+          note={t(`summary.${kind}.avgReviewNote`)}
         />
       </StatRow>
       <SummaryNote />
+      {kind === "chief_couriers" ? (
+        // 59-javob E2: Bitrix zakazini integratsiya bosh kuryer nomidan avtomatik yopadi —
+        // vaqt uning shaxsiy ishini emas, Bitrix'dagi yopilish kechikishini o'lchaydi.
+        <p className="border-border bg-surface-2 text-ink-2 mb-4 rounded-lg border px-3 py-2 text-xs">
+          {t("summary.chief_couriers.scoreNote")}
+        </p>
+      ) : null}
       <FormulaCard formula={formula} />
       <div className="mt-4">
         <RatingList
-          title={t("list.logists")}
+          title={t(`list.${kind}`)}
           total={data.rows.length}
           rows={rows}
           columns={columns}
           rowKey={(row) => String(row.logist.id)}
-          emptyTitle={t("empty.logists.title")}
-          emptyDescription={t("empty.logists.description")}
+          emptyTitle={t(`empty.${kind}.title`)}
+          emptyDescription={t(`empty.${kind}.description`)}
           filters={<RatingFilters />}
         />
       </div>
